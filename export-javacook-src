@@ -2,4 +2,4 @@
 
 cd /tmp
 
-cvs -d /cvs export -D now javacook-src
+cvs -d ${CVSROOT-/cvs} export -D now javacook-src
