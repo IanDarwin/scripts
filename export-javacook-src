@@ -48,4 +48,4 @@ scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
 
 # Now extract the whole mess so people can browse individually
 # Note that this extracts in javacook/javacook, which is a bit confusing.
-ssh darwinsys.com "cd /www/javacook; unzip javacooksrc.zip"
+ssh darwinsys.com "cd /www/javacook; unzip -fo javacooksrc.zip"
