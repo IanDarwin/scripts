@@ -1,0 +1,8 @@
+awk -F '<' '{
+		print "dn: cn=",$1 ",mail=" $2
+		print "cn:", $1
+		print "mail:", $2
+		print "objectclass: top"
+		print "objectclass: person"
+		print ""
+	}' bc.txt
