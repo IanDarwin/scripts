@@ -1,0 +1,11 @@
+echo "System status"
+
+uptime
+
+swapctl -l
+
+df -h
+
+ps -ax
+
+netstat -na
