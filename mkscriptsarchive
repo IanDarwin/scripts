@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# make an archive of the published scripts.
+
+(
+	echo index.html
+	echo $0
+	egrep "href=\"[a-z]" index.html |
+		sed -e 's/<li><a href="//' -e 's/".*//'
+) |
+	xargs tar -cvf scripts.tar
