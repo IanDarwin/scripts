@@ -1,5 +1,12 @@
 #!/bin/ksh -f
 
+# defaults
+RSSFIRST=YES
+
+case $1 in
+	-f|-n)	RSSFIRST=NO; shift;;
+esac
+
 case $# in
 1);;
 *) echo "Usage: $0 openhost" >&2
@@ -9,8 +16,16 @@ esac
 
 OPENHOST=$1
 
+if [ "$RSSFIRST" != "NO" ]; then
+	lynx http://www.mail-abuse.org/cgi-bin/nph-rss?query=${OPENHOST}
+fi
+
 # Ensure Java variables set correctly even if invoked non-interactively
-. ~/.sh-java
+#set -x
+#. ~/.sh-java
+
+export CLASSPATH
+echo $CLASSPATH
 
 set -x
 cd ~/javasrc/email
