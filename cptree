@@ -61,6 +61,6 @@ case $TYPE in
 		find . -type f -depth -print | cpio -ocB | ( cd $new; cpio -icBmud${VERBOSE})
 		;;
 	TAR)
-		tar cf - . | (cd $new; tar xf${VERBOSE} -)
+		tar cf - . | (cd $new; tar xpf${VERBOSE} -)
 		;;
 esac
