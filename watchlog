@@ -11,10 +11,11 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "f" opt 
+while getopts "fn:" opt 
 do 
  	 case "$opt" in 
 		f)	TAIL_F=-f;;
+		n)	NUM=-${OPTARG};;
 		*)	usage;;
 	esac
 done
@@ -27,26 +28,64 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 for f
 do
 	echo $0: file $f
+
+	case $f in
+		-*) ;;
+		"")	echo "Usage: $0 logname" >&2; exit 1;;
+		change|cvs) LOG=/cvs/CVSROOT/ChangeLog ;;
+		daem*) LOG=/var/log/daemon ;;
+		http|web) LOG=/var/www/logs/access_log ;;
+		httperr|weberr) LOG=/var/www/logs/error_log ;;
+		mail)	LOG=/var/log/maillog ;;
+		ppp|chat)	LOG=/var/log/chat;;
+		secure)	LOG=/var/log/secure ;;
+		snort)	LOG=/var/log/snort/alert ;;
+		*)	echo "Unknown service $f" >&2;;
+	esac
+
+	if [ ! -r ${LOG} ]; then
+		echo "$0: $LOG unreadable!!" >&2
+		logger $0: $LOG unreadable
+		continue
+	fi
+	echo ========== $LOG ==========
+	tail $TAIL_F $NUM $LOG
+
 done
 
-case $1 in
-	-*) ;;
-	"")	echo "Usage: $0 logname" >&2; exit 1;;
-	change|cvs) LOG=/cvs/CVSROOT/ChangeLog; shift ;;
-	daem*|ppp) LOG=/var/log/daemon; shift ;;
-	http|web) LOG=/var/www/logs/access_log; shift ;;
-	httperr|weberr) LOG=/var/www/logs/error_log; shift ;;
-	mail)	LOG=/var/log/maillog; shift ;;
-	snort)	LOG=/var/log/snort/alert; shift ;;
-	-[0-9]*)	NUM=$1; shift;;
-	*)	;;
-esac
+exit 0
 
-exec tail $TAIL_F $NUM $LOG
-
-TODO -- 
+# TODO -- handle XTERM case
 
 case "$DISPLAY" in
 	"") exec /usr/local/libexec/watchlog;;
 	*) exec xterm -fn fixed -geometry 132x24 -e /usr/local/libexec/watchlog;;
+esac
+
+# TODO -- handle multiple files 
+
+LOGS="
+	/var/www/logs/access_log
+	/var/www/logs/error_log
+	/var/log/snort/alert
+	/var/log/maillog
+	/var/log/daemon
+	/var/log/secure"
+
+case "$1" in
+	-f)	TAIL_ARG=-f
+		shift
+		;;
+esac
+
+
+for f in ${LOGS}
+do
+	echo ========== $f ==========
+	tail -10 ${TAIL_ARG} $f &
+	sleep 10
+done
+
+case "$1" in
+	-w)	wait;;
 esac

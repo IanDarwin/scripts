@@ -1,2 +1,7 @@
+#!/bin/ksh
+
 rmm
-next
+
+folder next
+
+exec ~/scripts/show
