@@ -1,0 +1,5 @@
+#!/bin/ksh -f
+
+# bxterm = big xterm
+
+xterm -fg white -fn lucidasanstypewriter-18 $*
