@@ -5,5 +5,5 @@ PHONES="/usr/share/misc/*.phone"
 
 for ac in $*
 do
-	egrep "$ac" ${PHONES}
+	egrep -h "$ac" ${PHONES}
 done

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec man -M /home/ian/src/unixv7/usr/man/ $*

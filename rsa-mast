@@ -1,4 +1,9 @@
+#!/bin/sh
+
 # make, and sign, an RSA server certificate
+
+set -v
+
 openssl genrsa -out /etc/ssl/private/server.key 1024
 openssl req -new -key /etc/ssl/private/server.key \
 	-out /etc/ssl/private/server.csr

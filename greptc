@@ -1,0 +1,34 @@
+#!/bin/sh -u
+
+# grep the Tomcat Book for a given pattern
+# $Id$
+
+cd ~/book/tomcat || exit
+
+USAGE="$0 [-i][-l] patt ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+OPT=""
+while getopts "il" opt 
+do 
+ 	 case "$opt" in 
+		i)	OPT="$OPT -i";;
+		l)	echo 'The -l grep option does not work in "strings|grep"!' >&2
+			exit 1 ;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+LIST=`ls *.fm | grep -v backup`
+#echo "Using: " ${LIST}
+
+for patt in "$@"
+do
+	echo "==> $patt" >&2
+	strings -f ${LIST} | egrep ${OPT} "${patt}"
+done

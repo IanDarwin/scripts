@@ -11,6 +11,7 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
+NUM=""
 MORE=cat
 while getopts "fmn:" opt 
 do 
@@ -33,12 +34,6 @@ do
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
-		conn)	LOG=/www/conn.html
-			# if -f, repeat every 10 seconds... until interrupted
-			case ${TAIL_F} in
-			-f)	while true; do cat $LOG; sleep 10; done;;
-			esac
-			;;
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/ftpd;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
@@ -51,19 +46,28 @@ do
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
-		tomcat)	LOG=/var/tomcat/logs/catalina.out;;
+		tomcat)	
+			cd /var/tomcat/logs
+			LOGS=`ls -tr | tail -3`
+			;;
 		vnc)	LOG=~/.vnc/*.log;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac
 
-	if [ ! -r ${LOG} ]; then
-		echo "$0: $LOG unreadable!!" >&2
-		logger $0: $LOG unreadable
-		continue
+	if [ "" != "${LOGS}" ]; then
+		# handle multiple files CONCURRENTLY WITH -f
+		echo ========== $f ==========
+		vi ${NUM} ${TAIL_ARG} ${LOGS}
+	else 
+		if [ ! -r ${LOG} ]; then
+			echo "$0: $LOG unreadable!!" >&2
+			logger $0: $LOG unreadable
+			continue
+		fi
+		echo ========== $LOG ==========
+		tail $TAIL_F $NUM $LOG
 	fi
-	echo ========== $LOG ==========
-	tail $TAIL_F $NUM $LOG
 
 done
 
@@ -76,14 +80,6 @@ case "$DISPLAY" in
 	*) exec xterm -fn fixed -geometry 132x24 -e /usr/local/libexec/watchlog;;
 esac
 
-# TODO -- handle multiple files CONCURRENTLY WITH -f
-
-for f in ${LOGS}
-do
-	echo ========== $f ==========
-	tail -10 ${TAIL_ARG} $f | ${MORE}
-	sleep 10
-done
 
 case $WAIT in
 	yes) wait;;

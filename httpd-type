@@ -2,6 +2,11 @@
 
 # nc demo -- get the type of web server somebody runs
 
+if [ "$#" -eq 0 ]; then
+	echo "Usage: $0 [-a][-p port] host [resource]" >&2
+	exit 1
+fi
+
 METHOD=HEAD
 if [ "$1" == "-a" ]; then
 	METHOD=GET

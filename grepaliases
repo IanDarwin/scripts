@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for a
+do
+	echo '==>' $a
+	grep -i --context=2 $a /etc/mail/aliases
+done
