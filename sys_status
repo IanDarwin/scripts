@@ -1,11 +1,37 @@
-echo "System status"
+echo "<h1>System status at `date`</h1>"
 
-uptime
+tag() {
+	echo "<$1>"
+}
 
+# heading text
+heading() {
+	tag hr/
+	echo "<h2><a name=\"$1\">$1</a></h2>"
+}
+
+heading who Who
+tag pre
+who
+tag /pre
+
+heading top
+tag pre
+top | head -25
+tag /pre
+
+heading swap
+tag pre
 swapctl -l
+tag /pre
 
+heading df
+tag pre
 df -h
+tag /pre
 
-ps -ax
-
+heading netstat
+tag pre
 netstat -na
+tag /pre
+
