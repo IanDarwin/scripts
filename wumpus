@@ -14,7 +14,8 @@ for f in 1 2 3 4 5 6 7 8 9 10 11 12
 do
 	echo -n "$f "
 	wicontrol -f $f
-	sleep 5
+	trap "" 0 1 2 3
+	dhclient wi0
 	wicontrol | grep "Current netname"
 done
 echo ""
