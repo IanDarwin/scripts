@@ -4,16 +4,18 @@
 
 set -x
 
+
 for f
 do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		www.darwinsys.com)
+		darwinsys.com|www.darwinsys.com)
 			sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*) scp $f darwinsys.com:/tmp && mv $f $f.sent
 			ssh darwinsys.com scripts/sendit /tmp/$f
+			sleep 60
 			;;
 		esac
 	else
