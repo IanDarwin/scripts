@@ -1,0 +1,22 @@
+#!/bin/sh
+
+LOG=$HOME/.timesheet
+
+function usage {
+	echo "Usage: $0 + topic | - | e"
+	exit 1
+}
+
+case "$1" in
+	e|-e)	exec ${VISUAL-vi} ${LOG};;
+	start|in|on|begin|'+')	code='+'; shift
+			case "$#" in
+				0) usage;;
+			esac
+			;;
+	end|off|out|"-")		code='-'; shift;;
+	-l|tail)	exec tail ${LOG};;
+	""|*)	usage;;
+esac
+
+echo "`date +%Y-%m-%d' '%H%M` $code $*" >> ${LOG}
