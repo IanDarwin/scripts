@@ -11,5 +11,5 @@ oldPatt="$1"; newStr="$2"; shift; shift
 
 for i
 do
-	overwrite $i sed "s@$oldPatt@$newStr@g" $i
+	overwrite $i sed "s!$oldPatt!$newStr!g" $i
 done
