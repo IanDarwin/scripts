@@ -37,7 +37,7 @@ do
 			-f)	while true; do cat $LOG; sleep 10; done;;
 			esac
 			;;
-		daem*) LOG=/var/log/daemon ;;
+		daem*|ppp) LOG=/var/log/daemon ;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
@@ -45,6 +45,7 @@ do
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
+		tomcat)	LOG=/usr/local/tomcat/logs/tomcat.log;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac
@@ -68,22 +69,7 @@ case "$DISPLAY" in
 	*) exec xterm -fn fixed -geometry 132x24 -e /usr/local/libexec/watchlog;;
 esac
 
-# TODO -- handle multiple files 
-
-LOGS="
-	/var/www/logs/access_log
-	/var/www/logs/error_log
-	/var/log/snort/alert
-	/var/log/maillog
-	/var/log/daemon
-	/var/log/secure"
-
-case "$1" in
-	-f)	TAIL_ARG=-f
-		shift
-		;;
-esac
-
+# TODO -- handle multiple files CONCURRENTLY WITH -f
 
 for f in ${LOGS}
 do
@@ -92,6 +78,6 @@ do
 	sleep 10
 done
 
-case "$1" in
-	-w)	wait;;
+case $WAIT in
+	yes) wait;;
 esac
