@@ -4,7 +4,7 @@ set -x
 
 cd /tmp
 
-cvs -d ${CVSROOT-/cvs} export -D now javacook-src
+cvs -d /cvs export -D now javacook-src
 
 mv javasrc javacook
 
@@ -12,6 +12,6 @@ mv javasrc javacook
 (cd javacook; java MkIndex)
 
 # this ought to be good for a laugh the first time out!
-jikes +E -d /tmp */*.java
+#jikes +E -d /tmp */*.java
 
-fastjar cvf javacook.zip ./javacook
+fastjar cvf javacooksrc.zip ./javacook

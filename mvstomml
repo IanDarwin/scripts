@@ -1,0 +1,62 @@
+#!/bin/nawk -f
+
+# mvstomml -- convert -mvs macros to mml
+
+# input:
+#.VS cmds.1 ifd
+#.T "User commands for TCP/IP
+#.A
+#Telnet and FTP
+#.B
+#Two different models
+#
+#Output:
+#<MML >
+#<!DefineTag Heading>
+#<!DefineTag Body>
+#<!DefineTag Bullet>
+#<Heading>User commands for TCP/IP
+#<Body>
+#Telnet and FTP
+#<Bullet>
+#Two different models
+
+BEGIN	{
+	print "<MML>"
+	print "<!DefineTag Heading>"
+	print "<!DefineTag Body>"
+	print "<!DefineTag Bullet>"
+	print "<!DefineTag Indent>"
+	print "<!DefineTag Step>"
+	}
+
+$1 == ".VS"	{
+	# do nothing 
+	next
+	}
+
+$1 == ".T"	{
+	$1 = "<Heading>"
+	}
+
+$1 == ".A"	{
+	$1 = "<Body>"
+	}
+
+$1 == ".B"	{
+	$1 = "<Bullet>"
+	}
+
+$1 == ".C"	{
+	$1 = "<Indent>"
+	}
+
+$1 == ".D"	{
+	$1 = "<Step>"
+	}
+
+	{
+	sub("\"", "", $2)
+	print
+	}
+
