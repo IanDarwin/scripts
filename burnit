@@ -9,7 +9,15 @@ fi
 
 set -e
 
-cdrecord -v speed=4 dev=/dev/rcd0c:0,0,0 -isosize ${1-./*.fs}
+SPEED=12
+
+ISOSIZE=-isosize
+ISOSIZE=""
+
+DUMMY=-dummy
+DUMMY=""
+
+cdrecord -v $DUMMY speed=${SPEED} dev=/dev/rcd0c:0,0,0 $ISOSIZE ${1-./*.fs}
 
 mount -t cd9660 /dev/cd0c /mnt
 
