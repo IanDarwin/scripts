@@ -8,16 +8,16 @@ MYPORTS=~/ports
 # prompt for these
 echo -n "Program name (1 word)? "
 read NAME junk
-echo -n "Archive name (1 word, omit .tgz)? "
+echo -n "Archive name (1 word, omit .tar.gz)? "
 read DIST junk
 echo -n "Archive site (directory URL, including ending slash)? "
 read DNL junk
 echo -n "Categories (1 or more words)? "
-reat CAT
+read CAT
 for f in ${CAT}
 do
 	if [ ! -d ${PORTSDIR}/${f} ]; then
-		echo >&2 "mkport: $f is not a known category.
+		echo >&2 "mkport: $f is not a known category."
 		exit 1	# LAME
 	fi
 done
@@ -25,18 +25,19 @@ done
 DIR=${MYPORTS}/${CAT}/${NAME}
 mkdir -p ${DIR} || exit
 cd ${DIR} || exit
-if [ -f Makefile ]; then
-	echo Makefile exists in ${DIR}
-	exit 1
+MAKEFILE=Makefile
+if [ -f ${MAKEFILE} ]; then
+	MAKEFILE=Makefile.$$
+	echo Makefile exists in ${DIR}, using ${MAKEFILE}
 fi
 
 sed \
 	-e "s/^PKGNAME=/PKGNAME=$NAME/" \
 	-e "s/^DISTNAME=/DISTNAME=	${DIST}/" \
 	-e "s/^CATEGORIES=/CATEGORIES=$CAT/" \
-	-e "s/^MASTER_SITES/MASTER_SITES = $DNL/" \
+	-e "s@^MASTER_SITES@MASTER_SITES = $DNL@" \
 	\
-	/usr/ports/infrastructure/templates/Makefile.template >Makefile
+	/usr/ports/infrastructure/templates/Makefile.template > ${MAKEFILE}
 
 mkdir pkg
 touch pkg/PLIST
@@ -44,4 +45,6 @@ echo ${NAME} > pkg/COMMENT
 echo ${NAME} > pkg/DESCR
 set -x
 make -k makesum extract
+echo continue?
+read y
 vi ${DIR}/Makefile pkg/COMMENT pkg/DESCR

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# get the type of web server they run
+
+for host in ${*-localhost}
+do
+	echo ===== Trying ${host} =====
+	(echo 'HEAD / HTTP/1.0';echo) | nc ${host} 80
+done

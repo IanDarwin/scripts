@@ -1,0 +1,21 @@
+#!/bin/ksh -f
+
+# pushenv -- send my important environment files to a new login
+
+cd || exit
+
+HOST=$1
+USER=${2-ian}
+
+FILES=".AbiSuite .Xauthority .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .login .mailrc .mypackages .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .ssh .stty .wine .wprc .xsession GNUstep scripts"
+
+scp -r  ${FILES} ${USER}@${HOST}:
+
+case ${USER} in
+root)
+	for f in /etc/sudoers
+	do
+		scp -r ${f} root@${host}:$f
+	done
+	;;
+esac
