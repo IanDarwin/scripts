@@ -47,4 +47,5 @@ scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
 		Mail -s "java cookbook download updated" -v "Mary Hubben <maryh@oreilly.com>" ian
 
 # Now extract the whole mess so people can browse individually
-ssh darwinsys.com "cd /www/javacook; unzip javacooksrc.zip javacook/*"
+# Note that this extracts in javacook/javacook, which is a bit confusing.
+ssh darwinsys.com "cd /www/javacook; unzip javacooksrc.zip"
