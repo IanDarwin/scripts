@@ -1,0 +1,31 @@
+:
+#! /bin/sh
+# rmsame - remove files in current tree identical to those in tree $1
+case $# in
+1)      ;;
+*)      echo 'usage: rmsame tree' >&2; exit 1 ;;
+esac
+CD=`pwd`
+case $1 in
+$CD|""|.) echo 'rmsame: tree is current directory; nothing doing' >&2; exit 1 ;;
+*)      ;;
+esac
+for file in *
+do
+        if test -d $file && test -d $1/$file; then      # directory
+                (               # recurse in sub-shell
+#                set -$-         # inherit shell options
+                cd $file        # if this fails, exit
+                echo cd $file
+                case "$1" in
+                /*)     exec $0 $1/$file ;;     # absolute argument
+                *)      exec $0 $CD/$1/$file ;; # argument relative to .
+                esac
+                )
+                echo cd ..
+                rmdir $file >/dev/null 2>/dev/null
+        elif cmp -s $file $1/$file; then
+		echo rm $file
+                rm -f $file
+        fi
+done
