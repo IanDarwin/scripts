@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# cvsnew -[m descr] file ...
+# Puts files in CVS and does the annoying initial commit.
+
+USAGE="$0 [-m descr] newfile ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+MESSAGE="New."
+
+while getopts "m:" opt 
+do 
+ 	 case "$opt" in 
+		m)	MESSAGE=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+cvs add $*
+cvs commit -m "${MESSAGE}" $*
