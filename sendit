@@ -14,7 +14,9 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-HOST=darwinsys.com
+#HOST=darwinsys.com
+HOST=209.135.104.16
+
 while getopts "h:" opt 
 do 
  	 case "$opt" in 
