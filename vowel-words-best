@@ -1,0 +1,5 @@
+#!/bin/sh -x
+
+# Get words with ONLY all five vowels in alphabetical order.
+
+grep '^[^aeiou]*a[^aiou]*e[^aeou]*i[^aeiu]*o[^aeio]*u[^aeiou]*$' /usr/share/dict/words
