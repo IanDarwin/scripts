@@ -2,6 +2,6 @@
 
 set -x
 
-# Get words with ONLY all five vowels in alphabetical order.
+# Get words with all five vowels in alphabetical order.
 
 grep 'a.*e.*i.*o.*u' /usr/share/dict/words
