@@ -1,0 +1,52 @@
+#!/bin/ksh
+
+# watchlog - consolidate watchlog functionality.
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-f] logname"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "f" opt 
+do 
+ 	 case "$opt" in 
+		f)	TAIL_F=-f;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+#if [ $# -eq 0 ]; then
+#	usage
+#fi
+
+for f
+do
+	echo $0: file $f
+done
+
+case $1 in
+	-*) ;;
+	"")	echo "Usage: $0 logname" >&2; exit 1;;
+	change|cvs) LOG=/cvs/CVSROOT/ChangeLog; shift ;;
+	daem*|ppp) LOG=/var/log/daemon; shift ;;
+	http|web) LOG=/var/www/logs/access_log; shift ;;
+	httperr|weberr) LOG=/var/www/logs/error_log; shift ;;
+	mail)	LOG=/var/log/maillog; shift ;;
+	snort)	LOG=/var/log/snort/alert; shift ;;
+	-[0-9]*)	NUM=$1; shift;;
+	*)	;;
+esac
+
+exec tail $TAIL_F $NUM $LOG
+
+TODO -- 
+
+case "$DISPLAY" in
+	"") exec /usr/local/libexec/watchlog;;
+	*) exec xterm -fn fixed -geometry 132x24 -e /usr/local/libexec/watchlog;;
+esac
