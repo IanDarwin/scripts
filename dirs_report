@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# make a report on overall disk usage
+
+DIRS="/dev /etc /lib /sys /usr /home/darian/* /home/darian/ian/*"
+#DIRS="/dev /etc /lib /usr/lib"
+export DIRS
+
+du -s $DIRS |
+tee j |
+	join -a -e '??' -j1 2 -j2 1 -o 1.2 1.1 2.2 -t'	' - dirs.byfor
