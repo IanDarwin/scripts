@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -f
 
 # Export javasrc (and jabadot, since it's used several places in Java Cookbook)
 
@@ -16,7 +16,12 @@ do
 	fi
 done
 
-cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src src/jabadot
+cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src src/jabadot >/tmp/export$$
+
+ret=$?
+if [ ${ret} -ne 0 ]; then
+	echo "Warning: cvs export return code ${ret}!!"
+fi
 
 mv javasrc javacook
 
