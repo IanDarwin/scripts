@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# envinfo -- print environment info
+
+# $Id$
+
+echo -n "Hostname \t"; uname -n
+echo -n "Op System\t"; uname -s
+echo -n "Version  \t"; uname -r
+echo -n "Arch     \t"; uname -m
+echo -n "Curr dir \t"; pwd
+echo -n "Disk free\t"; df -k .
