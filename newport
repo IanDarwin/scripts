@@ -1,0 +1,39 @@
+#!/bin/ksh
+
+# todo prompt for these
+NAME=remind
+DIST=remind-03.00.30
+CAT=office
+DNL=http://www.roaringpenguin.com/
+
+DIR=~/ports/${CAT}/${NAME}
+mkdir -p ${DIR} || exit
+cd ${DIR} || exit
+if [ -f Makefile ]; then
+	echo Makefile exists in ${DIR}
+	exit 1
+fi
+cat> Makefile <<!
+# \$OpenBSD\$
+
+NEED_VERSION=	1.64
+
+NAME=$NAME
+DISTNAME=	${DIST}
+EXTRACT_SUFX=	.tgz
+CATEGORIES=$CAT
+MASTER_SITES = $DNL
+
+MAINTAINER = ports@openbsd.org
+
+GNU_CONFIGURE=	yes
+
+.include <bsd.port.mk>
+!
+mkdir pkg
+touch pkg/PLIST
+echo ${NAME} > pkg/COMMENT
+echo ${NAME} > pkg/DESCR
+set -x
+make -k makesum extract
+vi ${DIR}/Makefile pkg/COMMENT pkg/DESCR
