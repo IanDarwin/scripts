@@ -2,6 +2,7 @@
 
 # This script reads in text which is structured only by indentation
 # and light markup, and turns it into HTML
+# $Id$
 
 # For example,
 # Slide One
@@ -12,16 +13,26 @@
 # Slide Two
 #	Major point
 #		Minor item
-
-BEGIN	{
-	OUTFILE="index.html"
-	print "<HTML>" >OUTFILE
-	print "<!-- made by $Id$" >OUTFILE
-	print " -->" >OUTFILE
-	print "<TITLE>Slide Show Intro</TITLE>" >OUTFILE
-	IFS=" "
+BEGIN {
+	TOCFILE="index.html"
+	FILENAMETEMPLATE = "page%02d.html"
 	insource = 0;
+}
+
+NR == 1	{
+	SHOWTITLE=$0
+	print "<HTML>" >TOCFILE
+	print "<!-- made by $Id$" >TOCFILE
+	print " -->" >TOCFILE
+	print "<TITLE>" SHOWTITLE ": Table of Content</TITLE>" >TOCFILE
+	mkTable(TOCFILE, "", TOCFILE, TOCFILE, sprintf(FILENAMETEMPLATE, 1));
+	print "<H1 ALIGN=CENTER>" SHOWTITLE ": Table of Content</H1>" >TOCFILE
+	print "<OL>" >TOCFILE
+	next
 	}
+
+# quietly ignore null lines
+/^$/	{ next; }
 
 # Make a text line into a String, with substitutions
 function mkTextStr(line)
@@ -51,18 +62,17 @@ $1 == ".((Source" {
 		if (inSource)
 			print "Warning: Unmatched ((Source at line", FNR
 		inSource = 1;
-		print "<PRE>"
-		print "> # end of Para"
-		print "<Para <PgfTag `Source'>"
+		print "<PRE>" > OUTFILE
 		next
 		}
 $1 == ".))Source" {
 		if (!inSource)
 			print "Warning: Unmatched ))Source at line", FNR
 		inSource = 0
-		print "</PRE>"
+		print "</PRE>" >OUTFILE
 		next
 		}
+
 function mkSourceStr(line)
 {
 		line = mkTextStr(line)
@@ -74,16 +84,35 @@ inSource == 1	{
 		next
 		}
 
+function mkTable(outFile, pageInd, prev,ind,nxt) {
+		print "<TABLE BGCOLOR=#CC0000 WIDTH=100%>" >outFile
+		print "<FONT COLOR=#FFFFFF>" >outFile
+		print "<TR>" >outFile
+		print "<TD ALIGN=CENTER ID=Nav><A HREF=" prev ">&lt;&lt; Back</A>" >outFile
+		print "<TD ALIGN=CENTER ID=Nav><A HREF=" ind ">INDEX</A>" >outFile
+		print "<TD ALIGN=CENTER ID=Nav><A HREF=" nxt ">Next &gt;&gt;</A>" >outFile
+		print "</TR>" >outFile
+		print "<TR><TD><TD ALIGN=CENTER ID=Nav>" pageInd "<TD></TR>" >outFile
+		print "</FONT>" >outFile
+		print "</TABLE>" >outFile
+}
+
 # START NEW SLIDE -- undented
 $0 !~ "^\t"	{
-		close(OUTFILE);
-		OUTFILE = sprintf("page%02d.html",++pageNum)
+		OLDFILE = OUTFILE
+		if (OUTFILE != "")
+			close(OUTFILE);
+		OUTFILE = sprintf(FILENAMETEMPLATE,++pageNum)
 		printf "%d ", pageNum
+		print "<LI><A HREF=\"" OUTFILE "\">" $0 "</A></LI>" > TOCFILE
 		print "<HTML>" >OUTFILE
 		print "<HEAD>" >OUTFILE
 		print "<TITLE>" $0 "</TITLE>" >OUTFILE
 		print "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"stylesheet.css\" TITLE=\"Style\">" >OUTFILE
 		print "<BODY BGCOLOR=WHITE>" >OUTFILE
+		if (OLDFILE == "")
+			OLDFILE = "index.html"
+		mkTable(OUTFILE, "Page " pageNum, OLDFILE, TOCFILE, sprintf(FILENAMETEMPLATE,1+pageNum))
 		print "<H1>" $0 "</H1>" >OUTFILE
 		next
 		}
@@ -118,5 +147,11 @@ END		{
 		if (inSource) {
 			print "** ERROR: Unclosed Source ***"
 		}
+		OLDFILE = OUTFILE
 		close(OUTFILE)
+		OUTFILE = sprintf(FILENAMETEMPLATE, ++pageNum);
+		print "<H1>/*EOF - " SHOWTITLE "</H1>"	>OUTFILE
+		print "That is the end of the slide show named " >OUTFILE
+		print "<I>" SHOWTITLE "</I>. Please go"	>OUTFILE
+		print "<A HREF=" OLDFILE ">b a c k</A>."	>OUTFILE
 		}
