@@ -4,6 +4,10 @@
 # and light markup, and turns it into RTF which can be imported
 # directly into MS-Word.
 
+# TODO 
+#	inter-line spacing
+# 	embolden keywords, in mkSourceStr
+
 # For example,
 # Slide One
 #	Major point
@@ -18,22 +22,22 @@ BEGIN	{
 	print "{\\rtf1\\ansi"
 	}
 
-# lookup(type) --> paragraph type number.
+# lookup(type) --> paragraph setup string
 # Map our sensible names for paragraphs to the artibrary RTF numbers
 # used in the template file HEADER. # HEADER="/home/ian/lib/doc2rtf.rt_"
 
 function lookup(type)
 {
-	if (type == "fb") return 28
-	if (type == "d") return 25
-	if (type == "dd") return 26
-	if (type == "OPboxed") return 2;
-	if (type == "OPnormal") return 15;
-	if (type == "Source") return 75;
+	if (type == "fb") return "\\s28\\f1\\fs36"
+	if (type == "d") return "\\s25\\f1\\fs36"
+	if (type == "dd") return "\\s26\\f1\\fs36"
+	if (type == "OPboxed") return "\\s2";
+	if (type == "OPnormal") return "\\s15";
+	if (type == "Source") return "\\s75\\b";
 	# Most bizarre: they use "H4" for normal page headings
-	if (type == "Heading") return 4
+	if (type == "Heading") return "\\s4\\f1\\fs36\\b";
 	# fallback
-	return 0;
+	return "\\s0";
 }
 
 # Do the minimum needed to make a line into a String
@@ -55,15 +59,15 @@ function mkTextStr(line)
 
 	# Now maybe break into several short strings, with different fonts...
 
-	# Turn _stuff_ into (simplified) <italic>stuff<noitalic>
+	# Turn _stuff_ into <italic>stuff</italic>
 	while (index(line, "_")) {
 		sub("_", "{\\i ", line)
 		sub("_", "}", line)
 	}
 
-	# Turn //stuff// into (simplified) <Courier>stuff<Helvetica>
+	# Turn //stuff// into <Courier>stuff</Courier>
 	while (match(line, /\/\//)) {
-		sub("//", "{\\f2 ", line)
+		sub("//", "{\\f2\\r ", line)
 		sub("//", "}", line)
 	}
 
@@ -75,7 +79,7 @@ function mkTextStr(line)
 #
 function para(type, leader, line)
 {
-		print "\\par\\pard \\s" lookup(type)
+		print "\\par\\pard " lookup(type)
 		if (leader != "") {
 			print leader " \\tab";
 		}
@@ -130,8 +134,8 @@ $0 !~ "^\t"	{
 		}
 
 #		Handle one-line shell commands outside of .((...))Source
-#		Any number of tabs then "$ "; first tab -> <Source>, rest stay
-$0 ~ /^\t+\$ /	{
+#		Any number of tabs then "$ " or "> "; first tab -> <Source>, rest stay
+$0 ~ /^\t+[$>] /	{
 		sub("\t", "")
 		para("Source", "", $0)
 		next;
@@ -143,8 +147,8 @@ $0 ~ /^\t+\$ /	{
 		para("OPboxed", "", $0);
 		next
 		}
-/^\t>/		{
-		sub("^\t>", "", $0);
+/^\t<<</	{
+		sub("^\t<<<", "", $0);
 		para("OPnormal", "", $0);
 		next
 		}
