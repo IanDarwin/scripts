@@ -1,11 +1,13 @@
 #!/bin/sh
 
-DEV=mustek:/dev/uk0
+DEVICE="mustek:/dev/uk0"
+
+MODE=color
 
 mkdir ~/tmp 2>/dev/null 
 
 TMP=`mktemp ${HOME}/tmp/scanXXXXXXXX`
 
-scanimage --mode=color --format=tiff --dev ${DEVICE} > ${TMP}
+scanimage --mode=${MODE} --format=tiff --dev ${DEVICE} > ${TMP}
 
 echo "Your scan is complete; saved as ${TMP}"
