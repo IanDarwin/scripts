@@ -44,8 +44,8 @@ fi
 old=$1
 new=$2
 
-ckdir $old						 # validate
-ckdir $new
+ckdir $new						# validate new first
+ckdir $old						# validate old, stay there for tar/cpio
 case $new in
 ""|".") echo "$0: new location $new must be a full path!"
 	exit 1;;
