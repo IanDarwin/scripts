@@ -2,4 +2,7 @@
 
 # dos2unix - strip newlines, from TEXT ONLY
 
-replace "tr -d ''" $*
+for f in $*
+do
+	overwrite $f tr -d ''
+done
