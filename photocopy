@@ -4,6 +4,8 @@
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
+DEVICE=mustek:/dev/uk0
+
 USAGE="$0 [-v] old new"
 
 function usage {		# give usage message, and exit
@@ -12,20 +14,22 @@ function usage {		# give usage message, and exit
 }
 
 COPIES=1
+BRIGHT=0		# -100 .. +100
 MODE=lineart
 
-while getopts "cgb" opt 
+while getopts "cgbi:" opt 
 do 
  	 case "$opt" in 
 		c)	MODE=color;;
-		g)	MODE=grayscale;;
+		g)	MODE=gray;;
 		b)	MODE=lineart;;
+		i)	BRIGHT=$OPTARG;;
 		n)	COPIES=$OPTARG;;
 		*)	usage;;
 	esac
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-scanimage -d mustek:/dev/uk0 --mode ${MODE} |
+scanimage -d ${DEVICE} --mode ${MODE} --brightness ${BRIGHT} |
 	pnmtops | 
 		lpr -#${COPIES}
