@@ -2,4 +2,5 @@
 
 set -x
 
-exec java XParse $*
+exec java -classpath $HOME/classes:$HOME/classes/ext/crimson.jar \
+	XParse $*
