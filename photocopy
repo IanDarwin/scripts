@@ -1,0 +1,31 @@
+#!/bin/ksh
+
+# photocopy - use a scanner as a photocopier
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-v] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+COPIES=1
+MODE=lineart
+
+while getopts "cgb" opt 
+do 
+ 	 case "$opt" in 
+		c)	MODE=color;;
+		g)	MODE=grayscale;;
+		b)	MODE=lineart;;
+		n)	COPIES=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+scanimage -d mustek:/dev/uk0 --mode ${MODE} |
+	pnmtops | 
+		lpr -#${COPIES}
