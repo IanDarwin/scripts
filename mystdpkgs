@@ -1,0 +1,20 @@
+# my own 
+pkg_add idiff-1.* hoc-1.* spiff-1.* zap-1.*
+# Devel
+pkg_add gmake*
+# Useful
+pkg_add lsof* mtools-3.* zip-2.* unzip-5.* 
+# security
+pkg_add crack* nmap-2.*
+# gfx/GUI
+pkg_add giflib-4.* png-1.0.* tiff-3.5.* gtk+-1.* gimp*
+# X11
+pkg_add enlightenment-0.* ghostscript-5.5*
+# Textproc
+pkg_add mgdiff* xpdf*
+# Java
+pkg_add kaffe-1.0.* fastjar*
+# Tcl/TK/Expect
+pkg_add tcl-8.3.* tk-8.3.* expect-5.*
+# Mail
+pkg_add mutt*
