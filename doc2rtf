@@ -28,14 +28,15 @@ BEGIN	{
 
 function lookup(type)
 {
-	if (type == "fb") return "\\s28\\b\\f1\\fs36"
-	if (type == "d") return "\\s25\\f1\\fs36"
-	if (type == "dd") return "\\s26\\f1\\fs36"
+	if (type == "fb")
+		return "\\s28\\f1\\b\\fs36\\cf1"
+	if (type == "d") return "\\s25\\f1\\fs36\\cf1"
+	if (type == "dd") return "\\s26\\f1\\fs36\\cf1"
 	if (type == "OPboxed") return "\\s2";
 	if (type == "OPnormal") return "\\s15";
 	if (type == "Source") return "\\s75\\b";
 	# Most bizarre: they use "H4" for normal page headings
-	if (type == "Heading") return "\\s4\\b\\f1\\fs36\\cgrid";
+	if (type == "Heading") return "\\s4\\f1\\b\\fs36";
 	# fallback
 	return "\\s0";
 }
@@ -78,11 +79,12 @@ function mkTextStr(line)
 #
 function para(type, leader, line)
 {
-		print "\\par\\pard " lookup(type) " "
+		print "\\pard\\plain " lookup(type) " \\cgrid {"
 		if (leader != "") {
 			print leader " \\tab";
 		}
 		print mkTextStr(line);
+		print "\\par }"
 }
 
 #		Allow simple indexing
