@@ -4,8 +4,12 @@ sed \
 	-e 's/<META/<meta/' -e 's/NAME=/name=/' -e 's/CONTENT=/content=/' \
 	-e 's/<BODY/<body/' \
 	-e 's/BODY>/body>/' \
+	-e 's/BGCOLOR/bgcolor/' \
 	-e 's/H\([1-6]\)/h\1/g' \
-	-e 's/<APPLET/<applet/' -e 's/\/APPLET/\/applet/' \
+	-e 's/<APPLET/<applet/g' \
+	-e 's/CODE=/code=/g' \
+	-e 's/WIDTH=/width=/g' \
+	-e 's/HEIGHT=/height=/g' \
 	-e 's/<A/<a/g' -e 's=</A>=</a>=g' -e 's/HREF=/href=/g' \
 	-e 's/<IMG/<img/g' -e 's/SRC=/src=/g' \
 	-e 's/<P>/<p>/g' \
