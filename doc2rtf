@@ -6,7 +6,6 @@
 
 # TODO 
 #	inter-line spacing
-# 	embolden keywords, in mkSourceStr
 
 # For example,
 # Slide One
@@ -29,12 +28,12 @@ BEGIN	{
 function lookup(type)
 {
 	if (type == "fb")
-		return "\\s28\\f1\\b\\fs36\\cf1"
+		return "\\s28\\f1 \\b\\fs36\\cf1"
 	if (type == "d") return "\\s25\\f1\\fs36\\cf1"
 	if (type == "dd") return "\\s26\\f1\\fs36\\cf1"
 	if (type == "OPboxed") return "\\s2";
 	if (type == "OPnormal") return "\\s15";
-	if (type == "Source") return "\\s75\\b";
+	if (type == "Source") return "\\s75 \\fs32";
 	# Most bizarre: they use "H4" for normal page headings
 	if (type == "Heading") return "\\s4\\f1\\b\\fs36";
 	# fallback
@@ -67,7 +66,7 @@ function mkTextStr(line)
 
 	# Turn //stuff// into <Courier>stuff</Courier>
 	while (match(line, /\/\//)) {
-		sub("//", "{\\f2\\r ", line)
+		sub("//", "{\\f2 ", line)
 		sub("//", "}", line)
 	}
 
@@ -75,22 +74,23 @@ function mkTextStr(line)
 }
 
 #
-# para(type, leader, line) -- where most paragraphs get printed!
+# para(type, leader, line, doEnd) -- where most paragraphs get printed!
 #
-function para(type, leader, line)
+function para(type, leader, line, doEnd)
 {
 		print "\\pard\\plain " lookup(type) " \\cgrid {"
 		if (leader != "") {
 			print leader " \\tab";
 		}
 		print mkTextStr(line);
-		print "\\par }"
+		if (doEnd)
+			print "\\par }"
 }
 
 #		Allow simple indexing
 $1 == ".IX"	{
 		sub(".IX ", "", $0)
-		para("Normal", "{\\v\\xe", $0 "}");	# UNTESTED!!!
+		para("Normal", "{\\v\\xe", $0 "}", 1);	# UNTESTED!!!
 		next
 		}
 
@@ -99,19 +99,21 @@ $1 == ".))Source" {
 		if (!inSource)
 			print "Warning: Unmatched ))Source at line", FNR
 		inSource = 0;
+		print "\\par }"
 		next
 		}
 $1 == ".((Source" {
 		if (inSource)
 			print "Warning: Unmatched ((Source at line", FNR
 		inSource = 1;
-		para("Source", "", "");
+		para("Source", "", "", 0);
 		next
 		}
 function mkSourceStr(line)
 {
-		gsub(/{/, "\\{", line);
-		gsub(/}/, "\\}", line);
+		sub(/}/, "{\\b\\}}", line);	
+		sub(/{/, "{\\b\\{}", line);
+		gsub(/(public|class|for|while|if)/, "{\\b &}", line);
 		line = line "\\line"
 		return line;
 }
@@ -131,7 +133,7 @@ inSource == 1	{
 		}
 $0 !~ "^\t"	{
 		print "\\page"
-		para("Heading", "", $0)
+		para("Heading", "", $0, 1)
 		print "\\line"
 		next
 		}
@@ -140,44 +142,44 @@ $0 !~ "^\t"	{
 #		Any number of tabs then "$ " or "> "; first tab -> <Source>, rest stay
 $0 ~ /^\t+[$>] /	{
 		sub("\t", "")
-		para("Source", "", $0)
+		para("Source", "", $0, 1)
 		next;
 		}
 
 # Fix structure slides use OPboxed, OPnormal (OP for Outline Page)
 /^\t>>>/	{
 		sub("^\t>>>", "", $0);
-		para("OPboxed", "", $0);
+		para("OPboxed", "", $0, 1);
 		next
 		}
 /^\t<<</	{
 		sub("^\t<<<", "", $0);
-		para("OPnormal", "", $0);
+		para("OPnormal", "", $0, 1);
 		next
 		}
 
 # three tabs --> "dd" paragraph
 $0 ~ "^\t\t\t"	{
 		sub("^\t\t\t", "")
-		para("dd", "\\emdash", $0)
+		para("dd", "\\emdash", $0, 1)
 		next
 		}
 # two tabs --> "d" paragraph
 $0 ~ "^\t\t"	{
 		sub("^\t\t", "")
-		para("d", "\\endash", $0)
+		para("d", "\\endash", $0, 1)
 		next
 		}
 # one tabs --> "fb" paragraph
 $0 ~ "^\t"	{
 		sub("^\t", "")
-		para("fb", "\\bullet", $0)
+		para("fb", "\\bullet", $0, 1)
 		next
 		}
 
 # default case - print as-is
 		{
-		para("Normal", "??", $0)
+		para("Normal", "??", $0, 1)
 		}
 END		{
 		if (inSource) {
