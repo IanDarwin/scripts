@@ -1,6 +1,8 @@
-#!/bin/sh 
+#!/bin/sh -e
 
 # Export javasrc (and jabadot, since it's used several places in Java Cookbook)
+
+# List of files is set in darian:/cvs/CVSROOT/modules line for javacook-src
 
 set -x
 
@@ -38,7 +40,7 @@ mv src/jabadot javacook/jabadot
 # No longer in subdirectory
 
 rm -f javacooksrc.zip
-fastjar cvf javacooksrc.zip ./javacook
+jar cvf javacooksrc.zip ./javacook
 
 scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
 	echo "JavaCook src updated at javacook.darwinsys.com/download.html" |
