@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# wlc -- words per line count
+# how many lines of each length (in words)
+
+awk '{t[NF]++} END{for (i in t) print i, t[i]}' $*
