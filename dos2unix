@@ -4,5 +4,5 @@
 
 for f in $*
 do
-	overwrite $f tr -d ''
+	tr -d "''" < $f > $f.new && cp $f.new $f && rm $f.new
 done
