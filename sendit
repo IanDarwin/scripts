@@ -10,7 +10,7 @@ do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		darwinsys.com|www.darwinsys.com)
+		darwinsys.com|www.darwinsys.com|darian.darwinsys.com)
 			sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*) scp $f darwinsys.com:/tmp && mv $f $f.sent
