@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# unJAV -- move .JAV files to .java, after cvsing on a dosfs under uNIX
+
+ls *.JAV > j
+
+egrep 'public (class|interface)' `cat j` | tr : ' ' | 
+	awk '{print "mv", $1, "tmp && mv tmp", $4 ".java"}' | sh -x
