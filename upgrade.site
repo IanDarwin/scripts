@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-# 101 things to do over after "make build"...
+# 101 things to do over after "make build" or "quickupgrade"...
 
 if [ ! -w / ]; then
 	echo "$0: requires root privilege"
