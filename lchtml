@@ -2,8 +2,10 @@ sed \
 	-e 's/HTML>/html>/' \
 	-e 's/HEAD>/head>/g' -e 's/TITLE>/title>/g' \
 	-e 's/<META/<meta/' -e 's/NAME=/name=/' -e 's/CONTENT=/content=/' \
+	-e 's/<BODY/<body/' \
 	-e 's/BODY>/body>/' \
 	-e 's/H\([1-6]\)/h\1/g' \
+	-e 's/<APPLET/<applet/' -e 's/\/APPLET/\/applet/' \
 	-e 's/<A/<a/g' -e 's=</A>=</a>=g' -e 's/HREF=/href=/g' \
 	-e 's/<IMG/<img/g' -e 's/SRC=/src=/g' \
 	-e 's/<P>/<p>/g' \
