@@ -18,7 +18,7 @@ BEGIN	{
 	print "{\\rtf1\\ansi"
 	}
 
-# Lookup(type) --> paragraph type number.
+# lookup(type) --> paragraph type number.
 # Map our sensible names for paragraphs to the artibrary RTF numbers
 # used in the template file HEADER. # HEADER="/home/ian/lib/doc2rtf.rt_"
 
@@ -27,6 +27,9 @@ function lookup(type)
 	if (type == "fb") return 28
 	if (type == "d") return 25
 	if (type == "dd") return 26
+	if (type == "OPboxed") return 2;
+	if (type == "OPnormal") return 15;
+	if (type == "Source") return 75;
 	# Most bizarre: they use "H4" for normal page headings
 	if (type == "Heading") return 4
 	# fallback
@@ -101,14 +104,12 @@ $1 == ".((Source" {
 		if (inSource)
 			print "Warning: Unmatched ((Source at line", FNR
 		inSource = 1;
-		#print "> # end of Para"
-		#print "<Para <PgfTag `Source'>"
+		para("Source", "", "");
 		next
 		}
 function mkSourceStr(line)
 {
-		line = mkMinimalStr(line)
-		sub(/$/, "\'x0d", line)	# stick hard return at end
+		line = mkMinimalStr(line) "\\line"
 		return line;
 }
 
@@ -116,7 +117,7 @@ function mkSourceStr(line)
 # START OF NORMAL LINE-BY-LINE PROCESSING
 #
 inSource == 1	{
-		#print "<ParaLine " mkSourceStr($0) ">"
+		print mkSourceStr($0)
 		next
 		}
 
@@ -138,10 +139,17 @@ $0 ~ /^\t+\$ /	{
 		next;
 		}
 
-		# Fix structure slides # TODO use OPboxed
-		# {
-		# sub("^\t>>>", "\t\\>\\>\\>", $0);
-		# }
+# Fix structure slides use OPboxed, OPnormal (OP for Outline Page)
+/^\t>>>/	{
+		sub("^\t>>>", "", $0);
+		para("OPboxed", "", $0);
+		next
+		}
+/^\t>/		{
+		sub("^\t>", "", $0);
+		para("OPnormal", "", $0);
+		next
+		}
 
 # three tabs --> "dd" paragraph
 $0 ~ "^\t\t\t"	{
