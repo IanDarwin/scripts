@@ -2,4 +2,6 @@
 
 # bxterm = big xterm
 
-xterm -fg white -fn lucidasanstypewriter-18 $*
+xterm -fn lucidasanstypewriter-18 $*
+
+exit 0
