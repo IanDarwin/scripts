@@ -1,0 +1,121 @@
+#!/usr/bin/awk -f
+
+# This script reads in text which is structured only by indentation
+# and light markup, and turns it into HTML
+
+# For example,
+# Slide One
+#	Major point
+#		Minor item
+#	Another Major
+#		Minor
+# Slide Two
+#	Major point
+#		Minor item
+
+BEGIN	{
+	OUTFILE="index.html"
+	print "<HTML>" >OUTFILE
+	print "<!-- made by $Id$" >OUTFILE
+	print " -->" >OUTFILE
+	print "<TITLE>Slide Show Intro</TITLE>" >OUTFILE
+	IFS=" "
+	insource = 0;
+	}
+
+# Make a text line into a String, with substitutions
+function mkTextStr(line)
+{
+	# Turn _stuff_ into (simplified) <italic>stuff<noitalic>
+	while (index(line, "_")) {
+		sub("_", "<I>", line)
+		sub("_", "</I>", line)
+	}
+
+	# Turn //stuff// into (simplified) <Courier>stuff<Helvetica>
+	while (match(line, /\/\//)) {
+		sub("//", "<KBD>", line)
+		sub("//", "</KBD>", line)
+	}
+
+	return line
+}
+
+function para(tag, line)
+{
+		print "<" tag ">" line "</" tag ">" >OUTFILE
+}
+
+#		Next three cases for .((Source ... lines ... .))Source
+$1 == ".((Source" {
+		if (inSource)
+			print "Warning: Unmatched ((Source at line", FNR
+		inSource = 1;
+		print "<PRE>"
+		print "> # end of Para"
+		print "<Para <PgfTag `Source'>"
+		next
+		}
+$1 == ".))Source" {
+		if (!inSource)
+			print "Warning: Unmatched ))Source at line", FNR
+		inSource = 0
+		print "</PRE>"
+		next
+		}
+function mkSourceStr(line)
+{
+		line = mkTextStr(line)
+		return line;
+}
+
+inSource == 1	{
+		print "<BR>" mkSourceStr($0) ">"
+		next
+		}
+
+# START NEW SLIDE -- undented
+$0 !~ "^\t"	{
+		close(OUTFILE);
+		OUTFILE = sprintf("page%02d.html",++pageNum)
+print "FILENAME IS " OUTFILE
+		print "<HTML>" >OUTFILE
+		print "<HEAD>" >OUTFILE
+		print "<TITLE>" $0 "</TITLE>" >OUTFILE
+		print "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"stylesheet.css\" TITLE=\"Style\">" >OUTFILE
+		print "<BODY BGCOLOR=WHITE>" >OUTFILE
+		print "<H1>" $0 "</H1>" >OUTFILE
+		next
+		}
+
+#		Handle one-line shell commands outside of .((...))Source
+#		Any number of tabs then "$ "; first tab -> <Source>, rest stay
+$0 ~ /^\t+\$ /	{
+		sub("\t", "")
+		para("KBD", $0)
+		next;
+		}
+
+$0 ~ "^\t\t\t"	{
+		sub("^\t\t\t", "")
+		pgftag = "H4"
+		}
+$0 ~ "^\t\t"	{
+		sub("^\t\t", "")
+		pgftag = "H3"
+		}
+$0 ~ "^\t"	{
+		sub("^\t", "")
+		pgftag = "H2"
+		}
+
+		# default case - print
+		{
+		para(pgftag, $0)
+		}
+END		{
+		if (inSource) {
+			print "** ERROR: Unclosed Source ***"
+		}
+		close(OUTFILE)
+		}
