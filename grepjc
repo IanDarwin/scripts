@@ -12,11 +12,18 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-OPT=""
+FILES="ch?? ch???"
+
+# Some UNIX strings(1)s use -o to include filenames, others use -f
+# Some are too stupid to use either!!!
+
+STRINGSOPT=""
+GREPOPT=""
+
 while getopts "il" opt 
 do 
  	 case "$opt" in 
-		i)	OPT="$OPT -i";;
+		i)	GREPOPT="$GREPOPT -i";;
 		l)	echo 'The -l grep option does not work in "strings|grep"!' >&2
 			exit 1 ;;
 		*)	usage;;
@@ -27,5 +34,10 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 for patt in "$@"
 do
 	echo "==> $patt" >&2
-	strings -f ch?? | egrep ${OPT} "${patt}"
+	for file in ${FILES}
+	# workaround for braindead Apple "Darwin" strings(1) with no -o option.
+	do
+		 echo -n $file
+		strings ${STRINGSOPT} $file | egrep ${GREPOPT} "${patt}"
+	done
 done
