@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo "Groovy, mon! It's 1990 all over again"
+echo "Groovy, mon! It's 1984 all over again"
 echo "(except it's really $(date))."
