@@ -4,6 +4,10 @@
 
 set -x
 
+function copyit {
+	scp $f darwinsys.com:/tmp && mv $f $f.sent
+	ssh darwinsys.com scripts/sendit /tmp/$f
+}
 
 for f
 do
@@ -13,9 +17,8 @@ do
 		darwinsys.com|www.darwinsys.com|darian.darwinsys.com)
 			sendmail -v -t < $f && mv $f $f.sent
 			;;
-		*) scp $f darwinsys.com:/tmp && mv $f $f.sent
-			ssh darwinsys.com scripts/sendit /tmp/$f
-			sleep 60
+		*)	copyit $f
+			sleep 15
 			;;
 		esac
 	else
