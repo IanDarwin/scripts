@@ -1,14 +1,22 @@
-#!/bin/ksh 
-
-if [ ! -w / ]; then
-	echo "Run with more privileges" >&2
-	exit
-fi
+#!/bin/ksh  -f
 
 if [ -f /etc/mail/aliases ]; then
-	vi  /etc/mail/aliases
-elif [ -f /etc/aliases ]; then
-	vi  /etc/aliases
+	FILE=/etc/mail/aliases
+else if [ -f /etc/aliases ]; then
+	FILE=/etc/aliases
 else
 	echo "No alias file" >&2
+	exit 1
 fi
+fi
+
+if [ ! -w $FILE ]; then
+	echo "File not writable, probably need root" >&2
+	exit 1
+fi
+
+cp $FILE /tmp/
+
+vi $FILE
+
+diff $FILE /tmp >/dev/null || newaliases
