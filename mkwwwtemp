@@ -1,24 +1,41 @@
-#!/bin/sh
+#!/bin/sh -u
 
 # mkwwwtemp == create a tmp file on www:/tmp
 # so I can print it while on the road
 
-# set -x
+ set -x
+
+NORANDOM=no
+case $1 in
+	-r)	NORANDOM=yes; shift;;
+esac
 
 for file
 do
 
-	# Keep extention, since web server uses it for typing.
-	ext=`echo ${file} | sed -e 's/.*\.//'`
-
+	# SRC must be somethine we can reliably scp from after cd.
 	case ${file} in
-		/*)	SRC=$FILE;;
+		/*)	SRC=$file;;
 		*)	SRC=`pwd`/$file;;
 	esac
-	cd /tmp
-	TMP=`mktemp XXXXXX`
-	TARGET=${TMP}.$ext
-	rm ${TMP}
+
+	case ${NORANDOM} in
+	no)
+		# Keep extention, since web server uses it for typing.
+		ext=`echo ${file} | sed -e 's/.*\.//'`
+
+		cd /tmp
+		TMP=`mktemp XXXXXX`
+		TARGET=${TMP}.$ext
+		rm ${TMP}
+		;;
+	yes)
+		TARGET=$file
+		;;
+	*)
+		echo "Merde, il pleut..." >&2
+		;;
+	esac
 	
 	scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
 

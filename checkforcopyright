@@ -1,0 +1,7 @@
+for f in *.java
+do
+	if grep ' . Copyright' $f >/dev/null
+		then :
+		else echo Missing in $f
+	fi
+done

@@ -1,0 +1,44 @@
+#!/usr/bin/nawk -f
+
+# This script reads in text which is structured only by indentation
+# and light markup, and turns it into MIF which can be imported
+# directly into FrameMaker.
+
+# For example,
+# Slide One
+#	Major point
+#		Minor item
+#	Another Major
+#		Minor
+# Slide Two
+#	Major point
+#		Minor item
+
+BEGIN	{
+	IFS=" "
+	}
+
+#		RIP OUT NULL LINES
+/^$/	{
+		next
+		}
+
+$0 !~ "^\t"	{
+		print "%page"
+		print ""
+		print "%center"
+		print "%size 7"
+		print
+		print "%left"
+		print "%size 5"
+		}
+
+$0 ~ "^\t"	{
+		print
+		}
+
+END		{
+		if (inSource) {
+			print "** ERROR: Unclosed Source ***"
+		}
+		}
