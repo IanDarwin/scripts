@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# send a file via sendmail
+
+f=$1
+
+if [ -f $f ]; then
+	sendmail -v -t < $f && mv $f $f.sent
+fi
