@@ -1,0 +1,10 @@
+cd /usr/src/gnu/egcs/gcc
+make -f Makefile.bsd-wrapper clean
+make -f Makefile.bsd-wrapper obj
+make -f Makefile.bsd-wrapper -DBOOTSTRAP
+make -f Makefile.bsd-wrapper -DBOOTSTRAP install
+make -f Makefile.bsd-wrapper clean
+make -f Makefile.bsd-wrapper
+make -f Makefile.bsd-wrapper install
+
+ 
