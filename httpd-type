@@ -14,8 +14,8 @@ if [ "$1" == "-p" ]; then
 	shift
 fi
 
-for host in ${*-localhost}
-do
-	echo ===== Trying ${host} =====
-	echo "${METHOD} / HTTP/1.0\n" | nc ${host} ${PORT}
-done
+host=$1
+resource=$2
+
+echo ===== Trying ${host} =====
+echo "${METHOD} /${resource} HTTP/1.1\nHost: ${host}\n" | nc ${host} ${PORT}

@@ -2,19 +2,36 @@
 
 # send a file via sendmail
 
-set -x
+USAGE="$0 [-h host] msgFile"
 
 function copyit {
-	scp $f mail.darwinsys.com:/tmp && mv $f $f.sent || exit 1
-	ssh darwinsys.com scripts/sendit /tmp/$f || exit 1
+	scp $f ${HOST}:/tmp && mv $f $f.sent || exit 1
+	ssh ${HOST} scripts/sendit /tmp/$f || exit 1
 }
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+HOST=darwinsys.com
+while getopts "h:" opt 
+do 
+ 	 case "$opt" in 
+		h)	HOST=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+set -x
 
 for f
 do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		darwinsys.com|www.darwinsys.com|darian.darwinsys.com)
+		darwinsys.com|www.darwinsys.com|darian.darwinsys.com|*softquad.com)
 			exec sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f
