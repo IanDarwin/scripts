@@ -36,9 +36,9 @@ if [ -f ${MAKEFILE} ]; then
 fi
 
 sed \
-	-e "/^PKGNAME=/s/???/$NAME/" \
-	-e "/^DISTNAME=/s/???/	${DIST}/" \
-	-e "/^CATEGORIES=/s/???/$CAT/" \
+	-e "/^PKGNAME=/s@???@$NAME@" \
+	-e "/^DISTNAME=/s@???@${DIST}@" \
+	-e "/^CATEGORIES=/s@???@$CAT@" \
 	-e "/^MASTER_SITES/s@???@$DNL@" \
 	\
 	${TEMPLATE} > ${MAKEFILE}

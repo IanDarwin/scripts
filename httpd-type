@@ -2,8 +2,20 @@
 
 # nc demo -- get the type of web server somebody runs
 
+METHOD=HEAD
+if [ "$1" == "-a" ]; then
+	METHOD=GET
+	shift
+fi
+PORT=80
+if [ "$1" == "-p" ]; then
+	shift
+	PORT=$1
+	shift
+fi
+
 for host in ${*-localhost}
 do
 	echo ===== Trying ${host} =====
-	(echo 'HEAD / HTTP/1.0';echo) | nc ${host} 80
+	(echo "${METHOD} / HTTP/1.0";echo) | nc ${host} ${PORT}
 done

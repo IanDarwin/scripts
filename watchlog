@@ -38,7 +38,7 @@ do
 			esac
 			;;
 		daem*) LOG=/var/log/daemon ;;
-		http|web) LOG=/var/www/logs/access_log ;;
+		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		mail)	LOG=/var/log/maillog ;;

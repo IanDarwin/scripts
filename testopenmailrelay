@@ -1,0 +1,15 @@
+#!/bin/ksh -f
+
+case $# in
+1);;
+*) echo "Usage: $0 openhost" >&2
+	exit 1
+	;;
+esac
+
+OPENHOST=$1
+
+cd ~/javasrc/email
+
+set -x
+java TestOpenMailRelay ${OPENHOST}

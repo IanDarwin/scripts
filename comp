@@ -1,0 +1,23 @@
+#!/bin/ksh
+
+F=$(mktemp /tmp/compXXXXXXXX)
+
+echo file is $F
+sleep 1
+
+cat>$F <<!
+To: $1
+Subject: $2
+From: ian@darwinsys.com
+
+!
+
+vi $F
+
+echo -n "send now? [ny]"
+read ans junk
+if [ "$ans" = "y" ]; then
+	sendit $F
+else
+	echo "$F NOT SENT YET -- DON'T FORGET ABOUT IT"
+fi
