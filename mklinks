@@ -1,1 +1,1 @@
-sed -e 's?.*?<LI><A HREF="&">&</A></LI>?'
+sed -e 's?.*?<li><a href="&">&</a></li>?'
