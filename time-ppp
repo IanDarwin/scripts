@@ -6,8 +6,8 @@ if [ ! -f ${DATA} ]; then
 	dd if=/dev/urandom bs=1024 count=1024 of=${DATA}
 fi
 echo -n Start upload:; read ans
-time scp 1M.dat dos:/tmp/
+time scp 1M.dat dos:/tmp/ >/dev/null
 echo -n Start download:; read ans
-time scp dos:/tmp/1M.dat /tmp
+time scp dos:/tmp/1M.dat /tmp >/dev/null
 echo Comparing
 time cmp ${DATA} /tmp/${DATA}
