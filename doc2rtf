@@ -28,7 +28,7 @@ BEGIN	{
 
 function lookup(type)
 {
-	if (type == "fb") return "\\s28\\f1\\fs36"
+	if (type == "fb") return "\\s28\\b\\f1\\fs36"
 	if (type == "d") return "\\s25\\f1\\fs36"
 	if (type == "dd") return "\\s26\\f1\\fs36"
 	if (type == "OPboxed") return "\\s2";
@@ -53,14 +53,13 @@ function mkMinimalStr(line)
 # Make a text line into a String, with substitutions
 function mkTextStr(line)
 {
-	# print ">> mkTextStr, line =", line, "(before)"
 	line = mkMinimalStr(line)
 	# print ">> mkTextStr, line =", line, "(after)"
 
 	# Now maybe break into several short strings, with different fonts...
 
 	# Turn _stuff_ into <italic>stuff</italic>
-	while (index(line, "_")) {
+	while (match(line, "_.*_")) {
 		sub("_", "{\\i ", line)
 		sub("_", "}", line)
 	}
@@ -129,7 +128,9 @@ inSource == 1	{
 		next
 		}
 $0 !~ "^\t"	{
-		para("Heading", "\\pagebb", $0)
+		print "\\page"
+		para("Heading", "", $0)
+		print "\\line"
 		next
 		}
 
