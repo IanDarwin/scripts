@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+# Symlink (using relative only) into /upgrade.site, and /install.site if making siteXX.tgz...
+
 # 101 things to do over after "make build" or "quickupgrade"...
 
 if [ ! -w / ]; then
