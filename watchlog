@@ -41,6 +41,7 @@ do
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
+		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
