@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+die "Usage: count start end" unless ($#ARGV > 0);
+
+$start = @ARGV[0];
+$end   = @ARGV[1];
+print "Hi $start .. $end\n";
+for ($i=$start; $i <= $end; $i++) {
+	print "$i\n";
+}
