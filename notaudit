@@ -1,0 +1,8 @@
+#!/bin/sh 
+
+# this does not do an audit. Only you can do that.
+# this finds a few things that might need attention
+
+PATT="strcpy|strcmp|gets|[fs]?printf"
+
+egrep -w ${PATT} ${*-*.[ch]}
