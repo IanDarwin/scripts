@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# getman - get raw man page headers for writing openbsd summary
+
+cd /usr/share/man || exit
+
+# get list like cat1/cat.0 cat8/init.8 cat1/troff.0, i.e., in alfa order
+# but ignoring the cat1/cat8 part.
+for d in cat1 cat8
+do
+	ls $d/*.0
+done | 
+	# sort list, rip out duds, sort as above, and store.
+	sort |
+	comm -23 - ~ian/lib/obsdman.excludes |
+	sort -t/ +1 | 
+	cat > /tmp/getman$$
+
+# process each file in list.
+for f in `cat /tmp/getman$$`
+do
+	echo ===== $f =====
+	sed \
+		-e 50q  \
+		-e '/^$/d' \
+		-e 's/.//g' \
+		-e '/^[A-Z0-9][A-Z0-9]*(/d' \
+		-e '/^(BUGS|CAVEATS|SEE|ENVIRON)/q' \
+		$f
+done

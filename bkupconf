@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# take key files from sqorch (NOT including any passwd files!!)
+# home so I can track them in CVS.
+
+(
+echo "To: ian@darwinsys.com"
+echo "Subject: sqorch conf"
+echo ""
+ 
+cd /etc
+shar \
+	aliases \
+	defaultdomain \
+	exports \
+	hostname.xl0 \
+	hostname.xl1 \
+	hosts \
+	hosts.equiv \
+	hosts.lpd \
+	inetd.conf \
+	ipf.rules \
+	ipnat.rules \
+	mail.rc \
+	mygate \
+	myname \
+	named.boot \
+	networks \
+	nsdata/* \
+	rc.local \
+	rc.conf \
+	resolv.conf \
+	sendmail.cf \
+	services \
+	shells \
+	sshd_config \
+	sysctl.conf \
+	syslog.conf \
+	ttys 
+) |
+	sendmail -v -t

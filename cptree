@@ -1,0 +1,54 @@
+#!/bin/ksh
+
+# cptree old new
+# old is presumably (but not necessarily) a mount point
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-v] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+function ckdir {		 # scope out this here directory
+	case $1 in
+		/*)	;;
+		*)	echo "$0: Directory $1 must be full path"
+			exit 1;;
+	esac
+
+	if [ ! -d $1 ]; then
+		echo "$0: $1 must be existing directory"
+		exit 1
+	fi
+
+	# now really cd there to worry about symlinks, perms, etc.
+	cd $1 || exit 1
+}
+
+while getopts "v" opt 
+do 
+ 	 case "$opt" in 
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+if [ $# -ne 2 ]; then
+	usage
+fi
+
+old=$1
+new=$2
+
+ckdir $old						 # validate
+ckdir $new
+case $new in
+""|".") echo "$0: new location $new must be a full path!"
+	exit 1;;
+esac
+
+find . -type f -print | cpio -ocB | ( cd $new; cpio -icBmud${VERBOSE})

@@ -1,0 +1,5 @@
+#!/bin/sh -x
+
+# Run windows NotePad
+
+wine -display darian:0 -debugmsg +keyboard -dll -commdlg -winver win95 /c/windows/notepad.exe

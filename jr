@@ -1,0 +1,5 @@
+#!/bin/sh -x
+
+# jr -- javac and run
+
+javac $1.java && java $*
