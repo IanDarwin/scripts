@@ -35,7 +35,7 @@ function lookup(type)
 	if (type == "OPnormal") return "\\s15";
 	if (type == "Source") return "\\s75\\b";
 	# Most bizarre: they use "H4" for normal page headings
-	if (type == "Heading") return "\\s4\\f1\\fs36\\b";
+	if (type == "Heading") return "\\s4\\b\\f1\\fs36\\cgrid";
 	# fallback
 	return "\\s0";
 }
@@ -79,7 +79,7 @@ function mkTextStr(line)
 #
 function para(type, leader, line)
 {
-		print "\\par\\pard " lookup(type)
+		print "\\par\\pard " lookup(type) " "
 		if (leader != "") {
 			print leader " \\tab";
 		}
