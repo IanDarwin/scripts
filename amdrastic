@@ -1,0 +1,34 @@
+From ian@sq.com  Fri May  5 15:03:49 2000
+Return-Path: <ian@sq.com>
+Delivered-To: ian@darwinsys.com
+Received: from new.darwinsys.com (unknown [127.0.0.1])
+	by darwinsys.com (Postfix) with ESMTP id 0F7A422E2
+	for <ian@darwinsys.com>; Fri,  5 May 2000 15:03:49 -0400 (EDT)
+X-POP3-Rcpt: idarwin@host.siteaction.com
+Received: from mail.softquad.com (gatekeeper.softquad.com [192.31.6.128])
+	by host.siteaction.com (8.9.3/8.9.3) with ESMTP id PAA00605
+	for <ian@darwinsys.com>; Fri, 5 May 2000 15:02:04 -0400
+Received: from sq.sq.com (sq [192.168.1.1])
+	by mail.softquad.com (8.9.3/8.9.3) with ESMTP id PAA22584
+	for <ian@darwinsys.com>; Fri, 5 May 2000 15:01:38 -0400 (EDT)
+Received: by sq.sq.com
+	via sendmail with stdio
+	id <m12nnFe-0004WXC@sq.sq.com>
+	for ian@darwinsys.com; Fri, 5 May 2000 14:55:02 -0400 (EDT)
+	(Smail-3.2.0.92 1997-Feb-9 #5 built 1997-Apr-25)
+Message-Id: <m12nnFe-0004WXC@sq.sq.com>
+Date: Fri, 5 May 2000 14:55:02 -0400 (EDT)
+From: ian@sq.com (Ian Darwin)
+To: ian@darwinsys.com, amdrastic@sq.com
+Content-Type: text
+Status: RO
+Content-Length: 106
+Lines: 6
+
+#!/bin/sh -x
+
+# what to do when amflush and amcleanup don't get you going.
+
+	rm /var/amanda/softquad/log
+
+
