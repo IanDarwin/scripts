@@ -1,8 +1,9 @@
 #!/bin/ksh
+PHONES="/usr/share/misc/*.phone"
 
 # Grep the areacode databases
 
 for ac in $*
 do
-	egrep "$ac" /usr/share/misc/*.phone
+	egrep "$ac" ${PHONES}
 done
