@@ -5,5 +5,5 @@
 for host
 do
 	echo "==>" $host
-	echo QUIT | nc $host smtp
+	echo QUIT | nc $host 25
 done
