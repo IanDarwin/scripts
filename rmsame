@@ -1,10 +1,26 @@
-:
 #! /bin/sh
 # rmsame - remove files in current tree identical to those in tree $1
+
+COMPARE="cmp -s"
+
+
+USAGE="$0 [-b|-t] [file...]" 
+while getopts "bt" opt 
+do 
+ 	 case "$opt" in 
+		t)	COMPARE="diff -s -b ";;
+		b)	COMPARE="cmp -s";;
+		*)	echo usage: $USAGE >&2
+			exit 2;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 case $# in
 1)      ;;
-*)      echo 'usage: rmsame tree' >&2; exit 1 ;;
+*)      echo 'usage: $USAGE' >&2; exit 1 ;;
 esac
+
 CD=`pwd`
 case $1 in
 $CD|""|.) echo 'rmsame: tree is current directory; nothing doing' >&2; exit 1 ;;
@@ -14,7 +30,7 @@ for file in *
 do
         if test -d $file && test -d $1/$file; then      # directory
                 (               # recurse in sub-shell
-#                set -$-         # inherit shell options
+#				set -$-         # inherit shell options
                 cd $file        # if this fails, exit
                 echo cd $file
                 case "$1" in
@@ -24,7 +40,7 @@ do
                 )
                 echo cd ..
                 rmdir $file >/dev/null 2>/dev/null
-        elif cmp -s $file $1/$file; then
+        elif ${COMPARE} $file $1/$file 1>/dev/null; then
 		echo rm $file
                 rm -f $file
         fi

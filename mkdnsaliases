@@ -1,0 +1,27 @@
+#!/bin/ksh -f
+
+cd /tmp
+mkdir namedb 2>/dev/null
+if [ ! -d namedb -o ! -w namedb ]; then
+	echo "Unable to create in namedb."
+	exit
+fi
+# mkdnsaliases
+for f in \
+	hotmetal.com hotmetal.net hotmetal.org \
+	hotmetal.com hotmetalpro.net hotmetalpro.org \
+	xmetal.org 
+do
+	echo ";----- $f -----"
+	echo "; quick version cooked up by ian during sqorch explosion
+@	IN	SOA gatekeeper.softquad.com systems.softquad.com (
+		2000020601	; serial
+		10800	; refresh after 3 hours
+		3600	; retry after 1 hour
+		86401	; expire after 1 day
+		86400 )	; minimum TTL of 1 day
+		IN	NS	gatekeeper.softquad.com.
+		IN	NS	gw.sqwest.bc.ca.
+$f		IN	CNAME	www.softquad.com.
+www.$f	IN	CNAME	www.softquad.com." > namedb/db.$f
+done

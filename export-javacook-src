@@ -1,0 +1,5 @@
+#!/bin/sh -x
+
+cd /tmp
+
+cvs -d /cvs export -D now javacook-src

