@@ -14,7 +14,7 @@ read DIST junk
 echo -n "Archive site (directory URL, including ending slash)? "
 read DNL junk
 echo -n "COMMENT? "
-read COMMENT junk
+read COMMENT
 echo -n "Categories (1 or more words)? "
 read CAT OTHERCATS
 for f in ${CAT} ${OTHERCATS}
@@ -38,7 +38,7 @@ if [ -f ${MAKEFILE} ]; then
 fi
 
 sed \
-	-e "/^COMMENT=/s@???@$COMMENT@" \
+	-e "/^COMMENT=/s@???@\"$COMMENT\"@" \
 	-e "/^PKGNAME=/s@???@$NAME@" \
 	-e "/^DISTNAME=/s@???@${DIST}@" \
 	-e "/^CATEGORIES=/s@???@$CAT@" \
