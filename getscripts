@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# getscripts - get a list of the scripts linked to by index.html
+# Used to make a dir with just those scripts
+
+# input - lines from index.html like
+# href="bkupconf">bkupconf, a script for backing up your config
+# output - list of files, one per line
+
+egrep 'href="[a-z]+"' index.html |
+	sed -e 's/.*"\([a-z][a-z]*\)".*/\1/'
