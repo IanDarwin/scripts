@@ -56,16 +56,16 @@ function mkTextStr(line)
 	# Now maybe break into several short strings, with different fonts...
 
 	# Turn _stuff_ into (simplified) <italic>stuff<noitalic>
-	#while (index(line, "_")) {
-		#sub("_", "'><Font<FAngle `Italic' >><String `", line)
-		#sub("_", "'><Font<FAngle `Regular'>><String `", line)
-	#}
+	while (index(line, "_")) {
+		sub("_", "{\\i ", line)
+		sub("_", "}", line)
+	}
 
 	# Turn //stuff// into (simplified) <Courier>stuff<Helvetica>
-	#while (match(line, /\/\//)) {
-		#sub("//", "'><Font<FFamily `Courier'  ><FWeight `Bold'   >><String `", line)
-		#sub("//", "'><Font<FFamily `Helvetica'><FWeight `Regular'>><String `", line)
-	#}
+	while (match(line, /\/\//)) {
+		sub("//", "{\\f2 ", line)
+		sub("//", "}", line)
+	}
 
 	return line
 }
@@ -84,12 +84,8 @@ function para(type, leader, line)
 
 #		Allow simple indexing
 $1 == ".IX"	{
-		print "<ParaLine<Marker"
-		print " <MType 2>"
 		sub(".IX ", "", $0)
-		print mkMinimalStr("MText", $0)
-		print "> # end of Marker"
-		print "> # end of ParaLine"
+		para("Normal", "\\v\\EX", $0);	# UNTESTED!!!
 		next
 		}
 
@@ -109,7 +105,9 @@ $1 == ".((Source" {
 		}
 function mkSourceStr(line)
 {
-		line = mkMinimalStr(line) "\\line"
+		gsub(/{/, "\\{", line);
+		gsub(/}/, "\\}", line);
+		line = line "\\line"
 		return line;
 }
 
