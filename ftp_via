@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -x
+
+cd ~/.jpilot
+
+ftp ftp://ftp.innovata-llc.com/via/viarail.pdb
+
+echo `pwd`/viarail.pdb >> jpilot_to_install
+
+echo "Will update Timetable next time you synch."
