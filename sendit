@@ -5,7 +5,7 @@
 set -x
 
 function copyit {
-	scp $f darwinsys.com:/tmp && mv $f $f.sent
+	scp $f mail.darwinsys.com:/tmp && mv $f $f.sent
 	ssh darwinsys.com scripts/sendit /tmp/$f
 }
 
@@ -18,7 +18,7 @@ do
 			sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f
-			sleep 15
+			sleep 5
 			;;
 		esac
 	else

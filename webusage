@@ -1,6 +1,5 @@
 #!/bin/sh 
 
 cd /var/www/logs
-cat access_log | 
-zcat access_log.?.gz |
+(cat access_log; zcat access_log.?.gz) |
 awk '{print $7, $1}' | sort | uniq -c | sort -nr | more

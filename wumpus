@@ -15,5 +15,6 @@ do
 	echo -n "$f "
 	wicontrol -f $f
 	sleep 5
+	wicontrol | grep "Current netname"
 done
 echo ""

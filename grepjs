@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# grepjs -- grep all the Java files for something...
+
+patt=${1?"usage: grepjs pattern"}
+
+cd $js || exit
+
+find . -name '*.java' -print | xargs grep $patt
