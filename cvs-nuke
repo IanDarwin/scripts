@@ -1,0 +1,3 @@
+rm $*
+cvs rm $*
+cvs commit -m bye $*
