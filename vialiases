@@ -1,8 +1,13 @@
-#!/bin/sh 
+#!/bin/ksh 
+
+if [ ! -w / ]; then
+	echo "Run with more privileges" >&2
+	exit
+fi
 
 if [ -f /etc/mail/aliases ]; then
 	vi  /etc/mail/aliases
-else if [ -f /etc/aliases ]; then
+elif [ -f /etc/aliases ]; then
 	vi  /etc/aliases
 else
 	echo "No alias file" >&2
