@@ -1,0 +1,20 @@
+#!/bin/ksh
+
+# ffone -- find a phone number
+
+function search {
+	egrep -i $1 $MAIL ~/nomadic/jabadex.jdx ~/m/hw
+}
+
+case $# in
+	0)
+		while true;
+		do 	echo "Num? \c"; read num
+			search $num
+		done
+		;;
+	*)	for num
+		do search $num
+		done
+		;;
+esac

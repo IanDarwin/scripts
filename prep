@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# output one word per line
+
+cat $* |
+tr '[A-Z]' '[a-z]' |
+tr -cs '[a-z]' '[\012*]'

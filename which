@@ -1,0 +1,48 @@
+#!/bin/sh
+# which: where is the command I am executing? (based on script from K & P)
+#	but prints all the programs that could be what you really wanted.
+#	try ``which *ail'' to get all the mail programs...
+# whichman - as above, but for MANPATH
+
+case $0 in
+	*which) opath=$PATH;;
+	*whichman) opath=$MANPATH;;
+	*)	echo "$0: unknown link to 'which' program." >&2
+		exit 1;;
+esac
+
+files=
+opts=
+PATH=/bin:/usr/bin
+
+for k in $*
+do
+	case $k in
+		-*)	opts="$opts $k";;
+		*)	files="$files $k";;
+	esac
+done
+
+case $files in
+	"")	echo "Usage: $0 command" 1>&2; exit 1
+esac
+
+for j in $files
+do
+	foundyet=false
+	for i in `echo $opath |    sed 's/^:/.:/
+				s/::/:.:/
+				s/:$/:./
+				s/:/ /g'`
+	do
+		if test -f $i/$j	# this is /bin/test
+		then
+			ls $opts $i/$j
+			foundyet=true
+		fi
+	done
+
+	case $foundyet in
+		false) echo $j: not found;;
+	esac
+done

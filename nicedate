@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# nicedate -  date in "January 5, 1993" format.;;
+
+set `date`
+
+case $2 in
+	Jan)	M=January;;
+	Feb)	M=February;;
+	Mar)	M=March;;
+	Apr)	M=April;;
+	May)	M=May;;
+	Jun)	M=June;;
+	Jul)	M=July;;
+	Aug)	M=August;;
+	Sep)	M=September;;
+	Oct)	M=October;;
+	Nov)	M=November;;
+	Dec)	M=December;;
+	*)	echo "$0: Unknown month!!" >&2
+		exit 1;;
+esac
+
+echo $M $3, $6
