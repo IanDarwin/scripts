@@ -38,8 +38,10 @@ do
 			esac
 			;;
 		daem*|ppp) LOG=/var/log/daemon ;;
+		ftp)	LOG=/var/log/ftpd;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
+		icb)	LOG=~/hacklog/`date +%Y-%m`;;	# only on cvs
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
@@ -48,6 +50,7 @@ do
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
 		tomcat)	LOG=/usr/local/tomcat/logs/tomcat.log;;
+		vnc)	LOG=~/.vnc/*.log;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac
