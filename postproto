@@ -1,0 +1,17 @@
+#!/bin/ksh
+
+# postproto -- run after standard protoize to build header
+# for just the functions that are used intra-module.
+
+FUNCTIONS=`grep "implicit declaration of" $* | sed \
+	-e 's/.*\`//' -e "s/'.*$//" `
+
+for f in $FUNCTIONS
+do
+	# must be referred to in more than one file...
+	WC=`grep $f *.c | wc -l`
+	if [ ${WC} -gt 1 ]; then
+		# try to get return-decl on line before, and header
+		grep -h --context=1 "^${f}(" *.c | grep -v '{'
+	fi
+done

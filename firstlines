@@ -1,0 +1,13 @@
+#!/usr/bin/awk -f
+
+# print first line of each para from e.g., a speech (for outline)
+
+/^$/	{ nextline = 1; }
+
+/^./	{
+			if (nextline) {
+				print
+				print ""
+				nextline = 0
+			}
+		}
