@@ -18,7 +18,7 @@ do
 			sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f
-			sleep 5
+			sleep 1
 			;;
 		esac
 	else
