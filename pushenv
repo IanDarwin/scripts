@@ -12,14 +12,14 @@ fi
 HOST=$1
 USER=${2-ian}
 
-scp -r ~/dotfiles ~/scripts ${USER}@${HOST}:
+DIRS=""
+
+for f in ~/dotfiles ~/scripts 
+do
+	rm -f ${f}/.#?*
+	DIRS="${DIRS} ${f}"
+done
+
+scp -r ${DIRS} ${USER}@${HOST}:
 ssh -l ${USER} ${HOST} "cd dotfiles; make install"
 
-case ${USER} in
-root)
-	for f in /etc/sudoers
-	do
-		scp -r ${f} root@${HOST}:$f
-	done
-	;;
-esac
