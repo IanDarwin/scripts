@@ -24,6 +24,7 @@ mv src/jabadot javacook/jabadot
 (cd javacook; rm com.darwinsys.util/upload)
 
 # Update the index.html for just what we exported
+(cd javacook/netweb; jikes +E -d .. MkIndex.java)
 (cd javacook; java MkIndex)
 
 # Build simple makefiles where needed.
