@@ -2,6 +2,9 @@
 
 # grepjs -- grep all the Java files for something...
 
+# N.B.!! This is a good example of find+xargs BUT
+# could be replaced by "grep -r" on modern UNIXes.
+
 patt=${1?"usage: grepjs pattern"}
 
 cd $js || exit
