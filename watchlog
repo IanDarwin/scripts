@@ -30,7 +30,7 @@ do
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
-		change|cvs) LOG=/cvs/CVSROOT/ChangeLog ;;
+		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		conn)	LOG=/www/conn.html
 			# if -f, repeat every 10 seconds... until interrupted
 			case ${TAIL_F} in
