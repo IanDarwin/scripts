@@ -4,5 +4,6 @@
 
 sudo mv /var/mail/idarwin /tmp
 sudo touch /var/mail/idarwin
+sudo chown idarwin /var/mail/idarwin
 sudo chgrp ian /var/mail/idarwin
 sudo chmod g+rw /var/mail/idarwin
