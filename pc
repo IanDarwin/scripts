@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# pc - pagecount a slide talk
+
+sed 1d ${*-talk.txt} | grep '^[a-zA-Z]' | wc -l
