@@ -1,8 +1,12 @@
-#!/bin/sh -x
+#!/bin/sh -f
 
 # jr -- javac and run
 
-# JCC=javac
-JCC=guavac
+JCC=javac
+if [ -x /usr/local/bin/guavac ]; then
+	JCC=guavac
+fi
+
+set -x
 
 ${JCC} $1.java && java $*
