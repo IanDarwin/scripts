@@ -1,0 +1,61 @@
+:
+#! /bin/sh
+
+# mksame -- consolidate parallel evolutions
+# rm files in current tree identical to those in tree $1
+# idiff files in current tree different from those in tree $1
+#	and copy idiff output into tree $1
+# files in . not in $1 are moved to $1
+
+case $# in
+1)      ;;
+*)      echo "usage: $0 tree" >&2; exit 1 ;;
+esac
+CD=`pwd`
+case $1 in
+$CD|""|.) echo "$0: tree is current directory; nothing doing" >&2; exit 1 ;;
+*)      ;;
+esac
+if test ! -d $1
+then
+	echo "$0: $1 is not a directory!" >&2
+	exit 1
+fi
+
+trap "rm -f idiff.out" 0 1 15
+
+rm -f idiff.out			# no sense idiffing idiff.out's!!
+
+for file in *
+do
+	if test -d $file && test -d $1/$file; then      # directory
+		(               # recurse in sub-shell
+#		this does not work on UGLIX since their sh is bd'd.
+#		set -$-         # inherit shell options
+		cd $file        # if this fails, exit
+		echo "cd $file"
+		case "$1" in
+		/*)     exec $0 $1/$file ;;     # absolute argument
+		*)      exec $0 $CD/$1/$file ;; # argument relative to .
+		esac
+		)
+		echo cd ..
+		rmdir $file
+	elif test ! -f $1/$file; then
+		echo -n "$file exists in $CD but not in $1., mv it?"
+		read xx; case $xx in
+			y*)	mv $CD/$file $1/$file
+		esac
+	elif cmp -s $file $1/$file; then
+		echo "$file identical in both trees, rm from ."
+		rm -f $file
+	else
+	echo "$file differs, idiff $file $1/$file..."
+	idiff $file $1/$file
+	echo -n "cp idiff.out $1/$file? "
+	read xx; case $xx in
+	y*)	cp idiff.out $1/$file
+		rm $file
+	esac
+	fi
+done
