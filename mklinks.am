@@ -1,5 +1,8 @@
 #!/bin/ksh
 
-# make lines for amazon.com
+# make links for amazon.com
+
+# input is lines with
+# 020112345<TAB>Book Title
 
 sed -e 's?\(.*\)	\(.*\)?<li><a href="http://www.amazon.com/exec/obidos/isbn=\1/darwinopensystemA">\2</a>?'
