@@ -16,7 +16,7 @@ do
 	fi
 done
 
-cvs -q -d /cvs export -D now javacook-src src/jabadot
+cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src src/jabadot
 
 mv javasrc javacook
 
