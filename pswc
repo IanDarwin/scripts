@@ -10,7 +10,5 @@ case $# in
 esac
 for f in $*
 do
-	# unix grep overloads -h to mean print filename if >1 file
-	# gnugrep uses -o to mean always output filename
-	grep -o '^%%Pages' $f || grep showpage $f | wc -l
+	grep '^%%Pages' $f || grep showpage $f | wc -l
 done
