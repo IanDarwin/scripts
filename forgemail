@@ -3,14 +3,14 @@
 # ForgeMail -- generate simple SMTP session for testing email systems.
 # $Id$
 
-if { length(argv) != 3 } {
-	send_user Usage: forgemail host from to
-	exit 1
-}
+#if { llength(argv) != 3 } {
+	#send_user Usage: forgemail host from to
+	#exit 1
+#}
 
-set mailhost lindex(argv 1)
-set from lindex(argv 2)
-set to lindex(argv 3)
+set mailhost lindex(argv 1 1)
+set from lindex(argv 2 1)
+set to lindex(argv 3 1)
 
 spawn telnet $mailhost smtp
 send "HELO forgemail.mail.tester"

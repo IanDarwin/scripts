@@ -2,4 +2,7 @@
 
 # jr -- javac and run
 
-javac $1.java && java $*
+# JCC=javac
+JCC=guavac
+
+${JCC} $1.java && java $*

@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+
+while (<>) {
+	chop;
+	print "$_\r\n";
+}
+
+
