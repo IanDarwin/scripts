@@ -9,4 +9,4 @@ fi
 
 set -x
 
-${JCC} $1.java && java $*
+${JCC} -d . $1.java && java $*

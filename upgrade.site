@@ -2,6 +2,8 @@
 
 # 101 things to do over after "make build"...
 
+echo "You need to add msdos to /usr/libexec/updatedb".
+
 # Sendmail stuff no longer needed due to "mailwrapper"
 #rm /usr/sbin/sendmail
 #ln -s /usr/local/sbin/sendmail /usr/sbin

@@ -53,14 +53,14 @@ case $new in
 ""|".") echo "$0: new location $new must be a full path!"
 	exit 1;;
 esac
-ckdir $new						# validate new first
-ckdir $old						# validate old, stay there for tar/cpio
+ckdir $new		# validate new first
+ckdir $old		# validate old, stay there for tar/cpio
 
 case $TYPE in
 	CPIO)
 		find . -type f -print | cpio -ocB - | ( cd $new; cpio -icBmud${VERBOSE})
 		;;
 	TAR)
-		tar tf - . | (cd $new; tar xf${VERBOSE} -)
+		tar cf - . | (cd $new; tar xf${VERBOSE} -)
 		;;
 esac
