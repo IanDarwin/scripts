@@ -78,7 +78,7 @@ inSource == 1	{
 $0 !~ "^\t"	{
 		close(OUTFILE);
 		OUTFILE = sprintf("page%02d.html",++pageNum)
-print "FILENAME IS " OUTFILE
+		printf "%d ", pageNum
 		print "<HTML>" >OUTFILE
 		print "<HEAD>" >OUTFILE
 		print "<TITLE>" $0 "</TITLE>" >OUTFILE
@@ -114,6 +114,7 @@ $0 ~ "^\t"	{
 		para(pgftag, $0)
 		}
 END		{
+		print ""
 		if (inSource) {
 			print "** ERROR: Unclosed Source ***"
 		}
