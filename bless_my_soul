@@ -3,6 +3,8 @@
 # bless_my_soul - rebless a MacOS disk that has gotten unblessed
 # Too many parameters to remember all this, so here it is.
 
+# USE ME FIRST when you get "cannot OPEN ... tbxi" from OFW.
+
 MNT=/Volumes/MacOS
 
 bless -folder $MNT/System/Library/CoreServices -folder9 $MNT/System/Library/CoreServices -bootinfo $MNT/usr/standalone/ppc/bootx.bootinfo -bootBlockFile $MNT/usr/share/misc/bootblockdata -systemfile $MNT/usr/share/misc/hdbootdata -xcoff $MNT/usr/standalone/ppc/bootx.xcoff -setOF
