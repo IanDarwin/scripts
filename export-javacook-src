@@ -22,8 +22,8 @@ mv javasrc javacook
 # Update the index.html for just what we exported
 (cd javacook; java MkIndex)
 
-# this ought to be good for a laugh the first time out!
-#jikes +E -d /tmp */*.java
+# Build simple makefiles where needed.
+make makefiles
 
 rm -f javacooksrc.zip
 fastjar cvf javacooksrc.zip ./javacook
