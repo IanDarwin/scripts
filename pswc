@@ -1,0 +1,16 @@
+#!/bin/sh -f
+
+# pswc -- word count for PostScript
+# $Id$
+
+case $# in
+	0) cat>/tmp/pswc$$
+	set    /tmp/pswc$$
+	;;
+esac
+for f in $*
+do
+	# unix grep overloads -h to mean print filename if >1 file
+	# gnugrep uses -o to mean always output filename
+	grep -o '^%%Pages' $f || grep showpage $f | wc -l
+done
