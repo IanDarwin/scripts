@@ -27,6 +27,7 @@ case $files in
 	"")	echo "Usage: $0 command" 1>&2; exit 1
 esac
 
+foundany=false
 for j in $files
 do
 	foundyet=false
@@ -39,6 +40,7 @@ do
 		then
 			ls $opts $i/$j
 			foundyet=true
+			foundany=true
 		fi
 	done
 
@@ -46,3 +48,9 @@ do
 		false) echo $j: not found;;
 	esac
 done
+
+# Now set system exit code appropriately.
+case $foundany in
+	true) exit 0;;
+	false) exit 1;;
+esac

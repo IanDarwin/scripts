@@ -1,5 +1,7 @@
 #!/bin/sh 
 
+# Export javasrc (and jabadot, since it's used several places in Java Cookbook)
+
 set -x
 
 cd /tmp
@@ -12,9 +14,11 @@ do
 	fi
 done
 
-cvs -d /cvs export -D now javacook-src
+cvs -d /cvs export -D now javacook-src src/jabadot
 
 mv javasrc javacook
+
+mv src/jabadot javacook/jabadot
 
 # Remove any private gunk
 (cd javacook; rm com.darwinsys.util/upload)
