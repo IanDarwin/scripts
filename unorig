@@ -1,0 +1,8 @@
+#!/bin/csh
+
+# unorig -- move each .orig file to its original name
+
+foreach f (*.orig)
+	mv $f $f:r
+end
+
