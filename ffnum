@@ -3,7 +3,7 @@
 # ffone -- find a phone number
 
 function search {
-	egrep -i $1 $MAIL ~/nomadic/jabadex.jdx ~/m/hw
+	egrep -i $1 $MAIL ~/nomadic/jabadex.jdx ~/Mail/{inbox,hw}
 }
 
 case $# in
@@ -13,7 +13,7 @@ case $# in
 			search $num
 		done
 		;;
-	*)	for num
+	*)	for num in $@
 		do search $num
 		done
 		;;

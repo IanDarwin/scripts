@@ -7,7 +7,7 @@ if [ ! -w / ]; then
 	exit 1
 fi
 
-cdrecord -v speed=4 dev=/dev/rcd0c:0,0,0 -isosize ./*.fs
+cdrecord -v speed=4 dev=/dev/rcd0c:0,0,0 -isosize ${1-./*.fs}
 mount -t cd9660 /dev/cd0c /mnt
 ls . /mnt
 umount /dev/cd0c

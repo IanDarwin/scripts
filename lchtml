@@ -1,6 +1,6 @@
 sed \
 	-e 's/HTML>/html>/' \
-	-e 's/HEAD>/head>/' -e 's/TITLE>/title>/g' \
+	-e 's/HEAD>/head>/g' -e 's/TITLE>/title>/g' \
 	-e 's/<META/<meta/' -e 's/NAME=/name=/' -e 's/CONTENT=/content=/' \
 	-e 's/BODY>/body>/' \
 	-e 's/H\([1-6]\)/h\1/g' \
@@ -15,4 +15,5 @@ sed \
 	-e 's/LI>/li>/g' \
 	-e 's/KBD>/kbd>/g' \
 	-e 's/ & /\&amp;/g' \
+	-e 's/AT&T/AT\&amp;T/g' \
 	$*
