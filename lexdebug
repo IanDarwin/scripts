@@ -1,0 +1,4 @@
+#!/usr/bin/awk -f
+BEGIN { print "char *toke(int i) { switch(i) {" }
+{ print "case", $3 ": return \"" $2 "\";" } 
+END	{ print "} }" }
