@@ -3,7 +3,7 @@
 # jr -- javac and run
 
 JAVAC=javac
-if [ -x /usr/local/bin/jikes ]; then
+if [ -x /usr/local/bin/jikes -o -x /usr/bin/jikes ]; then
 	JAVAC="jikes +E"
 fi
 
