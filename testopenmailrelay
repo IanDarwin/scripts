@@ -9,6 +9,11 @@ esac
 
 OPENHOST=$1
 
+# Ensure Java variables set correctly even if invoked non-interactively
+. ~/.sh-java
+
 set -x
 cd ~/javasrc/email
 java TestOpenMailRelay ${OPENHOST}
+
+sleep 10
