@@ -11,10 +11,12 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "fn:" opt 
+MORE=cat
+while getopts "fmn:" opt 
 do 
  	 case "$opt" in 
 		f)	TAIL_F=-f;;
+		m)	MORE="more";;
 		n)	NUM=-${OPTARG};;
 		*)	usage;;
 	esac
@@ -79,7 +81,7 @@ esac
 for f in ${LOGS}
 do
 	echo ========== $f ==========
-	tail -10 ${TAIL_ARG} $f &
+	tail -10 ${TAIL_ARG} $f | ${MORE}
 	sleep 10
 done
 

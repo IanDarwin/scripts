@@ -2,4 +2,4 @@
 
 # Run windows NotePad
 
-wine -debugmsg +keyboard -dll -commdlg -winver win95 /c/windows/notepad.exe &
+wine -debugmsg +keyboard -dll -commdlg -winver win95 /c/WINNT/NOTEPAD.EXE

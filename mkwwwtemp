@@ -1,13 +1,11 @@
 #!/bin/sh -u
 
 # mkwwwtemp == create a tmp file on www:/tmp
-# so I can print it while on the road
+# so I can print using any ole browser while on the road
 
- set -x
-
-NORANDOM=no
+RANDOMIZE=no
 case $1 in
-	-r)	NORANDOM=yes; shift;;
+	-r)	RANDOMIZE=yes; shift;;
 esac
 
 for file
@@ -19,8 +17,12 @@ do
 		*)	SRC=`pwd`/$file;;
 	esac
 
-	case ${NORANDOM} in
-	no)
+	if [ "$file" == "index.html" ]; then
+		RANDOMIZE=yes
+	fi
+
+	case ${RANDOMIZE} in
+	yes)
 		# Keep extention, since web server uses it for typing.
 		ext=`echo ${file} | sed -e 's/.*\.//'`
 
@@ -29,7 +31,7 @@ do
 		TARGET=${TMP}.$ext
 		rm ${TMP}
 		;;
-	yes)
+	no)
 		TARGET=$file
 		;;
 	*)
@@ -37,7 +39,8 @@ do
 		;;
 	esac
 	
-	scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
+	echo scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
+	     scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
 
 	ssh darwinsys.com chmod a+r /www/tmp/* 2>/dev/null
 
