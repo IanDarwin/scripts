@@ -4,5 +4,5 @@
 
 for f in $*
 do
-	tr -d "''" < $f > $f.new && cp $f.new $f && rm $f.new
+	tr -d "" < $f > $f.new && cp $f.new $f && rm $f.new
 done
