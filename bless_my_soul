@@ -1,9 +1,12 @@
 #!/bin/sh
 
 # bless_my_soul - rebless a MacOS disk that has gotten unblessed
-# Too many parameters to remember all this, so here it is.
+# $Id$
+# Too many parameters to remember all this, so here it is,
+# created by the copy-and-paste design pattern from the OpenDarwin
+# build scripts.
 
-# USE ME FIRST when you get "cannot OPEN ... tbxi" from OFW.
+# TRY ME FIRST when you get "cannot OPEN ... tbxi" from OFW.
 
 MNT=/Volumes/MacOS
 
