@@ -18,7 +18,7 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 case $# in
 1)      ;;
-*)      echo 'usage: $USAGE' >&2; exit 1 ;;
+*)      echo "usage: $USAGE" >&2; exit 1 ;;
 esac
 
 CD=`pwd`
