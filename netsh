@@ -1,0 +1,9 @@
+#!/bin/sh
+
+HOSTS="ltree1 ltree2 ltree3 ltree4"
+
+for f in $HOSTS
+do
+	echo $f
+	rsh $f $*
+done
