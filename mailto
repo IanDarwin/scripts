@@ -1,0 +1,10 @@
+#!/bin/sh 
+
+# mailto -- make an MH "comp" given a mailto address
+
+TMP=`mktemp /tmp/mailtocomXXXXXXX`
+echo $TMP
+
+sed "/^To: *$/s//&$1/" ~/m/components > ${TMP}
+
+comp -form ${TMP} && rm ${TMP}
