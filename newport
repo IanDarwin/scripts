@@ -1,35 +1,43 @@
 #!/bin/ksh
 
-# todo prompt for these
-NAME=remind
-DIST=remind-03.00.30
-CAT=office
-DNL=http://www.roaringpenguin.com/
+# mkport -- create a new port, in my ports directory
 
-DIR=~/ports/${CAT}/${NAME}
+PORTSDIR=/usr/ports
+MYPORTS=~/ports
+
+# prompt for these
+echo -n "Program name (1 word)? "
+read NAME junk
+echo -n "Archive name (1 word, omit .tgz)? "
+read DIST junk
+echo -n "Archive site (directory URL, including ending slash)? "
+read DNL junk
+echo -n "Categories (1 or more words)? "
+reat CAT
+for f in ${CAT}
+do
+	if [ ! -d ${PORTSDIR}/${f} ]; then
+		echo >&2 "mkport: $f is not a known category.
+		exit 1	# LAME
+	fi
+done
+
+DIR=${MYPORTS}/${CAT}/${NAME}
 mkdir -p ${DIR} || exit
 cd ${DIR} || exit
 if [ -f Makefile ]; then
 	echo Makefile exists in ${DIR}
 	exit 1
 fi
-cat> Makefile <<!
-# \$OpenBSD\$
 
-NEED_VERSION=	1.64
+sed \
+	-e "s/^PKGNAME=/PKGNAME=$NAME/" \
+	-e "s/^DISTNAME=/DISTNAME=	${DIST}/" \
+	-e "s/^CATEGORIES=/CATEGORIES=$CAT/" \
+	-e "s/^MASTER_SITES/MASTER_SITES = $DNL/" \
+	\
+	/usr/ports/infrastructure/templates/Makefile.template >Makefile
 
-NAME=$NAME
-DISTNAME=	${DIST}
-EXTRACT_SUFX=	.tgz
-CATEGORIES=$CAT
-MASTER_SITES = $DNL
-
-MAINTAINER = ports@openbsd.org
-
-GNU_CONFIGURE=	yes
-
-.include <bsd.port.mk>
-!
 mkdir pkg
 touch pkg/PLIST
 echo ${NAME} > pkg/COMMENT
