@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /var/spool/mqueue || exit
+
+for f
+do
+	echo "Nuking $f"
+	grep -l "$f" qf* | sed -e 's/.\(.*\)/d\1 q\1/' | xargs rm -f
+done
