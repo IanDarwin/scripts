@@ -1,0 +1,23 @@
+#!/bin/ksh
+
+set -x 
+
+rm -f  \
+/usr/bin/uucp \
+/usr/bin/uulog \
+/usr/bin/uuname \
+/usr/bin/uupick \
+/usr/bin/uusched \
+/usr/bin/uustat \
+/usr/bin/uuto \
+/usr/bin/uux \
+/usr/share/info/uucp.info \
+/usr/libexec/uucp/uuchk \
+/usr/libexec/uucp/uucico \
+/usr/libexec/uucp/uuconv \
+/usr/libexec/uucp/uuxqt \
+/usr/share/man/cat1/uucp.0 \
+/usr/share/man/cat1/uustat.0 \
+/usr/share/man/cat1/uux.0 \
+/usr/share/man/cat8/uucico.0 \
+/usr/share/man/cat8/uuxqt.0

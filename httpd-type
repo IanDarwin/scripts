@@ -17,5 +17,5 @@ fi
 for host in ${*-localhost}
 do
 	echo ===== Trying ${host} =====
-	(echo "${METHOD} / HTTP/1.0";echo) | nc ${host} ${PORT}
+	echo "${METHOD} / HTTP/1.0\n" | nc ${host} ${PORT}
 done

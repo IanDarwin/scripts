@@ -44,7 +44,7 @@ jar cvf javacooksrc.zip ./javacook
 
 scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
 	echo "JavaCook src updated at javacook.darwinsys.com/download.html" |
-		Mail -s "java cookbook download updated" -v "Mary Hubben <maryh@oreilly.com>" ian
+		Mail -s "java cookbook download updated" -v "Mary Hubben <maryh@oreilly.com>" ian webmaster@oreilly.com
 
 # Now extract the whole mess so people can browse individually
 # Note that this extracts in javacook/javacook, which is a bit confusing.

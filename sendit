@@ -5,8 +5,8 @@
 set -x
 
 function copyit {
-	scp $f mail.darwinsys.com:/tmp && mv $f $f.sent
-	ssh darwinsys.com scripts/sendit /tmp/$f
+	scp $f mail.darwinsys.com:/tmp && mv $f $f.sent || exit 1
+	ssh darwinsys.com scripts/sendit /tmp/$f || exit 1
 }
 
 for f
@@ -15,10 +15,9 @@ do
 	if [ -f $f ]; then
 		case `hostname` in
 		darwinsys.com|www.darwinsys.com|darian.darwinsys.com)
-			sendmail -v -t < $f && mv $f $f.sent
+			exec sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f
-			sleep 1
 			;;
 		esac
 	else
