@@ -2,7 +2,7 @@
 BEGIN { print "char *toke(int i) { switch(i) {" }
 { print "case", $3 ": return \"" $2 "\";" } 
 END	{ 
-	print "default: return 999;"
+	print "default: return \"unknown\";"
 	print "}"
 	print "}"
 	}
