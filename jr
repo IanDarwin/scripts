@@ -3,9 +3,9 @@
 # jr -- javac and run
 
 JCC=javac
-#if [ -x /usr/local/bin/guavac ]; then
-#	JCC=guavac
-#fi
+if [ -x /usr/local/bin/jikes ]; then
+	JCC="jikes +E"
+fi
 
 set -x
 
