@@ -16,6 +16,9 @@ cvs -d /cvs export -D now javacook-src
 
 mv javasrc javacook
 
+# Remove any private gunk
+(cd javacook; rm com.darwinsys.util/upload)
+
 # Update the index.html for just what we exported
 (cd javacook; java MkIndex)
 
