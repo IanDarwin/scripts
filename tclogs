@@ -1,0 +1,5 @@
+#!/bin/sh
+
+TODAY=`date +%Y-%m-%d`
+
+vi logs/catalina.out logs/*${TODAY}*
