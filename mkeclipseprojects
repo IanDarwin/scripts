@@ -1,0 +1,34 @@
+for PROJECT in /tmp/a /tmp/b
+do 
+	mkdir ${PROJECT}
+	cd    ${PROJECT}
+(
+cat>>.classpath <<!
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="output" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+</classpath>
+!
+cat >> .project <<!
+<?xml version="1.0\" encoding=\"UTF-8\"?>
+<projectDescription>
+	<name>${PROJECT}</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>
+!
+)
+done
