@@ -2,10 +2,22 @@
 
 # 101 things to do over after "make build"...
 
-rm /usr/sbin/sendmail
-ln -s /usr/local/sbin/sendmail /usr/sbin
-rm /usr/bin/mailq
-ln -s /usr/local/sbin/sendmail /usr/bin/mailq
+# Sendmail stuff no longer needed due to "mailwrapper"
+#rm /usr/sbin/sendmail
+#ln -s /usr/local/sbin/sendmail /usr/sbin
+#rm /usr/bin/mailq
+#ln -s /usr/local/sbin/sendmail /usr/bin/mailq
 
+# allow silly CDE to access the mail files
 chgrp mail /var/mail
 chmod a+rw  /var/mail
+
+# allow tip to use the cu lines and lock them
+sudo chown uucp /usr/bin/tip
+sudo chmod u+s /usr/bin/tip
+
+# Control access to games
+sudo chmod g-r,o= /usr/games/dm
+
+# allow me to do "make fetch" as myself
+sudo chmod g+w /usr/ports/distfiles
