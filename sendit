@@ -33,7 +33,7 @@ do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		darwinsys.com|www.darwinsys.com|darian.darwinsys.com|*softquad.com)
+		darwinsys.com|www.darwinsys.com)
 			exec sudo sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f
