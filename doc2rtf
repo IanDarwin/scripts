@@ -1,0 +1,175 @@
+#!/bin/nawk -f
+
+# This script reads in text which is structured only by indentation
+# and light markup, and turns it into RTF which can be imported
+# directly into MS-Word.
+
+# For example,
+# Slide One
+#	Major point
+#		Minor item
+#	Another Major
+#		Minor
+# Slide Two
+#	Major point
+#		Minor item
+
+BEGIN	{
+	print "{\\rtf1\\ansi"
+	}
+
+# Lookup(type) --> paragraph type number.
+# Map our sensible names for paragraphs to the artibrary RTF numbers
+# used in the template file HEADER. # HEADER="/home/ian/lib/doc2rtf.rt_"
+
+function lookup(type)
+{
+	if (type == "fb") return 28
+	if (type == "d") return 25
+	if (type == "dd") return 26
+	# Most bizarre: they use "H4" for normal page headings
+	if (type == "Heading") return 4
+	# fallback
+	return 0;
+}
+
+# Do the minimum needed to make a line into a String
+function mkMinimalStr(line)
+{
+	# Fixup special characters...
+
+	gsub(/\\/, "\\\\", line);	# included backslashes - do first!
+
+	return line
+}
+
+# Make a text line into a String, with substitutions
+function mkTextStr(line)
+{
+	# print ">> mkTextStr, line =", line, "(before)"
+	line = mkMinimalStr(line)
+	# print ">> mkTextStr, line =", line, "(after)"
+
+	# Now maybe break into several short strings, with different fonts...
+
+	# Turn _stuff_ into (simplified) <italic>stuff<noitalic>
+	#while (index(line, "_")) {
+		#sub("_", "'><Font<FAngle `Italic' >><String `", line)
+		#sub("_", "'><Font<FAngle `Regular'>><String `", line)
+	#}
+
+	# Turn //stuff// into (simplified) <Courier>stuff<Helvetica>
+	#while (match(line, /\/\//)) {
+		#sub("//", "'><Font<FFamily `Courier'  ><FWeight `Bold'   >><String `", line)
+		#sub("//", "'><Font<FFamily `Helvetica'><FWeight `Regular'>><String `", line)
+	#}
+
+	return line
+}
+
+#
+# para(type, leader, line) -- where most paragraphs get printed!
+#
+function para(type, leader, line)
+{
+		print "\\par\\pard \\s" lookup(type)
+		if (leader != "") {
+			print leader " \\tab";
+		}
+		print mkTextStr(line);
+}
+
+#		Allow simple indexing
+$1 == ".IX"	{
+		print "<ParaLine<Marker"
+		print " <MType 2>"
+		sub(".IX ", "", $0)
+		print mkMinimalStr("MText", $0)
+		print "> # end of Marker"
+		print "> # end of ParaLine"
+		next
+		}
+
+#		Next three cases for .((Source ... lines ... .))Source
+$1 == ".))Source" {
+		if (!inSource)
+			print "Warning: Unmatched ))Source at line", FNR
+		inSource = 0;
+		next
+		}
+$1 == ".((Source" {
+		if (inSource)
+			print "Warning: Unmatched ((Source at line", FNR
+		inSource = 1;
+		#print "> # end of Para"
+		#print "<Para <PgfTag `Source'>"
+		next
+		}
+function mkSourceStr(line)
+{
+		line = mkMinimalStr(line)
+		sub(/$/, "\'x0d", line)	# stick hard return at end
+		return line;
+}
+
+#
+# START OF NORMAL LINE-BY-LINE PROCESSING
+#
+inSource == 1	{
+		#print "<ParaLine " mkSourceStr($0) ">"
+		next
+		}
+
+#
+# A null line NOT "inSource" is considered white space; eat it here
+/^$/		{
+		next
+		}
+$0 !~ "^\t"	{
+		para("Heading", "\\pagebb", $0)
+		next
+		}
+
+#		Handle one-line shell commands outside of .((...))Source
+#		Any number of tabs then "$ "; first tab -> <Source>, rest stay
+$0 ~ /^\t+\$ /	{
+		sub("\t", "")
+		para("Source", "", $0)
+		next;
+		}
+
+		# Fix structure slides # TODO use OPboxed
+		# {
+		# sub("^\t>>>", "\t\\>\\>\\>", $0);
+		# }
+
+# three tabs --> "dd" paragraph
+$0 ~ "^\t\t\t"	{
+		sub("^\t\t\t", "")
+		para("dd", "\\emdash", $0)
+		next
+		}
+# two tabs --> "d" paragraph
+$0 ~ "^\t\t"	{
+		sub("^\t\t", "")
+		para("d", "\\endash", $0)
+		next
+		}
+# one tabs --> "fb" paragraph
+$0 ~ "^\t"	{
+		sub("^\t", "")
+		para("fb", "\\bullet", $0)
+		next
+		}
+
+# default case - print as-is
+		{
+		para("Normal", "??", $0)
+		}
+END		{
+		if (inSource) {
+			print "** ERROR: Unclosed Source ***"
+		}
+		print "\\par"	# end of paragraphs
+		print "}"	# end of RTF
+		}
