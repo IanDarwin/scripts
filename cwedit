@@ -1,0 +1,3 @@
+CWHOME=/home/ian/src/cwedit
+
+java -classpath ${CWHOME}:$CLASSPATH CWEdit

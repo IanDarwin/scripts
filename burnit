@@ -1,0 +1,14 @@
+#!/bin/sh 
+
+# burn a CD
+
+if [ ! -w / ]; then
+	echo be root
+	exit 1
+fi
+
+cdrecord -v speed=4 dev=/dev/rcd0c:0,0,0 -isosize ./*.fs
+mount -t cd9660 /dev/cd0c /mnt
+ls . /mnt
+umount /dev/cd0c
+eject  /dev/cd0c

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# fc - field count
+
+DELIM=':'
+
+# XXX getopts d:
+
+awk -F${DELIM} '{print FNR, NF}' $*

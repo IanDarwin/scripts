@@ -1,0 +1,30 @@
+#!/bin/sh -u
+
+JMETERHOME=$HOME/jakarta-jmeter
+
+USAGE=$0" [-h proxyHost] [-p proxyPort] [-f property-file]"
+LOG4JCONFIG=log4j.configuration=log4j.conf
+
+PROPERTIES=${JMETERHOME}/bin/jmeter.properties
+
+JAVA_PROPS=""
+while getopts h:p:f: x; do
+	 case $x in
+	h) JAVA_PROPS=$JAVA_PROPS" -Dhttp.proxyHost="$OPTARG" -Dhttps.proxyHost="$OPTARG;;
+	p) JAVA_PROPS=$JAVA_PROPS" -Dhttp.proxyPort="$OPTARG" -Dhttps.proxyPort="$OPTARG;;
+	f) PROPERTIES=$OPTARG;;
+	?) echo $USAGE; exit -1;;
+	 esac;
+done
+
+for i in ${JMETERHOME}/lib/*.jar
+do
+    CLASSPATH=${CLASSPATH}:$i
+done
+
+#for i in ${JMETERHOME}/ext/*.jar
+#do
+#    CLASSPATH=${CLASSPATH}:$i
+#done
+
+java -classpath $CLASSPATH:${JMETERHOME}/bin/ApacheJMeter.jar $JAVA_PROPS -D$LOG4JCONFIG org.apache.jmeter.NewDriver $PROPERTIES

@@ -1,0 +1,5 @@
+cd ~/src/jrlister
+
+. ~/.sh-java
+
+make
