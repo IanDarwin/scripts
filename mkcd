@@ -1,1 +1,5 @@
-mkhybrid -R -r -J -hfs -o ../tmp.cdfs .
+#!/bin/sh -e
+
+set -x
+
+mkhybrid -R -r -J -hfs -o ../tmp.cdfs ${*-.}
