@@ -2,11 +2,20 @@
 
 # send a file via sendmail
 
+set -x
+
 for f
 do
 
 	if [ -f $f ]; then
-		sendmail -v -t < $f && mv $f $f.sent
+		case `hostname` in
+		www.darwinsys.com)
+			sendmail -v -t < $f && mv $f $f.sent
+			;;
+		*) scp $f darwinsys.com:/tmp && mv $f $f.sent
+			ssh darwinsys.com scripts/sendit /tmp/$f
+			;;
+		esac
 	else
 		echo "$0: No file $f" >&2
 	fi
