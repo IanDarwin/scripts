@@ -3,6 +3,7 @@
 # mkwwwtemp == create a tmp file on www:/tmp
 # so I can print using any ole browser while on the road
 
+DESTDIR=/www/darwinsys/tmp
 RANDOMIZE=no
 case $1 in
 	-r)	RANDOMIZE=yes; shift;;
@@ -38,12 +39,13 @@ do
 		echo "Merde, il pleut..." >&2
 		;;
 	esac
-	
-	echo scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
-	     scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
 
-	ssh darwinsys.com chmod a+r /www/tmp/* 2>/dev/null
+	set -e
+	echo scp ${SRC} darwinsys.com:${DESTDIR}/${TARGET}
+	     scp ${SRC} darwinsys.com:${DESTDIR}/${TARGET}
 
-	echo "$file is in http://www.darwinsys.com/tmp/${TARGET}"
+	ssh darwinsys.com chmod a+r ${DESTDIR}/* 2>/dev/null
+
+	echo "$file is at http://www.darwinsys.com/tmp/${TARGET}"
 
 done
