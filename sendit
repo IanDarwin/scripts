@@ -2,10 +2,13 @@
 
 # send a file via sendmail
 
-f=$1
+for f
+do
 
-if [ -f $f ]; then
-	sendmail -v -t < $f && mv $f $f.sent
-else
-	echo "$0: No file $f" >&2
-fi
+	if [ -f $f ]; then
+		sendmail -v -t < $f && mv $f $f.sent
+	else
+		echo "$0: No file $f" >&2
+	fi
+
+done

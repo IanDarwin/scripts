@@ -21,7 +21,7 @@ sudo chmod u+s /usr/bin/tip
 # Control access to games
 cd /usr/games
 sudo chmod g-r,o= dm
-rm -f battlestar hack larn phantasia rogue
+rm -f battlestar hack hunt larn phantasia rogue
 
 # allow me to do "make fetch" as myself
 sudo chmod g+w /usr/ports/distfiles

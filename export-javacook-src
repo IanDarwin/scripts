@@ -1,5 +1,11 @@
-#!/bin/sh -x
+#!/bin/sh 
+
+set -x
 
 cd /tmp
 
 cvs -d ${CVSROOT-/cvs} export -D now javacook-src
+
+mv javasrc javacook
+
+fastjar cvf javacook.zip ./javacook
