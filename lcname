@@ -5,6 +5,6 @@
 
 for f
 do
-	new=`echo $f | tr 'A-Z' 'a-z'`
-	echo mv $f $new
+	new="`echo $f | tr 'A-Z' 'a-z'`"
+	echo mv "$f" "$new"
 done 
