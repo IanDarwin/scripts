@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# check reverse entry, hostIP --> printout
+
+host $1 | awk '$1 == "Address:" {print "host", $2}' | sh -x
