@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# mkth -- make title and h1
+
+awk '{print "<html><head><title>"$0"</title></head>";
+	print "<body>"
+	print "<h1>"$0"</h1>"
+	print "<p>"
+}'
