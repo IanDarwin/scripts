@@ -1,0 +1,8 @@
+#!/bin/sh
+
+case $# in
+	1);;
+	*) echo "Usage: $0 file" >&2;;
+esac
+
+sudo cp $1 /etc && rm $1
