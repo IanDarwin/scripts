@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/bin/ksh
 
 rm -f /tmp/week.zip
 
 set -ex
 
 # copy the week's work to a floppy
+cd
+START_DIRS="src/* javasrc/* book/* talk/*"
 
-zip /tmp/week.zip `find ~/src/* ~/javasrc/* ~/book/* -type f -mtime -7`
+zip /tmp/week.zip `find ${START_DIRS} -type f -mtime -7`
 
 mcopy /tmp/week.zip a:

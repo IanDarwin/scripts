@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# get the type of web server they run
+# nc demo -- get the type of web server somebody runs
 
 for host in ${*-localhost}
 do

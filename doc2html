@@ -54,7 +54,15 @@ function mkTextStr(line)
 
 function para(tag, line)
 {
-		print "<" tag ">" line "</" tag ">" >OUTFILE
+		printf "%s", "<" tag ">" >OUTFILE
+		if (tag == "H4") n = 12;
+		else if (tag == "H3") n = 8;
+		else if (tag == "H2") n = 4;
+		else n = 0;
+		for (i=0; i<n; i++)
+			printf "%s", "&nbsp;" >OUTFILE
+		printf "%s", line >OUTFILE
+		print "</" tag ">" >OUTFILE
 }
 
 #		Next three cases for .((Source ... lines ... .))Source
