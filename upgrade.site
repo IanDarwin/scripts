@@ -2,28 +2,37 @@
 
 # 101 things to do over after "make build"...
 
-# Sendmail stuff no longer needed due to "mailwrapper"
+if [ ! -w / ]; then
+	echo "$0: requires root privilege"
+	exit 1
+fi
 
 # allow non-root mailers to access the mail files
 chmod a+rw  /var/mail
 
 # allow tip to use the cu lines and lock them
-sudo chown uucp /usr/bin/tip
-sudo chmod u+s /usr/bin/tip
+chown uucp /usr/bin/tip
+chmod u+s /usr/bin/tip
 
 # let me use the floppy
-sudo chmod a+rw /dev/rfd0c
+chmod a+rw /dev/rfd0c
 
 # Control access to games
 cd /usr/games
-sudo chmod g-r,o= dm
+chmod g-r,o= dm
 rm -f battlestar hack hunt larn phantasia rogue
 
 # allow me to do "make fetch" as myself
-sudo chmod g+w /usr/ports/distfiles
+chmod g+w /usr/ports/distfiles
 
-# Enable dartagnan to be an X terminal
-echo 'dartagnan' >> /etc/X11/xdm/Xaccess
+# Enable dartagnan to be an X terminal. Requires TWO steps:
+# 1) List it as a "direct" server in Xaccess
+echo 'dartagnan.darwinsys.com' >> /etc/X11/xdm/Xaccess
+# 2) Uncomment last line in /etc/X11/xdm/xdm-config
+# Actually the line that says
+# DisplayManager.requestPort:	0
+# Maybe just "echo DisplayManager.requestPort:	1" >> /etc/X11/xdm/xdm-config?
+overwrite /etc/X11/xdm/xdm-config sed -e '$s/^/!/' /etc/X11/xdm/xdm-config
 
 # Clean out X servers used neither on daroad nor darian
-#sudo rm XF86_3DLabs XF86_8514 XF86_AGX XF86_I128 XF86_P9000 XF86_S3 XF86_S3V XF86_W32
+#rm XF86_3DLabs XF86_8514 XF86_AGX XF86_I128 XF86_P9000 XF86_S3 XF86_S3V XF86_W32
