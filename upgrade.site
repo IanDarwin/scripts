@@ -1,0 +1,11 @@
+#!/bin/sh -x
+
+# 101 things to do over after "make build"...
+
+rm /usr/sbin/sendmail
+ln -s /usr/local/sbin/sendmail /usr/sbin
+rm /usr/bin/mailq
+ln -s /usr/local/sbin/sendmail /usr/bin/mailq
+
+chgrp mail /var/mail
+chmod a+rw  /var/mail

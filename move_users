@@ -1,0 +1,32 @@
+From ian@sq.com  Thu Oct  7 19:01:03 1999
+Return-Path: <ian@sq.com>
+Delivered-To: ian@darwinsys.com
+Received: from mail.bconnex.net (unknown [192.168.1.50])
+	by darwinsys.com (Postfix) with ESMTP id AC7712330
+	for <ian@darwinsys.com>; Thu,  7 Oct 1999 19:01:03 -0400 (EDT)
+Received: from mail.softquad.com (gatekeeper.softquad.com [192.31.6.128])
+	by mail.bconnex.net (8.9.1/8.9.1) with ESMTP id SAA21479
+	for <ian@darwinsys.com>; Thu, 7 Oct 1999 18:55:27 -0400 (EDT)
+Received: from sq.sq.com (sq [192.168.1.1])
+	by mail.softquad.com (8.9.3/8.9.3) with ESMTP id SAA29479
+	for <ian@darwinsys.com>; Thu, 7 Oct 1999 18:51:43 -0400 (EDT)
+Received: by sq.sq.com
+	via sendmail with stdio
+	id <m11ZMNy-0004wWC@sq.sq.com>
+	for ian@darwinsys.com; Thu, 7 Oct 1999 18:51:42 -0400 (EDT)
+	(Smail-3.2.0.92 1997-Feb-9 #5 built 1997-Apr-25)
+Message-Id: <m11ZMNy-0004wWC@sq.sq.com>
+Date: Thu, 7 Oct 1999 18:51:42 -0400 (EDT)
+From: ian@sq.com (Ian Darwin)
+To: ian@darwinsys.com, scripts/move_users@sq.com
+Content-Type: text
+X-UIDL: 1a573fba7c84e68b5ff16d9369e90fd9
+Status: RO
+Content-Length: 100
+Lines: 4
+
+170	for f in $USERS
+	do echo $f; (cd /home/sqrex; tar cf - $f) | (cd /home/sqully; tar xf -)
+	done
+
+
