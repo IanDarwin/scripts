@@ -1,0 +1,2 @@
+chmod u-s /usr/bin/{uucp,uuname,uustat,uux}
+chmod u-s /usr/libexec/uucp/{uucico,uuxqt}
