@@ -10,5 +10,11 @@
 
 MNT=/Volumes/MacOS
 
-bless -folder $MNT/System/Library/CoreServices -folder9 $MNT/System/Library/CoreServices -bootinfo $MNT/usr/standalone/ppc/bootx.bootinfo -bootBlockFile $MNT/usr/share/misc/bootblockdata -systemfile $MNT/usr/share/misc/hdbootdata -xcoff $MNT/usr/standalone/ppc/bootx.xcoff -setOF
-       
+bless \
+	-folder $MNT/System/Library/CoreServices\
+	-folder9 $MNT/System/Library/CoreServices \
+	-bootinfo $MNT/usr/standalone/ppc/bootx.bootinfo \
+	-bootBlockFile $MNT/usr/share/misc/bootblockdata \
+	-systemfile $MNT/usr/share/misc/hdbootdata \
+	-xcoff $MNT/usr/standalone/ppc/bootx.xcoff \
+	-setOF
