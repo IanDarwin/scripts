@@ -84,7 +84,7 @@ function para(type, leader, line, doEnd)
 		}
 		print mkTextStr(line);
 		if (type == "Heading")
-			print "\\line"
+			print "\\line\\line"
 		if (doEnd)
 			print "\\par }"
 }
@@ -127,7 +127,7 @@ function mkSourceStr(line)
 		gsub(/[()=;]/, "{\\b&}", line);
 
 		# embolden keywords
-		gsub(/(public|class|extends|implements|for|while|if)/, "{\\b &}", line);
+		gsub(/(abstract|boolean|class|extends|for|implements|new|public|return|void|while|if)/, "{\\b &}", line);
 		line = line "\\line"
 		return line;
 }
