@@ -1,6 +1,6 @@
 #!/bin/sh -f
 
-# Export javasrc (and jabadot, since it's used several places in Java Cookbook)
+# Export javasrc for distro with JavaCook web site.
 
 # List of files is set in darian:/cvs/CVSROOT/modules line for javacook-src
 
@@ -16,36 +16,26 @@ do
 	fi
 done
 
-cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src src/jabadot >/tmp/export$$
-
-ret=$?
-if [ ${ret} -ne 0 ]; then
-	echo "Warning: cvs export return code ${ret}!!"
-fi
+set -e
+cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src >/tmp/export$$
 
 mv javasrc javacook
-
-mv src/jabadot javacook/jabadot
 
 # Next section done in the subdirectory
 (
 	cd javacook
 
-	# Remove any private gunk
-	rm com.darwinsys.util/upload
-
 	# Update the index.html for just what we exported
 	(cd netweb; jikes +E -d .. MkIndex.java)
 	java MkIndex
-
-	# Build simple makefiles where needed.
-	make makefiles
 
 )
 # No longer in subdirectory
 
 rm -f javacooksrc.zip
-jar cvf javacooksrc.zip ./javacook
+jar cf javacooksrc.zip ./javacook
+
+exit 
 
 scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
 	echo "JavaCook src updated at javacook.darwinsys.com/download.html" |
