@@ -1,0 +1,12 @@
+AXIS_HOME=$ws/xplanner
+
+for jar in axis commons-discovery commons-logging jaxrpc saaj wsdl4j
+do
+	thisjar=${AXIS_HOME}/lib/axis/${jar}.jar
+	if [ ! -f ${thisjar} ]; then
+		echo "$0: Jar ${thisjar} not found!";
+		exit 1
+	fi
+	CLASSPATH=$CLASSPATH:${thisjar}
+done
+java -classpath ${CLASSPATH} org.apache.axis.wsdl.WSDL2Java $*

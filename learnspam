@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd /Users/ian/library/mail/POP-b1cbcm25@pop3.sympatico.ca/Junk.mbox
+
+ls -l
+
+cat mbox | ssh dos dd of=antispam/spambox
+
+ssh dos 'cd antispam; make spam'
+
+> mbox
