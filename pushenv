@@ -19,7 +19,7 @@ case ${USER} in
 root)
 	for f in /etc/sudoers
 	do
-		scp -r ${f} root@${host}:$f
+		scp -r ${f} root@${HOST}:$f
 	done
 	;;
 esac
