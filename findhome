@@ -2,4 +2,4 @@
 
 # findhome -- try again to find my home machine
 
-nmap -sT -p 22 209.212.33.0/24
+nmap -n -sT -p 22 209.212.33.28-132

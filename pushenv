@@ -4,10 +4,15 @@
 
 cd || exit
 
+if [ $# -lt 1 -o $# -gt 2 ]; then
+	echo "Usage: $0 host [user]" >&2
+	exit 1
+fi
+
 HOST=$1
 USER=${2-ian}
 
-FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .mh_profile .mypackages .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .ssh .stty .wine .wprc .xsession GNUstep scripts"
+FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .mh_profile .myports .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .ssh .stty .wine .wprc .xsession GNUstep scripts"
 
 scp -r  ${FILES} ${USER}@${HOST}:
 
