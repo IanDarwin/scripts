@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # Get words with ONLY all five vowels in alphabetical order.
 
