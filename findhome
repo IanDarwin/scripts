@@ -1,0 +1,26 @@
+From ian@mail.softquad.com  Thu Oct  7 19:01:02 1999
+Return-Path: <ian@mail.softquad.com>
+Delivered-To: ian@darwinsys.com
+Received: from mail.bconnex.net (unknown [192.168.1.50])
+	by darwinsys.com (Postfix) with ESMTP id D26322330
+	for <ian@darwinsys.com>; Thu,  7 Oct 1999 19:01:02 -0400 (EDT)
+Received: from mail.softquad.com (gatekeeper.softquad.com [192.31.6.128])
+	by mail.bconnex.net (8.9.1/8.9.1) with ESMTP id SAA21288
+	for <ian@darwinsys.com>; Thu, 7 Oct 1999 18:54:08 -0400 (EDT)
+Received: (from ian@localhost)
+	by mail.softquad.com (8.9.3/8.9.3) id SAA04574
+	for ian@darwinsys.com; Thu, 7 Oct 1999 18:50:25 -0400 (EDT)
+Date: Thu, 7 Oct 1999 18:50:25 -0400 (EDT)
+From: Ian Darwin <ian@mail.softquad.com>
+Message-Id: <199910072250.SAA04574@mail.softquad.com>
+To: ian@darwinsys.com
+Subject: scripts/findhome
+X-UIDL: c18ed809756897efb324e8ab9ec0422c
+X-UID: 0000000314
+Status: RO
+Content-Length: 31
+Lines: 2
+
+nmap -sT -p 22 205.189.200/24
+
+

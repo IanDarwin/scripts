@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# cx - change to eXecutable
+
+chmod +x $*

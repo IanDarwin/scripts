@@ -3,6 +3,9 @@
 # cptree old new
 # old is presumably (but not necessarily) a mount point
 
+# can use tar or cpio; default is:
+TYPE=CPIO
+
 PATH=/bin:/usr/bin:$PATH; export PATH
 
 USAGE="$0 [-v] old new"
@@ -28,9 +31,11 @@ function ckdir {		 # scope out this here directory
 	cd $1 || exit 1
 }
 
-while getopts "v" opt 
+while getopts "ctv" opt 
 do 
  	 case "$opt" in 
+		c)	TYPE=CPIO;;
+		t)	TYPE=TAR;;
 		v)	VERBOSE=v;;
 		*)	usage;;
 	esac
@@ -44,11 +49,18 @@ fi
 old=$1
 new=$2
 
-ckdir $new						# validate new first
-ckdir $old						# validate old, stay there for tar/cpio
 case $new in
 ""|".") echo "$0: new location $new must be a full path!"
 	exit 1;;
 esac
+ckdir $new						# validate new first
+ckdir $old						# validate old, stay there for tar/cpio
 
-find . -type f -print | cpio -ocB | ( cd $new; cpio -icBmud${VERBOSE})
+case $TYPE in
+	CPIO)
+		find . -type f -print | cpio -ocB - | ( cd $new; cpio -icBmud${VERBOSE})
+		;;
+	TAR)
+		tar tf - . | (cd $new; tar xf${VERBOSE} -)
+		;;
+esac
