@@ -11,6 +11,9 @@ chmod a+rw  /var/mail
 sudo chown uucp /usr/bin/tip
 sudo chmod u+s /usr/bin/tip
 
+# let me use the floppy
+sudo chmod a+rw /dev/rfd0c
+
 # Control access to games
 cd /usr/games
 sudo chmod g-r,o= dm
