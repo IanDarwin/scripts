@@ -12,7 +12,7 @@ fi
 HOST=$1
 USER=${2-ian}
 
-FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .mh_profile .myports .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .stty .wine .wprc .xsession GNUstep scripts"
+FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .myports .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .stty .wine .wprc .xsession .kde scripts"
 
 scp -r  ${FILES} ${USER}@${HOST}:
 

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/awk -f
 
 # dbug_enter - enter Fred Fish DBUG_XXX macro calls into C code.
 
@@ -17,9 +17,6 @@
 #    Finally, the { and } that form the outer level of a function
 #    must begin (and must be the only ones that begin) in column 1.
 
-awk="nawk"     # someday it will be called awk (hint hint)
-
-$awk '
 # general approach - massage things as we go, print most inputs as
 # last (default) action.
 
@@ -67,7 +64,7 @@ $0 !~ /return/ {
                 bodystart = 0;
                 }
         }
+		# my final answer - everything gets printed.
         {
-        print
+			print
         }
-' $*

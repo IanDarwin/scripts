@@ -1,0 +1,22 @@
+#!/bin/sh -u
+
+# Make the list of includes for a Book.
+# $Id$
+
+cd ~/book/javacook || exit
+
+echo "<ol>"
+for FMFILE in `cat CHAPLIST | grep -v preface`
+do
+	echo "<li>${FMFILE}"
+	echo "<ul>"
+	strings ${FMFILE} |
+		egrep '<c>.*java$' |
+			sed -e 's/.*javasrc//' \
+			-e 's/.*jabadot/jabadot/' \
+			-e 's/<c>//' \
+			-e 's@<c>@/@g' \
+			-e 's/.*/<li><a href="&">&<\/a>/'
+	echo "</ul>"
+done
+echo "</ol>"
