@@ -5,4 +5,8 @@
 
 cd ~/book/javacook || exit
 
-strings -f `cat CHAPLIST` | egrep $1
+for patt in "$@"
+do
+	echo "==> $patt"
+	strings -f `cat CHAPLIST` | egrep "${patt}"
+done
