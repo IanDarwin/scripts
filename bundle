@@ -1,0 +1,27 @@
+#! /bin/sh
+
+# bundle: group files into distribution package (K&Pike, p.98)
+# recursive version (Ex. 3-17, p.99)
+
+case "$BUNDLEHEAD" in
+'')
+	echo ': To unbundle, sh this file'
+	BUNDLEHEAD='done'
+	export BUNDLEHEAD
+	;;
+esac
+for i
+do
+	if test -d $i
+	then
+		echo "directory $i" >&2
+		echo "mkdir $i 2>/dev/null"
+		bundle $i/*
+	else
+		echo "a - $i" >&2
+		echo "echo x - $i 1>&2"
+		echo "cat >$i <<'@@@End of $i'"
+		cat $i
+		echo "@@@End of $i"
+	fi
+done
