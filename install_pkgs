@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cd /usr/tmp || exit
+
+for f in *
+do echo $f
+	if [ ! -s $f ]; then
+		echo $f: size zero
+	else
+		p=`echo $f|sed 's/-\.tgz//'`
+		if pkg_info | grep $p >/dev/null; then
+			echo $f: already installed
+		else
+			pkg_add $f
+		fi
+	fi
+done
