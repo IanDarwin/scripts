@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tiff2ps -a $* | lpr -Pps

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec grep -n . $* | sed 's/:/ /'

@@ -1,0 +1,263 @@
+#! /bin/sh
+#
+# appmap     : 	Application map program to aid System Administrators
+#		with the transition to Solaris 2.x environment. 
+#
+# USAGE      : 	app [--r rev# | --t | --rt | --tr] [ arguments ...]
+#
+#		app : the actual application name.
+#
+#		--r : indicates a desired revision number.
+#
+#		--t : run the application in test{debug} mode.
+#		      Don't actually run the application but test
+#		      the execution of appmap.
+#
+#		[--rt]|[--tr] : combination of the above revision & test.
+#
+#		arguments : the arguments to be passed to the application.
+#
+#
+# The purpose of "appmap" is to make the System Administrator's life
+# easier as they attempt to maintain a mixed environment Unix boxes
+# as well as the appropriate application that runs in each environment.
+#
+# Each application is actually a link to appmap which consults an
+# ASCII file that determines how a particular application will get
+# executed.  This ASCII file (appmap.tbl) is maintained by the 
+# System Administrator in the APPMAP_HOME directory.  It is assumed 
+# the user has the environment variable APPMAP_HOME set to the 
+# system-wide appmap directory.  "appmap" will first interogate 
+# appmap directory in the user's home account which would override 
+# the system default table.  This allows a particular user the
+# power to run a specific revision of an application (whether it
+# be a previous release or some new beta application that is not
+# yet released to the user community).  
+#
+# This project started as part of the Solaris migration inititives,
+# however we in the competitive migration group feel that this tool
+# may help in any multi-platfom environment.
+#
+# This is revision # 1 of appmap as we have many more capabilities
+# we would like to add.
+#
+# Next REV : 
+# 	-Possible multiple names for application (ie. interleaf,ileaf,tps)
+#	-Use of netgroups to deny access to a given application.
+#	 Implemented using the host field for example :
+#		-!netgroup	- deny access to all those in this netgroup.
+#		!netgroup	- specific access to all those in this netgroup.
+
+APP=`basename $0`
+HOST=`uname -n`
+USAGE="Usage: $0 [ --r revision# ]"
+MODE="normal"
+APPMAP_HOME=${APPMAP_HOME:-/usr/local/share/}
+
+#Test for type of UNIX
+case `uname` in
+  SunOS)  case `uname -r | cut -d. -f1` in
+            4) OSTYPE="SunOS";;
+            5) OSTYPE="Solaris";;
+            *) echo "Unrecognized OS from Sun - see your system administrator"
+	       exit;;
+           esac;;
+  OpenBSD) OSTYPE=OpenBSD;;
+  HP-UX)  OSTYPE=HP-UX;;
+  AIX)    OSTYPE=AIX;;
+  IRIX)   OSTYPE=IRIX;;
+  *)     echo "OS type not recognized - see system administrator."
+	 exit 1;;
+esac
+
+# OS specific configuration issues
+# Setup the defaults and only make adjustments if necessary
+AWK=/usr/bin/nawk
+RSH=/usr/bin/rsh
+case `echo $OSTYPE` in
+    Solaris) ;;
+    SunOS)   RSH=/usr/ucb/rsh;;
+    HP-UX)   AWK=/usr/bin/awk
+	     RSH=/usr/bin/remsh;;
+    AIX)     AWK=/usr/bin/awk;;
+    IRIX)    RSH=/usr/bsd/rsh;;
+	OpenBSD)	;;
+    *)	     echo "Unrecognized OS type - contact your system administrator."
+             exit 1;;
+esac
+
+case $# in
+0)      ;;
+*)      case $1 in
+	--t)	MODE="test";
+		shift;;
+	--r)	REV=$2;
+		shift 2;;
+	--rt)   MODE="test";
+		REV=$2;
+		shift 2;;
+	--tr)   MODE="test";
+		REV=$2;
+		shift 2;;
+        esac;;
+esac
+
+ARGS=$*
+
+# getappentry : Get application entry in table.
+#
+# Loop through all entries of the appmap.tbl that match application requested. 
+# Pipe this output through $AWK to determine precedence rules for match.
+#
+# Check to determine if a specific revision was requested.
+# If the revision specified matches the entry found then
+#	  if local host is denied privilage to run it then
+#	     prompt user with error message and exit
+#	  if entry found that matches a specific host(ie. saranac) then
+#       call executeapp to execute the application 
+#	  if entry found that matches OS type of your current system then
+#       call executeapp to execute the application 
+#	  if entry found has nothing specified for a specific host then
+#       call executeapp to execute the application 
+# else only look at those entries where no revision was specified
+#	  if local host is denied privilage to run it then
+#		  prompt user with error message and exit
+#	  if entry found that matches a specific host (ie. host) then
+#       call executeapp to execute the application 
+#	  if entry found that matches OS type then
+#       call executeapp to execute the application 
+#
+# After checking list, determine :
+#	  If a revision was specified and no application was found and we
+#		  already searched both the local and system tables then
+#		  print error message to user to inform them that the requested 
+#		  revision was not in table
+#	  else if application not found that matches and # of entries > 0 then
+#		   call executeapp to execute the application
+# 		   This indicates the last entry found would be taken as the default.
+
+getappentry( )
+    {
+$AWK -F# "/^`basename ${APP}`#/" ${APPMAP_DIR}/appmap.tbl | $AWK -F# '{ 
+app=$1; host=$3; apphost=$4; local_setup=$5; remote_setup=$6; exe=$7
+
+if (myrev && $2 == myrev) {
+   if ($3 == "-"(myhost)) {
+      printf("\n*ERROR:\tDenied execution of `%s` on host `%s`.\n\tNotify your System Administrator !\n\n", myapp, myhost)
+      appfound=1
+      exit 0
+      }
+
+   if ($3 == (myhost)) {
+      executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+      appfound=1
+      exit 0
+      }
+
+   if ($3 == (ostype)) {
+      executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+      appfound=1
+      exit 0
+      }
+
+   if (!$3) {
+      executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+      appfound=1
+      exit 0
+      }
+
+} else { 
+   if (!$2 && !myrev) {
+      if ($3 == "-"(myhost)) {
+         printf("\n*ERROR:\tDenied execution of `%s` on host `%s`.\n\tNotify your System Administrator !\n\n", myapp, myhost)
+	 appfound=1
+	 exit 0
+	 }
+
+      if ($3 == (myhost)) {
+         executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+	 appfound=1
+	 exit 0
+	 }
+
+      if ($3 == (ostype)) {
+	 executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+	 appfound=1
+	 exit 0
+	 }
+      }
+   }
+} 
+
+   function executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs) 
+   { 
+
+	  if (mode == "test") 
+ 	  { 
+     	  printf("\n***********************************************")
+     	  printf("\n*              TEST/DEBUG MODE                *")
+     	  printf("\n***********************************************")
+		  printf("\napp=%s\nrev=%s\nhost=%s\napphost=%s\nlocal_setup=%s\nremote_setup=%s\nexe=%s\nmode=%s\nmyargs=%s\n",app,myrev,host,apphost,local_setup,remote_setup,exe,mode,myargs) 
+     } else 
+	{
+	if (!local_setup)
+		{local_setup="true"}
+	if (!remote_setup)
+		{remote_setup="true"}
+	if (apphost && myhost != apphost) {
+	   printf("\n")
+	   system(local_setup " ; " remote " " apphost " \"" remote_setup " ; " exe " " myargs "\" &")
+	}
+	if (!apphost || myhost == apphost)
+		{
+      		system(local_setup " \; " exe " " myargs)
+		}
+	}
+   }
+
+
+  END { if (myrev && !appfound && !localcheck) 
+		  { printf("\nERROR: `%s` rev `%s` not in appmap.tbl, consult your system administrator.\n\n", myapp, myrev)
+		    exit 0
+	     } else if (!appfound && !localcheck && NR > 0)
+ 	            { executeapp(app,host,apphost,local_setup,remote_setup,exe,mode,myargs)
+                 exit 0
+	      		} else if (!appfound) exit 1
+
+ } ' myapp=$APP myrev=$REV myhost=$HOST mode=$MODE ostype=$OSTYPE myargs="$ARGS" localcheck=$LOCALCHECK remote="$RSH"
+
+}
+
+
+# Check if user has a local appmap directory in their home account.
+# Remember, an appmap.tbl in the user's home directory overrides the
+# system-wide default table.
+
+APPMAP_DIR=$HOME/appmap
+if [ -s $APPMAP_DIR/appmap.tbl ]; then
+   # a local appmap.tbl, lets interogate...
+   # echo "Checking appmap.tbl in user's home directory..."
+	LOCALCHECK=1
+   getappentry
+
+   if [ $? != 0 ]; then
+      # No appmap.tbl in user's account, check system-wide appmap.tbl
+      # echo "Checking appmap System File"
+      APPMAP_DIR=$APPMAP_HOME
+		LOCALCHECK=0
+      getappentry
+	else
+		# successful.
+		exit 0
+   fi
+else
+   # No appmap.tbl in user's account, check system-wide appmap.tbl
+   # echo "Checking appmap System File"
+   APPMAP_DIR=$APPMAP_HOME
+	LOCALCHECK=0
+   getappentry
+fi
+
+if [ $? != 0 ]; then
+   echo "\nERROR : '$0' not found in appmap.tbl, consult your system administrator.\n"
+fi
