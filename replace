@@ -7,9 +7,9 @@ case $# in
 	0|1|2)	echo 'Usage: replace str1 str2 files' 1>&2; exit 1;;
 esac
 
-left="$1"; right="$2"; shift; shift
+oldPatt="$1"; newStr="$2"; shift; shift
 
 for i
 do
-	overwrite $i sed "s@$left@$right@g" $i
+	overwrite $i sed "s@$oldPatt@$newStr@g" $i
 done

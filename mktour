@@ -1,0 +1,36 @@
+#!/usr/bin/awk -f
+
+# mktour -- make a guided tour
+
+	{
+		file = $1
+		if (fileNumber==0)
+			prevPage="."
+		else 
+			prevPage = "tour" fileNumber ".jsp"
+		fileNumber++
+		thisPage = "tour" fileNumber ".jsp"
+		nextPage = "tour" fileNumber+1 ".jsp"
+
+		print "<html>" > thisPage
+		print "<title>" $0 "</title>" >> thisPage
+		print "<body bgcolor='white'>" >> thisPage
+		print "<h1>" $0 "</h1>" >> thisPage
+		print "<hr/>" 				>>thisPage
+		print "<pre>" 				>>thisPage
+		print "<%@include file='" file "'%>" >>thisPage
+		print "</pre>"				 >>thisPage
+		print "<hr/>" 				>>thisPage
+		print "<a href='" prevPage "'>Prev</a>" >>thisPage
+		print "<a href='.'>Index</a>" >>thisPage
+		print "<a href='" nextPage "'>Next</a>" >>thisPage
+		close thisPage
+	}
+
+END {
+	endPage = "tour" fileNumber+1 ".jsp"
+	print "<b>End of tour</b>" > endPage
+	print "<hr/>" 				>>endPage
+	print "<a href='" thisPage "'>Previous</a>" >>endPage
+	print "<a href='.'>Index</a>" >>endPage
+	}

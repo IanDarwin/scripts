@@ -4,7 +4,7 @@
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
-DEVICE=mustek:/dev/uk0
+DEVICE=hp:/dev/ugen0
 
 USAGE="$0 [-v] old new"
 

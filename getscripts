@@ -6,6 +6,8 @@
 # input - lines from index.html like
 # href="bkupconf">bkupconf, a script for backing up your config
 # output - list of files, one per line
+# sample usage:
+#	getscripts | xargs tar cvf /tmp/ianScripts.tar
 
-egrep 'href="[a-z]+"' index.html |
-	sed -e 's/.*"\([a-z][a-z]*\)".*/\1/'
+egrep 'href="[a-z.-]+"' index.html |
+	sed -e 's/.*"\([a-z][a-z.-]*\)".*/\1/'

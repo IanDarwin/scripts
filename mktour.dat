@@ -1,0 +1,29 @@
+replace - apply sed substitute to file(s) (like filesub; uses overwrite)
+overwrite - apply any filter operation to file(s)
+grepjc
+grepjs
+indexjc
+mvstomml
+lscmp
+mkpatches
+jr
+bkupconf
+cptree
+webinst
+cx
+mv
+appmap
+watchlog
+rl
+bxterm
+distrib
+mkwwwtemp
+ehandler
+envinfo
+faxprint
+faxview
+mklinks
+daroadweb
+fakewebserver
+get-snap
+quickupgrade
