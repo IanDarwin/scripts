@@ -5,10 +5,25 @@
 
 # set -x
 
-cat $* | ssh darwinsys.com dd of=\`mktemp /www/tmp/XXXXXX\`
+for file
+do
 
-ssh darwinsys.com chmod a+r /www/tmp/* 2>/dev/null
+	# Keep extention, since web server uses it for typing.
+	ext=`echo ${file} | sed -e 's/.*\.//'`
 
-ssh darwinsys.com ls -lt /www/tmp | head -2
+	case ${file} in
+		/*)	SRC=$FILE;;
+		*)	SRC=`pwd`/$file;;
+	esac
+	cd /tmp
+	TMP=`mktemp XXXXXX`
+	TARGET=${TMP}.$ext
+	rm ${TMP}
+	
+	scp ${SRC} darwinsys.com:/www/tmp/${TARGET}
 
+	ssh darwinsys.com chmod a+r /www/tmp/* 2>/dev/null
 
+	echo "$file is in http://www.darwinsys.com/tmp/${TARGET}"
+
+done
