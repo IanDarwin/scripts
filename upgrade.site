@@ -21,3 +21,6 @@ sudo chmod g-r,o= /usr/games/dm
 
 # allow me to do "make fetch" as myself
 sudo chmod g+w /usr/ports/distfiles
+
+# patch for dhclient
+# sudo patch /sbin/dhclient-script < ~/dhclient-script-patch
