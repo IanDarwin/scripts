@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# dos2unix all the CVS entries
+
+if [ ! -d CVS ]; then
+	echo "$0: no CVS directory here" >&2
+	exit 1
+fi
+
+for dir in `find . -name CVS -print`
+do
+	echo $dir
+	dos2unix $dir/*
+done
