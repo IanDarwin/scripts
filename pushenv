@@ -2,9 +2,7 @@
 
 # pushenv -- send my important environment files to a new login
 
-FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .myports .openwin-menu .profile .sh-* .stty .wine .wprc .xsession .kde scripts"
-
-cd || exit
+#FILES=".AbiSuite .Xresources .fvwmrc .icbrc .myports .openwin-menu .wine .wprc .xsession .kde"
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
 	echo "Usage: $0 host [user]" >&2
@@ -14,7 +12,8 @@ fi
 HOST=$1
 USER=${2-ian}
 
-scp -r  ${FILES} ${USER}@${HOST}:
+scp -r ~/dotfiles ~/scripts ${USER}@${HOST}:
+ssh -l ${USER} ${HOST} "cd dotfiles; make install"
 
 case ${USER} in
 root)
