@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Turn old "a*" Spanish accents into Hex codes using ASCII8 (afaik).
+
+sed  \
+-e 's/a\*/á/g' \
+-e 's/A\*/Á/g' \
+-e 's/e\*/é/g' \
+-e 's/E\*/É/g' \
+-e 's/i\*/í/g' \
+-e 's/I\*/Í/g' \
+-e 's/o\*/ó/g' \
+-e 's/O\*/Ó/g' \
+-e 's/u\*/ú/g' \
+-e 's/U\*/Ú/g' \
+-e 's/n\*/ñ/g' \
+-e 's/N\*/Ñ/g' \
+	$*
