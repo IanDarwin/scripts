@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# lscmp -- compare two ls -l listings, ignoring dates
+
+#total 472
+#drwxr-xr-x   2 ian   ian         512 Jun 30  1999 -i
+#drwxrwxr-x   4 ian   ian         512 Dec 26 19:47 AdobeIllustrator
+
+case $# in
+	2)	;;
+	*)	echo >&2 "Usage: $0 lsout1 lsout2"
+		exit 1
+		;;
+esac
+
+function shrink {
+	awk 'NF<9{print}
+		{print $9, $5}' $1
+}
+
+TEMP1=`mktemp /tmp/lscmp1.XXXXXXX`
+TEMP2=`mktemp /tmp/lscmp2.XXXXXXX`
+shrink $1 > ${TEMP1}
+shrink $2 > ${TEMP2}
+
+diff ${TEMP1} ${TEMP2}
