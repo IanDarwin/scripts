@@ -2,11 +2,11 @@
 
 # jr -- javac and run
 
-JCC=javac
+JAVAC=javac
 if [ -x /usr/local/bin/jikes ]; then
-	JCC="jikes +E"
+	JAVAC="jikes +E"
 fi
 
 set -x
 
-${JCC} -d . $1.java && java $*
+${JAVAC} -d . $1.java && java $*
