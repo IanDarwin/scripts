@@ -80,14 +80,12 @@ inSource == 1	{
 
 function mkTable(outFile, pageInd, prev,ind,nxt) {
 		print "<TABLE BGCOLOR=#CC0000 WIDTH=100%>" >outFile
-		print "<FONT COLOR=#FFFFFF>" >outFile
 		print "<TR>" >outFile
 		print "<TD ALIGN=CENTER ID=Nav><A HREF=" prev ">&lt;&lt; Back</A>" >outFile
 		print "<TD ALIGN=CENTER ID=Nav><A HREF=" ind ">INDEX</A>" >outFile
 		print "<TD ALIGN=CENTER ID=Nav><A HREF=" nxt ">Next &gt;&gt;</A>" >outFile
 		print "</TR>" >outFile
 		print "<TR><TD><TD ALIGN=CENTER ID=Nav>" pageInd "<TD></TR>" >outFile
-		print "</FONT>" >outFile
 		print "</TABLE>" >outFile
 }
 
