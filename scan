@@ -4,7 +4,7 @@ DEV=mustek:/dev/uk0
 
 mkdir ~/tmp 2>/dev/null 
 
-TMP=`mktemp ${HOME}/tmp/scanXXXXXXXX
+TMP=`mktemp ${HOME}/tmp/scanXXXXXXXX`
 
 scanimage --mode=color --format=tiff --dev ${DEVICE} > ${TMP}
 
