@@ -8,4 +8,7 @@ cvs -d ${CVSROOT-/cvs} export -D now javacook-src
 
 mv javasrc javacook
 
+# Update the index.html for just what we exported
+(cd javacook; java MkIndex)
+
 fastjar cvf javacook.zip ./javacook
