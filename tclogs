@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /var/tomcat || cd /home/ian/tomcat || exit
+
 TODAY=`date +%Y-%m-%d`
 
 STDOUTLOG=""
