@@ -1,0 +1,6 @@
+BIGFONT='-*-lucidatypewriter-bold-*-*-*-24-*-*-*-*-*-*-*'
+# if [ -x /usr/local/bin/konsole ]; then
+# 	konsole -font ${BIGFONT}
+# else
+ 	xterm -bg white -fg black -fn ${BIGFONT}
+# fi

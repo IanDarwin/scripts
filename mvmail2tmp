@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# move my mailbox into /tmp so I can scp it atomically
+
+sudo mv /var/mail/idarwin /tmp
+sudo touch /var/mail/idarwin
+sudo chgrp ian /var/mail/idarwin
+sudo chmod g+rw /var/mail/idarwin
