@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# nuke_all_ports -- remove all of /usr/local/* and /var/db/pkg
+
+echo -n "Are you bleedin' well sure you want to do this? [n] "
+read ans junk
+case $ans in
+	YES) sudo rm -r /usr/local/*/* /var/db/pkg/* ;;
+	*) echo "(whew!)"
+esac

@@ -1,0 +1,26 @@
+#!/bin/sh -eu
+
+AXIS_HOME=$HOME/axis
+AXIS_JAR=${AXIS_HOME}/lib/axis.jar
+
+host=localhost
+
+USAGE="$0 [-h host]"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "h:" opt 
+do 
+ 	 case "$opt" in 
+		h)	host=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+set -x
+
+java -classpath ${AXIS_JAR} org.apache.axis.utils.tcpmon 8000 ${host} 80

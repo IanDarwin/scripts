@@ -1,0 +1,8 @@
+for f
+do 
+	echo $f >> .cvsignore
+done
+
+sort -o .cvsignore .cvsignore
+
+cvs commit -m "Add $*" .cvsignore
