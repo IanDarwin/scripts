@@ -1,13 +1,15 @@
 #!/bin/sh
 
+DATA=1M.dat
+
 cd
 
 if [ ! -f ${DATA} ]; then
 	dd if=/dev/urandom bs=1024 count=1024 of=${DATA}
 fi
 echo -n Start upload:; read ans
-time scp 1M.dat dos:/tmp/
+time scp ${DATA} dos:/tmp/
 echo -n Start download:; read ans
-time scp dos:/tmp/1M.dat /tmp
+time scp dos:/tmp/${DATA} /tmp
 echo Comparing
 time cmp ${DATA} /tmp/${DATA}
