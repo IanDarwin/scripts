@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# dos2unix - strip newlines, from TEXT ONLY
+
+replace "tr -d ''" $*

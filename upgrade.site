@@ -11,7 +11,7 @@ echo "You need to add msdos to /usr/libexec/updatedb".
 #ln -s /usr/local/sbin/sendmail /usr/bin/mailq
 
 # allow silly CDE to access the mail files
-chgrp mail /var/mail
+# chgrp mail /var/mail
 chmod a+rw  /var/mail
 
 # allow tip to use the cu lines and lock them

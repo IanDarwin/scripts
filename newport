@@ -14,17 +14,20 @@ read DIST junk
 echo -n "Archive site (directory URL, including ending slash)? "
 read DNL junk
 echo -n "Categories (1 or more words)? "
-read CAT
-for f in ${CAT}
+read CAT OTHERCATS
+for f in ${CAT} ${OTHERCATS}
 do
 	if [ ! -d ${PORTSDIR}/${f} ]; then
 		echo >&2 "mkport: $f is not a known category."
-		exit 1	# LAME
 	fi
 done
 
 DIR=${MYPORTS}/${CAT}/${NAME}
 mkdir -p ${DIR} || exit
+if [ ! -d ${DIR} ]; then
+	echo "$0: failed to mkdir ${DIR}" >&2
+	exit 1
+fi
 cd ${DIR} || exit
 MAKEFILE=Makefile
 if [ -f ${MAKEFILE} ]; then
