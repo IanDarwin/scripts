@@ -1,0 +1,73 @@
+#! /bin/sh
+
+# dbug_enter - enter Fred Fish DBUG_XXX macro calls into C code.
+
+# Caveats:
+# 1) requires 1981 or later version of awk
+#    (available from the AT&T Software Toolchest, from Mortice-Kern
+#    Systems, and elsewhere).
+# 2) Requires rigid formatting of your C code (in particular,
+#    function definition names must be in column one, i.e.,
+#       char * foo() <-- fails!
+#    but
+#       char *
+#       foo() <-- works
+#    AND, the first executable statement in a function MUST be
+#    preceded by a null line.
+#    Finally, the { and } that form the outer level of a function
+#    must begin (and must be the only ones that begin) in column 1.
+
+awk="nawk"     # someday it will be called awk (hint hint)
+
+$awk '
+# general approach - massage things as we go, print most inputs as
+# last (default) action.
+
+# a function definition, but not a declaration or invocation.
+/^[a-zA-Z0-9_]+\(.*\)[^;]*$/ {
+        funct = $1
+        sub("\\(.*", "", funct) # seek ye in vain a closing ) here.
+        }
+
+# a function endeth...
+/^}$/   {
+        funct=""
+        if (!ret)
+                print "\tDBUG_VOID_RETURN"
+        }
+# just set a flag that we are not in a return stmt
+$0 !~ /return/ {
+        ret = 0
+        }
+
+# a return at ^ or after white space, followed by a semicolon
+# i.e., NOT if (expr) goto error_return;
+/(^|[ t])return[ \t]*;/ {
+        sub("return", "DBUG_VOID_RETURN");
+        ret = 1;
+        }
+# a "return(x)" expression
+/return[ \t]*\(.*\);/   {
+        sub("return", "DBUG_RETURN");
+        ret = 1;
+        }
+# a "return x" expression
+/return[ \t]+.*;/       {
+        sub("return[ \t]+","DBUG_RETURN(");
+        sub(";", ");")
+        ret = 1;
+        }
+/^{$/   {
+        bodystart = 1
+        }
+/^$/    {
+        if (bodystart && funct != "") {
+                print "" # preserve null line
+                print "\tDBUG_ENTER(\"" funct "\");"
+                bodystart = 0;
+                }
+        }
+        {
+        print
+        }
+' $*

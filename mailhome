@@ -1,0 +1,38 @@
+#!/bin/sh -f
+
+# Mailhome -- send a file to me at home.
+
+SUBJECT=mailhome
+
+usage() {
+	echo "usage: $0 ..." >&2
+	exit 2
+}
+
+set -- `getopt 's:' $@`
+if test $? != 0
+then
+	usage
+fi
+
+for f
+do
+	case "$f"
+	in
+		-s)	SUBJECT=$2
+			shift; shift
+			;;
+
+		--)	shift; break
+			;;
+	esac
+done
+
+case $# in
+	0) Mail -s $SUBJECT ian@darwinsys.com;;
+	*) for f
+	do
+		Mail -s $SUBJECT"($f)" ian@darwinsys.com < $f
+	done
+	;;
+esac
