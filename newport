@@ -4,6 +4,7 @@
 
 PORTSDIR=/usr/ports
 MYPORTS=~/ports
+TEMPLATE=/usr/ports/infrastructure/templates/Makefile.template
 
 # prompt for these
 echo -n "Program name (1 word)? "
@@ -32,12 +33,12 @@ if [ -f ${MAKEFILE} ]; then
 fi
 
 sed \
-	-e "s/^PKGNAME=/PKGNAME=$NAME/" \
-	-e "s/^DISTNAME=/DISTNAME=	${DIST}/" \
-	-e "s/^CATEGORIES=/CATEGORIES=$CAT/" \
-	-e "s@^MASTER_SITES@MASTER_SITES = $DNL@" \
+	-e "/^PKGNAME=/s/???/$NAME/" \
+	-e "/^DISTNAME=/s/???/	${DIST}/" \
+	-e "/^CATEGORIES=/s/???/$CAT/" \
+	-e "/^MASTER_SITES/s@???@$DNL@" \
 	\
-	/usr/ports/infrastructure/templates/Makefile.template > ${MAKEFILE}
+	${TEMPLATE} > ${MAKEFILE}
 
 mkdir pkg
 touch pkg/PLIST
