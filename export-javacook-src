@@ -14,21 +14,28 @@ do
 	fi
 done
 
-cvs -d /cvs export -D now javacook-src src/jabadot
+cvs -q -d /cvs export -D now javacook-src src/jabadot
 
 mv javasrc javacook
 
 mv src/jabadot javacook/jabadot
 
-# Remove any private gunk
-(cd javacook; rm com.darwinsys.util/upload)
+# Next section done in the subdirectory
+(
+	cd javacook
 
-# Update the index.html for just what we exported
-(cd javacook/netweb; jikes +E -d .. MkIndex.java)
-(cd javacook; java MkIndex)
+	# Remove any private gunk
+	rm com.darwinsys.util/upload
 
-# Build simple makefiles where needed.
-make makefiles
+	# Update the index.html for just what we exported
+	(cd netweb; jikes +E -d .. MkIndex.java)
+	java MkIndex
+
+	# Build simple makefiles where needed.
+	make makefiles
+
+)
+# No longer in subdirectory
 
 rm -f javacooksrc.zip
 fastjar cvf javacooksrc.zip ./javacook
