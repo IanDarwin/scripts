@@ -51,6 +51,7 @@ do
 			LOGS=`ls -tr | tail -3`
 			;;
 		vnc)	LOG=~/.vnc/*.log;;
+		x|X)	LOG=/var/log/XFree86.0.log;;
 		x|xsess*|xerr*) LOG=~/.xsession-errors;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
