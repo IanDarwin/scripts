@@ -27,20 +27,24 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 for f
 do
-	echo $0: file $f
-
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
 		change|cvs) LOG=/cvs/CVSROOT/ChangeLog ;;
+		conn)	LOG=/www/conn.html
+			# if -f, repeat every 10 seconds... until interrupted
+			case ${TAIL_F} in
+			-f)	while true; do cat $LOG; sleep 10; done;;
+			esac
+			;;
 		daem*) LOG=/var/log/daemon ;;
 		http|web) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		mail)	LOG=/var/log/maillog ;;
-		ppp|chat)	LOG=/var/log/chat;;
+		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
-		*)	echo "Unknown service $f" >&2;;
+		*)	;;
 	esac
 
 	if [ ! -r ${LOG} ]; then
