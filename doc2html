@@ -73,14 +73,8 @@ $1 == ".))Source" {
 		next
 		}
 
-function mkSourceStr(line)
-{
-		line = mkTextStr(line)
-		return line;
-}
-
 inSource == 1	{
-		print "<BR>" mkSourceStr($0) ">"
+		print
 		next
 		}
 
@@ -96,6 +90,12 @@ function mkTable(outFile, pageInd, prev,ind,nxt) {
 		print "</FONT>" >outFile
 		print "</TABLE>" >outFile
 }
+
+# Graphics -- must come before "START NEW SLIDE"
+$1 == "=" {
+		print "<IMG SRC=\"" $2 "\"></IMG>" >OUTFILE
+		next;
+		}
 
 # START NEW SLIDE -- undented
 $0 !~ "^\t"	{
