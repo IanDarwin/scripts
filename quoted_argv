@@ -1,0 +1,23 @@
+#!/bin/ksh
+
+echo '=== start 1 (unquoted $*) ==='
+for f in $*
+do
+	echo $f
+done
+
+echo '=== start 2 (unquoted $@) ==='
+for f in $@
+do	
+	echo $f
+done
+echo '=== start 3 (quoted $*) ==='
+for f in "$*"
+do	
+	echo $f
+done
+echo '=== start 4 (quoted $@) ==='
+for f in "$@"
+do	
+	echo $f
+done

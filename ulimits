@@ -1,0 +1,3 @@
+ulimit -S -d 250000
+ulimit    -d 250000
+ulimit -a

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# find all Java source files, look for old-style main decls, replace with new
+
+find . -name \*java -print | 
+	xargs grep -l 'main(String [a-z]' |
+	xargs replace 'main(String \([a-z][a-z]*\)\[\]' 'main(String[] \1'
