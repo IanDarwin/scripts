@@ -2,4 +2,4 @@
 
 set -x
 
-exec java junit.textui.TestRunner PersonTest $*
+exec java junit.textui.TestRunner $1 $*

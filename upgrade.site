@@ -2,17 +2,13 @@
 
 # 101 things to do over after "make build"...
 
-echo "You need to add msdos to /usr/libexec/updatedb".
+# echo "You need to add msdos to /usr/libexec/updatedb".
+# Now in /etc/locate.rc
 
 # Sendmail stuff no longer needed due to "mailwrapper"
-#rm /usr/sbin/sendmail
-#ln -s /usr/local/sbin/sendmail /usr/sbin
-#rm /usr/bin/mailq
-#ln -s /usr/local/sbin/sendmail /usr/bin/mailq
 
 # allow silly CDE to access the mail files
-# chgrp mail /var/mail
-chmod a+rw  /var/mail
+#chmod a+rw  /var/mail
 
 # allow tip to use the cu lines and lock them
 sudo chown uucp /usr/bin/tip
@@ -28,3 +24,6 @@ sudo chmod g+w /usr/ports/distfiles
 
 # patch for dhclient
 # sudo patch /sbin/dhclient-script < ~/dhclient-script-patch
+
+# Clean out X servers used neither on daroad nor darian
+sudo rm XF86_3DLabs XF86_8514 XF86_AGX XF86_I128 XF86_P9000 XF86_S3 XF86_S3V XF86_W32

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# testsmtplistening -- see if smtp is listening on the given host(s)
+
+for host
+do
+	echo "==>" $host
+	echo QUIT | nc $host 80
+done

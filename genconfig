@@ -1,0 +1,31 @@
+#!/bin/sh -ue
+
+# generate a config from generic, hence the name
+
+
+if [ $# -ne 1 ]; then
+	echo "Usage: genconfig CONFIG" >&2
+	exit 1
+fi
+
+CONF=$1		# must follow "if [ $#" test.
+
+if [ ! -f $CONF ]; then
+	echo No config $CONF
+	exit 2
+fi
+
+if [ ! -w . ]; then
+	echo "No write on ./"
+	exit 3
+fi
+
+TMPFILE=`mktemp /tmp/genconfigXXXXXXXXX`
+
+PATT='/^config/'
+(
+	sed ${PATT}q $CONF
+	sed -n "${PATT},\$p" GENERIC
+) | uniq > ${TMPFILE} &&
+	mv ${CONF} ${CONF}.bak &&
+	mv ${TMPFILE} $CONF

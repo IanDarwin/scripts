@@ -5,8 +5,27 @@
 
 cd ~/book/javacook || exit
 
+USAGE="$0 [-i][-l] patt ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+OPT=""
+while getopts "il" opt 
+do 
+ 	 case "$opt" in 
+		i)	OPT="$OPT -i";;
+		l)	echo 'The -l grep option does not work in "strings|grep"!' >&2
+			exit 1 ;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 for patt in "$@"
 do
-	echo "==> $patt"
-	strings -f `cat CHAPLIST` | egrep "${patt}"
+	echo "==> $patt" >&2
+	strings -f `cat CHAPLIST` | egrep ${OPT} "${patt}"
 done

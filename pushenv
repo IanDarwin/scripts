@@ -2,6 +2,8 @@
 
 # pushenv -- send my important environment files to a new login
 
+FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .myports .openwin-menu .profile .sh-* .stty .wine .wprc .xsession .kde scripts"
+
 cd || exit
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
@@ -11,8 +13,6 @@ fi
 
 HOST=$1
 USER=${2-ian}
-
-FILES=".AbiSuite .Xresources .efaxrc .exrc .fvwmrc .icbrc .kshrc .mailrc .myports .openwin-menu .profile .rhosts .sh-aliases .sh-env .sh-functions .stty .wine .wprc .xsession .kde scripts"
 
 scp -r  ${FILES} ${USER}@${HOST}:
 

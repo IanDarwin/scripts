@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# mkwwwtemp == create a tmp file on www:/tmp
+# so I can print it while on the road
+
+# set -x
+
+cat $* | ssh darwinsys.com dd of=\`mktemp /www/tmp/XXXXXX\`
+
+ssh darwinsys.com chmod a+r /www/tmp/* 2>/dev/null
+
+ssh darwinsys.com ls -lt /www/tmp | head -2
+
+
