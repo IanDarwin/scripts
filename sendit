@@ -6,4 +6,6 @@ f=$1
 
 if [ -f $f ]; then
 	sendmail -v -t < $f && mv $f $f.sent
+else
+	echo "$0: No file $f" >&2
 fi
