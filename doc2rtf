@@ -85,7 +85,7 @@ function para(type, leader, line)
 #		Allow simple indexing
 $1 == ".IX"	{
 		sub(".IX ", "", $0)
-		para("Normal", "\\v\\EX", $0);	# UNTESTED!!!
+		para("Normal", "{\\v\\xe", $0 "}");	# UNTESTED!!!
 		next
 		}
 
