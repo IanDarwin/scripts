@@ -4,6 +4,14 @@ set -x
 
 cd /tmp
 
+for dir in javacook javasrc
+do
+	if [ -d ${dir} ]; then
+		mv ${dir} ${dir}-$$
+		rm -rf ${dir}-$$ &
+	fi
+done
+
 cvs -d /cvs export -D now javacook-src
 
 mv javasrc javacook
@@ -14,4 +22,7 @@ mv javasrc javacook
 # this ought to be good for a laugh the first time out!
 #jikes +E -d /tmp */*.java
 
+rm -f javacooksrc.zip
 fastjar cvf javacooksrc.zip ./javacook
+
+scp javacooksrc.zip darwinsys.com:/www/javacook/
