@@ -1,0 +1,15 @@
+#!/bin/sh
+
+host -t any www.darwinsys.com
+for f in \
+	mail.darwinsys.com \
+	allistontm.darwinsys.com \
+	caledonnl.darwinsys.com \
+	javacook.darwinsys.com \
+	orangevilletm.darwinsys.com \
+	toastmasters.darwinsys.com \
+	tomcatbook.darwinsys.com 
+do
+	echo ";----- $f -----"
+	host $f
+done
