@@ -1,0 +1,10 @@
+#!/bin/ksh -u
+
+# lcname - rename file[s] to lower case
+# Just makes a script - check it and, if OK, |sh
+
+for f
+do
+	new=`echo $f | tr 'A-Z' 'a-z'`
+	echo mv $f $new
+done 
