@@ -15,6 +15,10 @@
 #		Minor item
 BEGIN {
 	TOCFILE="index.html"
+	# if (getline < TOCFILE) {
+	# 	print TOCFILE "already exists!"
+	# 	exit 1
+	# }
 	FILENAMETEMPLATE = "page%02d.html"
 	insource = 0;
 }

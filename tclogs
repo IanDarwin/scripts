@@ -2,8 +2,8 @@
 
 TODAY=`date +%Y-%m-%d`
 
-STDTOUTLOG=""
+STDOUTLOG=""
 if [ -f logs/catalina.out ]; then
-	STDTOUTLOG="logs/catalina.out"
+	STDOUTLOG="logs/catalina.out"
 fi
 vi ${STDOUTLOG} logs/*${TODAY}*
