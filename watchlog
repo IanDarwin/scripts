@@ -49,7 +49,7 @@ do
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
-		tomcat)	LOG=/usr/local/tomcat/logs/tomcat.log;;
+		tomcat)	LOG=/var/tomcat/logs/catalina.out;;
 		vnc)	LOG=~/.vnc/*.log;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
