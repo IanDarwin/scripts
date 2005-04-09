@@ -2,15 +2,12 @@
 
 # pushenv -- send my important environment files to a new login
 
-#FILES=".AbiSuite .Xresources .fvwmrc .icbrc .myports .openwin-menu .wine .wprc .xsession .kde"
-
-if [ $# -lt 1 -o $# -gt 2 ]; then
-	echo "Usage: $0 host [user]" >&2
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 [user@]host" >&2
 	exit 1
 fi
 
-HOST=$1
-USER=${2-ian}
+DEST=$1
 
 DIRS=""
 
@@ -20,6 +17,6 @@ do
 	DIRS="${DIRS} ${f}"
 done
 
-scp -r ${DIRS} ${USER}@${HOST}:
-ssh -l ${USER} ${HOST} "cd dotfiles; make install"
+scp -r ${DIRS} ${DEST}:
+ssh ${DEST} "cd dotfiles; make install"
 
