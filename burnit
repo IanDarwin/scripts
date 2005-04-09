@@ -7,22 +7,66 @@ if [ ! -w / ]; then
 	exit 1
 fi
 
+USAGE="$0 [-f device][-v] image.iso"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+DUMMY=""
+SPEED=12
+
+while getopts "df:s:v" opt 
+do 
+ 	 case "$opt" in 
+		d)	DUMMY=-dummy;;
+		f)	DEVICE=$OPTARG;;
+		s)	SPEED=$OPTARG;;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 set -e
 
-SPEED=12
+IMAGE=$1
 
 ISOSIZE=-isosize
 ISOSIZE=""
 
-DUMMY=-dummy
-DUMMY=""
+UNAME=`uname`
+case "$UNAME" in
+OpenBSD)
+	if [ ! -x /usr/local/bin/cdrecord ]; then
+		echo "Error: cdrecord not found" >&2
+		exit 1
+	fi
+	echo -n "Make sure there is a blank CD in drive $DEVICE, then press enter"
+	read junk
 
-cdrecord -v $DUMMY speed=${SPEED} dev=/dev/rcd0c:0,0,0 $ISOSIZE ${1-./*.fs}
+	cdrecord -v -sao $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
 
-mount -t cd9660 /dev/cd0c /mnt
+	mount -t cd9660 /dev/${DEVICE}c /mnt
 
-ls . /mnt
+	ls . /mnt
 
-umount /dev/cd0c
+	umount /dev/${DEVICE}c
 
-eject  /dev/cd0c
+	eject  /dev/${DEVICE}c
+	;;
+
+Darwin)
+	echo "Burning using hdiutil for Mac OS X" >&2
+	hdiutil burn -noeject $IMAGE 
+
+	# OS X will automount it with -noeject:
+	ls /Volumes
+	;;
+
+*)
+	echo "Error: need to update this script for ${UNAME}" >&2
+	;;
+
+esac
