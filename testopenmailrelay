@@ -1,10 +1,13 @@
 #!/bin/ksh -f
 
 # defaults
-RSSFIRST=YES
+RSSFIRST=NO
+
+LIBDIR=$HOME/workspace/JavaCookJars
 
 case $1 in
 	-f|-n)	RSSFIRST=NO; shift;;
+	-r|-y)	RSSFIRST=YES; shift;;
 esac
 
 case $# in
@@ -28,7 +31,7 @@ export CLASSPATH
 echo $CLASSPATH
 
 set -x
-cd ~/javasrc/email
-java TestOpenMailRelay ${OPENHOST}
+cd ~/workspace/javasrc
+java -classpath build:${LIBDIR}/mail.jar:${LIBDIR}/activation.jar email.TestOpenMailRelay ${OPENHOST}
 
 sleep 10
