@@ -5,6 +5,7 @@ DATA=1M.dat
 cd
 
 if [ ! -f ${DATA} ]; then
+	echo "Regenerating data file ${DATA}..." >&2
 	dd if=/dev/urandom bs=1024 count=1024 of=${DATA}
 fi
 time scp ${DATA} dos:/tmp/
