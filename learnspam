@@ -1,11 +1,23 @@
 #!/bin/sh
 
-cd /Users/ian/library/mail/POP-b1cbcm25@pop3.sympatico.ca/Junk.mbox
+set -eu
 
-ls -l
+MBDIR="$HOME/.thunderbird/ian.default/Mail/Local Folders"
 
-cat mbox | ssh dos dd of=antispam/spambox
+case $0 in
+	*ham)	MBOX=${MBDIR}/Inbox; MODE=ham;;
+	*spam)	MBOX=${MBDIR}/Junk;  MODE=spam;;
+	*)	echo "Illegal name in $0" >&2
+		exit 1
+		;;
+esac
 
-ssh dos 'cd antispam; make spam'
+ls -l "${MBOX}"
 
-> mbox
+scp "${MBOX}" dos:antispam/${MODE}
+
+ssh dos "cd antispam; make learn${MODE}"
+
+case "${MODE}" in
+spam)	>"${MBOX}";;
+esac
