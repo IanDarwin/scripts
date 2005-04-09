@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# timestamp as you go along, to record a timeline for a course or talk.
+
+LOG=timeline
+
+case $# in
+0)	exec $0 $LOG;;
+*)	case "$1" in
+	-e) vi ${LOG};;
+	*)
+		echo -n "TL "
+		while read line
+		do
+			case ${line} in
+			-e)	vi ${LOG}; echo -n "TL ";;
+			*)	echo `date +"%h %d %H:%M"` ${line} >> $LOG
+				echo -n "TL "
+				;;
+			esac
+		done
+		;;
+	esac
+	;;
+esac
+
