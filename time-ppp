@@ -8,8 +8,9 @@ if [ ! -f ${DATA} ]; then
 	echo "Regenerating data file ${DATA}..." >&2
 	dd if=/dev/urandom bs=1024 count=1024 of=${DATA}
 fi
+echo Starting upload
 time scp ${DATA} dos:/tmp/
-echo -n Start download:; read ans
+echo -n Start download\?; read ans
 time scp dos:/tmp/${DATA} /tmp
 echo Comparing
 time cmp ${DATA} /tmp/${DATA}
