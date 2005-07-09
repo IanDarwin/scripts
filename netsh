@@ -1,9 +1,7 @@
 #!/bin/sh
 
-HOSTS="ltree1 ltree2 ltree3 ltree4"
-
-for f in $HOSTS
+for f in `cat ~/.netsh_hosts`
 do
 	echo $f
-	rsh $f $*
+	ssh $f $*
 done

@@ -1,19 +1,17 @@
 #!/bin/sh
 
-#HOSTS="ltree1 ltree2 ltree3 ltree4 ltree5 ltree6 ltree7"
-HOSTS="king.csri sqzme squawk"
 THISHOST=`hostname`
 
 for file
 do
-	for host in $HOSTS
+	for host in `cat ~/.netsh_hosts`
 	do
 		echo $host
 		if [ "$host" = $THISHOST ]
 		then
 			echo "(bypassed)"
 		else
-			/usr/ucb/rcp $file ${host}:$file
+			scp $file ${host}:$file
 		fi
 	done
 done
