@@ -1,0 +1,7 @@
+cd /home/ian/ports-others/devel/jdk/1.3.self/w-jdk-1.3.1/j2sdk1.3.1/build/bsd-powerpc
+
+export JAVALIB=libjava.so
+export LD_BIND_NOW=true
+export _JVM_THREADS_TYPE=native_threads
+export LD_LIBRARY_PATH=./lib/powerpc/native_threads:./lib/powerpc/classic:./lib/powerpc
+gdb ./bin/powerpc/native_threads/java 

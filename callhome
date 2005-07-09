@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# call home using a secret file
+
+FILE=/home/ian/.lastIP
+
+if [ ! -f ${FILE} ]; then
+	echo "Can't find datafile"
+	exit 1
+fi
+
+IP=`cat $FILE`
+WHEN=`ls -l $FILE|awk '{print $6, $7, $8}'`
+
+echo -n "Last connected at ${WHEN} from ${IP}; OK to connect?"
+
+read answer junk
+case ${answer} in
+	y*|Y*)	exec ssh $IP;;
+esac

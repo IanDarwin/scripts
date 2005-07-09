@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -eu
+
+MBDIR="$HOME/.thunderbird/ian.default/Mail/Local Folders"
+
+case $0 in
+	*ham)	MBOX=${MBDIR}/Inbox; MODE=ham;;
+	*spam)	MBOX=${MBDIR}/Junk;  MODE=spam;;
+	*)	echo "Illegal name in $0" >&2
+		exit 1
+		;;
+esac
+
+ls -l "${MBOX}"
+
+scp "${MBOX}" dos:antispam/${MODE}
+
+ssh dos "cd antispam; make learn${MODE}"
+
+case "${MODE}" in
+spam)	>"${MBOX}";;
+esac
