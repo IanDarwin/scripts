@@ -1,0 +1,30 @@
+#!/bin/sh
+
+PORTSWEBDIR=$ws/darwinsysweb/WebContent/openbsd/myports
+
+function usage {
+	echo >&2 "Usage: $0 category port"
+	exit 0
+}
+
+case $# in
+	2);;
+	*) usage;
+esac
+
+category=$1
+port=$2
+
+cd /usr/ports/mystuff
+
+if [ ! -d ${category}/${port} ]; then
+	echo "No such port in `pwd`" >&2
+	exit 1
+fi
+
+(cd ${category}/${port}; sudo make clean)
+
+tar czvf ${PORTSWEBDIR}/$port.tar.gz ${category}/${port}
+
+cd ${PORTSWEBDIR}
+webinst ${port}.tar.gz
