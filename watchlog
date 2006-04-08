@@ -33,6 +33,7 @@ do
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
+		all)	exec xtail /var/log ~/tomcat/logs;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/ftpd;;
@@ -43,9 +44,11 @@ do
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
 		mess*)	LOG=/var/log/messages ;;
+		pf|fw)	exec tcpdump -n -e -ttt -i pflog0;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
+		squid)	LOG=/var/squid/logs/access.log ;;
 		tomcat)	
 			cd /var/tomcat/logs
 			LOGS=`ls -tr | tail -3`
