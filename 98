@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Run MS-Windows 98 under qemu
+
+BOOT_DEV=c
+BOOT_DEV=d
+
+DIR=/usr/mswindows
+
+exec windows -c ${DIR}/clipart.cd -h ${DIR}/98.hd $*

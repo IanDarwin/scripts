@@ -1,0 +1,12 @@
+#!/bin/sh
+
+BUILD_DIR=workspace/darwinsys-api/build
+
+set -x
+
+cd
+cp ${BUILD_DIR}/darwinsys.jar lib
+cp ${BUILD_DIR}/darwinsys.jar workspace/lhbooks/WebContent/WEB-INF/lib
+cp ${BUILD_DIR}/darwinsys.jar workspace/tcpsite/Jsp/WEB-INF/lib/
+cp ${BUILD_DIR}/darwinsys.jar workspace/pageunit/lib/
+cp ${BUILD_DIR}/darwinsys.jar workspace/jTkr/lib/
