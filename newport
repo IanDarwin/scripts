@@ -3,8 +3,8 @@
 # mkport -- create a new port, in my ports directory
 
 PORTSDIR=/usr/ports
-MYPORTS=~/ports
-TEMPLATE=/usr/ports/infrastructure/templates/Makefile.template
+MYPORTS=${PORTSDIR}/mystuff
+TEMPLATE=${PORTSDIR}/infrastructure/templates/Makefile.template
 
 # prompt for these
 echo -n "Program name (1 word)? "
@@ -38,7 +38,7 @@ if [ -f ${MAKEFILE} ]; then
 fi
 
 sed \
-	-e "/^COMMENT=/s@???@\"$COMMENT\"@" \
+	-e "/^COMMENT=/s@???@$COMMENT@" \
 	-e "/^PKGNAME=/s@???@$NAME@" \
 	-e "/^DISTNAME=/s@???@${DIST}@" \
 	-e "/^CATEGORIES=/s@???@$CAT@" \
