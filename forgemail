@@ -1,30 +1,26 @@
-#!/usr/local/bin/expect
+#!/bin/sh
 
 # ForgeMail -- generate simple SMTP session for testing email systems.
 # $Id$
 
-#if { llength(argv) != 3 } {
-	#send_user Usage: forgemail host from to
-	#exit 1
-#}
+if [ $# != 3 ]; then
+	echo Usage: forgemail host from to
+	exit 1
+fi
 
-set mailhost [ lindex $argv 0 ]
-set from [ lindex $argv 1 ]
-set to [ lindex $argv 2 ]
+mailhost=$1
+from=$2
+to=$3
 
-spawn telnet $mailhost smtp
-send "HELO forgemail.mail.tester\r"
-expect "*"
-send "MAIL From:<$from>\r"
-expect "*"
-send "RCPT To:<$to>\r"
-expect "*"
-send "DATA\r"
-expect "*"
-send "To: $to\r"
-send "Subject: Forwarding Test\r"
-send "\r"
-send "This mail was sent via forgemail through smtpd.\r"
-send ".\r"
-expect "*"
-send quit
+nc $mailhost 25 <<!
+HELO forgemail.mail.tester
+MAIL From:<$from>
+RCPT To:<$to>
+DATA
+To: $to
+Subject: Forwarding Test
+
+This mail was sent via forgemail through smtpd.
+
+quit
+!
