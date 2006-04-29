@@ -2,6 +2,4 @@
 
 # Run MS-Windows XP under qemu
 
-DIR=/usr/mswindows
-
-qemu -localtime -cdrom ${DIR}/cdrom.iso -hda ${DIR}/xp.hd -boot c
+exec /home/ian/scripts/windows -c any.cd -h xp.hd $*
