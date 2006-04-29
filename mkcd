@@ -1,5 +1,39 @@
-#!/bin/sh -e
+#!/bin/ksh
+
+# XX TODO - use getopts to set this.
+VOLUME_NAME="CD from Ian"
+#VOLUME_NAME="MS-Windows: The Missing Disk"
+
+IMAGE=$HOME/mycd.iso
+IMAGE=/tmp/mycd.iso
+#IMAGE=/usr/tmp/mycd.iso
+rm -f ${IMAGE}
 
 set -x
 
-mkhybrid -R -r -J -hfs -o ../tmp.cdfs ${*-.}
+case "$*" in
+	"")	echo Usage: $0 file [...]
+		exit 1
+		;;
+	*) ;;
+esac
+
+# OK, make an image, don't yet burn it.
+
+
+case `uname` in
+	Darwin*)
+		hdiutil makehybrid -o ${IMAGE} -default-volume-name ${VOLUME_NAME} $*
+		hdiutil attach ${IMAGE}
+		ls /Volumes/${VOLUME_NAME}
+		hdiutil burn -anydevice ${IMAGE}
+		;;
+	*BSD*)
+		#mkhybrid -R -r -J -hfs -o ${IMAGE} $*
+		mkisofs -R -r -J -hfs -o ${IMAGE} $*
+		echo "Now you can use burnit to burn the CD image ${IMAGE}"
+		;;
+	*)
+		echo "Do not know how to make CD on this system."
+		;;
+esac
