@@ -1,1 +1,7 @@
-nc -l -p 8888
+#!/bin/sh
+
+PORT=8080
+
+# TODO getopts
+
+nc -l ${PORT}
