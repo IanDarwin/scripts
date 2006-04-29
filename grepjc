@@ -35,7 +35,7 @@ for patt in "$@"
 do
 	echo "==> $patt" >&2
 	for file in ${FILES}
-	# workaround for braindead Apple "Darwin" strings(1) with no -o option.
+	# workaround (grrr!) for Apple "Darwin" strings(1) with no -o option.
 	do
 		 echo -n $file
 		strings ${STRINGSOPT} $file | egrep ${GREPOPT} "${patt}"
