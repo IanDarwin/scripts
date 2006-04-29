@@ -1,22 +1,29 @@
 #!/bin/sh
 
-LOG=$HOME/.timesheet
-
 function usage {
 	echo "Usage: $0 + topic | - | e"
 	exit 1
 }
 
+case $# in
+	0|1)	usage;;
+esac
+
+DIR=$HOME/.timesheet/
+LOGFILE=${DIR}/`date +%Y-%m`-$2
+CATSFILE=${DIR}/time.properties
+
 case "$1" in
-	e|-e)	exec ${VISUAL-vi} ${LOG};;
+	e|-e)	exec ${VISUAL-vi} ${LOGFILE};;
+	-c)		cat ${CATSFILE};;
 	start|in|on|begin|'+')	code='+'; shift
 			case "$#" in
 				0) usage;;
 			esac
 			;;
 	end|off|out|"-")		code='-'; shift;;
-	-l|tail)	exec tail ${LOG};;
+	-t|-l|tail)	exec tail ${LOGFILE};;
 	""|*)	usage;;
 esac
 
-echo "`date +%Y-%m-%d' '%H%M` $code $*" >> ${LOG}
+echo "`date +%Y-%m-%d' '%H%M` $code $*" >> ${LOGFILE}
