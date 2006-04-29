@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Turn old "a*" Spanish accents into Hex codes using ASCII8 (afaik).
+# Turn old "a*" Spanish accents into Hex codes using ASCII8.
 
 sed  \
 -e 's/a\*/á/g' \
