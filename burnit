@@ -14,8 +14,9 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
+DEVICE=cd0
 DUMMY=""
-SPEED=12
+SPEED=48
 
 while getopts "df:s:v" opt 
 do 
@@ -31,6 +32,8 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 set -e
 
+        
+
 IMAGE=$1
 
 ISOSIZE=-isosize
@@ -43,10 +46,15 @@ OpenBSD)
 		echo "Error: cdrecord not found" >&2
 		exit 1
 	fi
-	echo -n "Make sure there is a blank CD in drive $DEVICE, then press enter"
+	echo -n "Is there a blank CD in drive $DEVICE, and NO CD PLAYER SW RUNNING? Then press enter"
 	read junk
 
-	cdrecord -v -sao $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
+	set -x
+	#OVERBURN="-overburn"
+	#BURNFREE="-driveropts=burnfree"
+	MODE=-sao
+	#MODE=-raw96r
+	cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
 
 	mount -t cd9660 /dev/${DEVICE}c /mnt
 
