@@ -1,7 +1,6 @@
 #!/bin/sh -eu
 
-AXIS_HOME=$HOME/axis
-AXIS_JAR=${AXIS_HOME}/lib/axis.jar
+AXIS_JAR=${HOME}/lib/axis.jar
 
 host=localhost
 
