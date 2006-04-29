@@ -1,5 +1,5 @@
-EXT=201
 DOM=asterisk
-PW=asterisk
+PW=${1}
+EXT=${2-201}
 
 echo -n "${EXT}:${DOM}:${PW}" | md5
