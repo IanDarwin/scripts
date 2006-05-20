@@ -1,4 +1,4 @@
-ulimit    -d 640000
-ulimit    -d 512000
-ulimit    -s 32000
+ulimit -S -d 2000000
+ulimit    -d 2000000
+ulimit -m unlimited
 ulimit -a

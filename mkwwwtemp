@@ -41,10 +41,10 @@ do
 	esac
 
 	set -e
-	echo scp ${SRC} darwinsys.com:${DESTDIR}/${TARGET}
-	     scp ${SRC} darwinsys.com:${DESTDIR}/${TARGET}
+	echo scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
+	     scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
 
-	ssh darwinsys.com chmod a+r ${DESTDIR}/* 2>/dev/null
+	ssh www.darwinsys.com chmod a+r ${DESTDIR}/* 2>/dev/null
 
 	echo "$file is at http://www.darwinsys.com/tmp/${TARGET}"
 
