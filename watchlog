@@ -49,6 +49,7 @@ do
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
+		squid)	LOG=/var/squid/logs/access.log;;
 		tomcat)	
 			cd /var/tomcat/logs
 			LOGS=`ls -tr | tail -3`
