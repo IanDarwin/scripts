@@ -20,7 +20,6 @@ esac
 
 # OK, make an image, don't yet burn it.
 
-
 case `uname` in
 	Darwin*)
 		hdiutil makehybrid -o ${IMAGE} -default-volume-name ${VOLUME_NAME} $*
@@ -31,7 +30,7 @@ case `uname` in
 	*BSD*)
 		#mkhybrid -R -r -J -hfs -o ${IMAGE} $*
 		mkisofs -R -r -J -hfs -o ${IMAGE} $*
-		echo "Now you can use burnit to burn the CD image ${IMAGE}"
+		echo "Now you can make CD-ROMs using: burnit ${IMAGE}"
 		;;
 	*)
 		echo "Do not know how to make CD on this system."
