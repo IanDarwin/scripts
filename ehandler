@@ -3,7 +3,7 @@
 # ehandler  -- send the "ehandler.ps"
 # $id$
 
-lpr <<'!!EOF!!'
+lpr -Phome <<'!!EOF!!'
 %!PS-Adobe-
 % lib/ehandler.ps -- Downloaded Error Break-page handler
 % Copyright (c) 1984, 1985, 1986 Adobe Systems Incorporated. 
