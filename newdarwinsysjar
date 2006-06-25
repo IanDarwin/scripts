@@ -5,9 +5,18 @@ BUILD_DIR=workspace/darwinsys-api/build
 set -x
 
 cd
-cp ${BUILD_DIR}/darwinsys.jar lib
-cp ${BUILD_DIR}/darwinsys.jar workspace/darwinsysweb/WebContent/WEB-INF/lib
-cp ${BUILD_DIR}/darwinsys.jar workspace/lhbooks/WebContent/WEB-INF/lib
-cp ${BUILD_DIR}/darwinsys.jar workspace/tcpsite/Jsp/WEB-INF/lib/
-cp ${BUILD_DIR}/darwinsys.jar workspace/pageunit/lib/
-cp ${BUILD_DIR}/darwinsys.jar workspace/jTkr/lib/
+TARGET_DIRS="
+lib
+workspace/darwinsysweb/WebContent/WEB-INF/lib
+workspace/javacomminstaller/lib
+workspace/lhbooks/WebContent/WEB-INF/lib
+workspace/sqlrunner/lib/
+workspace/tcpsite/Jsp/WEB-INF/lib/
+workspace/pageunit/lib/
+workspace/jtkr/lib/
+"
+
+for dir in ${TARGET_DIRS}
+do
+	cp ${BUILD_DIR}/darwinsys.jar ${dir}/
+done
