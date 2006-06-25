@@ -4,6 +4,8 @@
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
+TAIL_PROG=tail
+
 USAGE="$0 [-f] logname"
 
 function usage {		# give usage message, and exit
@@ -13,12 +15,13 @@ function usage {		# give usage message, and exit
 
 NUM=""
 MORE=cat
-while getopts "fmn:" opt 
+while getopts "fmn:v" opt 
 do 
  	 case "$opt" in 
 		f)	TAIL_F=-f;;
 		m)	MORE="more";;
 		n)	NUM=-${OPTARG};;
+		v)	TAIL_PROG=${VISUAL-vi};;
 		*)	usage;;
 	esac
 done
@@ -39,12 +42,16 @@ do
 		ftp)	LOG=/var/log/ftpd;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
-		icb)	LOG=~/hacklog/`date +%Y-%m`;;	# only on cvs
+		icb)	LOG=~/hacklog/`date +%Y-%m`;;
+		ports)	LOG=~/portslog/`date +%Y-%m`;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
 		mess*)	LOG=/var/log/messages ;;
 		nohup)	LOG=${HOME}/nohup.out;;
+		ob) watchlog -f cvs & watchlog -f icb & watchlog -f ports&
+			exit
+			;;
 		pf|fw)	exec tcpdump -n -e -ttt -i pflog0;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
@@ -56,7 +63,7 @@ do
 			;;
 		vnc)	LOG=~/.vnc/*.log;;
 		x|X)	LOG=/var/log/XFree86.0.log;;
-		x|xsess*|xerr*) LOG=~/.xsession-errors;;
+		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac
@@ -67,26 +74,13 @@ do
 		vi ${NUM} ${TAIL_ARG} ${LOGS}
 	else 
 		if [ ! -r ${LOG} ]; then
-			echo "$0: $LOG unreadable!!" >&2
-			logger $0: $LOG unreadable
+			echo "$0: $LOG not found (by test -r)!!" >&2
 			continue
 		fi
 		echo ========== $LOG ==========
-		tail $TAIL_F $NUM $LOG
+		${TAIL_PROG} $TAIL_F $NUM $LOG
 	fi
 
 done
 
 exit 0
-
-# TODO -- handle XTERM case
-
-case "$DISPLAY" in
-	"") exec /usr/local/libexec/watchlog;;
-	*) exec xterm -fn fixed -geometry 132x24 -e /usr/local/libexec/watchlog;;
-esac
-
-
-case $WAIT in
-	yes) wait;;
-esac
