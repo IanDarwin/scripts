@@ -22,7 +22,10 @@ if [ ! -d ${category}/${port} ]; then
 	exit 1
 fi
 
-(cd ${category}/${port}; sudo make clean)
+(cd ${category}/${port}
+	sudo make clean
+	find . -name '.#*' -o -name '*.orig' -o -name '*.rej' | xargs sudo rm
+	)
 
 tar czvf ${PORTSWEBDIR}/$port.tar.gz ${category}/${port}
 
