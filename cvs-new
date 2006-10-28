@@ -21,5 +21,10 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
+# in case you forget to give files after the effort of typing -m "long log message"
+case $# in
+0)	usage;;
+esac
+
 cvs add $*
 cvs commit -m "${MESSAGE}" $*
