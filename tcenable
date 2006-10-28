@@ -1,26 +1,47 @@
 #!/bin/sh
 
-# This script has a bunch of names. YOU MUST only edit under the name
+# This script has a bunch of aliases. YOU MUST only edit under the name
 # "tcenable", or you will surely lose all your work!
 
-HOST=localhost	# TODO getopt -v virtualhost
+HOST=localhost
+
+USAGE="$0 [-h virthost] [context]"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "h:v" opt 
+do 
+ 	 case "$opt" in 
+		h)	HOST=${OPTARG};;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
 
 cd $HOME/tomcat/conf/Catalina/${HOST} || exit
 
-case $0 in
-	*tcdisable)
-		mv $1.xml $1.xml-not
-		;;
-	*tcenable)
-		mv $1.xml-not $1.xml
-		;;
-	*tcedit)
-		vi $1.xml
-		;;
-	*tclist)	
-		# work done below
-		;;
-	*) echo "Urk! Unknown alias $0" >&2; exit 1;;
+case $# in
+	0)	CONTEXT=ROOT;;
+	1)	CONTEXT=$1;;
+	*)	usage;;
 esac
 
+case $0 in
+	*tcdisable)
+		mv ${CONTEXT}.xml ${CONTEXT}.xml-not
+		;;
+	*tcenable)
+		mv ${CONTEXT}.xml-not ${CONTEXT}.xml
+		;;
+	*tcedit)
+		vi ${CONTEXT}.xml
+		;;
+	# NO default case; default is to list, which we do anyway after the above ops.
+esac
+
+pwd
 ls

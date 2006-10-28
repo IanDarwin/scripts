@@ -8,12 +8,13 @@ cd
 TARGET_DIRS="
 lib
 workspace/darwinsysweb/WebContent/WEB-INF/lib
-workspace/javacomminstaller/lib
 workspace/lhbooks/WebContent/WEB-INF/lib
-workspace/sqlrunner/lib/
-workspace/tcpsite/Jsp/WEB-INF/lib/
-workspace/pageunit/lib/
 workspace/jtkr/lib/
+workspace/sqlrunner/lib/
+workspace/pageunit/lib/
+workspace.tcp/tcpsite/Jsp/WEB-INF/lib/
+workspace.spg/architect/lib/
+workspace.spg/matchmaker/lib/
 "
 
 for dir in ${TARGET_DIRS}

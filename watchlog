@@ -39,12 +39,12 @@ do
 		all)	exec xtail /var/log ~/tomcat/logs;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/4160000000.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
-		daem*|ppp) LOG=/var/log/daemon ;;
+		daem*) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/ftpd;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		icb)	LOG=~/hacklog/`date +%Y-%m`;;
-		ports)	LOG=~/portslog/`date +%Y-%m`;;
+		port*s)	LOG=~/portslog/`date +%Y-%m`;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
@@ -65,6 +65,7 @@ do
 		vnc)	LOG=~/.vnc/*.log;;
 		x|X)	LOG=/var/log/XFree86.0.log;;
 		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
+		*0|*1) exec	sudo sudo tcpdump -ni $*;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac

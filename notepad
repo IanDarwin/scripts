@@ -1,5 +1,6 @@
-#!/bin/sh -x
+#!/bin/sh
 
-# Run windows NotePad
+# Run my NotePad
 
-wine -debugmsg +keyboard -dll -commdlg -winver win95 /c/WINNT/NOTEPAD.EXE
+java -classpath ~/lib/darwinsys.jar:$ws/darwinsys-api/build com.darwinsys.notepad.Main $* </dev/null &
+

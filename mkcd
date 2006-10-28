@@ -1,24 +1,35 @@
 #!/bin/ksh
 
-# XX TODO - use getopts to set this.
 VOLUME_NAME="CD from Ian"
-#VOLUME_NAME="MS-Windows: The Missing Disk"
-
-IMAGE=$HOME/mycd.iso
-IMAGE=/tmp/mycd.iso
-#IMAGE=/usr/tmp/mycd.iso
-rm -f ${IMAGE}
+IMAGE=/usr/tmp/mycd.iso
 
 set -x
 
+USAGE="$0 [-v] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "i:v:" opt 
+do 
+ 	 case "$opt" in 
+		i)	IMAGE="$OPTARG}";;
+		v)	VOLUME_NAME="$OPTARG";;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 case "$*" in
-	"")	echo Usage: $0 file [...]
-		exit 1
-		;;
+	"") usage;;
 	*) ;;
 esac
 
 # OK, make an image, don't yet burn it.
+
+rm -f ${IMAGE}
 
 case `uname` in
 	Darwin*)
@@ -28,8 +39,8 @@ case `uname` in
 		hdiutil burn -anydevice ${IMAGE}
 		;;
 	*BSD*)
-		#mkhybrid -R -r -J -hfs -o ${IMAGE} $*
-		mkisofs -R -r -J -hfs -o ${IMAGE} $*
+		mkhybrid	-R -r -J -f -v "${VOLUME_NAME}" -o "${IMAGE}" $*
+		#mkisofs	-R -r -J -f -v "${VOLUME_NAME}" -o ${IMAGE} $*
 		echo "Now you can make CD-ROMs using: burnit ${IMAGE}"
 		;;
 	*)

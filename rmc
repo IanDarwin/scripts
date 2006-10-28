@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# rmc = remove conflicts (the 'C' lines in CVS update output)
+
+grep '^C ' $* | sed 's/^C //' | xargs rm

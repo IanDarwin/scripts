@@ -42,19 +42,12 @@ ISOSIZE=""
 UNAME=`uname`
 case "$UNAME" in
 OpenBSD)
-	if [ ! -x /usr/local/bin/cdrecord ]; then
-		echo "Error: cdrecord not found" >&2
-		exit 1
-	fi
 	echo -n "Is there a blank CD in drive $DEVICE, and NO CD PLAYER SW RUNNING? Then press enter"
 	read junk
 
 	set -x
-	#OVERBURN="-overburn"
-	#BURNFREE="-driveropts=burnfree"
-	MODE=-sao
-	#MODE=-raw96r
-	cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
+	#cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
+	cdio -f ${DEVICE} tao -d ${IMAGE}
 
 	mount -t cd9660 /dev/${DEVICE}c /mnt
 

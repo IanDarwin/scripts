@@ -1,20 +1,21 @@
 #!/bin/sh
 
-# Change this to where you have SQLRunner installed
-SQLRUNNER_DIR=${HOME}/workspace/sqlrunner/build
+# SQLRunner - Main Version
 
 # Change this to where you have the darwinsys.jar file installed
-DARWINSYS_JAR=${HOME}/lib/darwinsys.jar
+PROGRAM_JARS=${HOME}/lib/sqlrunner.jar:${HOME}/lib/darwinsys.jar
 
-# Either install the db.properties file as ~/.db.properties,
-# or change this to whereever you have the db.properties installed.
-FILE=${HOME}/.db.properties
-
-# Since Drivers almost always come in a Jar file, put its name here...
-DRIVER_JARS=${HOME}/lib/hsqldb.jar:${HOME}/lib/postgresql.jar
+# Add Driver JAR files to CLASSPATH
+for driver in hsqldb postgresql-8.1dev-401.jdbc3 db2jcc db2jcc_license_cu
+do
+	DRIVER_JARS=${DRIVER_JARS}:${HOME}/lib/$driver.jar
+done
 
 set -x
 
-export CLASSPATH="${SQLRUNNER_DIR}:${DARWINSYS_JAR}:${DRIVER_JARS}"
+export CLASSPATH="${PROGRAM_JARS}:${DRIVER_JARS}"
 
-java com.darwinsys.sql.SQLRunnerGUI -f ${FILE} $*
+case $1 in
+-cli)	shift; java com.darwinsys.sql.SQLRunnerCLI $*;;
+*) java com.darwinsys.sql.SQLRunnerGUI $*;;
+esac

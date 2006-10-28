@@ -1,4 +1,4 @@
 #!/bin/sh
 
 JARDIR=${HOME}/lib
-exec java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jclipboard.jar jclipboard.JClipBoard
+java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jclipboard.jar jclipboard.JClipBoard &
