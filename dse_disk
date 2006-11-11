@@ -1,0 +1,39 @@
+#!/bin/sh 
+
+# dse - data security erase, an old IBM mainframe tape erase command
+
+case $# in
+1)	;;
+*)	echo you lose
+	;;
+esac
+disk=$1
+
+echo -n "OK to totally erase disk ${disk}"?
+read ans
+
+if [ "yes" != ${ans} ];
+then	
+	echo OK, I wont.
+	exit
+fi
+
+mount | grep /dev/${disk} && {
+	echo "It appears mounted, are you sure?"
+	read ansagain
+	if [ "yes" != ${ansagain} ];
+	then exit
+	fi
+}
+
+DEV=/dev/urandom	# securer
+DEV=/dev/zero		# faster
+
+for pass in 1 2 3
+do
+	echo start pass ${pass} on ${disk}
+	dd if=${DEV} of=/dev/${disk}c bs=64b
+done
+
+echo "Disk ${disk} is probably clean"
+strings < /dev/${disk}c | head
