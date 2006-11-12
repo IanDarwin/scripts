@@ -9,6 +9,10 @@ case $# in
 esac
 disk=$1
 
+BS=1M
+
+disklabel ${disk}
+
 echo -n "OK to totally erase disk ${disk}"?
 read ans
 
@@ -32,7 +36,7 @@ DEV=/dev/zero		# faster
 for pass in 1 2 3
 do
 	echo start pass ${pass} on ${disk}
-	dd if=${DEV} of=/dev/${disk}c bs=64b
+	dd if=${DEV} of=/dev/${disk}c bs=${BS}
 done
 
 echo "Disk ${disk} is probably clean"
