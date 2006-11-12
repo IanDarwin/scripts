@@ -9,7 +9,7 @@ case $# in
 esac
 disk=$1
 
-BS=1M
+BS=1m
 
 disklabel ${disk}
 
