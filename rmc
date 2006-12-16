@@ -2,4 +2,4 @@
 
 # rmc = remove conflicts (the 'C' lines in CVS update output)
 
-grep '^[C?] ' $* | sed 's/^. //' | xargs rm
+grep '^[C?] ' $* | sed 's/^. //' | xargs rm -r
