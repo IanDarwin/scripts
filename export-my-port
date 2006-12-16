@@ -24,7 +24,7 @@ fi
 
 (cd ${category}/${port}
 	sudo make clean
-	find . -name '.#*' -o -name '*.orig' -o -name '*.rej' | xargs sudo rm
+	find . -name '.#*' -o -name '*.orig' -o -name '*.rej' | xargs sudo rm -f
 	)
 
 tar czvf ${PORTSWEBDIR}/$port.tar.gz ${category}/${port}
