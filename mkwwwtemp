@@ -28,7 +28,7 @@ do
 		ext=`echo ${file} | sed -e 's/.*\.//'`
 
 		cd /tmp
-		TMP=`mktemp XXXXXX`
+		TMP=`mktemp -t`
 		TARGET=${TMP}.$ext
 		rm ${TMP}
 		;;

@@ -20,7 +20,7 @@ if [ ! -w . ]; then
 	exit 3
 fi
 
-TMPFILE=`mktemp /tmp/genconfigXXXXXXXXX`
+TMPFILE=`mktemp -t`
 
 PATT='/^config/'
 (

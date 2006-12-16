@@ -2,7 +2,7 @@
 
 # try to make a working fonts.dir and fonts.scale for a dir of PFB files
 
-F=`mktemp /tmp/pfbmkfXXXXXXXXXX`
+F=`mktemp -t`
 
 strings -f *.PFB | grep AdobeFont|tr ':' ' ' > $F
 

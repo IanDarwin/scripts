@@ -18,8 +18,8 @@ function shrink {
 		{print $9, $5}' $1
 }
 
-TEMP1=`mktemp /tmp/lscmp1.XXXXXXX`
-TEMP2=`mktemp /tmp/lscmp2.XXXXXXX`
+TEMP1=`mktemp -t`
+TEMP2=`mktemp -t`
 shrink $1 > ${TEMP1}
 shrink $2 > ${TEMP2}
 

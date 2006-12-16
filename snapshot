@@ -2,7 +2,7 @@
 
 # snapshot -- grab from the quickcam and display
 
-TMP=`mktemp /tmp/snapXXXXXXX`
+TMP=`mktemp -t`
 
 xv -wait 1 -wloop ${TMP} &
 

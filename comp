@@ -1,6 +1,9 @@
 #!/bin/ksh
 
-F=$(mktemp /tmp/compXXXXXXXX)
+# compose - alternate front-end for MH mail system
+# (no longer in use here!!)
+
+F=$(mktemp -t)
 
 echo file is $F
 sleep 1
@@ -8,7 +11,7 @@ sleep 1
 cat>$F <<!
 To: $1
 Subject: $2
-From: ian@darwinsys.com
+From: ian at somplace like darwinsys.com
 
 !
 
