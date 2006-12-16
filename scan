@@ -4,6 +4,7 @@ MODE=color
 
 mkdir ~/tmp 2>/dev/null 
 
+# do not change to -t, must be in /home
 TMP=`mktemp ${HOME}/tmp/scanXXXXXXXX`
 
 scanimage --mode=${MODE} --format=tiff > ${TMP} &&
