@@ -1,0 +1,9 @@
+R --no-save <<!
+
+X11();
+
+plot(sin, -pi, 2*pi, main="Sin from -pi to 2pi");
+
+print("Press enter when bored")
+junk = readLines(con="/dev/tty", n=1)
+!

@@ -1,0 +1,1 @@
+qemu -m 64 -cdrom /dev/cd0a -boot d /shared/xp.hd

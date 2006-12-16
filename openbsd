@@ -1,0 +1,2 @@
+cd /usr/disks
+exec /usr/local/bin/qemu -localtime -cdrom cd39.iso -hda openbsd.hd -boot c

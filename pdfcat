@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# cat a bunch of PDFs (and/or PS files?) into one file.
+
+gs -r600 -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=catted.pdf $*

@@ -1,0 +1,8 @@
+#!/bin/sh -x
+
+# make the nt boot block trick
+# Assumes that wd0a is the openbsd partition and /c is the NT part
+# that is mounted R/W (current openbsd does not mount NTFS R/W).
+
+sudo dd if=/dev/rwd0a of=/c/openbsd.pbr bs=512 count=1
+

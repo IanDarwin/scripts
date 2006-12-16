@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -x
+
+for FILE
+do
+
+	PART=`expr $FILE : '\(.*H\).*'`
+	echo $PART
+	dcraw -c ${FILE} |pnmscale -xscale=0.75 |pnmtopng > ${PART}.png
+done

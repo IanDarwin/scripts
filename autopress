@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+AUTOPRESSBIN=${HOME}/workspace/mytools/build
+
+DARWINJAR=${HOME}/lib/darwinsys.jar
+
+java -classpath ${AUTOPRESSBIN}:${DARWINJAR} autopress.AutoPress $*

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -classpath ~/lib/multivalent.jar tool.font.View $*

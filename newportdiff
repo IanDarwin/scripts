@@ -1,0 +1,5 @@
+find . -type f -print | while read filename
+do
+	echo --- /dev/null $filename
+	diff /dev/null $filename
+done

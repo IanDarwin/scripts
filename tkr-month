@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "-s" == "$1" ]; then
+	MODE=-s
+	shift
+fi
+
+MONTH=${1?"Usage: $0 MONTH"}
+YEAR=${2-2006}
+
+java -classpath $ws/mytools/build:$ws/mytools/lib/poi-2.5.1-final-20040804.jar invoicing/DateCompactor ${MODE} ~/.timesheet/${YEAR}-${MONTH}-*
+

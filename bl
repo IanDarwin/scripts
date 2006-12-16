@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# add an IP to spamd blacklist file, and tell pf to add it to kernel
+
+FILE=/etc/mail/myblack.txt # mentioned in /etc/spamd.conf
+TABLE=spamd
+
+for h
+do
+	if grep $h ${FILE} >/dev/null
+	then
+		echo "$h: Already listed!"
+	else
+
+		echo "$h # added  by ian using $0 `date`" >> ${FILE}
+
+		sudo pfctl -t ${TABLE} -T add $h
+
+	fi
+
+done

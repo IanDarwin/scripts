@@ -1,0 +1,15 @@
+#!/bin/ksh -e
+
+case $# in
+1)	;;
+*)	echo "usage: $0 nnn" >&2
+	exit 1
+esac
+
+cd ~/lt${1}??
+
+case "$0" in
+	*ig) open *IG*;;
+	*ma) open *MA*;;
+	*)	echo doh!
+esac

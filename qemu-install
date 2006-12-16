@@ -1,0 +1,1 @@
+qemu -cdrom /usr/mswindows/cdrom.iso -hda /usr/mswindows/xp.hd -boot d

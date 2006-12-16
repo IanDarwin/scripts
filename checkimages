@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# checkimages -- check that each image in the images subdir is actually used.
+
+if [ ! -d images ]; then
+	echo "Run $0 in the root of your web site" >&2
+fi
+for f in images/*
+do 
+	echo $f
+	grep  $f *.html >/dev/null || echo $f not used
+done

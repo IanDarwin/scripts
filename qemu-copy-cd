@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -x
+
+CDROMDEV=/dev/rcd0c
+OUTFILE=$HOME/disks/cdrom.iso
+
+rm -f ${OUTFILE}
+>${OUTFILE}
+
+dd if=${CDROMDEV} bs=20b of=${OUTFILE} 
+
+ls -l ${OUTFILE}
+ls -lh ${OUTFILE}

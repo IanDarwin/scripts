@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+cd /mnt/dcim/100media
+
+DEST_DIR=$HOME/pictures/`date +%Y%m%d`
+if [ -d $DEST_DIR ]; then
+	DEST_DIR=`mktemp -d ${DEST_DIR}XXXXX`
+else
+	mkdir ${DEST_DIR}
+fi
+echo Using ${DEST_DIR}
+
+cp -p *.jpg ${DEST_DIR}/
+
+chown -R ian:wheel ${DEST_DIR}
+
+echo "OK to erase?" 
+read ans
+case ${ans} in
+	yes)	rm *.jpg
+		;;
+	*)	echo LEAVING PIX ON CAMERA
+		;;
+esac

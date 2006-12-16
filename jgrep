@@ -1,0 +1,10 @@
+#!/bin/sh -u
+
+JAVA_CMD=${JAVA_CMD-$(javaPathHelper -c jeoip)}
+
+case $# in
+0)	echo >&2 "Usage: $0 patt [file[...]]"
+	exit 1;;
+esac
+
+${JAVA_CMD} -classpath $HOME/lib/darwinsys.jar:$HOME/workspace/mytools/build jgrep.JGrep $*

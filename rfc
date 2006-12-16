@@ -1,0 +1,5 @@
+#!/bin/sh -x
+
+NNNN=0959
+
+ftp http://www.ietf.org/rfc/rfc${NNNN}.txt
