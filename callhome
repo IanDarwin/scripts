@@ -2,7 +2,7 @@
 
 # call home using a secret file
 
-FILE=/home/ian/.lastIP
+FILE=/home/ian/.lastIP/gw
 
 if [ ! -f ${FILE} ]; then
 	echo "Can't find datafile"
