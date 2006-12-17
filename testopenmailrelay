@@ -34,4 +34,4 @@ set -x
 cd ~/workspace/javasrc
 java -classpath build:${LIBDIR}/mail.jar:${LIBDIR}/activation.jar email.TestOpenMailRelay ${OPENHOST}
 
-sleep 10
+watchlog -f mail
