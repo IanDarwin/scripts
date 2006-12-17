@@ -7,15 +7,20 @@ TABLE=spamd
 
 for h
 do
-	if grep $h ${FILE} >/dev/null
-	then
+	grep $h ${FILE}
+	case $? in
+	2)
+		echo Not added!
+		;;
+	0)
 		echo "$h: Already listed!"
-	else
-
+		;;
+	1)
 		echo "$h # added  by ian using $0 `date`" >> ${FILE}
 
 		sudo pfctl -t ${TABLE} -T add $h
+		;;
 
-	fi
+	esac
 
 done
