@@ -39,7 +39,7 @@ do
 		all)	exec xtail /var/log ~/tomcat/logs;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/$ASTERISKDID.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
-		daem*) LOG=/var/log/daemon ;;
+		daem*|ppp) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/ftpd;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
