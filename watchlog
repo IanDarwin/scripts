@@ -1,4 +1,4 @@
-#!/bin/ksh -u
+#!/bin/ksh
 
 # watchlog - consolidate watchlog functionality.
 
@@ -57,6 +57,9 @@ do
 		ppp|chat)	LOG=/var/log/chat ;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
+		spam) watchlog -f mail & watchlog -f daemon&
+			exit
+			;;
 		squid)	LOG=/var/squid/logs/access.log;;
 		tomcat)	
 			cd /var/tomcat/logs
