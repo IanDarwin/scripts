@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# time an ftp
+
+set -x
+
+cd /tmp
+
+ftp ftp://ftp.darwinsys.com/pub/OpenBSD/snapshots/i386/cdrom40.fs
