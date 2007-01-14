@@ -1,0 +1,51 @@
+case ${CAT} in
+archivers) NUMCAT=1;;
+astro) NUMCAT=2;;
+audio) NUMCAT=3;;
+benchmarks) NUMCAT=4;;
+biology) NUMCAT=5;;
+books) NUMCAT=6;;
+cad) NUMCAT=7;;
+chinese) NUMCAT=8;;
+comms) NUMCAT=9;;
+converters) NUMCAT=10;;
+databases) NUMCAT=11;;
+devel) NUMCAT=12;;
+disks) NUMCAT=13;;
+editors) NUMCAT=14;;
+education) NUMCAT=15;;
+emulators) NUMCAT=16;;
+games) NUMCAT=17;;
+geo) NUMCAT=18;;
+graphics) NUMCAT=19;;
+infrastructure) NUMCAT=20;;
+inputmethods) NUMCAT=21;;
+japanese) NUMCAT=22;;
+java) NUMCAT=23;;
+korean) NUMCAT=24;;
+lang) NUMCAT=25;;
+mail) NUMCAT=26;;
+math) NUMCAT=27;;
+misc) NUMCAT=28;;
+multimedia) NUMCAT=29;;
+net) NUMCAT=30;;
+news) NUMCAT=31;;
+palm) NUMCAT=32;;
+plan9) NUMCAT=33;;
+print) NUMCAT=34;;
+productivity) NUMCAT=35;;
+russian) NUMCAT=36;;
+security) NUMCAT=37;;
+shells) NUMCAT=38;;
+sysutils) NUMCAT=39;;
+telephony) NUMCAT=40;;
+textproc) NUMCAT=41;;
+update) NUMCAT=42;;
+www) NUMCAT=43;;
+x11) NUMCAT=44;;
+default)
+	echo "Error: ${cat} not in list of categories" >&2
+	exit 1
+	;;
+esac
+echo NUMCAT=$NUMCAT
