@@ -37,7 +37,7 @@ do
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
 		all)	exec xtail /var/log ~/tomcat/logs;;
-		cdr)	LOG=/var/log/asterisk/cdr-csv/$ASTERISKDID.csv;;
+		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/xferlog;;
