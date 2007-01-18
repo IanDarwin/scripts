@@ -7,10 +7,10 @@ set -x
 cd
 TARGET_DIRS="
 lib
+workspace/darwinsys-api/lib
 workspace/darwinsysweb/WebContent/WEB-INF/lib
 workspace/lhbooks/WebContent/WEB-INF/lib
 workspace/jtkr/lib/
-workspace/sqlrunner/lib/
 workspace/pageunit/lib/
 workspace.tcp/tcpsite/Jsp/WEB-INF/lib/
 workspace.spg/architect/lib/
