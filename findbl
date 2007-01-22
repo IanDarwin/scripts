@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# findbl - why is a user or site blackholed?
+
+for f
+do
+	grep $f /etc/mail/myblack.txt
+	spamdb | grep $f
+done
