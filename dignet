@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# dignet - dig each host in a range on a given network
+
+USAGE="$0 [-s start] [-e end] net"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+START=1
+END=255
+
+while getopts "s:e:v" opt 
+do 
+ 	 case "$opt" in 
+		s)	START=${OPTARG};;
+		e)	END=${OPTARG};;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+NET=$1
+
+for h in `count $START $END`
+do
+host=${NET}.$h
+# echo === ${host} ===
+host $host
+done
