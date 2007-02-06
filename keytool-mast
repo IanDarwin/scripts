@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -x
+
+keytool -genkey -keystore play.store -alias tomcat -validity 666
+keytool -certreq -alias tomcat -keystore play.store -file play.csr
+cat play.csr
+keytool -selfcert -alias tomcat -keystore play.store
+
