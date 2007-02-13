@@ -7,6 +7,7 @@ set -x
 cd
 TARGET_DIRS="
 lib
+workspace/call4price/lib
 workspace/darwinsys-api/lib
 workspace/darwinsysweb/WebContent/WEB-INF/lib
 workspace/lhbooks/WebContent/WEB-INF/lib
