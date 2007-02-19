@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PATH=${PATH}:/usr/local/bin:/usr/local/sbin
+
 case $# in
 	0) exec sudo asterisk -r;;
 	*) exec sudo asterisk -r -x "$*";;
