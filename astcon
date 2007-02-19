@@ -2,5 +2,5 @@
 
 case $# in
 	0) exec sudo asterisk -r;;
-	*) exec sudo asterisk -r "$*";;
+	*) exec sudo asterisk -r -x "$*";;
 esac
