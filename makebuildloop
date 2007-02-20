@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd /usr/src || exit
+
+sudo make obj
+
+while :
+do
+	date
+	sudo make build
+done
