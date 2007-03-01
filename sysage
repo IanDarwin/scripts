@@ -1,3 +1,5 @@
 #!/bin/sh
 
+uptime
+
 exec ls -Ll /bsd /bin/cat /usr/X11R6/bin/X
