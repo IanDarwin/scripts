@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# ad-hoc temp mon for OpenBSD with ACPI
+
+sysctl hw.sensors.acpitz0.temp0|awk -F= '
+# $0 /!zone temperature/ { print $0; exit 3 }
+0+$2 > 75 { print "CRITICAL:temp " $2; exit 1 }
+0+$2 > 60 { print "WARNING: temp " $2; exit 2 }
+	{ print "OK", $2 }
+'
