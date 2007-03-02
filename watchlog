@@ -49,6 +49,7 @@ do
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
 		mess*)	LOG=/var/log/messages ;;
+		nagios)	LOG=/var/log/nagios/nagios.log;;
 		nohup)	LOG=${HOME}/nohup.out;;
 		ob) watchlog -f cvs & watchlog -f icb & watchlog -f ports&
 			exit
