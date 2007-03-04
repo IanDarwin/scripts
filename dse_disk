@@ -11,6 +11,16 @@ disk=$1
 
 BS=1m
 
+function devi {
+case ${1} in
+1) DEV=/dev/urandom;;
+2) DEV=/dev/zero;;
+3) DEV=/dev/urandom;;
+3) DEV=/dev/zero;;
+esac
+echo $DEV
+}
+
 disklabel ${disk}
 
 echo -n "OK to totally erase disk ${disk}"?
@@ -30,13 +40,10 @@ mount | grep /dev/${disk} && {
 	fi
 }
 
-DEV=/dev/urandom	# securer
-DEV=/dev/zero		# faster
-
 for pass in 1 2 3
 do
 	echo start pass ${pass} on ${disk}
-	dd if=${DEV} of=/dev/${disk}c bs=${BS}
+	dd if=`devi $pass` of=/dev/${disk}c bs=${BS}
 done
 
 echo "Disk ${disk} is probably clean"
