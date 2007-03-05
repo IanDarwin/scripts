@@ -1,0 +1,9 @@
+#!/bin/sh
+
+JAR=${1?Usage: $0 jar}
+
+REAHOME=/home/ian/workspace/revengapi/build
+
+cd /tmp
+
+java -cp ${REAHOME}:${JAR} reveng.RevEngAPI -b ${JAR}
