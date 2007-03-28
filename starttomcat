@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -x
+
+sudo -u _tomcat /usr/local/tomcat/bin/startup.sh
+
