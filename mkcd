@@ -1,7 +1,8 @@
-#!/bin/ksh
+#!/bin/ksh -e
 
 VOLUME_NAME="CD from Ian"
 IMAGE=/usr/tmp/mycd.iso
+XCLUDES=""
 
 set -x
 
@@ -12,11 +13,12 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "i:v:" opt 
+while getopts "i:v:x:" opt 
 do 
  	 case "$opt" in 
 		i)	IMAGE="$OPTARG}";;
 		v)	VOLUME_NAME="$OPTARG";;
+		x)	XCLUDES="${XCLUDES} -x $OPTARG";;
 		*)	usage;;
 	esac
 done
@@ -39,7 +41,9 @@ case `uname` in
 		hdiutil burn -anydevice ${IMAGE}
 		;;
 	*BSD*)
-		mkhybrid	-R -r -J -f -v "${VOLUME_NAME}" -o "${IMAGE}" $*
+		mkhybrid -R -r -J -f  \
+			-V "${VOLUME_NAME}" -o "${IMAGE}"  \
+			${XCLUDES} $*
 		#mkisofs	-R -r -J -f -v "${VOLUME_NAME}" -o ${IMAGE} $*
 		echo "Now you can make CD-ROMs using: burnit ${IMAGE}"
 		;;
