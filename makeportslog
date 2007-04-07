@@ -2,4 +2,4 @@
 
 set -x
 
-make install 2>&1 | /usr/ports/infrastructure/build/portslogger .
+make $* 2>&1 | /usr/ports/infrastructure/build/portslogger .
