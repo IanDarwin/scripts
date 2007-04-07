@@ -2,9 +2,20 @@
 
 set -e
 
-cd /mnt/dcim/100media
+cd /mnt/dcim/101hp417 || exit
 
-DEST_DIR=$HOME/pictures/`date +%Y%m%d`
+echo 'jpg pictures\nmpg Movies' | while read exten dir
+do
+echo Checking for $exten and moving to $dir
+
+# Check if there are ANY $exten files in the camera
+GO=no
+for f in *.$exten; do if [ -f $f ]; then GO=yes; break; fi; done
+
+case ${GO} in
+yes)
+
+DEST_DIR=$HOME/${dir}/`date +%Y%m%d`
 if [ -d $DEST_DIR ]; then
 	DEST_DIR=`mktemp -d ${DEST_DIR}XXXXX`
 else
@@ -12,9 +23,13 @@ else
 fi
 echo Using ${DEST_DIR}
 
-cp -p *.jpg ${DEST_DIR}/
+cp -p *.${exten} ${DEST_DIR}/
 
 chown -R ian:wheel ${DEST_DIR}
+;;
+esac
+
+done	# end of while read loop
 
 echo "OK to erase?" 
 read ans
