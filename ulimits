@@ -3,5 +3,6 @@ ulimit    -d 2000000
 ulimit -m unlimited
 ulimit -m 315868
 ulimit -n 256 
+ulimit -s 8092
 ulimit -p 256 
 ulimit -a
