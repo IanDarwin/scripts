@@ -3,10 +3,10 @@
 # SQLRunner - Main Version
 
 # Change this to where you have the darwinsys.jar file installed
-PROGRAM_JARS=${HOME}/lib/sqlrunner.jar:${HOME}/lib/darwinsys.jar
+PROGRAM_JARS=${HOME}/lib/darwinsys.jar
 
 # Add Driver JAR files to CLASSPATH
-for driver in hsqldb postgresql-8.1dev-401.jdbc3 ojdbc14 db2jcc db2jcc_license_cu
+for driver in hsqldb postgresql ojdbc14 db2jcc db2jcc_license_cu
 do
 	DRIVER_JARS=${DRIVER_JARS}:${HOME}/lib/$driver.jar
 done
