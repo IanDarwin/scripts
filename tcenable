@@ -22,7 +22,7 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-cd $HOME/tomcat/conf/Catalina/${HOST} || exit
+cd ~/.Catalina/${HOST} || exit
 
 case $# in
 	0)	CONTEXT=ROOT;;
