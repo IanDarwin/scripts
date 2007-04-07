@@ -5,8 +5,6 @@ if [ "-s" == "$1" ]; then
 	shift
 fi
 
-MONTH=${1?"Usage: $0 MONTH"}
-YEAR=${2-2006}
+YEAR_MONTH=${1?"Usage: $0 YYYY-MM"}
 
-java -classpath $ws/mytools/build:$ws/mytools/lib/poi-2.5.1-final-20040804.jar invoicing/DateCompactor ${MODE} ~/.timesheet/${YEAR}-${MONTH}-*
-
+java -classpath $ws/mytools/build:$ws/mytools/lib/poi-2.5.1-final-20040804.jar invoicing/DateCompactor ${MODE} ~/.timesheet/${YEAR_MONTH}-*
