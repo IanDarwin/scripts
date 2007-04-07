@@ -1,5 +1,11 @@
 #!/bin/sh
 
 # rmc = remove conflicts (the 'C' lines in CVS update output)
+M=""
 
-grep '^[C?] ' $* | sed 's/^. //' | xargs rm -r
+if [ X$1 = X-m ]; then
+	M=M
+	shift
+fi
+
+grep "^[C?${M}] " $* | sed 's/^. //' | xargs rm -r
