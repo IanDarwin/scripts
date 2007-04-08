@@ -4,35 +4,8 @@
 
 # good guys
 sudo spamdb -a `awk '!/^#/{printf "%s ", $1}' /etc/mail/mywhite.txt`
-exit
 
 # spam traps - do not add "frank" as it's used on sql power forum
-F=`mktemp -t`
-cat >$F <<!
-<anoncvs@cvs.darwinsys.com>
-<bob@darwinsys.com>
-<compquest@darwinsys.com>
-<fred@darwinsys.com>
-<ian515@darwinsys.com>
-<ian45@darwinsys.com>
-<ian400@darwinsys.com
-<ian655@darwinsys.com>
-<ian69@darwinsys.com>
-<ian769@darwinsys.com>
-<ian779@darwinsys.com>
-<ian789@darwinsys.com>
-<ian805@darwinsys.com>
-<ian824@darwinsys.com>
-<ian932@darwinsys.com>
-<james@darwinsys.com>
-<jane@darwinsys.com>
-<john@darwinsys.com>
-<jim@darwinsys.com>
-<jimmy@darwinsys.com>
-<pamstrape@darwinsys.com>
-<pamspixie@darwinsys.com>
-<robert@darwinsys.com>
-!
 while read address 
 do sudo spamdb -T -a "$address"
-done < $F
+done < /etc/mail/myspamtraps.txt
