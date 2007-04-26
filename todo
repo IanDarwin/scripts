@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Run my NotePad
+
+java -classpath ~/lib/darwinsys.jar:$ws/darwinsys-api/build com.darwinsys.notepad.ToDo
+
