@@ -6,13 +6,22 @@ PORTSDIR=/usr/ports
 MYPORTS=${PORTSDIR}/mystuff
 TEMPLATE=${PORTSDIR}/infrastructure/templates/Makefile.template
 
-# prompt for these
-echo -n "Program name (1 word)? "
-read NAME junk
-echo -n "Archive name (1 word, omit .tar.gz)? "
-read DIST junk
+# Get what we need...
+NAME="$1"
+case ${1} in
+	"")	echo -n "Program name (1 word)? "
+		read NAME junk
+		;;
+esac
+
+echo -n "Home page (full URL, including ending slash)? "
+read HOMEPAGE junk
+
 echo -n "Archive site (directory URL, including ending slash)? "
 read DNL junk
+
+echo -n "Archive name (1 word, omit .tar.gz)? "
+read DIST junk
 echo -n "COMMENT? "
 read COMMENT
 echo -n "Categories (1 or more words)? "
@@ -41,6 +50,7 @@ sed \
 	-e "/^COMMENT=/s@???@$COMMENT@" \
 	-e "/^PKGNAME=/s@???@$NAME@" \
 	-e "/^DISTNAME=/s@???@${DIST}@" \
+	-e "/^#HOMEPAGE=/s@???@${HOMEPAGE}@" \
 	-e "/^CATEGORIES=/s@???@$CAT@" \
 	-e "/^MASTER_SITES/s@???@$DNL@" \
 	\
