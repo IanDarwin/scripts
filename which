@@ -45,7 +45,7 @@ do
 	done
 
 	case $foundyet in
-		false) echo $j: not found;;
+		false) echo $j: not found >&2;;
 	esac
 done
 
