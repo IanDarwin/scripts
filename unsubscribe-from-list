@@ -1,0 +1,19 @@
+#!/bin/sh
+
+USAGE="unsubscribe from-alias  list-request-addr"
+
+case $# in
+2)	FROM=$1; LISTMAINT=$2;
+	cat > jnk <<!
+To: ${LISTMAINT}
+From: ${FROM}
+Subject: unsubscribe
+
+unsubscribe ${FROM}
+!
+	sendit jnk
+	;;
+*)
+	echo "$USAGE" >&2
+	;;
+esac
