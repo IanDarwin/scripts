@@ -8,10 +8,10 @@ cd
 TARGET_DIRS="
 lib
 workspace/call4price/lib
-workspace/darwinsys-api/lib
 workspace/darwinsysweb/WebContent/WEB-INF/lib
 workspace/lhbooks/WebContent/WEB-INF/lib
 workspace/jtkr/lib/
+workspace/jabadex/lib/
 workspace/pageunit/lib/
 workspace.tcp/tcpsite/Jsp/WEB-INF/lib/
 workspace.spg/architect/lib/
