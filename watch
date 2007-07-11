@@ -1,0 +1,3 @@
+#!/bin/sh
+
+while :; do echo $*; $*; sleep 10; done
