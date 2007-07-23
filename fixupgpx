@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case $# in
+1)	F=$1
+	cat>>${F} <<!
+	</trkseg>
+    </trk>
+</gpx>
+!
+	;;
+*)	echo usage: $0 file
+	exit 1
+	;;
+esac
