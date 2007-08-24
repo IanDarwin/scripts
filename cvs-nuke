@@ -1,3 +1,25 @@
+#!/bin/sh
+
+# cvsnuke - get rid of a CVS artifact (it remains in the Attic)
+
+USAGE="$0 [-m msg] file [...]"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+MESSAGE="Remove defunct artifact"
+
+while getopts "m:" opt 
+do 
+ 	 case "$opt" in 
+		m)	MESSAGE="${OPTARG}";;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 rm $*
 cvs rm $*
-cvs commit -m bye $*
+cvs commit -m "$MESSAGE" $*
