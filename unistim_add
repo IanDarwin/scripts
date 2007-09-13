@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# add a Nortel i200x phone to Unistim.conf
+
+case $# in 
+	3)	;;
+	*)	echo "Usage: $0 mac-addr line name"
+		exit 1;;
+esac
+
+CONF=/etc/asterisk/unistim.conf
+
+MAC=$1
+LINE=$2
+NAME="$3"
+
+grep -i "line=${LINE}" ${CONF} && {
+	echo Line already in use
+	exit 1
+}
+
+TMPFILE=`mktemp` || exit 1
+
+sed <<!  > $TMPFILE
+[nortel-${LINE}]
+device=${MAC}
+rtp_method=3			; 0..3
+;status_method=0		; If you don't see status text, try 1, default = 0
+titledefault=Asterisk		; default = "TimeZone (your time zone)". 12 characters max
+maintext1="Line ${LINE}"	; default = the name of the device, 24 characters max
+dateformat=0			; 0 = month/day, 1 (default) = day/month
+context=internal		; context, default="default"
+mailbox=${LINE}
+extension=line			; Add an extension into the dialplan.
+linelabel="${NAME}"		; Softkey label for the next line=> entry, 9 char max.
+line => ${LINE}                 ; Line#, must be last. Only one line supported per device.
+; Only bookmark and softkey entries are allowed after line=>
+bookmark=ServerTime@*22
+
+!
+
+if [ $? = 0 ]; then
+	echo >> ${CONF}
+	cat $TMPFILE >> ${CONF}
+fi
+
+rm $TMPFILE
