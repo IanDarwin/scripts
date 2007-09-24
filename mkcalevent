@@ -1,0 +1,33 @@
+#!/bin/sh
+
+USAGE="$0 yyyy mm dd hh mm \"event\" \"location\""
+case $# in 
+7)	;;
+*)	echo $USAGE
+	exit 1;;
+esac
+
+yyyy=$1
+mm=$2
+dd=$3
+HH=$4
+MM=$5
+event=$6
+location=$7
+NOW=$(date +%Y%m%dT%H%M%SZ)
+
+echo BEGIN:VCALENDAR
+echo VERSION:2.0
+echo BEGIN:VEVENT
+echo DTSTAMP:${NOW}
+#echo ORGANIZER;CN=NOBODY:MAILTO:
+echo CREATED:${NOW}
+echo UID:mkcalevent--${RANDOM}.123
+echo LAST-MODIFIED:${NOW}
+echo SUMMARY:${event}
+echo LOCATION:${location}
+echo DTSTART:${yyyy}${mm}${dd}T${HH}${MM}00Z
+echo DTEND:  ${yyyy}${mm}${dd}T$((HH + 1))${MM}00Z
+echo TRANSP:OPAQUE
+echo END:VEVENT
+echo 
