@@ -4,7 +4,8 @@ set -e
 
 cd /mnt/dcim/100hp417 || exit
 
-echo 'jpg pictures\nmpg Movies' | while read exten dir
+# DO NOT COMMIT - temporarily in upper case due card format botch
+echo 'JPG pictures\nMPG Movies' | while read exten dir
 do
 echo Checking for $exten and moving to $dir
 
@@ -34,7 +35,7 @@ done	# end of while read loop
 echo -n "Erase [no,yes] " 
 read oktoerase
 case ${oktoerase} in
-	yes)	rm *.jpg
+	yes)	rm -f *.jpg *.JPG *.mpg *.MPG
 		;;
 	*)	echo LEAVING PIX ON CAMERA
 		;;
