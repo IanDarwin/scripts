@@ -1,0 +1,2 @@
+sudo pkill apmd
+sudo sysctl hw.setperf=100
