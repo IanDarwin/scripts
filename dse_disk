@@ -4,7 +4,8 @@
 
 case $# in
 1)	;;
-*)	echo you lose
+*)	echo usage $0 disk
+	exit 1
 	;;
 esac
 disk=$1
