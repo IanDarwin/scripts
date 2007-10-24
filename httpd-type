@@ -1,23 +1,33 @@
 #!/bin/sh
 
-# nc demo -- get the type of web server somebody runs
+# get the type of web server somebody runs (uses nc)
+
+NC=nc		# might be netcat on some systems
+METHOD=HEAD
+PORT=80
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+USAGE="$0 [-g][-p portNum] old new"
+while getopts "gap:" opt # a is old alias for -g (GET)
+do 
+ 	 case "$opt" in 
+		g|a)	METHOD=GET;;
+		p)	PORT=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 
 if [ "$#" -eq 0 ]; then
 	echo "Usage: $0 [-a][-p port] host [resource]" >&2
 	exit 1
 fi
 
-METHOD=HEAD
-if [ "$1" == "-a" ]; then
-	METHOD=GET
-	shift
-fi
-PORT=80
-if [ "$1" == "-p" ]; then
-	shift
-	PORT=$1
-	shift
-fi
 
 host=$1
 resource=$2
