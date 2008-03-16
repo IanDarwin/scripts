@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# get a remote's dmesg, and datestamp it
+
+for host
+
+do
+	echo ${host}
+
+	ssh ${host} dmesg > ${host}.$(isodate)
+
+done

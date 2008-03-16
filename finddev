@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd ~/dmesg
+
+for dev
+do
+	grep "^${dev}[0-9]" *
+done
