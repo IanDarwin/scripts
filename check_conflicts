@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# check_conflicts - check the current PORT's pkg/PLIST against all other ports, looking
+# for conflicts
+
+if [ ! -d pkg -o ! -f Makefile ]; then
+	echo $0: must be in a port dir.
+	exit 1
+fi
+
+TMPF=$(mktemp)
+
+# Get list of files in this package, convert to '^...$' regex to avoid substr match
+grep '^[^#%@]' pkg/PLIST* |sed -e 's/.*/^&$/' > $TMPF
+
+# Get list of PLIST files excluding $PWD, look for conflicts.
+find /usr/ports -name PLIST* | grep -v "^$(pwd)" | xargs egrep -f $TMPF /dev/null
