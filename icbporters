@@ -2,7 +2,7 @@
 set -x
 
 if [ -x ~/scripts/jicb ]; then
-	jicb ian porters cvs.openbsd.org
+	jicb ian_p porters cvs.openbsd.org
 elif [ -x /usr/local/bin/icb ]; then
-	icb -n ian -g porters -h cvs.openbsd.org
+	icb -n ian_p -g porters -h cvs.openbsd.org
 fi
