@@ -93,7 +93,7 @@ function dump() {
         homeProvince = entry["HomeProvince"]
         homePostalCode = entry["HomePostalCode"]
         homeCountry = entry["HomeCountry"]
-	if (homeAddress1 != "") {
+	if (homeAddress1 != "" || homeCity != "") {
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
 		printf("\tvalues(%d, %d, %s, %s, %s, %s, %s);\n", recId, 1, 
 			sqlEscape(trim(homeAddress1 " " homeAddress2)), 
@@ -108,7 +108,7 @@ function dump() {
         workPostalCode = entry["WorkPostalCode"]
         workProvince = entry["WorkProvince"]
         workCountry = entry["WorkCountry"]
-	if (workAddress1 != "") {
+	if (workAddress1 != "" || workCity != "") {
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
 		printf("\tvalues(%d,%d, %s, %s, %s, %s, %s);\n", recId, 2, 
 			sqlEscape(trim(workAddress1 " " workAddress2)),
