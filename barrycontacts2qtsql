@@ -60,7 +60,7 @@ function dump() {
     	cell = entry["MobilePhone"]
 	if (homephone1 != "")
 		defaultPhone = homephone1;
-	else if (workphone2 != "")
+	else if (workphone != "")
 		defaultPhone = workphone1;
 	else if (cell != "") 
 		defaultPhone = cell;
@@ -71,9 +71,9 @@ function dump() {
 	notes = trim(entry["Notes"] " " entry["UserDefined1"])
         jobTitle = entry["JobTitle"]
 
-	printf("insert into contacts(recid, firstname, lastname, company, default_email, default_phone, b_webpage, jobTitle, context ) values(%d, %s, %s, %s, %s, %s, %s, %s, %d);\n",
+	printf("insert into contacts(recid, firstname, lastname, company, default_email, default_Phone, b_webpage, jobTitle, context ) values(%d, %s, %s, %s, %s, %s, %s, %s, %d);\n",
 		recId, sqlEscape(firstName), sqlEscape(lastName), sqlEscape(company), 
-		sqlEscape(default_email), sqlEscape(default_phone), sqlEscape(b_webpage), 
+		sqlEscape(default_email), sqlEscape(defaultPhone), sqlEscape(b_webpage), 
 		sqlEscape(jobTitle), 1)
 
 	# all phones (including default) go into contactphonenumbers
