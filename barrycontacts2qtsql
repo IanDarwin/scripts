@@ -1,0 +1,153 @@
+# This is an awk script.
+# DO NOT USE A SHEBANG (#!) LINE - Must pass both -F": +" and -f, shebang can't
+
+# convert entries like this, to QTopia via SQLite
+# (this input was produced from my Blackberry(tm), using the wonderful
+# "barry" program by Chris Frey (barry.sourceforge.net)
+#
+#Contact: 0xffffffff (0)
+#    FirstName           : Aaron
+#    LastName            : Smiteh
+#    Email               : smiteme@ersofpafr.com
+#    WorkPhone           : 1-800-555-1212
+#    Company             : A & M Codecraft
+#    WorkAddress1        : 456 Main St
+#    WorkCity            : Bytown
+#    WorkProvince        : ON
+#    UserDefined1        : 24 S 2nd exit over 401 left on Main 3km
+#
+# For a full list of the fields in $1, do "make tagslist" (or see "dump" below)
+
+# XXX TODO - use sqlEscape in few remaining inserts.
+
+/^$/	{
+	dump();
+	print ""
+	delete entry
+	}
+
+/^Contact:/ {
+	$2 = trim($2)
+	sub(/ [(]0[)]/, "", $2)
+	recId = hex2dec($2)
+	}
+
+/^    /	{
+	# print "DEBUG: " $1, "-->", $2
+	entry[trim($1)] = trim($2)
+	}
+
+function dump() {
+	print "-- Entry for", recId
+	firstName = entry["FirstName"];
+	lastName = entry["LastName"]
+	company = entry["Company"]
+	name = trim(firstName " " lastName)
+	if (name == "") {
+		name = company
+	}
+	if (name ~ /^ *$/) {
+		name = recId
+	}
+
+	homephone1=entry["HomePhone"]
+	homephone2=entry["HomePhone2"]
+        workPhone = entry["WorkPhone"]
+        workPhone2 = entry["WorkPhone2"]
+	fax = entry["Fax"]
+    	cell = entry["MobilePhone"]
+	if (homephone1 != "")
+		defaultPhone = homephone1;
+	else if (workphone2 != "")
+		defaultPhone = workphone1;
+	else if (cell != "") 
+		defaultPhone = cell;
+
+	default_email =  entry["Email"]
+        b_webpage = entry["URL"]
+	cat = doCategory(trim(entry["Categories"]));
+	notes = trim(entry["Notes"] " " entry["UserDefined1"])
+        jobTitle = entry["JobTitle"]
+
+	printf("insert into contacts(recid, firstname, lastname, company, default_email, default_phone, b_webpage, jobTitle, context ) values(%d, %s, %s, %s, %s, %s, %s, %s, %d);\n",
+		recId, sqlEscape(firstName), sqlEscape(lastName), sqlEscape(company), 
+		sqlEscape(default_email), sqlEscape(default_phone), sqlEscape(b_webpage), 
+		sqlEscape(jobTitle), 1)
+
+	# all phones (including default) go into contactphonenumbers
+	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, '%s', %d);\n"
+	if (cell != "") printf(PHONE_FMT, recId, cell, 257);
+	if (homephone1 != "") printf(PHONE_FMT, recId, homephone1, 1);
+	if (homephone2 != "") printf(PHONE_FMT, recId, homephone2, 1);
+	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
+	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
+	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
+	if (fax != "") printf(PHONE_FMT, recId, fax, 258);
+
+	# HomeAddress goes into contactAddresses
+        homeAddress1 = entry["HomeAddress1"]
+        homeAddress2 = entry["HomeAddress2"]
+        homeCity = entry["HomeCity"]
+        homeProvince = entry["HomeProvince"]
+        homePostalCode = entry["HomePostalCode"]
+        homeCountry = entry["HomeCountry"]
+	if (homeAddress1 != "") {
+		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
+		printf("\tvalues(%d,%d, '%s', '%s', '%s', '%s', '%s');\n", recId, 1, trim(homeAddress1 " " homeAddress2), 
+			homeCity, homeProvince, homePostalCode, homeCountry);
+	}
+
+	# work address also goes into contactAddresses
+        workAddress1 = entry["WorkAddress1"]
+        workAddress2 = entry["WorkAddress2"]
+        workCity = entry["WorkCity"]
+        workPostalCode = entry["WorkPostalCode"]
+        workProvince = entry["WorkProvince"]
+        workCountry = entry["WorkCountry"]
+	if (workAddress1 != "") {
+		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
+		printf("\tvalues(%d,%d, '%s', '%s', '%s', '%s', '%s');\n", recId, 2, trim(workAddress1 " " workAddress2), 
+			workCity, workProvince, workPostalCode, workCountry);
+	}
+
+}
+
+# get the number for the given category, maintaining a map "categories" mapping name->catId
+# returns the category number
+function doCategory(cat) {
+	if (cat == "" || cat == "Unfiled")
+		return 0;
+	if (categories[cat] == "") {
+		printf("insert into categories(catid,name) values(%d, '%s')", ++catId, cat);
+		categories[cat]=catId
+	}
+	return categories[cat];
+}
+
+function trim(arg) {
+	# print "ARG",arg "."
+	gsub(/(^ +)|( +$)/, "", arg)
+	# print "RET",arg "."
+	return arg;
+}
+
+# sqlescape - return "null" for empty string, double up single quotes ("O''Reilly"), and quote.
+function sqlEscape(arg) {
+	if (arg == "")
+		return "null";
+	gsub(/'/, "&&", arg)
+	return "'" arg "'"
+}
+
+# hex2dec from http://www.tek-tips.com/viewthread.cfm?qid=1352504&page=2
+function hex2dec(h, i, x, v) {
+	h=tolower(h)
+	sub(/^0x/,"",h)
+	for(i=1; i<=length(h); ++i){
+		x=index("0123456789abcdef", substr(h,i,1))
+		if(!x)
+			return"NaN"
+		v=(16*v)+x-1
+	}
+	return v
+}
