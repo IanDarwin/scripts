@@ -1,6 +1,8 @@
 # This is an awk script.
 # DO NOT USE A SHEBANG (#!) LINE - Must pass both -F": +" and -f, shebang can't
 
+# $Id$
+
 # convert entries like this, to QTopia via SQLite
 # (this input was produced from my Blackberry(tm), using the wonderful
 # "barry" program by Chris Frey (barry.sourceforge.net)
