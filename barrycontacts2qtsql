@@ -52,18 +52,19 @@ function dump() {
 		name = recId
 	}
 
-	homephone1=entry["HomePhone"]
-	homephone2=entry["HomePhone2"]
-        workPhone = entry["WorkPhone"]
+	homePhone1=entry["HomePhone"]
+	homePhone2=entry["HomePhone2"]
+        workPhone1 = entry["WorkPhone"]
         workPhone2 = entry["WorkPhone2"]
-	fax = entry["Fax"]
-    	cell = entry["MobilePhone"]
-	if (homephone1 != "")
-		defaultPhone = homephone1;
-	else if (workphone != "")
-		defaultPhone = workphone1;
-	else if (cell != "") 
-		defaultPhone = cell;
+	faxNumber = entry["Fax"]
+    	cellPhone = entry["MobilePhone"]
+	defaultPhone = ""
+	if (homePhone1 != "")
+		defaultPhone = homePhone1;
+	else if (workPhone1 != "")
+		defaultPhone = workPhone1;
+	else if (cellPhone != "") 
+		defaultPhone = cellPhone;
 
 	default_email =  entry["Email"]
         b_webpage = entry["URL"]
@@ -78,13 +79,12 @@ function dump() {
 
 	# all phones (including default) go into contactphonenumbers
 	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, %s, %d);\n"
-	if (cell != "") printf(PHONE_FMT, recId, cell, 257);
-	if (homephone1 != "") printf(PHONE_FMT, recId, sqlEscape(homephone1), 1);
-	if (homephone2 != "") printf(PHONE_FMT, recId, sqlEscape(homephone2), 1);
-	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
-	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
-	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
-	if (fax != "") printf(PHONE_FMT, recId, sqlEscape(fax), 258); # XXX
+	if (homePhone1 != "") printf(PHONE_FMT, recId, sqlEscape(homePhone1), 1);
+	if (homePhone2 != "") printf(PHONE_FMT, recId, sqlEscape(homePhone2), 1);
+	if (workPhone1 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone1), 2);
+	if (workPhone2 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone2), 2);
+	if (cellPhone != "") printf(PHONE_FMT, recId, cellPhone, 257);
+	if (faxNumber != "") printf(PHONE_FMT, recId, sqlEscape(faxNumber), 258); # XXX
 
 	# HomeAddress goes into contactAddresses
         homeAddress1 = entry["HomeAddress1"]
