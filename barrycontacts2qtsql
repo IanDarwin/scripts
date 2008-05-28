@@ -19,8 +19,8 @@
 #    UserDefined1        : 24 S 2nd exit over 401 left on Main 3km
 #
 # For a full list of the fields in $1, do "make tagslist" (or see "dump" below)
-
-# XXX TODO - use sqlEscape in few remaining inserts.
+#
+# Information on the SQL schema was introspected using sqlitebrowser.
 
 /^$/	{
 	dump();
@@ -77,14 +77,14 @@ function dump() {
 		sqlEscape(jobTitle), 1)
 
 	# all phones (including default) go into contactphonenumbers
-	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, '%s', %d);\n"
+	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, %s, %d);\n"
 	if (cell != "") printf(PHONE_FMT, recId, cell, 257);
-	if (homephone1 != "") printf(PHONE_FMT, recId, homephone1, 1);
-	if (homephone2 != "") printf(PHONE_FMT, recId, homephone2, 1);
-	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
-	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
-	if (workphone2 != "") printf(PHONE_FMT, recId, workphone2, 2);
-	if (fax != "") printf(PHONE_FMT, recId, fax, 258);
+	if (homephone1 != "") printf(PHONE_FMT, recId, sqlEscape(homephone1), 1);
+	if (homephone2 != "") printf(PHONE_FMT, recId, sqlEscape(homephone2), 1);
+	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
+	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
+	if (workphone2 != "") printf(PHONE_FMT, recId, sqlEscape(workphone2), 2);
+	if (fax != "") printf(PHONE_FMT, recId, sqlEscape(fax), 258); # XXX
 
 	# HomeAddress goes into contactAddresses
         homeAddress1 = entry["HomeAddress1"]
@@ -95,8 +95,10 @@ function dump() {
         homeCountry = entry["HomeCountry"]
 	if (homeAddress1 != "") {
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
-		printf("\tvalues(%d,%d, '%s', '%s', '%s', '%s', '%s');\n", recId, 1, trim(homeAddress1 " " homeAddress2), 
-			homeCity, homeProvince, homePostalCode, homeCountry);
+		printf("\tvalues(%d, %d, %s, %s, %s, %s, %s);\n", recId, 1, 
+			sqlEscape(trim(homeAddress1 " " homeAddress2)), 
+			sqlEscape(homeCity), sqlEscape(homeProvince), 
+			sqlEscape(homePostalCode), sqlEscape(homeCountry));
 	}
 
 	# work address also goes into contactAddresses
@@ -108,8 +110,10 @@ function dump() {
         workCountry = entry["WorkCountry"]
 	if (workAddress1 != "") {
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
-		printf("\tvalues(%d,%d, '%s', '%s', '%s', '%s', '%s');\n", recId, 2, trim(workAddress1 " " workAddress2), 
-			workCity, workProvince, workPostalCode, workCountry);
+		printf("\tvalues(%d,%d, %s, %s, %s, %s, %s);\n", recId, 2, 
+			sqlEscape(trim(workAddress1 " " workAddress2)),
+			sqlEscape(workCity), sqlEscape(workProvince), 
+			sqlEscape(workPostalCode), sqlEscape(workCountry));
 	}
 
 }
@@ -120,7 +124,7 @@ function doCategory(cat) {
 	if (cat == "" || cat == "Unfiled")
 		return 0;
 	if (categories[cat] == "") {
-		printf("insert into categories(catid,name) values(%d, '%s')", ++catId, cat);
+		printf("insert into categories(catid,name) values(%d, %s)", ++catId, sqlEscape(cat));
 		categories[cat]=catId
 	}
 	return categories[cat];
