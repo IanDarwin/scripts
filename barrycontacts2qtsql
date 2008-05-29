@@ -83,7 +83,7 @@ function dump() {
 	if (homePhone2 != "") printf(PHONE_FMT, recId, sqlEscape(homePhone2), 1);
 	if (workPhone1 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone1), 2);
 	if (workPhone2 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone2), 2);
-	if (cellPhone != "") printf(PHONE_FMT, recId, cellPhone, 257);
+	if (cellPhone != "") printf(PHONE_FMT, recId, sqlEscape(cellPhone), 257);
 	if (faxNumber != "") printf(PHONE_FMT, recId, sqlEscape(faxNumber), 258); # XXX
 
 	# HomeAddress goes into contactAddresses
