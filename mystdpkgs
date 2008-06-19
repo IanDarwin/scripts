@@ -22,7 +22,8 @@ do_it freefonts ghostscript-fonts msttcorefonts
 # print
 do_it print/cups
 # Useful
-do_it sysutils/lsof archivers/zip archivers/unzip x11/xprompt x11/rxvt
+do_it sysutils/lsof archivers/zip # implies archivers/unzip 
+do_it x11/xprompt x11/rxvt
 do_it textproc/spiff 
 # security
 do_it security/crack security/nmap sysutils/pftop
