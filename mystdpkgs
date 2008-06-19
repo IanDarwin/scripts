@@ -1,20 +1,44 @@
+#!/bin/sh
+
+p=/usr/ports
+
+set -x
+
+# Things that should be in packages
+
+function do_it {
+	for port
+	do
+		cd /usr/ports/$port; sudo make install
+	done
+}
+
 # my own 
-pkg_add idiff-1.* hoc-1.* spiff-1.* zap-1.*
+do_it textproc/idiff math/hoc
 # Devel
-pkg_add gmake*
+do_it devel/gmake
+# fonts
+do_it freefonts ghostscript-fonts msttcorefonts
+# print
+do_it print/cups
 # Useful
-pkg_add lsof* mtools-3.* zip-2.* unzip-5.* 
+do_it sysutils/lsof archivers/zip archivers/unzip x11/xprompt x11/rxvt
+do_it textproc/spiff 
 # security
-pkg_add crack* nmap-2.*
+do_it security/crack security/nmap sysutils/pftop
 # gfx/GUI
-pkg_add giflib-4.* png-1.0.* tiff-3.5.* gtk+-1.* gimp*
-# X11
-pkg_add enlightenment-0.* ghostscript-5.5*
+do_it graphics/giflib graphics/png graphics/tiff graphics/gtk+-1  graphics/xv
+do_it print/gimp print/inkscape 
+# GS
+do_it graphics/ghostscript
 # Textproc
-pkg_add mgdiff* xpdf*
-# Java
-pkg_add kaffe-1.0.* fastjar*
-# Tcl/TK/Expect
-pkg_add tcl-8.3.* tk-8.3.* expect-5.*
+do_it textproc/mgdiff textproc/xpdf
 # Mail
-pkg_add mutt*
+do_it mail/mutt
+# Java
+do_it lang/kaffe-1.0
+
+# These take a LONG time
+do_it devel/jdk/1.5 devel/jdk/1.6
+
+cd $p/editors/openoffice; sh -x ./mk
