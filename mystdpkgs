@@ -13,8 +13,10 @@ function do_it {
 	done
 }
 
-# my own 
-do_it textproc/idiff math/hoc
+# bootstrap - X
+do_it x11/xprompt x11/rxvt
+# some of my own 
+do_it textproc/idiff math/hoc textproc/spiff 
 # Devel
 do_it devel/gmake
 # fonts
@@ -23,8 +25,6 @@ do_it freefonts ghostscript-fonts msttcorefonts
 do_it print/cups
 # Useful
 do_it sysutils/lsof archivers/zip # implies archivers/unzip 
-do_it x11/xprompt x11/rxvt
-do_it textproc/spiff 
 # security
 do_it security/crack security/nmap sysutils/pftop
 # gfx/GUI
