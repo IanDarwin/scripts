@@ -14,13 +14,13 @@ function do_it {
 }
 
 # bootstrap - X
-do_it x11/xprompt x11/rxvt
+pkg_add xprompt rxvt desktop-file-utils # cwm is in base
 # some of my own 
 do_it textproc/idiff math/hoc textproc/spiff 
-# Devel
-do_it devel/gmake
+# Bootstrap Devel/libs
+pkg_add gmake dbus nss nspr ORBit2 libIDL
 # fonts
-do_it freefonts ghostscript-fonts msttcorefonts
+pkg_add ecoliercourt-fonts freefonts ghostscript-fonts msttcorefonts
 # print
 do_it print/cups
 # Useful
@@ -28,20 +28,38 @@ do_it sysutils/lsof archivers/zip # implies archivers/unzip
 # security
 do_it security/crack security/nmap sysutils/pftop
 # gfx/GUI
-do_it graphics/giflib graphics/png graphics/tiff graphics/gtk+-1  graphics/xv
+do_it graphics/png graphics/tiff graphics/gtk+-1  graphics/xv graphics/pwlib
 do_it print/gimp print/inkscape 
 # GS
 do_it graphics/ghostscript
 # Textproc
-do_it textproc/mgdiff textproc/xpdf
-# Mail
-do_it mail/mutt
+pkg_add mgdiff xpdf evince
+# web and mail
+pkg_add mozilla-firefox mozilla-thunderbird
+
+# network
+pkg_add openvpn
+
+# KDE (full) - brings in tons of depends
+pkg_add kde{libs,base,network,addons,artwork,multimedia,graphics,pim,toys}
+
+# GNOME (libs) - brings in tons of depends
+pkg_add gconf2 gnome-vfs2 gnome-mime-data glib2 dbug-glib libgnome2 evolution-data-server
+
 # Java
-do_it lang/kaffe-1.0
+do_it lang/jikes lang/kaffe-1.0
+
 # webcam/communications stuff
 do_it graphics/luvcview graphics/fswebcam x11/gnome-ekiga
 
 # These take a LONG time
 do_it devel/jdk/1.5 devel/jdk/1.6
 
-cd $p/editors/openoffice; sh -x ./mk
+# depends on java
+cd $mp/devel/hudson; sudo make install
+
+#cd $p/editors/openoffice; sh -x ./mk
+pkg_add -i openoffice
+
+# last few
+pkg_add micropolis
