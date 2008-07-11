@@ -38,6 +38,8 @@ do_it textproc/mgdiff textproc/xpdf
 do_it mail/mutt
 # Java
 do_it lang/kaffe-1.0
+# webcam/communications stuff
+do_it graphics/luvcview graphics/fswebcam x11/gnome-ekiga
 
 # These take a LONG time
 do_it devel/jdk/1.5 devel/jdk/1.6
