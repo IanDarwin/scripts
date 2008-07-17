@@ -1,3 +1,6 @@
-CWHOME=/home/ian/src/cwedit
+#!/bin/sh
 
-java -classpath ${CWHOME}:$CLASSPATH CWEdit
+CWHOME=/home/ian/workspace/cwedit/build
+DARWINSYS_API=$HOME/lib/darwinsys.jar
+
+java -classpath ${CWHOME}:${DARWINSYS_API} cwedit.CWMain
