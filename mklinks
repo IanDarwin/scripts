@@ -1,1 +1,36 @@
-sed -e 's?.*?<li><a href="&">&</a></li>?'
+#!/usr/bin/env python
+
+import sys
+import string
+
+# echo a | mklinks
+# <li><a href='a'>a</a></li>
+# echo a b | mklinks
+# <li><a href='a'>b </a></li>
+# echo a b c | mklinks
+# <li><a href='a'>b c </a></li>
+
+PRE="<li>"
+POST="</li>"
+for a in sys.argv[1:]:
+	if (a == "-n"):
+		PRE="";
+		POST=""
+
+for line in sys.stdin.readlines():
+	line=line[:-1] # kill stupid \n
+	words=string.split(line);
+	NF = len(words)
+
+	if NF == 0:
+		continue
+
+	if NF == 1:
+		print "%s<a href='%s'>%s</a>%s" % (PRE, line, line, POST)
+
+	if NF > 1:
+		print PRE+"<a href='"+words[0]+"'>" 
+		for rest in words[1:]:
+			print rest+" "
+		
+		print "</a>"+POST
