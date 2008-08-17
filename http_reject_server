@@ -1,0 +1,25 @@
+#!/usr/local/bin/python
+
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+
+message = """Your access to the network has been denied.
+Please contact your administrator to have it restored."""
+
+class MyHandler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+	self.send_error(403, message)
+	return
+     
+def main():
+    try:
+        server = HTTPServer(('', 9999), MyHandler)
+        print 'started httpserver...'
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print '^C received, shutting down server'
+        server.socket.close()
+
+if __name__ == '__main__':
+    main()
+
