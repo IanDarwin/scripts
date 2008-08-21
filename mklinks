@@ -26,11 +26,11 @@ for line in sys.stdin.readlines():
 		continue
 
 	if NF == 1:
-		print "%s<a href='%s'>%s</a>%s" % (PRE, line, line, POST)
+		print "%s<a href='%s'>%s</a>%s" % (PRE, line, line, POST),
 
 	if NF > 1:
 		print PRE+"<a href='"+words[0]+"'>" 
 		for rest in words[1:]:
-			print rest+" "
+			print rest,
 		
 		print "</a>"+POST
