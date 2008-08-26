@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $1 in
+	"")	echo Usage: $0 [on|off]; exit 1;;
+	on|1)	VAL=1;;
+	off|0)	VAL=0;;
+esac
+
+echo "${VAL}" > /sys/bus/platform/devices/gta01-pm-gsm.0/power_on

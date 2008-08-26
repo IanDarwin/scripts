@@ -1,0 +1,2 @@
+export QEMU_AUDIO_DRV=wav QEMU_WAV_PATH=$HOME/qemu.wav
+

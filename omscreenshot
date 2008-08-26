@@ -1,0 +1,15 @@
+#!/bin/sh
+
+for file
+do
+	if [ -f $file ]; then
+		echo OK to overwrite $file? 
+		read ans
+		case ${ans} in
+		n*)	continue;;
+		esac
+	fi
+
+	import -window root -display phone2:0 $file
+
+done

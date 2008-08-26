@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PROG=$1
+
+if [ -f ${AUTOSTART_DIR}/${PROG} ]; then
+     rm ${AUTOSTART_DIR}/${PROG}
+else
+     echo ${PROG} not in autostart
+fi

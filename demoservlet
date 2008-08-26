@@ -1,0 +1,8 @@
+#!/bin/sh
+
+nc localhost 80 <<!
+GET /servlet/servlet.ChunkServlet HTTP/1.1
+Host: localhost
+
+!
+

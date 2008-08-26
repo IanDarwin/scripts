@@ -1,0 +1,2 @@
+replace "/taglib.tld"  "http://www.salmon.com/salmontags" $*
+replace "/tcptags.tld" "http://www.phenogenomics.ca/tcptags" $*

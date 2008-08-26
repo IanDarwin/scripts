@@ -1,0 +1,23 @@
+#!/bin/sh -u
+
+set -x 
+
+VMAIL_DIR=/var/spool/asterisk/voicemail/default/201/INBOX
+
+ssh rmn sudo chmod g+r ${VMAIL_DIR}/*
+
+scp rmn:${VMAIL_DIR}/* /tmp
+
+for v in /tmp/*.gsm
+do
+	cat $(echo $v|sed 's/gsm$/txt/')
+	gsmplay $v
+done
+
+echo remove all?
+read ans
+case ${ans} in
+	y*)	ssh rmn sudo rm ${VMAIL_DIR}/*
+		;;
+esac
+

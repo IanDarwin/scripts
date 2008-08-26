@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd ~/dmesg || exit
+
+case $1 in
+	""|-*)	extra="";;
+	*)	extra="-$1";;
+esac
+
+dmesg > $(isodate)${extra}

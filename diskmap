@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DISK=wd0	# parameterize
+
+fdisk $DISK | tail -4
+disklabel $DISK | egrep '^ +[a-z]:'

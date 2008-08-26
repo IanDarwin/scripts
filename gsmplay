@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# My crappy HP notebook has a crappy Audio "auixp" that is stuck
+# at 48000Hz. Convert GSM to 48000 Wav and play it
+
+set -x
+
+sox $1 -r 48000 /tmp/id.wav
+
+mplayer -msglevel all=2 /tmp/id.wav

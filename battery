@@ -1,0 +1,34 @@
+#!/bin/sh 
+
+# print percent of laptop battery remaining, on systems that report
+# in the format:
+#	sysctl hw.sensors.acpibat0.amphour?=N.NN aH
+# At least OpenBSD works this way.
+
+sysctl hw.sensors.acpibat0.amphour | awk '
+
+function getNumber() {
+	sub(/^.*=/, "")
+	sub(/ .*/, "")
+}
+
+# input is: hw.sensors.acpibat0.amphour0=3.58 Ah (last full capacity)
+$1 ~ /amphour0/ {
+	getNumber()
+	max = 0 + $0
+}
+
+$1 ~ /amphour3/ {
+	getNumber();
+	current = 0 + $0
+}
+
+END	{
+	percent = 100 * current / max
+	printf "%5.2f percent", percent
+	if (percent < 10) {
+		printf " ** CRITICAL **"
+	}
+	print ""
+}
+'

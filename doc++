@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# doc++ - add to the doc index
+
+
+DIR="/home/ian/doc/"
+INDEX="${DIR}index.txt"
+
+case $# in
+	2)	echo $1 "\t" $2 >> ${INDEX}
+		;;
+	*)	echo Usage: tag file
+		;;
+esac

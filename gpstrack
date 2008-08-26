@@ -1,0 +1,9 @@
+#!/bin/sh
+
+gpsd > /dev/null 2>&1
+
+set -x
+
+cd ~ian/mapping || exit
+
+cgpxlogger > $(date +%Y%m%d%H%M).gpx

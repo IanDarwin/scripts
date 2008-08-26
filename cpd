@@ -1,0 +1,9 @@
+#!/bin/ksh
+
+for jar in $PMD_HOME/lib/*
+do
+	CPD_CP=${jar}:${CPD_CP}
+done
+
+java -classpath $CPD_CP \
+	net.sourceforge.pmd.cpd.CPD --minimum-tokens 100 --files $*

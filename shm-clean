@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# free unused shm, left behind by gnash
+
+ipcs -m | awk '$1 == "m" { print "ipcrm -m", $2}'| sh -x

@@ -1,0 +1,10 @@
+sed '/^package/ {
+a \
+\
+import static org.junit.Assert.*; \
+import org.junit.*; \
+
+}
+/class/s/extends TestCase//
+/public void test.*(/s//@Test &/
+' $*

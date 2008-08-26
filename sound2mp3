@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Usage: convertomp3 fileextention
+# Author - original from http://en.linuxreviews.org/HOWTO_Convert_audio_files
+#
+for f in $*
+do
+	if [ -f "$f" ]; then
+		dest=`echo "$f"|tr ' ,' '_' | sed -e "s/\.[a-z][a-z3]*$//"`
+		mplayer \
+		 -quiet \
+		 -vo null \
+		 -vc null \
+		 -af volume=0,resample=44100:0:1 \
+		 -ao pcm:waveheader:file="$dest.wav" "$f"
+		lame -V0 -h -b 128 --nohist --vbr-new "$dest.wav" "$dest.mp3"
+		rm -f "$dest.wav"
+	fi
+done
+

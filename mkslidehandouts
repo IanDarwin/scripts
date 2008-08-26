@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ ! -x /usr/local/bin/psnup ]; then
+	echo "reinstall psutils (OpenBSD: print/psnup)" >&2
+	exit 1
+fi
+
+psnup -pletter -2up print.ps print2up.ps
+
+ps2pdf print2up.ps print.pdf
+
+open print.pdf

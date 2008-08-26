@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -classpath $js/build reflection.MyJavaP $*

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# burn a dvd from an existing "iso" 9660 DVD image
+
+# $ whichpkg growisofs
+# dvd+rw-tools-5.21.4.10.8p0:bin/growisofs
+
+growisofs -Z /dev/rcd0c=dvd.iso
+
+disklabel /dev/rcd0c

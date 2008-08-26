@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Start a bunch of Java apps in a single JVM.
+# bug - any one of them exits the whole things; MainStarter should put in a
+# security manager that refuses System.exit()
+
+JARDIR=${HOME}/lib
+
+# Watch for typos in this line. Classpath elements must
+# have ":\" at the end of each (" \" for the last); class names must have " \"
+# at the end of each
+
+exec java -classpath ${JARDIR}/darwinsys.jar:\
+$ws/jabadex/build:\
+${JARDIR}/jtkr.jar:\
+${JARDIR}/jclipboard.jar \
+com.darwinsys.util.MainStarter \
+jtkr.JTkr \
+jclipboard.JClipBoard \
+jabadex.todo.ToDoMain \
+&

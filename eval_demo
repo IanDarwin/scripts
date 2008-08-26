@@ -1,0 +1,6 @@
+abc=xyz
+
+xyz="The winner"
+
+eval echo $`echo $abc`
+
