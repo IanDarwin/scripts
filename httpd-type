@@ -33,4 +33,4 @@ host=$1
 resource=$2
 
 echo ===== Trying ${host} =====
-echo "${METHOD} /${resource} HTTP/1.1\nHost: ${host}\n" | nc ${host} ${PORT}
+echo "${METHOD} /${resource} HTTP/1.1\nHost: ${host}\n\n" | nc ${host} ${PORT}

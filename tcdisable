@@ -22,7 +22,7 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-cd $HOME/tomcat/conf/Catalina/${HOST} || exit
+cd ~/.Catalina/${HOST} || exit
 
 case $# in
 	0)	CONTEXT=ROOT;;
@@ -40,7 +40,9 @@ case $0 in
 	*tcedit)
 		vi ${CONTEXT}.xml
 		;;
-	# NO default case; default is to list, which we do anyway after the above ops.
+	*)
+		echo "Warning: $0 is an unknown alias for tcedit" >&2
+		;;
 esac
 
 pwd

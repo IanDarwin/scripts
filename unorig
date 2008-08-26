@@ -1,8 +1,17 @@
-#!/bin/csh
+#!/bin/sh
 
 # unorig -- move each .orig file to its original name
 
-foreach f (*.orig)
-	mv $f $f:r
-end
+for f in ${*-*.orig}
+do
+	case "$f" in
+	*.orig)
+		b=$(echo $f | sed 's/.orig$//')
+		mv $f $b
+		;;
+	*)
+		mv $f.orig $f
+		;;
+	esac
+done
 

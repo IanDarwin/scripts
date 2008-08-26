@@ -1,2 +1,7 @@
-cd /usr/disks
-exec /usr/local/bin/qemu -localtime -cdrom cd39.iso -hda openbsd.hd -boot c
+#!/bin/sh
+
+# run openbsd under qemu
+
+cd ~/disks
+# exec /usr/local/bin/qemu -cdrom ~/download/OpenBSD/snapshots/i386/install42.iso -hda openbsd.hd -boot c
+exec /usr/local/bin/qemu -hda openbsd.hd -boot c

@@ -4,8 +4,7 @@ set -e
 
 cd /mnt/dcim/100hp417 || exit
 
-# DO NOT COMMIT - temporarily in upper case due card format botch
-echo 'JPG pictures\nMPG Movies' | while read exten dir
+echo 'jpg pictures\nmpg movies' | while read exten dir
 do
 echo Checking for $exten and moving to $dir
 
@@ -17,9 +16,7 @@ case ${GO} in
 yes)
 
 DEST_DIR=$HOME/${dir}/`date +%Y%m%d`
-if [ -d $DEST_DIR ]; then
-	DEST_DIR=`mktemp -d ${DEST_DIR}XXXXX`
-else
+if [ ! -d ${DEST_DIR} ]; then
 	mkdir ${DEST_DIR}
 fi
 echo Using ${DEST_DIR}
@@ -35,7 +32,7 @@ done	# end of while read loop
 echo -n "Erase [no,yes] " 
 read oktoerase
 case ${oktoerase} in
-	yes)	rm -f *.jpg *.JPG *.mpg *.MPG
+	y*)	rm -f *.jpg *.JPG *.mpg *.MPG
 		;;
 	*)	echo LEAVING PIX ON CAMERA
 		;;

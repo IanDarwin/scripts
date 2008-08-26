@@ -1,11 +1,11 @@
-#!/bin/sh -u
+#!/bin/sh
 
 # mkwwwtemp == create a tmp file on www:/tmp
 # so I can print using any ole browser while on the road
 
 DESTDIR=/www/darwinsys/tmp
 RANDOMIZE=no
-case $1 in
+case "$1" in
 	-r)	RANDOMIZE=yes; shift;;
 esac
 
@@ -40,12 +40,11 @@ do
 		;;
 	esac
 
-	set -e
 	echo scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
 	     scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
 
-	ssh www.darwinsys.com chmod a+r ${DESTDIR}/* 2>/dev/null
-
 	echo "$file is at http://www.darwinsys.com/tmp/${TARGET}"
+
+	ssh www.darwinsys.com chmod a+r ${DESTDIR}/* 2> /dev/null
 
 done

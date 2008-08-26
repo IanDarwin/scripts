@@ -5,6 +5,6 @@
 BOOT_DEV=c
 BOOT_DEV=d
 
-DIR=/usr/mswindows
+DIR=~/disks
 
-exec windows -c ${DIR}/clipart.cd -h ${DIR}/98.hd $*
+exec windows -h ${DIR}/98.hd $*

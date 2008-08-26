@@ -3,7 +3,7 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 message = """Your access to the network has been denied.
-Please contact your administrator to have it restored."""
+Please contact your administrator^H^H^H^H^H^H^H^H^H^Hmother to have it restored."""
 
 class MyHandler(BaseHTTPRequestHandler):
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Run my NotePad
+# Run my JabaDex.todo
 
-java -classpath ~/lib/darwinsys.jar:$ws/darwinsys-api/build com.darwinsys.notepad.ToDo
+java -classpath ~/lib/darwinsys.jar:$ws/jabadex/build jabadex.todo.ToDoMain &
 

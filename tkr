@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 function usage {
 	echo "Usage: $0 + topic | - | e"

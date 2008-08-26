@@ -2,5 +2,14 @@
 
 set -x
 
-sudo -u _tomcat /usr/local/tomcat/bin/startup.sh
+case $1 in 
+-a)
+	# run the "antigua" version
+	cd /usr/local/jakarta-tomcat-5.0.30
+	exec sudo -u _tomcat sh bin/catalina.sh run
+	;;
+""|*)
+	exec sudo -u _tomcat /usr/local/tomcat/bin/catalina.sh run
+	;;
+esac
 

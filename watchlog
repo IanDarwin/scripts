@@ -36,9 +36,9 @@ do
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
-		all)	exec xtail /var/log /var/tomcat/logs;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
+		cups)	LOG=/var/log/cups/error_log;;
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ftp)	LOG=/var/log/xferlog;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
@@ -62,11 +62,9 @@ do
 			exit
 			;;
 		squid)	LOG=/var/squid/logs/access.log;;
-		tomcat)	
-			cd /var/tomcat/logs
-			LOGS=`ls -tr | tail -3`
-			;;
+		tomcat)	exec xtail /var/tomcat/logs;;
 		vnc)	LOG=~/.vnc/*.log;;
+		www)	exec xtail /var/log /var/tomcat/logs;;
 		x|X)	LOG=/var/log/XFree86.0.log;;
 		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
 		*0|*1) exec	sudo sudo tcpdump -ni $*;;

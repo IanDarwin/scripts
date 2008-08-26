@@ -1,26 +1,41 @@
 #!/usr/bin/awk -f
 
+# shortcut to open a document file
+
 BEGIN {
 	DIR="/home/ian/doc/"
 	INDEX=DIR "index.txt"
 	OPEN_CMD="open" # my script, native on osx; for Windoze use "start"
-	print "Index = " INDEX
 	numlines = 0
 	while (getline line < INDEX) {
 		n = split(line, kv);
-		#print "READ", kv[1], " --> ", kv[2]
 		map[kv[1]] = kv[2]
 		++numlines
 	}
-	#print "Read " numlines " entries"
+	if (numlines == 0) {
+		print "Could not read, or empty, index file " INDEX
+	}
+	if (ARGC <= 1) {
+		for (k in map) {
+			print k, map[k]
+		}
+		exit 1
+	}
 	for (i = 1; i < ARGC; i++) {
 		k = ARGV[i]
+		if ("n" == k) {
+			OPEN_CMD = "echo>/dev/null"
+			continue;
+		}
 		v = map[ARGV[i]]
-		print k, "=>", v
 		if (v == "") {
 			print("NO MATCH FOR", k)
 		} else {
-			system(OPEN_CMD " " DIR v)
+			if (v !~ /^\//) {
+				v = DIR v
+			}
+			print k, "=>", v
+			system(OPEN_CMD " " v "&")
 		}
 	}
 	exit(0)

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 # send a file via sendmail
 

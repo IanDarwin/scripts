@@ -29,7 +29,8 @@ rtp_method=3			; 0..3
 titledefault=Asterisk		; default = "TimeZone (your time zone)". 12 characters max
 maintext1="Line ${LINE}"	; default = the name of the device, 24 characters max
 dateformat=0			; 0 = month/day, 1 (default) = day/month
-context=internal		; context, default="default"
+;context=internal		; context, default="default"
+context=default			; context, default="default"
 mailbox=${LINE}
 extension=line			; Add an extension into the dialplan.
 linelabel="${NAME}"		; Softkey label for the next line=> entry, 9 char max.

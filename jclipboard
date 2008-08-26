@@ -1,4 +1,5 @@
 #!/bin/sh
 
+JAVA_HOME=${JAVA_HOME-/usr/local/jdk-1.7.0}
 JARDIR=${HOME}/lib
-java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jclipboard.jar jclipboard.JClipBoard &
+${JAVA_HOME}/bin/java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jclipboard.jar jclipboard.JClipBoard &

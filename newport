@@ -14,7 +14,7 @@ case ${1} in
 		;;
 esac
 
-echo -n "Home page (full URL, including ending slash)? "
+echo -n "Home page (full URL)? "
 read HOMEPAGE junk
 
 echo -n "Archive site (directory URL, including ending slash)? "
@@ -47,11 +47,13 @@ if [ -f ${MAKEFILE} ]; then
 fi
 
 sed \
-	-e "/^COMMENT=/s@???@$COMMENT@" \
-	-e "/^PKGNAME=/s@???@$NAME@" \
-	-e "/^DISTNAME=/s@???@${DIST}@" \
-	-e "/^#HOMEPAGE=/s@???@${HOMEPAGE}@" \
-	-e "/^CATEGORIES=/s@???@$CAT@" \
+	-e "/^COMMENT =/s@???@$COMMENT@" \
+	-e "/^PKGNAME =/s@???@$NAME@" \
+	-e "/^DISTNAME =/s@???@${DIST}@" \
+	-e "/^#HOMEPAGE =/s@@HOMEPAGE =@" \
+	-e "/^HOMEPAGE =/s@???@${HOMEPAGE}@" \
+	-e "/\tURL$/s///" \
+	-e "/^CATEGORIES =/s@???@$CAT@" \
 	-e "/^MASTER_SITES/s@???@$DNL@" \
 	\
 	${TEMPLATE} > ${MAKEFILE}

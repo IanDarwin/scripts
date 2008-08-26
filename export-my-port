@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PORTSWEBDIR=$ws/darwinsysweb/WebContent/openbsd/myports
+PORTSWEBDIR=$ws/darwinsysweb/web/openbsd/myports
 
 function usage {
 	echo >&2 "Usage: $0 category port"
@@ -27,7 +27,10 @@ fi
 	find . -name '.#*' -o -name '*.orig' -o -name '*.rej' | xargs sudo rm -f
 	)
 
-tar czvf ${PORTSWEBDIR}/$port.tar.gz ${category}/${port}
+PORT_TGZ=${port}.tar.gz
+
+tar czvf ${PORTSWEBDIR}/${PORT_TGZ} ${category}/${port}
 
 cd ${PORTSWEBDIR}
-webinst ${port}.tar.gz
+webinst ${PORT_TGZ}
+echo port is at http://www.darwinsys.com/openbsd/myports/${PORT_TGZ}

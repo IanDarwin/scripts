@@ -1,2 +1,6 @@
-cd /usr/disks
-exec /usr/local/bin/qemu -m 256 -localtime -cdrom kubuntu-6.06-desktop-i386.iso -hda linux.hd -boot c
+#!/bin/sh
+
+cd ~/disks
+exec /usr/local/bin/qemu -kernel-kqemu -m 256 \
+	-hda ubuntu.hd \
+	-boot c $*

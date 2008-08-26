@@ -1,4 +1,4 @@
 #!/bin/sh
 
 JARDIR=${HOME}/lib
-exec java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jtkr.jar jtkr.JTkr
+exec java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jtkr.jar jtkr.JTkr &

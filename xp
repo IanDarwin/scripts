@@ -2,4 +2,4 @@
 
 # Run MS-Windows XP under qemu
 
-exec /home/ian/scripts/windows -h xp.hd $*
+exec /home/ian/scripts/windows -h ~/disks/xp.hd $*

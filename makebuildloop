@@ -6,6 +6,6 @@ sudo make obj
 
 while :
 do
-	date
+	date | tee -a ~/makebuild.log 
 	sudo make build
 done
