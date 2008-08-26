@@ -1,0 +1,31 @@
+#!/bin/ksh
+
+# fill_disk - overwrite all free space on a disk
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-r] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+DEV=/dev/zero
+
+while getopts "r" opt 
+do 
+ 	 case "$opt" in 
+		r)	DEV=/dev/urandom;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for f
+do
+	echo $0: file $f
+	TEMP=$(mktemp $f/XXXXXX)
+	dd bs=1m if=${DEV} of=${TEMP}
+	rm ${TEMP}
+done
