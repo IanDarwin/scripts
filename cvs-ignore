@@ -5,4 +5,9 @@ done
 
 sort -o .cvsignore .cvsignore
 
+if grep .cvsignore CVS/Entries; then
+	: already there
+else
+	cvs add .cvsignore
+fi
 cvs commit -m "Add $*" .cvsignore
