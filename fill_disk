@@ -16,7 +16,7 @@ DEV=/dev/zero
 while getopts "r" opt 
 do 
  	 case "$opt" in 
-		r)	DEV=/dev/urandom;;
+		r)	DEV=/dev/prandom;;
 		*)	usage;;
 	esac
 done
