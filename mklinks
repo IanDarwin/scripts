@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import sys
-import string
+import sys,string,getopt
 
 # echo a | mklinks
 # <li><a href='a'>a</a></li>
@@ -9,13 +8,14 @@ import string
 # <li><a href='a'>b </a></li>
 # echo a b c | mklinks
 # <li><a href='a'>b c </a></li>
+# add -n to skip the <li>...</li> wrapper.
 
 PRE="<li>"
 POST="</li>"
-for a in sys.argv[1:]:
-	if (a == "-n"):
-		PRE="";
-		POST=""
+options, filenames = getopt.getopt(sys.argv[1:], "-n")
+if "-n" in repr(options):
+	PRE="";
+	POST=""
 
 for line in sys.stdin.readlines():
 	line=line[:-1] # kill stupid \n
