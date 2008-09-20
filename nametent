@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+import sys
+
+PSPROG = """
+%!Adobe-PS
+
+% Prints a name tent, for average-length names
+
+(Helvetica) findfont 150 scalefont setfont
+gsave
+100 600 moveto
+270 rotate
+(NAME) show
+grestore
+
+500 150 moveto
+90 rotate
+(NAME) show
+"""
+
+for name in sys.argv[1:]:
+	print PSPROG.replace("NAME", name)
