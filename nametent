@@ -2,8 +2,9 @@
 
 import sys
 
-PSPROG = """
-%!Adobe-PS
+# Like a shebang line, the %! magic must be on first line:
+
+PSPROG = """%!PS-Adobe
 
 % Prints a name tent, for average-length names
 
