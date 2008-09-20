@@ -18,6 +18,8 @@ grestore
 500 150 moveto
 90 rotate
 (NAME) show
+
+showpage
 """
 
 for name in sys.argv[1:]:
