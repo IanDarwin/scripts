@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 # cvsnew -[m descr] file ...
 # Puts files in CVS and does the annoying initial commit.
