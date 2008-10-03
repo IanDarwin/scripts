@@ -10,7 +10,7 @@ PSPROG = """%!PS-Adobe
 
 (Helvetica) findfont 150 scalefont setfont
 gsave
-100 600 moveto
+100 700 moveto
 270 rotate
 (NAME) show
 grestore
