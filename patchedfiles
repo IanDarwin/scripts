@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# patchefiles - gen list of files patched by a given patch(es)
+
+for f
+do
+	grep '^+++' $f  | awk '{print $2}'
+done
