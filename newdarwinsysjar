@@ -22,4 +22,4 @@ do
 	cp ${BUILD_DIR}/darwinsys.jar ${dir}/
 done
 
-scp ${BUILD_DIR}/darwinsys.jar dos:/www/javacookweb/
+scp ${BUILD_DIR}/darwinsys.jar ${SERVER}:/www/javacookweb/

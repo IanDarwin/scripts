@@ -14,9 +14,9 @@ esac
 
 ls -l "${MBOX}"
 
-scp "${MBOX}" dos:antispam/${MODE}
+scp "${MBOX}" ${SERVER}:antispam/${MODE}
 
-ssh dos "cd antispam; make learn${MODE}"
+ssh ${SERVER} "cd antispam; make learn${MODE}"
 
 case "${MODE}" in
 spam)	>"${MBOX}";;

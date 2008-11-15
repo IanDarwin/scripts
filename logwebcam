@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # params
-OFFSITEHOST=dos
 OFFSITEDIR=log
 INTERVAL=60
 SIZE=800x600
@@ -11,7 +10,8 @@ while :
 do
 	fswebcam -r${SIZE} ${F}
 	DEST=${OFFSITEDIR}/$(date +%H%M)
-	scp ${F} ${OFFSITEHOST}:${DEST}
+	# echo Copy to ${SERVER}:${DEST}
+	scp ${F} ${SERVER}:${DEST}
 	sleep ${INTERVAL}
 done
 

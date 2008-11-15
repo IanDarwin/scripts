@@ -9,8 +9,8 @@ if [ ! -f ${DATA} ]; then
 	dd if=/dev/urandom bs=1024 count=1024 of=${DATA}
 fi
 echo Starting upload
-time scp ${DATA} dos:/tmp/
+time scp ${DATA} ${SERVER}:/tmp/
 echo -n Start download\?; read ans
-time scp dos:/tmp/${DATA} /tmp
+time scp ${SERVER}:/tmp/${DATA} /tmp
 echo Comparing
 time cmp ${DATA} /tmp/${DATA}
