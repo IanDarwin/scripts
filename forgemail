@@ -12,8 +12,10 @@ mailhost=$1
 from=$2
 to=$3
 
+ENVELOPE_FROM_HOST=localhost
+
 nc $mailhost 25 <<!
-HELO forgemail.mail.tester
+HELO ${ENVELOPE_FROM_HOST}
 MAIL From:<$from>
 RCPT To:<$to>
 DATA
