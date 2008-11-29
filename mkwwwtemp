@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # mkwwwtemp == create a tmp file on www:/tmp
 # so I can print using any ole browser while on the road
 
