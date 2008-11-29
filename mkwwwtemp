@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 set -e
 
@@ -15,22 +15,22 @@ for file
 do
 
 	# SRC must be somethine we can reliably scp from after cd.
-	case ${file} in
+	case "${file}" in
 		/*)	SRC=$file;;
 		*)	SRC=`pwd`/$file;;
 	esac
 
-	if [ "$file" == "index.html" ]; then
-		RANDOMIZE=yes
-	fi
+	case "$file" in
+	*index.html) RANDOMIZE=yes;;	# don't overwrite this!
+	esac
 
 	case ${RANDOMIZE} in
 	yes)
-		# Keep extention, since web server uses it for typing.
+		# Keep extension, since web server uses it for typing.
 		ext=`echo ${file} | sed -e 's/.*\.//'`
 
 		cd /tmp
-		TMP=`mktemp -t`
+		TMP=`mktemp JACKOXXXXX`
 		TARGET=${TMP}.$ext
 		rm ${TMP}
 		;;
@@ -42,11 +42,11 @@ do
 		;;
 	esac
 
-	echo scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
-	     scp ${SRC} www.darwinsys.com:${DESTDIR}/${TARGET}
+	echo scp ${SRC} ${SERVER}:${DESTDIR}/${TARGET}
+	     scp ${SRC} ${SERVER}:${DESTDIR}/${TARGET}
 
-	echo "$file is at http://www.darwinsys.com/tmp/${TARGET}"
+	echo "$file is at http://${SERVER}/tmp/${TARGET}"
 
-	ssh www.darwinsys.com chmod a+r ${DESTDIR}/* 2> /dev/null
+	ssh ${SERVER} chmod a+r ${DESTDIR}/* 2> /dev/null
 
 done
