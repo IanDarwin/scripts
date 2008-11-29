@@ -1,4 +1,8 @@
-for PROJECT in /tmp/a /tmp/b
+#!/bin/sh
+
+# Create an Eclipse Java project in the given directori(es).
+
+for PROJECT in $*
 do 
 	mkdir ${PROJECT}
 	cd    ${PROJECT}
