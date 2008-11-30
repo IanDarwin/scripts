@@ -2,9 +2,20 @@
 
 # lcname - rename file[s] to lower case
 # Just makes a script - check it and, if OK, |sh
+# -c (for cycle) moves X to j and j to x for use on
+# msdos-like filesystems where you cant rename X to x
+
+case $1 in
+-c)	CYCLE=YES; shift;;
+*)  CYCLE=NO;;
+esac
 
 for f
 do
 	new="`echo $f | tr 'A-Z' 'a-z'`"
-	echo mv "$f" "$new"
+	case ${CYCLE} in
+	NO) echo mv "$f" "$new";;
+	YES) echo "mv $f j; mv j $new";;
+	*)	echo huh??; exit 1;;
+	esac
 done 
