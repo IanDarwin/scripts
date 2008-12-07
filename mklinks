@@ -12,7 +12,11 @@ import sys,string,getopt
 
 PRE="<li>"
 POST="</li>"
-options, filenames = getopt.getopt(sys.argv[1:], "-n")
+try:
+	options, filenames = getopt.getopt(sys.argv[1:], "-n")
+except:
+	print "Usage: mklinks [-n]"
+	sys.exit(0)
 if "-n" in repr(options):
 	PRE="";
 	POST=""
