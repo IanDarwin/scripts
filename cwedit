@@ -3,4 +3,4 @@
 CWHOME=/home/ian/workspace/cwedit/build
 DARWINSYS_API=$HOME/lib/darwinsys.jar
 
-java -classpath ${CWHOME}:${DARWINSYS_API} cwedit.CWMain
+java -classpath ${CWHOME}:${DARWINSYS_API} cwedit.CWMain $*
