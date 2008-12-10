@@ -1,0 +1,15 @@
+PS3="Which Host to connect to [number]?"
+select host in "Local" "Server 1" "Server 2"
+do
+        case ${host} in
+		"Local")	echo "already here!";;
+
+		"Server 1")
+					echo ssh server1;;
+
+		"Server 2")
+					echo ssh altServer;;
+		*)
+					echo "Unknown host ${host}"
+		esac
+done
