@@ -57,7 +57,7 @@ def sqlEscape(arg):
 	if (not arg or arg == ""):
 		return "null";
 	# gsub(/'/, "&&", arg)
-	arg.replace(r"'", r"''")
+	arg = arg.replace(r"'", r"''")
 	return "'" + arg + "'"
 
 def dodump():
@@ -65,7 +65,7 @@ def dodump():
 	firstName = entry["FirstName"]
 	lastName = entry["LastName"]
 	company = entry["Company"]
-	print "-- Entry for", recId, firstName, lastName, company
+	print "-- Entry for", recId, firstName, lastName, "--", company
 
 	name = (firstName + " " + lastName).strip()
 	if (not name):
@@ -156,5 +156,6 @@ for line in sys.stdin:
 			continue
 		# else "normal" case - "  FirstName : Ian"
 		if (len(x) == 2): x.append("")
-		# print "DEBUG: ", x[0], "-->", x[2]
-		entry[x[0].strip()] = x[2].strip()
+		rest = " ".join(x[2:]).strip()
+		# print "DEBUG: ", x[0], "-->", rest
+		entry[x[0].strip()] = rest
