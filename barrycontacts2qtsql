@@ -1,5 +1,4 @@
-# This is an awk script.
-# DO NOT USE A SHEBANG (#!) LINE - Must pass both -F": +" and -f, shebang can't
+#!/usr/bin/env python
 
 # $Id$
 
@@ -22,138 +21,140 @@
 #
 # Information on the SQL schema was introspected using sqlitebrowser.
 
-/^$/	{
-	dump();
-	print ""
-	delete entry
+import re,sys
+
+def reset_entry():
+	""" make sure all possible keys exist, so we don't have to check 'em later """
+	global entry
+	entry = { 
+	"FirstName":"", "LastName":"", 
+	"Company":"", "JobTitle":"", 
+	"HomePhone":"", "HomePhone2":"", "WorkPhone":"", "WorkPhone2":"",
+	"Fax":"", "MobilePhone":"", "Email":"", "URL":"", "Categories":"",
+	"HomeAddress1":"", "HomeAddress2":"", "HomeCity":"", 
+	"HomeProvince":"", "HomePostalCode":"", "HomeCountry":"",
+	"WorkAddress1":"", "WorkAddress2":"", "WorkCity":"", 
+	"WorkPostalCode":"", "WorkProvince":"", "WorkCountry":"",
+	"Notes":"", "UserDefined1":"", 
 	}
 
-/^Contact:/ {
-	$2 = trim($2)
-	sub(/ [(]0[)]/, "", $2)
-	recId = hex2dec($2)
-	}
 
-/^    /	{
-	# print "DEBUG: " $1, "-->", $2
-	entry[trim($1)] = trim($2)
-	}
+def doCategory(cat):
+	""" get the number for the given category, maintaining a map categories \
+		mapping name to catId; \
+		returns the category number \
+	"""
+	if (cat == "" or cat == "Unfiled"):
+		return 0;
+	if (not categories.setdefault(cat)):
+		print "insert into categories(catid,name) values(%d, %s)" % (++catId, sqlEscape(cat))
+		categories[cat]=catId
+	return categories[cat];
 
-function dump() {
-	print "-- Entry for", recId
-	firstName = entry["FirstName"];
+def sqlEscape(arg):
+	""" return "null" for empty string, double up single 
+		quotes ("O''Reilly"), and surround in single quotes for SQL. """
+	if (not arg or arg == ""):
+		return "null";
+	# gsub(/'/, "&&", arg)
+	arg.replace(r"'", r"''")
+	return "'" + arg + "'"
+
+def dodump():
+	""" Do all the outputting of SQL for one Contact """
+	firstName = entry["FirstName"]
 	lastName = entry["LastName"]
 	company = entry["Company"]
-	name = trim(firstName " " lastName)
-	if (name == "") {
+	print "-- Entry for", recId, firstName, lastName, company
+
+	name = (firstName + " " + lastName).strip()
+	if (not name):
 		name = company
-	}
-	if (name ~ /^ *$/) {
+	if (name.strip() == ""):
 		name = recId
-	}
 
 	homePhone1=entry["HomePhone"]
 	homePhone2=entry["HomePhone2"]
-        workPhone1 = entry["WorkPhone"]
-        workPhone2 = entry["WorkPhone2"]
+	workPhone1 = entry["WorkPhone"]
+	workPhone2 = entry["WorkPhone2"]
 	faxNumber = entry["Fax"]
-    	cellPhone = entry["MobilePhone"]
+	cellPhone = entry["MobilePhone"]
 	defaultPhone = ""
-	if (homePhone1 != "")
+	if (homePhone1):
 		defaultPhone = homePhone1;
-	else if (workPhone1 != "")
-		defaultPhone = workPhone1;
-	else if (cellPhone != "") 
+	elif (cellPhone):
 		defaultPhone = cellPhone;
+	elif (workPhone1):
+		defaultPhone = workPhone1;
 
 	default_email =  entry["Email"]
-        b_webpage = entry["URL"]
-	cat = doCategory(trim(entry["Categories"]));
-	notes = trim(entry["Notes"] " " entry["UserDefined1"])
-        jobTitle = entry["JobTitle"]
+	b_webpage = entry["URL"]
+	cat = doCategory(entry["Categories"]);
+	notes = (entry["Notes"] + " " + entry["UserDefined1"]).strip()
+	jobTitle = entry["JobTitle"]
 
-	printf("insert into contacts(recid, firstname, lastname, company, default_email, default_Phone, b_webpage, jobTitle, context ) values(%d, %s, %s, %s, %s, %s, %s, %s, %d);\n",
+	print "insert into contacts(recid, firstname, lastname, company, default_email, default_Phone, b_webpage, jobTitle, context ) values(%d, %s, %s, %s, %s, %s, %s, %s, %d);" % (
 		recId, sqlEscape(firstName), sqlEscape(lastName), sqlEscape(company), 
 		sqlEscape(default_email), sqlEscape(defaultPhone), sqlEscape(b_webpage), 
 		sqlEscape(jobTitle), 1)
 
 	# all phones (including default) go into contactphonenumbers
-	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, %s, %d);\n"
-	if (homePhone1 != "") printf(PHONE_FMT, recId, sqlEscape(homePhone1), 1);
-	if (homePhone2 != "") printf(PHONE_FMT, recId, sqlEscape(homePhone2), 1);
-	if (workPhone1 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone1), 2);
-	if (workPhone2 != "") printf(PHONE_FMT, recId, sqlEscape(workPhone2), 2);
-	if (cellPhone != "") printf(PHONE_FMT, recId, sqlEscape(cellPhone), 257);
-	if (faxNumber != "") printf(PHONE_FMT, recId, sqlEscape(faxNumber), 258); # XXX
+	PHONE_FMT = "insert into contactphonenumbers(recid, phone_number, phone_type) values(%d, %s, %d);"
+	if (homePhone1): print PHONE_FMT % ( recId, sqlEscape(homePhone1), 1)
+	if (homePhone2): print PHONE_FMT % ( recId, sqlEscape(homePhone2), 1)
+	if (workPhone1): print PHONE_FMT % ( recId, sqlEscape(workPhone1), 2)
+	if (workPhone2): print PHONE_FMT % ( recId, sqlEscape(workPhone2), 2)
+	if (cellPhone): print PHONE_FMT % ( recId, sqlEscape(cellPhone), 257)
+	if (faxNumber): print PHONE_FMT % ( recId, sqlEscape(faxNumber), 258) # XXX
 
 	# HomeAddress goes into contactAddresses
-        homeAddress1 = entry["HomeAddress1"]
-        homeAddress2 = entry["HomeAddress2"]
-        homeCity = entry["HomeCity"]
-        homeProvince = entry["HomeProvince"]
-        homePostalCode = entry["HomePostalCode"]
-        homeCountry = entry["HomeCountry"]
-	if (homeAddress1 != "" || homeCity != "") {
+	homeAddress1 = entry["HomeAddress1"]
+	homeAddress2 = entry["HomeAddress2"]
+	homeCity = entry["HomeCity"]
+	homeProvince = entry["HomeProvince"]
+	homePostalCode = entry["HomePostalCode"]
+	homeCountry = entry["HomeCountry"]
+	if (homeAddress1 or homeCity):
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
-		printf("\tvalues(%d, %d, %s, %s, %s, %s, %s);\n", recId, 1, 
-			sqlEscape(trim(homeAddress1 " " homeAddress2)), 
-			sqlEscape(homeCity), sqlEscape(homeProvince), 
+		print "\tvalues(%d, %d, %s, %s, %s, %s, %s);" % ( recId, 1, 
+			sqlEscape((homeAddress1 + " " + homeAddress2).strip()),
+		sqlEscape(homeCity), sqlEscape(homeProvince), 
 			sqlEscape(homePostalCode), sqlEscape(homeCountry));
-	}
 
 	# work address also goes into contactAddresses
-        workAddress1 = entry["WorkAddress1"]
-        workAddress2 = entry["WorkAddress2"]
-        workCity = entry["WorkCity"]
-        workPostalCode = entry["WorkPostalCode"]
-        workProvince = entry["WorkProvince"]
-        workCountry = entry["WorkCountry"]
-	if (workAddress1 != "" || workCity != "") {
+	workAddress1 = entry["WorkAddress1"]
+	workAddress2 = entry["WorkAddress2"]
+	workCity = entry["WorkCity"]
+	workPostalCode = entry["WorkPostalCode"]
+	workProvince = entry["WorkProvince"]
+	workCountry = entry["WorkCountry"]
+	if (workAddress1 or workCity):
 		print "insert into contactaddresses(recid, addresstype, street, city, state, zip, country)"
-		printf("\tvalues(%d,%d, %s, %s, %s, %s, %s);\n", recId, 2, 
-			sqlEscape(trim(workAddress1 " " workAddress2)),
+		print "\tvalues(%d,%d, %s, %s, %s, %s, %s);" % ( recId, 2, 
+			sqlEscape((workAddress1 + " " + workAddress2).strip()),
 			sqlEscape(workCity), sqlEscape(workProvince), 
 			sqlEscape(workPostalCode), sqlEscape(workCountry));
-	}
 
-}
+#
+# Main script...
 
-# get the number for the given category, maintaining a map "categories" mapping name->catId
-# returns the category number
-function doCategory(cat) {
-	if (cat == "" || cat == "Unfiled")
-		return 0;
-	if (categories[cat] == "") {
-		printf("insert into categories(catid,name) values(%d, %s)", ++catId, sqlEscape(cat));
-		categories[cat]=catId
-	}
-	return categories[cat];
-}
+catId = 0
+categories={}
+reset_entry()
 
-function trim(arg) {
-	# print "ARG",arg "."
-	gsub(/(^ +)|( +$)/, "", arg)
-	# print "RET",arg "."
-	return arg;
-}
-
-# sqlescape - return "null" for empty string, double up single quotes ("O''Reilly"), and quote.
-function sqlEscape(arg) {
-	if (arg == "")
-		return "null";
-	gsub(/'/, "&&", arg)
-	return "'" arg "'"
-}
-
-# hex2dec from http://www.tek-tips.com/viewthread.cfm?qid=1352504&page=2
-function hex2dec(h, i, x, v) {
-	h=tolower(h)
-	sub(/^0x/,"",h)
-	for(i=1; i<=length(h); ++i){
-		x=index("0123456789abcdef", substr(h,i,1))
-		if(!x)
-			return"NaN"
-		v=(16*v)+x-1
-	}
-	return v
-}
+for line in sys.stdin:
+		line = line[:-1]
+		if (line == ""):			# end of an old contact, output it.
+			dodump();
+			print ""
+			reset_entry()
+			continue
+		x = line.split()
+		if (x[0] == "Contact:"):	# start of a new contact
+			x[1] = x[1].strip()
+			recId = int(x[1], 16)
+			continue
+		# else "normal" case - "  FirstName : Ian"
+		if (len(x) == 2): x.append("")
+		# print "DEBUG: ", x[0], "-->", x[2]
+		entry[x[0].strip()] = x[2].strip()
