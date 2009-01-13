@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# run un-orig on all the files in a system patch
+
+cd /sys
+grep '+++' ${1} | awk '{print $2}' | xargs sudo unorig
