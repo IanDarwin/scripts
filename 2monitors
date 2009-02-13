@@ -2,18 +2,8 @@
 
 set -x
 
-sz=${1-s}
-case $sz in
-s*)
-xrandr --output VGA-0 --newmode "800x600_60.00"  38.22  800 832 912 1024  600 601 604 622  -HSync +Vsync
-xrandr --addmode VGA-0 "800x600_60.00"
-xrandr --output VGA-0 --right-of LVDS --mode "800x600_60.00"
-;;
+# Simple version, from phessler@
+xrandr --output VGA --right-of LVDS
+xrandr --output VGA --auto
+xrandr --output LVDS --auto
 
-l*)
-xrandr --output VGA-0 --newmode "1024x768_60.00"  64.11  1024 1080 1184 1344  768 769 772 795  -HSync +Vsync
-xrandr --addmode VGA-0 "1024x768_60.00"
-xrandr --output VGA-0 --right-of LVDS --mode "1024x768_60.00"
-;;
-
-esac
