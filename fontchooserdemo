@@ -1,0 +1,3 @@
+#!/bin/ksh
+
+java -cp $HOME/lib/darwinsys.jar:$HOME/workspace/javasrc/build gui.FontChooserDemo
