@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# regexp version of look
+
+for regexp
+do
+	grep "^${regexp}$" /usr/share/dict/words
+done
