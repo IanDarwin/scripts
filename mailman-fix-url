@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# update list URL
+
+case $# in
+	0) echo usage: $0 listname ...; exit 1;;
+esac
+
+for l
+do
+sudo /usr/local/lib/mailman/bin/withlist -l -r fix_url ${l} -uwww.darwinsys.com:88
+done
