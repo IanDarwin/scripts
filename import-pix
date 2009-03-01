@@ -2,7 +2,10 @@
 
 set -e
 
-cd /mnt/dcim/1??hp417 || exit
+cd /mnt/dcim/1* || exit
+
+# make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
+lcname -c *[A-Z]* | sh
 
 echo 'jpg pictures\nmpg movies' | while read exten dir
 do
