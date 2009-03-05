@@ -1,36 +1,46 @@
 #!/bin/sh
 
-set -e
-
 cd /mnt/dcim/1* || exit
 
+dir=pictures
+
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
-lcname -c *[A-Z]* | sh
+(lcname -c *[A-Z]* | sh ) 2>/dev/null
+
+set -e
+
+DEST_DIR=$HOME/${dir}/`date +%Y`/`date +%m`/`date +%d`
 
 echo 'jpg pictures\nmpg movies' | while read exten dir
 do
-echo Checking for $exten and moving to $dir
+	echo Checking for $exten and moving to $dir
 
-# Check if there are ANY $exten files in the camera
-GO=no
-for f in *.$exten; do if [ -f $f ]; then GO=yes; break; fi; done
+	# Check if there are ANY $exten files in the camera
+	GO=no
+	for f in *.$exten; do if [ -f $f ]; then GO=yes; break; fi; done
 
-case ${GO} in
-yes)
+	case ${GO} in
+	yes)
+		if [ ! -d ${DEST_DIR} ]; then
+			mkdir ${DEST_DIR}
+		fi
+		echo Using ${DEST_DIR}
 
-DEST_DIR=$HOME/${dir}/`date +%Y%m%d`
-if [ ! -d ${DEST_DIR} ]; then
-	mkdir ${DEST_DIR}
-fi
-echo Using ${DEST_DIR}
+		cp -p *.${exten} ${DEST_DIR}/
 
-cp -p *.${exten} ${DEST_DIR}/
-
-chown -R ian:wheel ${DEST_DIR}
-;;
-esac
+		chown -R ian:wheel ${DEST_DIR}
+		;;
+	esac
 
 done	# end of while read loop
+
+if [ ! -d "${DEST_DIR}" ]; then
+	echo "None found."
+	exit 1
+fi
+
+echo "Uploaded:"
+ls ${DEST_DIR}
 
 echo -n "Erase [no,yes] " 
 read oktoerase
