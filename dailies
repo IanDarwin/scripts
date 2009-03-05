@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Deal with the LT Daily Evals
+
+R --quiet --no-restore --no-save <<!
+
+c=c(2,4,4,4,4,4,4)
+i=c(3,4,4,4,4,4,4)
+
+x11()
+data.entry(c,i)
+
+split.screen(c(1,2))
+screen(1)
+hist(c,
+	col='red', main=paste("Course Grade (average",sprintf("%5.2f", mean(c)),")"))
+screen(2)
+hist(i, col='red',
+	main=paste("Instructor Grade (average",sprintf("%5.2f", mean(i)),")"))
+
+Sys.sleep(3600)
+!
+
