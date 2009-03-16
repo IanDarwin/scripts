@@ -50,3 +50,11 @@ case ${oktoerase} in
 	*)	echo LEAVING PIX ON CAMERA
 		;;
 esac
+
+cd ${DEST_DIR}
+echo -n "View? [no,g)wenview,xv] " 
+read view
+case ${view} in
+	g*)	gwenview .;;
+	x*)	xv *;;
+esac
