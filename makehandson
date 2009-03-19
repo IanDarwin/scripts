@@ -2,5 +2,9 @@
 
 # Make the Hands-Ons from the Solutions, which are known to work.
 
-java -cp makehandsons/build:makehandsons/lib/darwinsys.jar makehandsons.MakeHandsOns \
-enumsolution genericssolution jpasolution quoteservicesolution regexsolution scriptingsolution useriosolution
+set -x
+
+java -cp makehandsons/build:makehandsons/lib/darwinsys.jar \
+	makehandsons.MakeHandsOns \
+	enumsolution genericssolution jpasolution quoteservicesolution \
+	regexsolution scriptingsolution useriosolution
