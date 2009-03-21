@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -x
+
+java -jar /home/ian/lib/SwingSet2.jar
