@@ -2,10 +2,10 @@
 
 cd /mnt/dcim/1* || exit
 
-dir=pictures
-
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
+
+dir=pictures
 
 set -e
 
@@ -22,7 +22,7 @@ do
 	case ${GO} in
 	yes)
 		if [ ! -d ${DEST_DIR} ]; then
-			mkdir ${DEST_DIR}
+			mkdir -p ${DEST_DIR}
 		fi
 		echo Using ${DEST_DIR}
 
