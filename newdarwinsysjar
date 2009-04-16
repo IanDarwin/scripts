@@ -13,8 +13,7 @@ workspace/javasrc/lib
 workspace/jtkr/lib/
 workspace/jabadex/lib/
 workspace/pageunit/lib/
-workspace.tcp/iris-ear/EarContent/
-workspace.tcp/tcpsite/Jsp/WEB-INF/lib/
+workspace/tcpseam/web/WEB-INF/lib/
 "
 
 for dir in ${TARGET_DIRS}
