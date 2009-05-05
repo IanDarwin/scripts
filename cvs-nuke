@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 # cvsnuke - get rid of a CVS artifact (it remains in the Attic)
 

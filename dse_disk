@@ -44,7 +44,7 @@ mount | grep /dev/${disk} && {
 for pass in 1 2 3
 do
 	echo start pass ${pass} on ${disk}
-	dd if=`devi $pass` of=/dev/${disk}c bs=${BS}
+	dd if=`devi $pass` of=/dev/${disk}c bs=${BS} || exit 1
 done
 
 echo "Disk ${disk} is probably clean"
