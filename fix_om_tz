@@ -1,0 +1,1 @@
+scp /etc/localtime phone:/etc/

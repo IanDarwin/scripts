@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ssh diva mount -r -t ufs -o ufstype=44bsd /dev/sdb4 /mnt

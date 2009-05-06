@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# gather surface statistics on Java code
+# run in home directory of source
+pwd
+
+# how many src files?
+echo $(find . -name \*.java | wc -l) Java files
+
+# how many tests?
+echo $(find . -name '*Test*.java' | wc -l) test files
+
+# how many LOC?
+echo $(find . -name \*.java | xargs cat | wc -l) LOC
+
+# how many .class files?
+echo $(find . -name \*.class | wc -l) .class files

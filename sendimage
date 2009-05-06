@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# sendimage - send the image, prompting for recipients
+# intended for use from within gwenview
+
+recips=$(xprompt -p "Recipients? \c")
+
+for IMAGE
+do
+
+	TYPE=image
+	SUBTYPE=INVALID
+	case $IMAGE in
+		*jpg|*jpeg) SUBTYPE=jpeg;;
+		*gif)		SUBTYPE=gif;;
+		*png)		SUBTYPE=png;;
+		*)			echo Unknown image type for $IMAGE
+					exit 1;;
+	esac
+
+	CMD="mpack -s image-$IMAGE -c $TYPE/$SUBTYPE $IMAGE $recips"
+
+	OK=$(xprompt -p "OK? $CMD")
+
+	$CMD
+
+done
