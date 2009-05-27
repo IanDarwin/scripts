@@ -2,4 +2,5 @@
 
 uptime
 
-exec ls -Ll /bsd /bin/cat /usr/X11R6/bin/X
+ls -Ll /bsd 
+ls -Ll /bin/cat /usr/X11R6/bin/X
