@@ -2,8 +2,13 @@
 
 # ad-hoc temp mon for OpenBSD with ACPI
 
-sysctl hw.sensors.acpitz0.temp0|awk -F= '
-# $0 /!zone temperature/ { print $0; exit 3 }
+case $(hostname) in
+daroad.darwinsys.com)	SENSOR=acpitz0.temp0;;
+www.darwinsys.com)		SENSOR=it0.temp1;;
+*)						echo "Undefined sensor"; exit 3;;
+esac
+
+sysctl hw.sensors.${SENSOR}|awk -F= '
 0+$2 > 75 { print "CRITICAL:temp " $2; exit 1 }
 0+$2 > 60 { print "WARNING: temp " $2; exit 2 }
 	{ print "OK", $2 }
