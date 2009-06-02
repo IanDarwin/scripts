@@ -9,7 +9,8 @@ set -x
 function do_it {
 	for port
 	do
-		cd /usr/ports/$port; sudo make install
+		pname=$(echo $port|sed -e 's=.*/==')
+		sudo pkg_add $pname || (cd /usr/ports/$port; make package; sudo make install)
 	done
 }
 
@@ -59,7 +60,7 @@ do_it devel/jdk/1.5 devel/jdk/1.6
 cd $mp/devel/hudson; sudo make install
 
 #cd $p/editors/openoffice; sh -x ./mk
-pkg_add -i openoffice
+do_it editors/openoffice3
 
 # last few
-pkg_add micropolis
+do_it games/micropolis
