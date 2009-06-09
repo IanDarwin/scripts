@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -Xms128m -Xmx396m -cp $ws/mytools/build:$ws/mytools/lib/PDFBox-0.7.1.jar:$HOME/lib/log4j.jar textproc.DocIndexHtml ${*-.}
