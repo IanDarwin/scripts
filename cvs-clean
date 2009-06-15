@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find . -name \*.orig -o -name \*.rej | xargs sudo rm
