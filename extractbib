@@ -1,5 +1,8 @@
-odt2txt thesis.odt | 
+for doc
+do
+    odt2txt ${doc} | 
 	tr -s ' ' '\n' |
 	egrep '^\[[A-Za-z0-9]+\]'|
 	sed -e 's/].*/]/' |
 	sort -u
+done
