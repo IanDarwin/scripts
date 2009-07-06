@@ -7,6 +7,7 @@ set -x
 cd
 TARGET_DIRS="
 lib
+workspace/annabot/lib
 workspace/darwinsysweb/web/WEB-INF/lib
 workspace/lhbooks/web/WEB-INF/lib
 workspace/javasrc/lib
