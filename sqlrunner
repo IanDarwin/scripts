@@ -7,7 +7,8 @@ JVMOPTS="-Djava.net.preferIPv4Stack=true"
 PROGRAM_JARS=${HOME}/lib/darwinsys.jar
 
 # Add Driver JAR files to CLASSPATH
-for driver in hsqldb postgresql ojdbc14 db2jcc db2jcc_license_cu sqlitejdbc-v047-nested
+for driver in \
+	hsqldb postgresql ojdbc14 db2jcc db2jcc_license_cu sqlitejdbc-v047-nested dbfdriver
 do
 	DRIVER_JARS=${DRIVER_JARS}:${HOME}/lib/$driver.jar
 done
@@ -17,6 +18,6 @@ set -x
 export CLASSPATH="${PROGRAM_JARS}:${DRIVER_JARS}"
 
 case $1 in
--cli)	shift; java ${JVMOPTS} com.darwinsys.sql.SQLRunnerCLI $*;;
+-cli)	shift; java ${JVMOPTS} com.darwinsys.sql.SQLRunnerCLI $@;;
 *) java ${JVMOPTS} com.darwinsys.sql.SQLRunnerGUI $*;;
 esac
