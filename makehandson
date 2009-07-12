@@ -5,6 +5,4 @@
 set -x
 
 java -cp makehandsons/build:makehandsons/lib/darwinsys.jar \
-	makehandsons.MakeHandsOns \
-	enumsolution genericssolution jpasolution quoteservicesolution \
-	regexsolution scriptingsolution useriosolution
+	makehandsons.MakeHandsOns ${*-*solution}
