@@ -11,10 +11,12 @@ function usage {		# give usage message, and exit
 }
 
 MESSAGE="New."
+K=kv
 
-while getopts "m:" opt 
+while getopts "k:m:" opt 
 do 
  	 case "$opt" in 
+		k)	K=${OPTARG};;
 		m)	MESSAGE=${OPTARG};;
 		*)	usage;;
 	esac
@@ -26,5 +28,5 @@ case $# in
 0)	usage;;
 esac
 
-cvs add $*
+cvs add -k$K $*
 cvs commit -m "${MESSAGE}" $*
