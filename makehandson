@@ -4,5 +4,5 @@
 
 set -x
 
-java -cp makehandsons/build:makehandsons/lib/darwinsys.jar \
+java -cp $HOME/lib/makehandson.jar:$HOME/lib/darwinsys.jar \
 	makehandsons.MakeHandsOns ${*-*solution}
