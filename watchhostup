@@ -1,0 +1,10 @@
+#!/bin/ksh
+
+HOST=darkbird
+INTR=15
+while :
+do
+	date; 
+	ping -c 1 localhost >/dev/null && echo UP
+	sleep $(( INTR * 60 ))
+done
