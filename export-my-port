@@ -23,7 +23,6 @@ if [ ! -d ${category}/${port} ]; then
 fi
 
 (cd ${category}/${port}
-	sudo make clean; sudo rm -f *.log *.core
 	find . -name '.#*' -o -name '*.orig' -o -name '*.rej' | xargs sudo rm -f
 	)
 
