@@ -1,7 +1,7 @@
 #!/bin/ksh
 
-HOST=darkbird
-INTR=15
+HOST=${1}
+INTERVAL=15
 while :
 do
 	ping -c 1 ${HOST} >/dev/null
@@ -10,5 +10,5 @@ do
 	else
 		echo $(date) - ${HOST} DOWN
 	fi
-	sleep $(( INTR * 60 ))
+	sleep $(( INTERVAL * 60 ))
 done
