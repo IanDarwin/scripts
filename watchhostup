@@ -4,7 +4,11 @@ HOST=darkbird
 INTR=15
 while :
 do
-	date; 
-	ping -c 1 localhost >/dev/null && echo UP
+	ping -c 1 ${HOST} >/dev/null
+	if [ $? -eq 0 ]; then
+		echo $(date) - ${HOST} UP
+	else
+		echo $(date) - ${HOST} DOWN
+	fi
 	sleep $(( INTR * 60 ))
 done
