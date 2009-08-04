@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+#
+# (c)2008 Carlo Minucci - License GPLv2
+# http://minucci.net gecco@napodano.com
+#
+# Convert a tangoGPS logfile to GPX
+# 
+# usage:  ./convert2gpx.pl logfile.log
+#
+
+import string
+import sys
+args = sys.argv[1:]
+
+f = open(args[0], "r")
+file_content = f.read()
+pezzi = string.split(file_content, '\n')
+f.close()
+
+outfile=args[0]
+f = open(outfile[:-4] + ".gpx", "w")
+f.write( """<?xml version="1.0" encoding="UTF-8"?>
+<gpx	version="1.0"
+	creator="convert2gpx.pl http://www.tangogps.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.topografix.com/GPX/1/0"
+	xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+
+<trk>
+<trkseg>""")
+for rigastr in pezzi:
+	if ("" == rigastr):
+		break
+	riga = string.split(rigastr, ',')
+	f.write("	<trkpt lat=\"" + riga[0] + "\" lon=\"" + riga[1] + "\">")
+	f.write("		<ele>" + riga[2] + "</ele>")
+	f.write("		<speed>" + riga[3] + "</speed>")
+	f.write("		<course>" + riga[4] + "</course>")
+	f.write("		<fix>3d</fix>")
+	f.write("		<hdop>" + riga[5] + "</hdop>")
+	f.write("		<time>" + riga[6] + "</time>")
+	f.write("	</trkpt>")
+	#print riga[0]
+	
+f.write("""</trkseg>
+</trk>
+</gpx>""")
+
+f.close()
+
+
