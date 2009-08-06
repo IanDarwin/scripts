@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -x
+
+rm -rf /tmp/django-cms
+
+mkdir  /tmp/django-cms
+
+cd /tmp/django-cms
+
+LC_ALL=POSIX 
+MAJOR=2.0
+SVN_REV=355
+WRKDIST=django-cms-${MAJOR}-${SVN_REV}
+
+svn checkout -q -r ${SVN_REV} http://svn.django-cms.org/trunk/cms ${WRKDIST}
+        
+tar czf /tmp/${WRKDIST}.tar.gz ${WRKDIST}
+
+scp /tmp/${WRKDIST}.tar.gz dos:/www/darwinsys/mirror/
