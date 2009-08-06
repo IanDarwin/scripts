@@ -1,0 +1,27 @@
+#!/bin/ksh
+
+# Since I work on a bunch of machines, this script is a shortcut for
+# setting the hostname.wireless to the correct one
+
+cd /etc
+
+function showit {
+	ls -l /etc/hostname.wireless
+}
+showit
+oldPS3=PS3
+PS3="Which wireless?"
+select host in None $(cd $HOME/.wifi; ls *)
+do
+
+	case ${host} in
+	n|None)	echo Make yourself scarce
+		sudo rm hostname.wireless
+		break;;
+	*)	echo You\'re at ${host}, eh?
+		sudo ln -s $HOME/.wifi/${host} hostname.wireless
+		break;;
+	esac
+done
+PS3=oldPS3
+showit
