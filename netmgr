@@ -11,15 +11,15 @@ function showit {
 showit
 oldPS3=PS3
 PS3="Which wireless?"
-select host in None $(cd $HOME/.wifi; ls *)
+select host in None $(cd /home/ian/.wifi; ls -d * | grep -v CVS)
 do
 
 	case ${host} in
 	n|None)	echo Make yourself scarce
-		sudo rm hostname.wireless
+		rm -f hostname.wireless
 		break;;
 	*)	echo You\'re at ${host}, eh?
-		sudo ln -s $HOME/.wifi/${host} hostname.wireless
+		ln -s $HOME/.wifi/${host} hostname.wireless
 		break;;
 	esac
 done
