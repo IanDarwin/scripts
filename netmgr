@@ -3,23 +3,30 @@
 # Since I work on a bunch of machines, this script is a shortcut for
 # setting the hostname.wireless to the correct one
 
+[ -w / ] || {
+	echo be root to try $0
+	exit 1
+}
+
 cd /etc
 
 function showit {
-	ls -l /etc/hostname.wireless
+	ls -l hostname.wireless
 }
 showit
+
 oldPS3=PS3
 PS3="Which wireless?"
 select host in None $(cd /home/ian/.wifi; ls -d * | grep -v CVS)
 do
-
+	echo "==> host = ${host}"
 	case ${host} in
+	0)	break;; # do nothing
 	n|None)	echo Make yourself scarce
 		rm -f hostname.wireless
 		break;;
 	*)	echo You\'re at ${host}, eh?
-		ln -s $HOME/.wifi/${host} hostname.wireless
+		ln -sf /home/ian/.wifi/${host} hostname.wireless
 		break;;
 	esac
 done
