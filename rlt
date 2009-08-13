@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# reload a PF table
+
+for TBL
+do
+
+	echo "Before:"
+	pfctl -T show -t ${TBL} || exit
+
+	srv$ sudo pfctl -T replace -t ${TBL}
+
+	echo "After:"
+	pfctl -T show -t ${TBL} || exit
+
+done
