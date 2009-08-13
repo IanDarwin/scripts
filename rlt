@@ -2,15 +2,20 @@
 
 # reload a PF table
 
+[ -w / ] || {
+	echo "Be root for $0"
+	exit 1
+}
+
 for TBL
 do
 
-	echo "Before:"
+	echo "Table ${TBL} before:"
 	pfctl -T show -t ${TBL} || exit
 
-	srv$ sudo pfctl -T replace -t ${TBL}
+	sudo pfctl -T replace -t ${TBL}
 
-	echo "After:"
+	echo "Table ${TBL} after:"
 	pfctl -T show -t ${TBL} || exit
 
 done
