@@ -3,6 +3,8 @@
 # Since I work on a bunch of machines, this script is a shortcut for
 # setting the hostname.wireless to the correct one
 
+WAIT=50	# 	5.0 seconds
+
 [ -w / ] || {
 	echo be root to try $0
 	exit 1
@@ -11,12 +13,16 @@
 cd /etc
 
 function showit {
-	ls -l hostname.wireless
+	if [ -f hostname.wireless ]; then
+		ls -l hostname.wireless
+	fi
 }
 showit
 
 oldPS3=PS3
 PS3="Which wireless?"
+STTY="`stty -g`"
+stty intr '' -icanon min 0 time $WAIT ignbrk -brkint -ixon isig
 select host in None $(cd /home/ian/.wifi; ls -d * | grep -v CVS)
 do
 	echo "==> host = ${host}"
@@ -30,5 +36,6 @@ do
 		break;;
 	esac
 done
+stty $STTY
 PS3=oldPS3
 showit
