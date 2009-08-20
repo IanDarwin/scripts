@@ -16,7 +16,7 @@ function usage {		# give usage message, and exit
 
 DEVICE=cd0
 DUMMY=""
-SPEED=48
+SPEED=auto
 
 while getopts "df:s:v" opt 
 do 
@@ -41,13 +41,15 @@ ISOSIZE=""
 
 UNAME=`uname`
 case "$UNAME" in
+Linux)
+	cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
+	;;
 OpenBSD)
 	echo -n "Is there a blank CD in drive $DEVICE, and NO CD PLAYER SW RUNNING? Then press enter"
 	read junk
 
 	set -x
-	#cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
-	cdio -f ${DEVICE} tao -d ${IMAGE}
+	cdio -f ${DEVICE} tao -s ${SPEED} -d ${IMAGE}
 
 	mount -t cd9660 /dev/${DEVICE}c /mnt
 
