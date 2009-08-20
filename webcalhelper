@@ -1,0 +1,18 @@
+#!/bin/sh
+
+TMP=$(mktemp /tmp/calXXXXXXXXXX)
+mv ${TMP} ${TMP}.ical
+TMP=${TMP}.ical
+
+# Capture the webcal url
+WC_URL="$1"
+
+case "$WC_URL" in
+webcal:*)	# groovy
+	echo "$WC_URL" | sed 's/^webcal:/http:/' |xargs ftp -o ${TMP}
+	xmessage "Now open ${TMP} in KCalendar" 
+	;;
+*)	echo "Unable to process calendar URL ${WC_URL}" >&2
+	exit 1
+	;;
+esac
