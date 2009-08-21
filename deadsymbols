@@ -1,0 +1,11 @@
+#!/bin/sh
+
+readelf --wide -s $(comp)/bsd | awk '{ print $8 }' | sort -u > /tmp/defined
+
+# Then we need to know which symbols are actually used:
+readelf --wide -r $(comp)/*.o $(comp)/lib/*/*.o | awk '{print $5}' | sort -u > /tmp/linked
+
+# Then finally, let's see what's dead.
+
+comm -23 /tmp/defined /tmp/linked | wc -l
+
