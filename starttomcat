@@ -2,6 +2,8 @@
 
 set -x
 
+cd /var/tomcat
+
 case $1 in 
 -a)
 	# run the "antigua" version
