@@ -3,5 +3,5 @@
 # run openbsd under qemu
 
 cd ~/disks
-# exec /usr/local/bin/qemu -cdrom ~/download/OpenBSD/snapshots/i386/install42.iso -hda openbsd.hd -boot c
-exec /usr/local/bin/qemu -hda openbsd.hd -boot c
+exec /usr/local/bin/qemu -no-kqemu -cdrom ~/download/OpenBSD/snapshots/i386/install46.iso -hda openbsd.hd -boot c
+exec /usr/local/bin/qemu -no-kqemu -hda openbsd.hd -boot c
