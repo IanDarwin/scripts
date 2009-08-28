@@ -1,7 +1,9 @@
 #!/bin/ksh
 
-# Since I work on a bunch of machines, this script is a shortcut for
-# setting the hostname.wireless to the correct one
+# Since I work on a few machines at many locations, this 
+# script is a shortcut for setting the hostname.wireless to the correct one
+# Setup: start with e.g., ln -s hostname.wireless hostname.rum0
+# Then this script will ln from wireless to the current selection.
 
 WAIT=50	# 	5.0 seconds
 
