@@ -1,0 +1,8 @@
+gconftool-2 -s /apps/compiz/general/allscreens/options/active_plugins "[command,gconf,decoration,wobbly,minimize,png,cube,switcher,move,resize,place,rotate,zoom,scale,dbus,water]" -t list --list-type=string
+
+gconftool-2 -s -t string \
+/apps/compiz/plugins/commands/allscreens/options/run_command1_key '<Alt>F3' \
+/apps/compiz/plugins/commands/allscreens/options/command1 rxvt \
+/apps/compiz/plugins/commands/allscreens/options/run_command2_key '<Alt>F6' \
+/apps/compiz/plugins/commands/allscreens/options/command2 xlock 
+gconftool-2 -R /apps/compiz > /tmp/compiz.opts
