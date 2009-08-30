@@ -1,7 +1,16 @@
 #!/bin/ksh
 
+if [ "-l" == "$1" ]; then
+	REDIRECT=yes
+	shift
+fi
 HOST=${1}
 INTERVAL=15
+
+if [ "yes" == "${REDIRECT}" ]; then
+	exec > /tmp/${HOST}.log
+fi
+
 while :
 do
 	ping -c 1 ${HOST} >/dev/null
