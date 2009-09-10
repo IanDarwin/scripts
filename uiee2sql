@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+
+# input will be a UIEE file WITH NO HEADER produced by Alibris
+tag2col = {
+"UR":"sku",
+"BN":"isbn",
+"AA":"author",
+"TI":"title",
+"DP":"yearpublished",
+"PU":"oddpublisher",
+"ED":"edition",
+"BD":"media",
+"CN":"condition",
+"NC":"description",
+"PR":"price",
+"CO":"stockcount",
+"LO":"location",
+}
+
+# output will be
+# insert into products(sku) values('0201485672');
+# update products set author='Fowler...',title='Refactoring...',year=1999, ... where sku='0201485672');
+# current column names are:
+# sku, category, subcat, author, title, publisher, isbn, yearpublished, price, stockcount, usedcond, exturl, media,
+# descr, location, oddpublisher, imageurl, maincond, jacketconddesc, edition, affiliate, credt, moddate, language
+import sys
+import libxml2
+
+data = {}
+
+def dump():
+	print "insert into database"
+	print data
+
+def main():
+	global data
+	for filename in sys.argv[1:]:
+		data = {}
+		print "FILENAME:", filename
+		file = open(filename);
+		for line in file:
+			l = len(line)
+			line = line[0:l-2]
+			print '->',line
+			if len(line) == 0:
+				dump();
+				data = {}
+				pass
+			a = line.split("|");
+			if len(a) == 2:
+				TAG = a[0]
+				VAL = a[1]
+				if TAG in tag2col.keys():
+					data[TAG] = VAL
+			else:
+				print "SKIPPING:", line
+
+main()
