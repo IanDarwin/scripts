@@ -13,11 +13,12 @@ tag2col = {
 "PU":"oddpublisher",
 "ED":"edition",
 "BD":"media",
-"CN":"condition",
+"CN":"usedcondition",
 "NC":"description",
 "PR":"price",
 "CO":"stockcount",
 "LO":"location",
+"XXCN":"maincond",
 }
 
 # current column names are:
@@ -34,16 +35,45 @@ def sqlify(s):
 			ns += '\''
 	return ns
 
+conditions = {
+	"N" :"New",
+	"F" :"Fine",
+	"VG":"Very good",
+	"G" :"Good",
+	"FR":"Fair",
+	"P" :"Poor"
+}
+def fixCondition():
+	global data
+	cs = data['CN']
+	for k in conditions.keys():
+		v = conditions[k]
+		if cs.startswith(v):
+			data["XXCN"] = k
+			cs = cs[len(v):]
+			if cs.startswith(". "):
+				cs = cs[2:]
+			NO_DJ = "No dust jacket as issued.";
+			if cs.startswith(NO_DJ):
+				cs = cs[len(NO_DJ):]
+			if cs.startswith(' '):
+				cs = cs[:1]
+			if len(cs) > 0:
+				data['CN'] = cs
+			else:
+				del data['CN']
+
 def dump():
 	global data
+	comma = ''
+	fixCondition()
 	print "insert into products(sku) values('%s');" % data['UR']
 	print "update products set",
-	comma = ''
 	for k in data.keys():
 		if k != "UR":
 			print comma + "%s = '%s'" % (sqlify(tag2col[k]),sqlify(data[k])),
 			comma = ',';
-	print ' where sku = \'%s\';'% data['UR']
+	print 'where sku = \'%s\';'% data['UR']
 
 def main():
 	global data
