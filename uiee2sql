@@ -62,4 +62,5 @@ def main():
 			if TAG in tag2col.keys():
 				data[TAG] = VAL
 
-main()
+if __name__ == '__main__':
+	main()
