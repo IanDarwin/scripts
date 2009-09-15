@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# This is from Ian's 396-add slides for 396 Chapter 4
+echo '#1'
+find . -name \*.cpp -exec wc -l {} ';'
+echo '#2'
+find . -name \*.cpp | wc -l
+echo '#3'
+find . -name \*.cpp | xargs wc -l
