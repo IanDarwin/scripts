@@ -26,6 +26,14 @@ tag2col = {
 
 data = {}
 
+def sqlify(s):
+	ns = ''
+	for ch in s:
+		ns += ch
+		if ch == '\'':
+			ns += '\''
+	return ns
+
 def dump():
 	global data
 	print "insert into products(sku) values('%s');" % data['UR']
@@ -33,9 +41,9 @@ def dump():
 	comma = ''
 	for k in data.keys():
 		if k != "UR":
-			print comma, "%s = '%s' " % (tag2col[k],data[k]),
+			print comma + "%s = '%s'" % (sqlify(tag2col[k]),sqlify(data[k])),
 			comma = ',';
-	print ';'
+	print ' where sku = \'%s\';'% data['UR']
 
 def main():
 	global data
@@ -44,7 +52,7 @@ def main():
 		file = open(filename);
 		for line in file:
 			l = len(line)
-			line = line[0:l-2]
+			line = line[0:l-1]
 			if len(line) == 0:
 				dump();
 				data = {}
