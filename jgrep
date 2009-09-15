@@ -1,7 +1,6 @@
 #!/bin/sh -u
 
-# ;JAVA_CMD=${JAVA_CMD-$(javaPathHelper -c jeoip)}
-JAVA_CMD=/usr/java/default/bin/java
+JAVA_CMD=${JAVA_CMD-$(javaPathHelper -c jeoip)}
 
 case $# in
 0)	echo >&2 "Usage: $0 patt [file[...]]"
