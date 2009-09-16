@@ -8,14 +8,15 @@ function usage {
 }
 
 case $# in
-	2);;
-	*) usage;
+	0|1) usage;
 esac
 
-category=$1
-port=$2
+category=$1; shift
 
 cd /usr/ports/mystuff
+
+for port
+do
 
 if [ ! -d ${category}/${port} ]; then
 	echo "No such port in `pwd`" >&2
@@ -30,6 +31,10 @@ PORT_TGZ=${port}.tar.gz
 
 tar czvf ${PORTSWEBDIR}/${PORT_TGZ} ${category}/${port}
 
+(
 cd ${PORTSWEBDIR}
 webinst ${PORT_TGZ}
 echo port is at http://www.darwinsys.com/openbsd/myports/${PORT_TGZ}
+)
+
+done
