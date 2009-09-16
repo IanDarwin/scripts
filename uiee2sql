@@ -46,8 +46,7 @@ conditions = {
 def fixCondition():
 	global data
 	cs = data['CN']
-	for k in conditions.keys():
-		v = conditions[k]
+	for (k,v) in conditions.items():
 		if cs.startswith(v):
 			data["XXCN"] = k
 			cs = cs[len(v):]
