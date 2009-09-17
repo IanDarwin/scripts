@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # find all Java source files, look for old-style main decls, replace with new
+# old: public static void main(String args[])
+# new: public static void main(String[] args)
 
 find . -name \*java -print | 
 	xargs grep -l 'main(String [a-z]' |
