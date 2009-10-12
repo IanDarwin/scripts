@@ -2,7 +2,7 @@
 
 PORT=9090
 
-USAGE="$0 [-p nnn] [response-file]"
+USAGE="$0 [-p nnn]"
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -18,28 +18,20 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filename
 
-case $# in
-	0) FILENAME=/tmp/qwertymonster;;
-	1) FILENAME=$1;;
-	*) usage;;
-esac
-
-if ! [ -r $FILENAME ]; then
-cat> $FILENAME <<!
-
-<html>
-<title>Foo!</title>
-<h1>Vittory!</h1>
-!
-fi
-
 while :
 do 
 	(
 	echo "200 HTTP/1.0 OK"
 	echo "Date: $(date)"
-	echo
-	cat $FILENAME
+	echo ""				# required separator
+	if [ -z "${RESPONSE}" ]; then
+	echo "<html>
+<title>Welcome!</title>
+<h1>Welcome</h1>
+<p>Welcome at $(date)!</p>
+	"
+	else echo ${RESPONSE}
+	fi
 	) |
 		nc -l $PORT
 done
