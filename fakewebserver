@@ -1,18 +1,27 @@
 #!/bin/sh
 
-PORT=9090
+# A static- and single-response web server; does not parse
+# URL or body; responds with ${RESPONSE}, or a static welcome 
+# mat, or the argument to -r if given.
 
-USAGE="$0 [-p nnn]"
+PORT=9090
+RESPONSE=${RESPONSE-"<html>
+<title>Welcome!</title>
+<h1>Welcome</h1>
+<p>Welcome at $(date)!</p>"}
+
+USAGE="$0 [-p nnn][-r response-text"
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
 	exit 1
 }
 
-while getopts "p:" opt 
+while getopts "p:r:" opt 
 do 
  	 case "$opt" in 
 		p)	PORT=${OPTARG};;
+		r)	RESPONSE=${OPTARG};;
 		*)	usage;;
 	esac
 done
@@ -24,14 +33,7 @@ do
 	echo "200 HTTP/1.0 OK"
 	echo "Date: $(date)"
 	echo ""				# required separator
-	if [ -z "${RESPONSE}" ]; then
-	echo "<html>
-<title>Welcome!</title>
-<h1>Welcome</h1>
-<p>Welcome at $(date)!</p>
-	"
-	else echo ${RESPONSE}
-	fi
+	echo "${RESPONSE}"
 	) |
 		nc -l $PORT
 done
