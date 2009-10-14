@@ -1,0 +1,26 @@
+#!/usr/bin/awk -f
+
+# input: -rw-r--r-- 1 ian wheel 927 Feb 20  2009 some file name
+#
+# output
+# chown ian.wheel some_file_name
+# chmod u=-rw,g=r--,o=r-- some_file_name
+
+{
+	p=$1
+	u=$3
+	g=$4
+	fn=""
+	for (i=9; i <= NF; i++) {
+		if (fn != "") {
+			fn = fn " "
+		}
+		fn = fn $i
+	}
+
+	print "chown",u ":" g,"\"" fn "\""
+	pu=substr(p,2,3);
+	pg=substr(p,5,3);
+	po=substr(p,8,3);
+	print "chmod", "u=" pu ",g=" pg ",o=" po, "\"" fn "\""
+}
