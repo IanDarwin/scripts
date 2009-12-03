@@ -36,6 +36,8 @@ do
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
+		asterisk) LOG=/var/log/asterisk.log;;
+		all)	exec xtail /var/log /var/tomcat/logs;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		cups)	LOG=/var/log/cups/error_log;;
@@ -46,6 +48,7 @@ do
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		icb|hackers)	LOG=~/hacklog/`date +%Y-%m`;;
 		port*s)	LOG=~/portslog/`date +%Y-%m`;;
+		jboss)	LOG=/usr/local/jboss/server/default/log/server.log;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
