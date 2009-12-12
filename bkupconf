@@ -9,24 +9,35 @@ FILE=$HOME/config.tar.gz
 
 cd /
 tar czvf ${FILE} \
+	etc/*clam* \
 	etc/defaultdomain \
+	etc/dumpdates \
 	etc/exports \
+	etc/group \
 	etc/hosts etc/hostname.* \
+	etc/hotplug \
 	etc/inetd.conf \
-	etc/master.passwd etc/passwd \
+	etc/ipsec.conf \
+	etc/login.conf \
 	etc/mail/ \
+	etc/master.passwd etc/passwd \
+	etc/motd \
 	etc/mygate \
 	etc/myname \
 	etc/networks \
 	etc/newsyslog.conf \
+	etc/openvpn \
 	etc/pf.conf \
-	etc/rc.local \
+	etc/qemu* \
 	etc/rc.conf.local \
+	etc/rc.local \
 	etc/rc.securelevel \
 	etc/resolv.conf* \
+	etc/sane.d \
 	etc/services \
 	etc/shells \
 	etc/ssh/ \
+	etc/sudoers \
 	etc/sysctl.conf \
 	etc/syslog.conf \
 	etc/ttys \
