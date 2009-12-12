@@ -1,41 +1,35 @@
 #!/bin/sh
 
-# take key files from sqorch (NOT including any passwd files!!)
-# home so I can track them in CVS.
+# take key config files from a machine (NOT including any passwd files!!)
 
-(
-echo "To: ian@darwinsys.com"
-echo "Subject: sqorch conf"
-echo ""
- 
-cd /etc
-shar \
-	aliases \
-	defaultdomain \
-	exports \
-	hostname.xl0 \
-	hostname.xl1 \
-	hosts \
-	hosts.equiv \
-	hosts.lpd \
-	inetd.conf \
-	ipf.rules \
-	ipnat.rules \
-	mail.rc \
-	mygate \
-	myname \
-	named.boot \
-	networks \
-	nsdata/* \
-	rc.local \
-	rc.conf \
-	resolv.conf \
-	sendmail.cf \
-	services \
-	shells \
-	sshd_config \
-	sysctl.conf \
-	syslog.conf \
-	ttys 
-) |
-	sendmail -v -t
+[ -w / ] || { echo be root
+	exit 1
+}
+
+cd /
+tar czvf ~/config.tar.gz \
+	etc/aliases \
+	etc/defaultdomain \
+	etc/exports \
+	etc/hosts etc/hostname.* \
+	etc/inetd.conf \
+	etc/master.passwd etc/passwd \
+	etc/mail/ \
+	etc/mygate \
+	etc/myname \
+	etc/networks \
+	etc/newsyslog.conf \
+	etc/pf.conf \
+	etc/rc.local \
+	etc/rc.conf.local \
+	etc/rc.securelevel \
+	etc/resolv.conf* \
+	etc/services \
+	etc/shells \
+	etc/ssh/ \
+	etc/sysctl.conf \
+	etc/syslog.conf \
+	etc/ttys \
+	upgrade.site
+
+echo "Remember to copy $FILE from this system, and keep it secure."
