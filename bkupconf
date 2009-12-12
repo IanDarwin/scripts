@@ -5,10 +5,10 @@
 [ -w / ] || { echo be root
 	exit 1
 }
+FILE=$HOME/config.tar.gz
 
 cd /
-tar czvf ~/config.tar.gz \
-	etc/aliases \
+tar czvf ${FILE} \
 	etc/defaultdomain \
 	etc/exports \
 	etc/hosts etc/hostname.* \
@@ -32,4 +32,4 @@ tar czvf ~/config.tar.gz \
 	etc/ttys \
 	upgrade.site
 
-echo "Remember to copy $FILE from this system, and keep it secure."
+echo "Remember to copy ${FILE} from this system, and keep it secure."
