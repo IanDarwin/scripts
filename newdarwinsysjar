@@ -7,19 +7,18 @@ set -x
 cd
 TARGET_DIRS="
 lib
-workspace/annabot/lib
-workspace/darwinsysweb/web/WEB-INF/lib
 workspace/lhbooks/web/WEB-INF/lib
-workspace/javasrc/lib
-workspace/jtkr/lib/
-workspace/jabadex/lib/
-workspace/pageunit/lib/
-workspace/tcpseam/web/WEB-INF/lib/
+workspace/darwinsysweb/web/WEB-INF/lib
 "
 
 for dir in ${TARGET_DIRS}
 do
 	cp ${BUILD_DIR}/darwinsys.jar ${dir}/
+done
+
+for f in workspace/*/lib/darwinsys.jar
+do
+	cp ${BUILD_DIR}/darwinsys.jar ${f}
 done
 
 scp ${BUILD_DIR}/darwinsys.jar ${SERVER}:/www/javacookweb/
