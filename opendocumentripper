@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $# in
+	0)	echo "Usage: $0 file [...]" >&2
+		exit 1
+		;;
+esac
+
+exec java -classpath $ws/mytools/build/textproc OpenDocumentRipper $*
