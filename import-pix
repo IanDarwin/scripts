@@ -19,7 +19,7 @@ function usage {		# give usage message, and exit
 while getopts "d:v" opt 
 do 
  	 case "$opt" in 
-		d)	SUBDIR=$OPTARG;
+		d)	SUBDIR=$OPTARG;;
 		v)	VERBOSE=v;;
 		*)	usage;;
 	esac
