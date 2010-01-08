@@ -5,11 +5,30 @@ cd /mnt/dcim/1* || exit
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
 
-dir=pictures
+DIR=pictures
 
-set -e
+SUBDIR=`date +%Y`/`date +%m`/`date +%d`
 
-DEST_DIR=$HOME/${dir}/`date +%Y`/`date +%m`/`date +%d`
+USAGE='$0 [-d yyyy/mm/dd]'
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "d:v" opt 
+do 
+ 	 case "$opt" in 
+		d)	SUBDIR=$OPTARG;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+DEST_DIR=$HOME/${DIR}/${SUBDIR}
+
+[ v == "${VERBOSE}" ] && set -x
 
 echo 'jpg pictures\nmpg movies' | while read exten dir
 do
