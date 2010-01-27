@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# watch the spamd entries in maillog for non-spam getting trapped...
+
+awk '$6~/GREY/&&$10~/(ian|betty|domains)@darwinsys.com/{print $7 $8}' /var/log/daemon|
+	sort -k1 -u
