@@ -1,0 +1,29 @@
+#!/bin/sh
+
+JPADEMO=/home/ian/workspace/jpademo
+
+# Setup - to use with Seam, for example:
+# mkdir META-INF
+# ln resources/META-INF/persistence-dev.xml META-INF/persistence.xml
+# export CLASSPATH=classes/main
+
+[ -d ${JPADEMO} ] || {
+	"Set JPADEMO to where jpademo stuff is installed"
+	exit 1
+}
+
+export CLASSPATH
+for j in ${JPADEMO}/lib/*.jar
+do
+	CLASSPATH=$CLASSPATH:$j
+done
+CLASSPATH=$CLASSPATH:.
+
+# Hsqldb issue...
+if [ -d ./tmp ]; then
+	rm -f ./tmp/jpademo.*
+fi
+
+CLASSPATH=$CLASSPATH:${JPADEMO}/bin
+
+java demo.JPAQuery $*
