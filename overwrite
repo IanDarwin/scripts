@@ -11,8 +11,9 @@ case $# in
 esac
 
 file=$1; shift
-new=/var/tmp/overw1.$$; old=/var/tmp/overw2.$$
-trap 'rm -f $new $old; exit 1' 1 2 15	# clean up files
+new=$(mkstemp -t /tmp/overwr1-XXXXXXXXXX) || exit 1
+old=$(mkstemp -t /tmp/overwr1-XXXXXXXXXX) || exit 1
+trap 'rm -f $new $old; exit 1' 0 1 2 15	# clean up files
 
 if PATH=$opath "$@" >$new
 then
@@ -23,5 +24,3 @@ else
 	echo "overwrite: $1 failed, $file unchanged" 1>&2
 	exit 1
 fi
-
-rm -f $new $old
