@@ -5,6 +5,7 @@ JARHOME=~ian/lib
 PHONENUM=$1
 MESSAGE="$2"
 
-exec > /tmp/smsgateway.log 2>&1
+LOGFILE=$(mktemp /tmp/smsgatewayXXXXXXXXXX.log)
+exec > ${LOGFILE} 2>&1
 
 java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}"
