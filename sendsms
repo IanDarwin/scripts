@@ -1,0 +1,10 @@
+#!/bin/sh
+
+JARHOME=~ian/lib
+
+PHONENUM=$1
+MESSAGE="$2"
+
+exec > /tmp/smsgateway.log 2>&1
+
+java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}"
