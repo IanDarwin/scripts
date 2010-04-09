@@ -2,4 +2,4 @@
 
 HOST=${1-rejmi-rover}
 
-exec rdesktop -mE -u ian -a 16 -g 800x500 ${HOST}
+exec rdesktop -E -u ian -a 16 -g 800x500 ${HOST}
