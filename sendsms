@@ -6,6 +6,5 @@ PHONENUM=$1
 MESSAGE="$2"
 
 LOGFILE=$(mktemp /tmp/smsgatewayXXXXXXXXXX)
-exec > ${LOGFILE} 2>&1
 
-java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}"
+java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}" | tee ${LOGFILE}
