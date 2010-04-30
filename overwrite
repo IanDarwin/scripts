@@ -11,8 +11,8 @@ case $# in
 esac
 
 file=$1; shift
-new=$(mkstemp -t /tmp/overwr1-XXXXXXXXXX) || exit 1
-old=$(mkstemp -t /tmp/overwr1-XXXXXXXXXX) || exit 1
+new=$(mktemp /tmp/overwr1-XXXXXXXXXX) || exit 1
+old=$(mktemp /tmp/overwr1-XXXXXXXXXX) || exit 1
 trap 'rm -f $new $old; exit 1' 0 1 2 15	# clean up files
 
 if PATH=$opath "$@" >$new

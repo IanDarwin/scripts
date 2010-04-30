@@ -1,5 +1,5 @@
 gconftool-2 -s -t list --list-type=string \
-/apps/compiz/general/allscreens/options/active_plugins "[command,gconf,decoration,wobbly,minimize,png,cube,switcher,move,resize,place,rotate,zoom,scale,dbus,water]" 
+/apps/compiz/general/allscreens/options/active_plugins "[gconf,decoration,wobbly,minimize,png,cube,switcher,move,resize,place,rotate,zoom,scale,dbus,water]" 
 
 gconftool-2 -s -t string \
 /apps/compiz/plugins/commands/allscreens/options/run_command1_key '<Alt>F3' \

@@ -29,9 +29,12 @@ BEGIN {
 		}
 		v = map[ARGV[i]]
 		if (v == "") {
-			print("NO MATCH FOR", k)
+			print("NO MATCH FOR", k, "; trying alternates")
+			cmd = sprintf("grep %s %s", k, INDEX)
+			print cmd
+			system(cmd)
 		} else {
-			if (v !~ /^\//) {
+			if (v !~ /^\// && v !~ /^https?:/) {
 				v = DIR v
 			}
 			print k, "=>", v

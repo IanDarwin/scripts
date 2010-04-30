@@ -5,7 +5,7 @@
 # Setup: start with e.g., ln -s hostname.wireless hostname.rum0
 # Then this script will ln from wireless to the current selection.
 
-WAIT=50	# 	5.0 seconds
+WAIT=70	# 	7.0 seconds
 
 [ -w / ] || {
 	echo be root to try $0
@@ -30,10 +30,11 @@ do
 	echo "==> host = ${host}"
 	case ${host} in
 	0)	break;; # do nothing
-	n|None)	echo Make yourself scarce
+	n|None)	echo "Making yourself scarce, eh?"
 		rm -f hostname.wireless
 		break;;
 	*)	echo You\'re at ${host}, eh?
+		rm -f hostname.wireless	# clean up messes
 		ln -sf /home/ian/.wifi/${host} hostname.wireless
 		break;;
 	esac

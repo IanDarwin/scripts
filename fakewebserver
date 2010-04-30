@@ -27,6 +27,8 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filename
 
+echo Listening on ${PORT}
+
 while :
 do 
 	(

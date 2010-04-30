@@ -22,6 +22,7 @@ grestore
 showpage
 """
 po = os.popen('lpr', 'w')
+po = sys.stdout
 
 for name in sys.argv[1:]:
 	po.write(PSPROG.replace("NAME", name))

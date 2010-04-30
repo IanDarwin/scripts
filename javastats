@@ -7,6 +7,9 @@ pwd
 # how many src files?
 echo $(find . -name \*.java | wc -l) Java files
 
+# how many JPA Entities if any
+echo $(find . -name \*.java | xargs grep -l @Entity | wc -l) JPA Entities
+
 # how many tests?
 echo $(find . -name '*Test*.java' | wc -l) test files
 
@@ -15,3 +18,4 @@ echo $(find . -name \*.java | xargs cat | wc -l) LOC
 
 # how many .class files?
 echo $(find . -name \*.class | wc -l) .class files
+

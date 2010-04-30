@@ -15,7 +15,6 @@ function usage {		# give usage message, and exit
 }
 
 HOST=mail.darwinsys.com
-#HOST=209.135.104.16
 
 while getopts "h:" opt 
 do 
@@ -33,7 +32,8 @@ do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		darwinsys.com|www.darwinsys.com)
+		*.darwinsys.com)
+			# use generic sendmail interface
 			exec sudo sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f

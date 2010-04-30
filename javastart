@@ -15,7 +15,8 @@ $ws/jabadex/build:\
 ${JARDIR}/jtkr.jar:\
 ${JARDIR}/jclipboard.jar \
 com.darwinsys.util.MainStarter \
-jtkr.JTkr \
 jclipboard.JClipBoard \
 jabadex.todo.ToDoMain \
 &
+echo NOT starting \
+jtkr.JTkr \

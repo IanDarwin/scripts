@@ -6,4 +6,4 @@ case $# in
 		;;
 esac
 
-exec java -classpath $ws/mytools/build/textproc OpenDocumentRipper $*
+exec java -classpath $ws/mytools/build textproc.OpenDocumentRipper $*
