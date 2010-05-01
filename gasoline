@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case $# in
+	3)	date=$1
+		dealer=$2
+		amount=$3
+		;;
+	*)	echo "Usage: $0 date dealer cost" >&2
+		exit 1
+		;;
+esac
+if [ "$date" = "-" ]; then
+	date=`date +%Y-%m-%d`
+fi
+
+echo "insert into employeecarexpense(employee,date,type,dealer,amount) 
+                        values(1,'${date}','Gasoline','${dealer}',${amount});" |
+				ssh rmn psql -d rejminet

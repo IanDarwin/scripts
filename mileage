@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case $# in
+	2)	mileage=$1
+		description=$2
+		;;
+	*)	echo "Usage: $0 mileage description" >&2
+		exit 1
+		;;
+esac
+
+echo "insert into employeecarusage(employee,type,date,mileage,description) 
+                        values(1,'B','`date +%Y-%m-%d`',${mileage},'${description}');" |
+				ssh rmn psql -d rejminet
