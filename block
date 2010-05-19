@@ -1,0 +1,13 @@
+[ -w / ] || {
+	echo "Be walking root, be talking flowers">&2; exit 1 
+}
+host=${2-daroo}
+
+case $1 in
+	'-')
+		pfctl -t blockedinside -T delete ${host}
+		;;
+	'+')
+		pfctl -t blockedinside -T add daroo
+		;;
+esac
