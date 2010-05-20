@@ -1,3 +1,10 @@
+#!/bin/sh
+
+case $# in
+	1|2)	;;
+	*)	echo usage: "+|-" host;;
+esac
+
 [ -w / ] || {
 	echo "Be walking root, be talking flowers">&2; exit 1 
 }
