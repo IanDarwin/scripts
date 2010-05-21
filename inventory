@@ -1,0 +1,6 @@
+#!/bin/sh 
+psql -d ecom <<!
+select location,sku,stockcount,title from products
+	where stockcount != 0
+	order by location,title; 
+!
