@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case $# in
+	2)	;;
+	*)	echo Usage: $0 title description
+		;;
+esac
+
+title=$1 
+description=$2
+bugstatus=ACCEPTED_FUTURE
+bugcomponent=USER_INTERFACE
+bugtype=BUG # or RFE
+submittor_id=1
+approved=true
+
+ssh acb psql -d andcook <<!
+insert into bug(title, description, 
+	bugstatus, bugcomponent, bugtype, submittor_id, approved)
+values('$title','$description',
+	'$bugstatus','$bugcomponent','$bugtype',$submittor_id,$approved);
+!
