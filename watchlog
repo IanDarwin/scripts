@@ -49,6 +49,7 @@ do
 		icb|hackers)	LOG=~/hacklog/`date +%Y-%m`;;
 		port*s)	LOG=~/portslog/`date +%Y-%m`;;
 		jboss)	LOG=/usr/local/jboss/server/default/log/server.log;;
+		jbacc*)	LOG=/usr/local/jboss/server/default/log/localhost_access_log.$(date +%Y-%m-%d).log;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
 		mail)	LOG=/var/log/maillog ;;
