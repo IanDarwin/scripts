@@ -1,20 +1,21 @@
 #!/bin/sh
 
-DATE=`date +%Y-%m-%d`
 
 case $# in
-	3)	mileage=$1
-		DATE=$2
+	3)	
+		date=$1
+		mileage=$2
 		description=$3
 		;;
-	2)	mileage=$1
-		description=$2
-		;;
-	*)	echo "Usage: $0 mileage [yyyy-mm-dd] description" >&2
+	*)	echo "Usage: $0 [-|yyyy-mm-dd] mileage description" >&2
 		exit 1
 		;;
 esac
 
+if [ "$date" = "-" ]; then
+	date=`date +%Y-%m-%d`
+fi
+
 echo "insert into employeecarusage(employee,type,date,mileage,description) 
-                        values(1,'B','${DATE}',${mileage},'${description}');" |
+                        values(1,'B','${date}',${mileage},'${description}');" |
 				ssh rmn psql -d rejminet
