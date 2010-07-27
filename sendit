@@ -36,7 +36,7 @@ do
 			# use generic sendmail interface
 			exec sudo sendmail -v -t < $f && mv $f $f.sent
 			;;
-		*)	copyit $f
+		*)	copyit $f && mv $f $f.sent
 			;;
 		esac
 	else
