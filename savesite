@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# before doing a reinstall, save the key files
+
+cd /
+
+[ -w . ] || { echo be root; exit 1
+}
+
+tar czvf /site.tgz etc/passwd etc/master.passwd etc/*.db etc/ssh etc/myname etc/group
+
+echo '********************************************************'
+echo "*** site.tgz won't do any good if you don't save it! ***"
+echo '********************************************************'
