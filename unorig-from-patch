@@ -1,4 +1,4 @@
 for patch
 do
-	grep '+++' ~/patches/$p |awk '{print $2}'|xargs unorig
+	grep '+++' ~/patches/$patch |awk '{print $2}'|xargs unorig
 done
