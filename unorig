@@ -5,6 +5,10 @@
 for f in ${*-*.orig}
 do
 	case "$f" in
+	'*.orig')
+		echo NO ORIG FOUND >&2
+		exit 1
+		;;
 	*.orig)
 		b=$(echo $f | sed 's/.orig$//')
 		mv $f $b
