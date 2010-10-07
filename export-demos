@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# copy zips of important projects for demos
+
+mount | grep /mnt || exit
+
+cd ~/workspace
+
+for d in darwinsys-api javasrc cookbookweb login-filter jsfdemo/
+do 
+	echo $d
+	jar cf /mnt/$d.zip $d
+done
+
+
