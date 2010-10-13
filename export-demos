@@ -6,7 +6,7 @@ mount | grep /mnt || exit
 
 cd ~/workspace
 
-for d in darwinsys-api javasrc cookbookweb login-filter jsfdemo/
+for d in darwinsys-api javasrc cookbookweb login-filter jsfdemo
 do 
 	echo $d
 	jar cf /mnt/$d.zip $d
