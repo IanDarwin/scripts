@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# olss - oneline slideshow
+
+exec java -classpath $ws/darwinsys-api/build  com.darwinsys.preso.OLSS $*
