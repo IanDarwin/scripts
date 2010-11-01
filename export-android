@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# copy zips of important projects for demos
+
+mount | grep /mnt || exit
+
+cd ~/workspace
+
+for d in androidutils jpstrack* whatsmyloc* 
+do 
+	echo $d
+	jar cf /mnt/$d.zip $d
+done
+
+# Take the programs to build them too
+cp ~/pub/android/android*windows* /mnt
+
