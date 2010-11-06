@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# grep /usr/share/dict/words for a word
+
+egrep "^$1\$" /usr/share/dict/words
