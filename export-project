@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd $ws || exit
+
+for dir in $*
+do
+	zip -rv -xCVS /mnt/${dir}.zip ${dir}/
+done
