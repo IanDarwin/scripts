@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+# Pop up a dialog, text from argv
+
+import sys,gtk
+
+if len(sys.argv) == 1:
+	text = "OK"
+else:
+	text = ' '.join(sys.argv[1:])
+
+# create a (nonvisible) window 
+w = gtk.Window()
+
+b = gtk.Button(text)
+
+w.add(b)
+
+def confirm(target):
+  print 'OK then'
+  exit()
+
+b.connect('clicked', confirm)
+
+# make the window display
+w.show_all()
+
+# start processing screen events
+gtk.main()
+
