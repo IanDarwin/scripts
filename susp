@@ -1,2 +1,20 @@
-xlock & zzz
+#!/bin/sh
 
+# susp -- suspend the laptop
+
+# Only if apmd running
+ps ax | grep -v grep | grep apmd >/dev/null || {
+	echo "Apmd not running"
+	exit 1
+}
+
+# some things don't do so well while suspended...
+pkill pidgin
+
+sleep 1
+
+# Make sure we come back locked!
+xlock & 
+
+# Now do the suspend
+zzz
