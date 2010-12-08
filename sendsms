@@ -3,8 +3,7 @@
 JARHOME=~ian/lib
 
 PHONENUM=$1
-MESSAGE="$2"
+shift
+MESSAGE="$@"
 
-LOGFILE=$(mktemp /tmp/smsgatewayXXXXXXXXXX)
-
-java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}" | tee ${LOGFILE}
+java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}"
