@@ -1,0 +1,5 @@
+echo "select id,firstname,lastname,homephone,homecellphone,workphone,workcellphone,organization from contact c where 
+	c.homephone like '%$1%' or 
+	c.homecellphone like '%$1%' or 
+	c.workphone like '%$1%' or 
+	c.workcellphone like '%$1%'" | ssh rmn psql -d rejminet
