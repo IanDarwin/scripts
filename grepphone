@@ -1,5 +1,17 @@
+#!/bin/sh
+
+# grep a phone substring in contacts db
+
+if [ $# -eq 0 ]; then
+	echo "Usage: $0 phonenum [...]" >&2
+	exit 1
+fi
+
+for num
+do
 echo "select id,firstname,lastname,homephone,homecellphone,workphone,workcellphone,organization from contact c where 
-	c.homephone like '%$1%' or 
-	c.homecellphone like '%$1%' or 
-	c.workphone like '%$1%' or 
-	c.workcellphone like '%$1%'" | ssh rmn psql -d rejminet
+	c.homephone like '%${num}%' or 
+	c.homecellphone like '%${num}%' or 
+	c.workphone like '%${num}%' or 
+	c.workcellphone like '%${num}%';"
+done | ssh rmn psql -d rejminet
