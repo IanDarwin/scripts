@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# set up anon-ftp on openbsd
+# see man 8 ftpd
+[ -w / ] || {
+	echo be root!
+	exit 1
+}
+useradd -c "Anonymouse FTP" -d /home/ftp -s /usr/bin/ftpd -p INVALID ftp
+mkdir /home/ftp
+chmod 555 /home/ftp
+mkdir /home/ftp/{bin,etc}
+echo PRIVATE > /home/ftp/etc/MOTD
+chmod 511 /home/ftp/{bin,etc}
+mkdir /home/ftp/pub
+chmod 555 /home/ftp/pub
+mkdir -p /home/ftp/pub/OpenBSD/snapshots/{i386,amd64,sparc,sparc64}
