@@ -2,6 +2,12 @@
 
 JARHOME=~ian/lib
 
+case $# in
+0|1)	echo "Usage: $0 nameber message..." 2>&1
+	exit 1
+	;;
+esac
+
 PHONENUM=$1
 shift
 MESSAGE="$@"
