@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# compute the date for today's picture folder
+
+echo $(date +%Y/%m/%d)

@@ -1,13 +1,15 @@
 #!/bin/sh
 
-cd /mnt/dcim/1* || exit
+cd /mnt/dcim/ || exit
+
+cd Camera || cd 1* || exit
 
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
 
 DIR=pictures
 
-SUBDIR=`date +%Y`/`date +%m`/`date +%d`
+SUBDIR=$(pixdate)
 
 USAGE='$0 [-d yyyy/mm/dd]'
 
@@ -30,7 +32,7 @@ DEST_DIR=$HOME/${DIR}/${SUBDIR}
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nmpg movies' | while read exten dir
+echo 'jpg pictures\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
