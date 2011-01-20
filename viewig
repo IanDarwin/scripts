@@ -8,7 +8,7 @@ esac
 for crs
 do
 
-cd ~/lt${crs}??
+cd ~/ltcn/${crs}??
 
 case "$0" in
 	*ig) open *IG*;;

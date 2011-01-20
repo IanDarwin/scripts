@@ -6,7 +6,7 @@ case $# in
 	exit 1
 esac
 
-cd ~/lt${1}??
+cd ~/ltcn/${1}??
 
 case "$0" in
 	*ig) open *IG*;;
