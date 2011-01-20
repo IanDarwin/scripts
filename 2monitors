@@ -3,7 +3,7 @@
 set -x
 
 # Simple version, from phessler@
-xrandr --output VGA --right-of LVDS
-xrandr --output VGA --auto
+xrandr --output VGA-0 --right-of LVDS
+xrandr --output VGA-0 --auto
 xrandr --output LVDS --auto
 
