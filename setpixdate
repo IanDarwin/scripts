@@ -4,8 +4,33 @@
 
 DATE="1970-06-06"
 TIME="12:00:00"
+OWNER="Ian F. Darwin"
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-d yyyy-mm-dd][-t hh:mm:ss] image ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "d:t:" opt 
+do 
+ 	 case "$opt" in 
+		d)	DATE=$OPTARG;;
+		t)	TIME=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+YEAR=$(expr $DATE : '\([12][0-9][0-9][0-9]\)')
 
 for file
 do
-	exiv2 -M"set Exif.Photo.DateTimeOriginal ${DATE} ${TIME}" ${file}
+	exiv2 \
+		-M"set Exif.Photo.DateTimeOriginal ${DATE} ${TIME}" \
+		-M"set Exif.Image.Copyright Copyright ${YEAR} ${OWNER}" \
+			${file}
 done
