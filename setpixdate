@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# pixsetdate - set the "original" timestamp on jpeg or other exif image
+
+DATE="1970-06-06"
+TIME="12:00:00"
+
+for file
+do
+	exiv2 -M"set Exif.Photo.DateTimeOriginal ${DATE} ${TIME}" ${file}
+done
