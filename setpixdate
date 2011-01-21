@@ -6,24 +6,30 @@ DATE="1970:06:06"
 TIME="12:00:00"
 OWNER="Ian F. Darwin"
 
-PATH=/bin:/usr/bin:$PATH; export PATH
-
-USAGE="$0 [-d yyyy:mm:dd][-t hh:mm:ss] image ..."
+USAGE="$0 YYYY:MM:DD file..."
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
 	exit 1
 }
 
-while getopts "d:t:" opt 
+
+while getopts "d:" opt 
 do 
  	 case "$opt" in 
-		d)	DATE=$OPTARG;;
-		t)	TIME=$OPTARG;;
+		h)	usage;;
 		*)	usage;;
 	esac
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
+
+if expr "$1" : '[0-9]\{4\}:[01][0-9]:[0123][0-9]' >/dev/null; then
+	DATE=$1
+	shift
+else
+	DATE="$(date +%Y:%m:%d)"
+	echo "$0: $1 is not a date, using $DATE" >&2
+fi
 
 YEAR=$(expr $DATE : '\([12][0-9][0-9][0-9]\)')
 
