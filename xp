@@ -2,4 +2,9 @@
 
 # Run MS-Windows XP under qemu
 
-exec /home/ian/scripts/windows -h xp.hd $*
+cd ~/disks
+
+exec /usr/local/bin/qemu -localtime -hda xp.hd \
+	-net nic,vlan=0,model=rtl8139,macaddr='0f:ec:a1:de:ad:bf' \
+        -net user,vlan=0 \
+	$*
