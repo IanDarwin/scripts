@@ -2,8 +2,8 @@
 
 JAR=${1?Usage: $0 jar}
 
-REAHOME=/home/ian/workspace/revengapi/build
+REVENG_HOME=/home/ian/workspace/revengapi/build
 
 cd /tmp
 
-java -cp ${REAHOME}:${JAR} reveng.RevEngAPI -b ${JAR}
+java -cp ${REVENG_HOME}:${JAR} reveng.RevEngAPI -b ${JAR}
