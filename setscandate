@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# set the scanned date, since the Wolverine scanner is too stupid to maintain the date and time
+
+USAGE="$0 [-d YYYY-MM-DD] file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+DATE="$(date +%Y-%m-%d)"
+
+while getopts "d" opt 
+do 
+ 	 case "$opt" in 
+		d)	DATE=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+exiv2 -M"set Exif.Photo.DateTimeDigitized $DATE 12:00:00" $*

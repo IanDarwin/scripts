@@ -8,7 +8,7 @@ cd Camera || cd 1* || exit
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
 
 DIR=pictures
-
+SCANDATE=n
 SUBDIR=$(pixdate)
 
 USAGE='$0 [-d yyyy/mm/dd]'
@@ -18,10 +18,11 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "d:v" opt 
+while getopts "d:sv" opt 
 do 
  	 case "$opt" in 
 		d)	SUBDIR=$OPTARG;;
+		s)	SCANDATE=y;;
 		v)	VERBOSE=v;;
 		*)	usage;;
 	esac
@@ -62,6 +63,13 @@ fi
 
 echo "Uploaded:"
 ls ${DEST_DIR}
+
+case ${SCANDATE} in
+	y) 
+		echo "Setting 'Scanned' date to today..."
+		setscandate ${DEST_DIR}/*
+		;;
+esac
 
 echo -n "Erase [no,yes] " 
 read oktoerase
