@@ -5,6 +5,7 @@
 # Setup: start with e.g., ln -s hostname.wireless hostname.rum0
 # Then this script will ln from wireless to the current selection.
 
+IF=iwn0
 WAIT=70	# 	7.0 seconds
 
 [ -w / ] || {
@@ -42,3 +43,4 @@ done
 stty $STTY
 PS3=oldPS3
 showit
+sh /etc/netstart ${IF}
