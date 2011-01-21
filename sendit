@@ -34,7 +34,7 @@ do
 		case `hostname` in
 		*.darwinsys.com)
 			# use generic sendmail interface
-			exec sudo sendmail -v -t < $f && mv $f $f.sent
+			exec sendmail -v -t < $f && mv $f $f.sent
 			;;
 		*)	copyit $f && mv $f $f.sent
 			;;
