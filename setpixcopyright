@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# pixsetdate - set the copyright owner on jpeg or other exif image
+
+OWNER="Ian F. Darwin"
+YEAR=$(date +Y)
+
+USAGE="$0 YYYY:MM:DD file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+
+while getopts "o:y:" opt 
+do 
+ 	 case "$opt" in 
+		o)	OWNER="$OPTARG";;
+		y)	YEAR="$OPTARG";;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+
+exiv2 -M"set Exif.Image.Copyright Copyright ${YEAR} ${OWNER}" $*
