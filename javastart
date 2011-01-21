@@ -11,12 +11,14 @@ JARDIR=${HOME}/lib
 # at the end of each
 
 exec java -classpath ${JARDIR}/darwinsys.jar:\
+$ws/mytools/build:\
 $ws/jabadex/build:\
 ${JARDIR}/jtkr.jar:\
 ${JARDIR}/jclipboard.jar \
 com.darwinsys.util.MainStarter \
 jclipboard.JClipBoard \
 jabadex.todo.ToDoMain \
+nag.Nagger \
 &
 echo NOT starting \
 jtkr.JTkr \
