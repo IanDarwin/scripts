@@ -68,5 +68,7 @@ read y
 vi ${DIR}/Makefile pkg/DESCR
 
 
-cvs -d ian@cvs.darwinsys.com:/cvs import -m "$COMMENT" ports/${CAT}/${NAME} ian $(moddate)
+echo "Importing into DARWINSYS ONLY"
+
+cvs -d ian@cvs.darwinsys.com:/cvs import -m "$COMMENT" mystuff/${CAT}/${NAME} ian $(moddate)
 
