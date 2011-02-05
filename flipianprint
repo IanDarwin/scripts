@@ -5,10 +5,10 @@
 # In these two cases it may also be accessed by people on the LAN
 case $1 in
 	usb|local)
-		/usr/local/sbin/lpadmin -h usb:/dev/ulpt0 -p hpmfc
+		/usr/local/sbin/lpadmin -v usb:/dev/ulpt0 -p hpmfc
 		;;
 	ianprint|rem*)
-		/usr/local/sbin/lpadmin -h socket://ianprint:9100 -p hpmfc
+		/usr/local/sbin/lpadmin -v socket://ianprint:9100 -p hpmfc
 		;;
 
 	# For use by family
@@ -17,7 +17,7 @@ case $1 in
 		dalai*)	echo "Can't network print to yourself!!"
 			;;
 		*)
-			lpadmin -h ipp://dalai/printers/hpmfc -p hpmfc
+			lpadmin -v ipp://dalai/printers/hpmfc -p hpmfc
 		esac
 		;;
 	*)
