@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -x
+
+rm -rf /tmp/pencil
+
+mkdir  /tmp/pencil
+
+cd /tmp/pencil
+
+LC_ALL=POSIX 
+MAJOR=0.4.4b
+SVN_REV=259
+WRKDIST=pencil-${MAJOR}-${SVN_REV}
+
+svn co -r ${SVN_REV} https://pencil-planner.svn.sourceforge.net/svnroot/pencil-planner/trunk ${WRKDIST}
+        
+tar czf /tmp/${WRKDIST}.tar.gz ${WRKDIST}
+
+scp /tmp/${WRKDIST}.tar.gz dos:/www/darwinsys/mirror/

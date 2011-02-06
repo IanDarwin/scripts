@@ -1,0 +1,20 @@
+#!/bin/sh
+
+SVN_REV=1
+
+set -x
+
+rm -rf /tmp/josm
+
+mkdir  /tmp/josm
+
+cd /tmp/josm
+
+LC_ALL=POSIX 
+WRKDIST=leonardosketch-0.1.${SVN_REV}
+
+hg clone https://leonardosketch.googlecode.com/hg/ ${WRKDIST}
+
+tar czf /tmp/${WRKDIST}.tar.gz ${WRKDIST}
+
+scp /tmp/${WRKDIST}.tar.gz dos:/www/darwinsys/mirror/
