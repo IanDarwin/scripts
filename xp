@@ -2,9 +2,14 @@
 
 # Run MS-Windows XP under qemu
 
-cd ~/disks
+exec sudo sh -c "sudo -u $USER qemu -localtime \
+	-net nic,vlan=0,model=e1000,macaddr=52:54:00:12:34:56 \
+	-net tap,fd=3 -no-fd-bootchk -hda ~/disks/xp.hd 3<>/dev/tun1"
+
+exit
 
 exec /usr/local/bin/qemu -localtime -hda xp.hd \
-	-net nic,vlan=0,model=rtl8139,macaddr='0f:ec:a1:de:ad:bf' \
-        -net user,vlan=0 \
+	-enable-kvm \
+	# -net nic,vlan=0,model=rtl8139,macaddr='0f:ec:a1:de:ad:bf' \
+        # -net user,vlan=0 \
 	$*
