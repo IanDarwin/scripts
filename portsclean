@@ -1,0 +1,12 @@
+#!/bin/sh
+
+p=/usr/ports
+
+echo "Removing conflict files"
+
+find $p -name .#\* | xargs rm -f
+
+echo "The following Makefiles may be messed:"
+
+find $p -name Makefile|xargs grep -l '<<<'
+
