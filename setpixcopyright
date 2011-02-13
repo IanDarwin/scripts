@@ -13,11 +13,11 @@ function usage {		# give usage message, and exit
 }
 
 
-while getopts "o:y:" opt 
+while getopts "d:o:y:" opt 
 do 
  	 case "$opt" in 
 		o)	OWNER="$OPTARG";;
-		y)	YEAR="$OPTARG";;
+		d|y)	YEAR="$OPTARG";;
 		*)	usage;;
 	esac
 done
