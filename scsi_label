@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # scsi_label - show the label of a SCSI disk
+# BSD specific (OpenBSD, FreeBSD, etc.)
 
 DISK=${1-sd0}
 
