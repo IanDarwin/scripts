@@ -21,7 +21,7 @@ do
 		f)	TAIL_F=-f;;
 		m)	MORE="more";;
 		n)	NUM=-${OPTARG};;
-		v)	TAIL_PROG=${VISUAL-vi};;
+		v)	TAIL_PROG=view;;
 		*)	usage;;
 	esac
 done
