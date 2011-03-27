@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Export /usr/ports as a tar file, for scp to machine on LAN
+# Exclude the subdirs that you don't want
+# (can always scp individual distfiles)
+
+tar cfz /tmp/ports.tgz $(ls | egrep -v distfiles\|packages\|pobj)
