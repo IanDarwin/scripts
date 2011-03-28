@@ -1,0 +1,8 @@
+#!/bin/sh
+
+revision=$1
+
+psql -d andcook <<!
+insert into revision(id,title,problem,solution,discussion,percentcomplete) 
+values(${revision},'DUMMY TITLE','DUMMY PROBLEM','DUMMY SOLUTION','DUMMY DISCUSSION',0);
+!
