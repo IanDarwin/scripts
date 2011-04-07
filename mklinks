@@ -33,8 +33,4 @@ for line in sys.stdin.readlines():
 		print "%s<a href='%s'>%s</a>%s" % (PRE, line, line, POST)
 
 	if NF > 1:
-		print PRE+"<a href='"+words[0]+"'>",
-		for rest in words[1:]:
-			print rest,
-		
-		print "</a>"+POST
+		print "%s<a href='%s'>%s</a>%s" % (PRE, words[0], ' '.join(words[1:]), POST)
