@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# download the app to the real device
+
+APP=jpstrack.android
+DEV=-d
+UNINSTALL_PKG=
+
+USAGE="$0 [-d|-e][-a app]"
+
+usage() {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "a:du:" opt 
+do 
+	case "$opt" in 
+		a)	APP=${OPTARG};;
+		e)	DEV=-e;;
+		u)	UNINSTALL_PKG=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+cd ~/workspace/${APP}
+
+if [ -s ${UNINSTALL_PKG} ]; then
+	adb ${DEV} uninstall ${UNINSTALL_PKG}
+fi
+
+adb ${DEV} install -r bin/${APP}.apk
