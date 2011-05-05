@@ -1,9 +1,26 @@
 #!/bin/sh
 
-set -x
+# Use keytool to generate a Key Pair and a CSR
 
-keytool -genkey -keystore play.store -alias tomcat -validity 666
-keytool -certreq -alias tomcat -keystore play.store -file play.csr
-cat play.csr
-keytool -selfcert -alias tomcat -keystore play.store
+# defaults
+ALIAS=tomcat
+CSR_FILE=certreq.csr
+DURATION=731	# two years
+KEYALG=RSA
+KEYSTORE=$HOME/.keystore.new
 
+echo Creating a local Certificate 
+echo "Enter your domain (i.e. www.thegoodguys.org) in the field 'first- and lastname' "
+keytool -genkey -alias ${ALIAS} -keyalg ${KEYALG} -keystore ${KEYSTORE} -validity ${DURATION}
+
+echo Exporting pubkey to make Certificate Signing Request for signing by CA
+keytool -certreq -alias ${ALIAS} -keyalg ${KEYALG} -keystore ${KEYSTORE} -file ${CSR_FILE}
+
+echo "Your CSR should be in ${CSR_FILE}"
+ls -l ${CSR_FILE}
+
+echo "Self-sign it? [ny]"; read ans junk
+case ${ans} in
+y*) keytool -selfcert -alias ${ALIAS} -keystore $KEYSTORE};
+*) echo $CSR_FILE Not self-signed, send to CA.";;
+esac
