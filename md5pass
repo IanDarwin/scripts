@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for clear
+do
+	echo -n ${clear}\\t; echo -n ${clear} | md5
+done
