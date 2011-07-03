@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo Usage: $0 projectName >&2
+	exit 1;;
+fi
+
+P=$1
+
+if [ ! -d $ws/$P ]; then
+	echo No Directory
+	exit 1;
+fi
+if [ ! -d $ws/$P/dist/$P.apk ]; then
+	echo No API
+	exit 1;
+fi
+
+set -x
+
+scp $ws/$P/dist/$P.apk ${SERVER}:/projects/
