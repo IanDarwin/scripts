@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# on the mail machine, search for important mail that might have been gray- or blacklisted...
+
+for f
+do
+	grep $f /var/log/{daemon,maillog}*
+done
+
