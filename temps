@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# report the temperatures, either once (default) or regularly (-s)
+
+case $1 in
+"") exec sysctl hw.sensors | grep temp;;
+*)
+	while :
+	do
+		clear
+		date
+		sysctl hw.sensors | grep temp
+		sleep 10
+	done
+	;;
+esac
+	
