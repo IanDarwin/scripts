@@ -1,27 +1,42 @@
-#!/bin/sh
+#!/usr/bin/env python
 
-# sendimage - send the image, prompting for recipients
-# intended for use from within gwenview
+from Tkinter import Tk,Button,Label,Entry
+import sys,os
 
-recips=$(xprompt -p "Recipients? \c")
+global recips, subject
 
-for IMAGE
-do
+rootWindow = Tk()
 
-	TYPE=image
-	SUBTYPE=INVALID
-	case $IMAGE in
-		*jpg|*jpeg) SUBTYPE=jpeg;;
-		*gif)		SUBTYPE=gif;;
-		*png)		SUBTYPE=png;;
-		*)			echo Unknown image type for $IMAGE
-					exit 1;;
-	esac
+file = sys.argv[1]
+#case $file in
+#	*.jp*g)	SUBTYPE=jpeg;;
+#	*.gif)	SUBTYPE=gif;;
+#	*.png)	SUBTYPE=png;;
+#	*)	echo Unknown image type for $IMAGE
+#		exit 1;;
+#esac
 
-	CMD="mpack -s image-$IMAGE -c $TYPE/$SUBTYPE $IMAGE $recips"
+label = Label(rootWindow, text="Send Image %s" % file)
+label.pack()
 
-	OK=$(xprompt -p "OK? $CMD")
+SUBTYPE = "jpg"	# XXX compute this!
 
-	$CMD
+def handler(*args):
+	global recips
+	cmd = "mpack -s %s -c image/%s %s %s" % (
+		subject.get(), SUBTYPE, file, recips.get())
+	print cmd
+	os.system(cmd);
 
-done
+recips = Entry(rootWindow, text="To")
+recips.pack()
+
+subject = Entry(rootWindow, text="Subject")
+subject.pack()
+
+button = Button(rootWindow, text='Send', command=handler);
+button.pack()
+
+rootWindow.mainloop()
+
+
