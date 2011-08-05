@@ -27,6 +27,7 @@ def handler(*args):
 		subject.get(), SUBTYPE, file, recips.get())
 	print cmd
 	os.system(cmd)
+	sys.exit(0)
 
 Label(rootWindow, text="To:").pack()
 recips = Entry(rootWindow)
