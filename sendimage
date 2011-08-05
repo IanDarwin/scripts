@@ -26,11 +26,13 @@ def handler(*args):
 	cmd = 'mpack -s "%s" -c image/%s %s %s' % (
 		subject.get(), SUBTYPE, file, recips.get())
 	print cmd
-	os.system(cmd);
+	os.system(cmd)
 
-recips = Entry(rootWindow, text="To")
+Label(rootWindow, text="To:").pack()
+recips = Entry(rootWindow)
 recips.pack()
 
+Label(rootWindow, text="Subject:").pack()
 subject = Entry(rootWindow, text="Subject")
 subject.pack()
 
@@ -38,5 +40,3 @@ button = Button(rootWindow, text='Send', command=handler);
 button.pack()
 
 rootWindow.mainloop()
-
-
