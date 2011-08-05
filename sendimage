@@ -23,7 +23,7 @@ SUBTYPE = "jpg"	# XXX compute this!
 
 def handler(*args):
 	global recips
-	cmd = "mpack -s %s -c image/%s %s %s" % (
+	cmd = 'mpack -s "%s" -c image/%s %s %s' % (
 		subject.get(), SUBTYPE, file, recips.get())
 	print cmd
 	os.system(cmd);
