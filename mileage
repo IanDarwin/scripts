@@ -16,6 +16,6 @@ if [ "$date" = "-" ]; then
 	date=`date +%Y-%m-%d`
 fi
 
-echo "insert into employeecarusage(employee,type,date,mileage,description) 
+echo "insert into carusage(employee,type,date,mileage,description) 
                         values(1,'B','${date}',${mileage},'${description}');" |
-				ssh rmn psql -d rejminet
+				psql -d rejminet
