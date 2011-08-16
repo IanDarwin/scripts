@@ -3,9 +3,9 @@
 # pixsetdate - set the copyright owner on jpeg or other exif image
 
 OWNER="Ian F. Darwin"
-YEAR=$(date +Y)
+YEAR=$(date +%Y)
 
-USAGE="$0 YYYY:MM:DD file..."
+USAGE="$0 [-d YYYY][-o 'Owners Name' file..."
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
