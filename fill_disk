@@ -4,7 +4,7 @@
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
-USAGE="$0 [-r] old new"
+USAGE="$0 [-r] mount_point"
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -16,7 +16,7 @@ DEV=/dev/zero
 while getopts "r" opt 
 do 
  	 case "$opt" in 
-		r)	DEV=/dev/prandom;;
+		r)	DEV=/dev/arandom;;
 		*)	usage;;
 	esac
 done

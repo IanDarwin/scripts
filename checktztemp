@@ -3,9 +3,9 @@
 # ad-hoc temp mon for OpenBSD with ACPI
 
 case $(hostname) in
-daroad.darwinsys.com)	SENSOR=acpitz0.temp0;;
-www.darwinsys.com)		SENSOR=it0.temp1;;
-*)						echo "Undefined sensor"; exit 3;;
+dalai.darwinsys.com)	SENSOR=cpu0.temp0;;
+www.darwinsys.com)	SENSOR=it0.temp1;;
+*)			echo "Undefined sensor"; exit 3;;
 esac
 
 sysctl hw.sensors.${SENSOR}|awk -F= '

@@ -24,8 +24,8 @@ showit
 
 oldPS3=PS3
 PS3="Which wireless?"
-STTY="`stty -g`"
-stty intr '' -icanon min 0 time $WAIT ignbrk -brkint -ixon isig
+#STTY="`stty -g`"
+#stty intr '' -icanon min 0 time $WAIT ignbrk -brkint -ixon isig
 select host in None $(cd /home/ian/.wifi; ls -d * | grep -v CVS)
 do
 	echo "==> host = ${host}"
@@ -40,7 +40,7 @@ do
 		break;;
 	esac
 done
-stty $STTY
+#stty $STTY
 PS3=oldPS3
 showit
 sh /etc/netstart ${IF}

@@ -33,7 +33,7 @@ DEST_DIR=$HOME/${DIR}/${SUBDIR}
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nmpg movies\n3gp movies' | while read exten dir
+echo 'jpg pictures\nnef pictures\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
@@ -74,7 +74,7 @@ esac
 echo -n "Erase [no,yes] " 
 read oktoerase
 case ${oktoerase} in
-	y*)	rm -f *.jpg *.JPG *.mpg *.MPG
+	y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF
 		;;
 	*)	echo LEAVING PIX ON CAMERA
 		;;

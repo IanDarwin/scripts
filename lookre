@@ -4,5 +4,5 @@
 
 for regexp
 do
-	grep "^${regexp}$" /usr/share/dict/words
+	grep "${regexp}" /usr/share/dict/words
 done

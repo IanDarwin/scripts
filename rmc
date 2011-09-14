@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# rmc = remove conflicts (the 'C' lines in CVS update output)
+# rmc = remove conflicts (the 'C' AND '?' lines in CVS update output)
+# -m - also remove M lines (dangerous!)
 M=""
 
 if [ X$1 = X-m ]; then

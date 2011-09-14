@@ -4,5 +4,5 @@ cd $ws || exit
 
 for dir in $*
 do
-	zip -rv -xCVS /mnt/${dir}.zip ${dir}/
+	zip -rv -xCVS /tmp/${dir}.zip ${dir}/ && mv /tmp/${dir}.zip /mnt
 done

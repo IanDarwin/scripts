@@ -3,15 +3,14 @@
 # report the temperatures, either once (default) or regularly (-s)
 
 case $1 in
-"") exec sysctl hw.sensors | grep temp;;
+"") exec sysctl hw.sensors.cpu0.temp0;;
 *)
 	while :
 	do
 		clear
 		date
-		sysctl hw.sensors | grep temp
+		sysctl hw.sensors.cpu0.temp0
 		sleep 10
 	done
 	;;
 esac
-	

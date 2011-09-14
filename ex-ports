@@ -5,3 +5,6 @@
 # (can always scp individual distfiles)
 
 tar cfz /tmp/ports.tgz $(ls | egrep -v distfiles\|packages\|pobj)
+
+echo "Remember to run this after untarring:"
+echo "mkdir /usr/ports/{distfiles,packages,pobj}"

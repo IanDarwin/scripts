@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # copy zips of important projects for demos
 
 export-project darwinsys-api javasrc javasrcee cookbookweb login-filter hibernatedemo jsfdemo jpademo jpademo.xa
