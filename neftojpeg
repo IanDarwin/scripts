@@ -6,5 +6,5 @@ for f
 do 
 	echo '>>>' $f
 	base=$(echo $f|sed 's/.nef$//')
-	dcraw $f | pnmtojpg > ${base}.jpg
+	dcraw $f | pnmtojpeg > ${base}.jpg
 done
