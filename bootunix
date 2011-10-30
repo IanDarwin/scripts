@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+# heavily dependant upon my disk layout
+
+(echo flag 3; echo w; echo q) | sudo fdisk -e sd0
+
+sudo reboot
