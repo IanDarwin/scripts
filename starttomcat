@@ -1,12 +1,3 @@
 #!/bin/sh
 
-set -x
-
-cd /var/tomcat
-
-case $1 in 
-""|*)
-	exec sudo -u _tomcat /usr/local/tomcat/bin/catalina.sh run
-	;;
-esac
-
+exec /etc/rc.d/tomcat start
