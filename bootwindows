@@ -4,6 +4,6 @@ set -e
 
 # heavily dependant upon my disk layout
 
-(echo flag 1; echo w; echo q) | sudo fdisk -e sd0
+(echo flag 1; echo w; echo q) | sudo fdisk -e 103d1286e8b0290c
 
 sudo reboot
