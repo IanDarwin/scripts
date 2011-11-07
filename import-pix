@@ -74,7 +74,7 @@ esac
 echo -n "Erase [no,yes] " 
 read oktoerase
 case ${oktoerase} in
-	y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF
+	y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.3gp *.3GP
 		;;
 	*)	echo LEAVING PIX ON CAMERA
 		;;
