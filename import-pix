@@ -2,7 +2,10 @@
 
 cd /mnt/dcim/ || exit
 
-cd Camera || cd 1* || exit
+cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
+	echo Not found
+	exit 1
+}
 
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
@@ -33,7 +36,7 @@ DEST_DIR=$HOME/${DIR}/${SUBDIR}
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nnef pictures\nmpg movies\n3gp movies' | while read exten dir
+echo 'jpg pictures\nnef pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
@@ -70,6 +73,7 @@ case ${SCANDATE} in
 		setscandate ${DEST_DIR}/*
 		;;
 esac
+setpixcopyright ${DEST_DIR}/*
 
 echo -n "Erase [no,yes] " 
 read oktoerase
