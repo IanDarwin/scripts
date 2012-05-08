@@ -1,8 +1,8 @@
 #!/bin/sh
 
-uname -a
-
 uptime
+
+uname -a
 
 ls -Ll /bsd 
 ls -Ll /bin/cat /usr/X11R6/bin/X
