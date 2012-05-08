@@ -1,5 +1,7 @@
 #!/bin/sh
 
+uname -a
+
 uptime
 
 ls -Ll /bsd 
