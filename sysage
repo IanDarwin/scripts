@@ -4,5 +4,5 @@ uptime
 
 uname -a
 
-ls -Ll /bsd 
-ls -Ll /bin/cat /usr/X11R6/bin/X
+ls -Ll /bsd # first
+ls -Ll /bin/cat /usr/X11R6/bin/X /usr/share/man/whatis.db
