@@ -10,7 +10,7 @@ case $1 in
 		clear
 		date
 		sysctl hw.sensors.cpu0.temp0
-		sleep 10
+		sleep  5
 	done
 	;;
 esac
