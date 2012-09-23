@@ -2,10 +2,38 @@
 
 # make, and sign, an RSA server certificate
 
-set -v
+DIR=/etc/ssl
+NAME=server
+USAGE="$0 [-d DIR][-n NAME][-v]"
 
-openssl genrsa -out /etc/ssl/private/server.key 1024
-openssl req -new -key /etc/ssl/private/server.key \
-	-out /etc/ssl/private/server.csr
-openssl x509 -req -days 365 -in /etc/ssl/private/server.csr \
-	-signkey /etc/ssl/private/server.key -out /etc/ssl/server.crt
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "d:n:v" opt 
+do 
+	case "$opt" in 
+		d)	DIR=$OPTARG;;
+		n)	NAME=$OPTARG;;
+		v)	set -x;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+mkdir -p ${DIR}/private || {
+	echo "Mkdir failed, do you have permission?" >&2
+	exit 1
+}
+
+# Generate key pair
+openssl genrsa -out ${DIR}/private/${NAME}.key 1024
+
+# Create signing request
+openssl req -new -key ${DIR}/private/${NAME}.key \
+	-out ${DIR}/private/${NAME}.csr
+
+# Self-sign the key
+openssl x509 -req -days 36500 -in ${DIR}/private/${NAME}.csr \
+	-signkey ${DIR}/private/${NAME}.key -out ${DIR}/${NAME}.crt
