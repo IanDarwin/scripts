@@ -36,7 +36,7 @@ DEST_DIR=$HOME/${DIR}/${SUBDIR}
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nnef pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
+echo 'jpg pictures\nnef pictures\nNEF pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
@@ -73,7 +73,7 @@ case ${SCANDATE} in
 		setscandate ${DEST_DIR}/*
 		;;
 esac
-setpixcopyright ${DEST_DIR}/*
+setpixcopyright ${DEST_DIR}/*.*
 
 echo -n "Erase [no,yes] " 
 read oktoerase
