@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -x
+
+find . -name AppData -o -name Cache -print0 | xargs -0 rm -r
