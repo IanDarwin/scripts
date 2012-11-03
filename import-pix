@@ -89,14 +89,20 @@ case ${SCANDATE} in
 esac
 setpixcopyright ${DEST_DIR}/*.*
 
-echo -n "Erase [no,yes] " 
-read oktoerase
-case ${oktoerase} in
-	y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.3gp *.3GP
-		;;
-	*)	echo LEAVING PIX ON CAMERA
-		;;
-esac
+ERASE_PROMPT_ANSWERED=n
+while [ y != "${ERASE_PROMPT_ANSWERED}" ]
+do
+	echo -n "Erase [no,yes] " 
+	read oktoerase
+	case ${oktoerase} in
+		y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.3gp *.3GP
+			ERASE_PROMPT_ANSWERED=y
+			;;
+		n*)	echo LEAVING PIX ON CAMERA
+			ERASE_PROMPT_ANSWERED=y
+			;;
+	esac
+done
 
 cd ${DEST_DIR}
 echo -n "View? [no,g)wenview,xv] " 
