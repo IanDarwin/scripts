@@ -1,6 +1,17 @@
 #!/bin/sh
 
-cd /mnt/dcim/ || exit
+case $(uname) in
+OpenBSD) DIR=/mnt/dcim/;;
+Darwin) DIR=/Volumes/NIKON\ D70/dcim
+*) echo IllegalStateException: unhandled; exit 1;;
+esac
+
+DIR=pictures
+SCANDATE=n
+SUBDIR=$(pixdate)
+USAGE='$0 [-d yyyy/mm/dd]'
+
+cd "${DIR}" || exit
 
 cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
 	echo Not found
@@ -9,12 +20,6 @@ cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
 
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
 (lcname -c *[A-Z]* | sh ) 2>/dev/null
-
-DIR=pictures
-SCANDATE=n
-SUBDIR=$(pixdate)
-
-USAGE='$0 [-d yyyy/mm/dd]'
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -32,7 +37,10 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-DEST_DIR=$HOME/${DIR}/${SUBDIR}
+case ${SUBDIR} in
+	/*)	DEST_DIR=${SUBDIR};;
+	*)	DEST_DIR=$HOME/${DIR}/${SUBDIR}
+esac
 
 [ v == "${VERBOSE}" ] && set -x
 
@@ -47,25 +55,31 @@ do
 	case ${GO} in
 	yes)
 		if [ ! -d ${DEST_DIR} ]; then
-			mkdir -p ${DEST_DIR}
+			mkdir -p ${DEST_DIR} ${DEST_DIR}/RAW
 		fi
 		echo Using ${DEST_DIR}
 
-		cp -p *.${exten} ${DEST_DIR}/
+		case ${exten} in
+		nef|NEF) cp -p *.${exten} ${DEST_DIR}/
+		*)	cp -p *.${exten} ${DEST_DIR}/RAW/
+		esac
 
-		chown -R ian:wheel ${DEST_DIR}
 		;;
 	esac
 
 done	# end of while read loop
+
+chown -R ian:wheel ${DEST_DIR}
 
 if [ ! -d "${DEST_DIR}" ]; then
 	echo "None found."
 	exit 1
 fi
 
-echo "Uploaded:"
-ls ${DEST_DIR}
+cd ${DEST_DIR}
+
+echo "Files in $(pwd):"
+ls
 
 case ${SCANDATE} in
 	y) 
