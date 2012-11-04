@@ -1,17 +1,17 @@
 #!/bin/sh
 
 case $(uname) in
-OpenBSD) DIR=/mnt/dcim/;;
-Darwin) DIR=/Volumes/NIKON\ D70/dcim
+OpenBSD) DIR=/mnt/dcim;;
+Darwin) DIR=/Volumes/NIKON\ D70/dcim;;
 *) echo IllegalStateException: unhandled; exit 1;;
 esac
 
-DIR=pictures
+cd ${DIR} || exit
+
+TOP_DIR=${HOME}/pictures
 SCANDATE=n
 SUBDIR=$(pixdate)
 USAGE='$0 [-d yyyy/mm/dd]'
-
-cd "${DIR}" || exit
 
 cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
 	echo Not found
@@ -39,7 +39,7 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 case ${SUBDIR} in
 	/*)	DEST_DIR=${SUBDIR};;
-	*)	DEST_DIR=$HOME/${DIR}/${SUBDIR}
+	*)	DEST_DIR=${TOP_DIR}/${SUBDIR}
 esac
 
 [ v == "${VERBOSE}" ] && set -x
@@ -60,8 +60,8 @@ do
 		echo Using ${DEST_DIR}
 
 		case ${exten} in
-		nef|NEF) cp -p *.${exten} ${DEST_DIR}/
-		*)	cp -p *.${exten} ${DEST_DIR}/RAW/
+		nef|NEF) cp -p *.${exten} ${DEST_DIR}/RAW/;;
+		*)	cp -p *.${exten} ${DEST_DIR}/;;
 		esac
 
 		;;
@@ -76,15 +76,13 @@ if [ ! -d "${DEST_DIR}" ]; then
 	exit 1
 fi
 
-cd ${DEST_DIR}
-
 echo "Files in $(pwd):"
-ls
+ls ${DEST_DIR}
 
 case ${SCANDATE} in
 	y) 
 		echo "Setting 'Scanned' date to today..."
-		setscandate ${DEST_DIR}/*
+		setscandate ${DEST_DIR}/*.*
 		;;
 esac
 setpixcopyright ${DEST_DIR}/*.*
