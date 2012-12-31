@@ -4,5 +4,6 @@ uptime
 
 uname -a
 
-ls -Ll /bsd # first
-ls -Ll /bin/cat /usr/X11R6/bin/X /usr/share/man/whatis.db
+ls -Ll /usr/lib/libc.so.* | tail -1 # first
+ls -Ll /bsd # next
+ls -Ll /bin/cat /usr/X11R6/bin/X /usr/share/man/whatis.db # rest
