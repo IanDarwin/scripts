@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -u
+
+while read firstname lastname workphone email
+do
+	case ${email} in
+	"")	# none
+		email="${firstname}.${lastname}@ehealthinnovation.org"
+		;;
+	*@*)	# OK, user@domain
+		;;
+	*)	# append domain
+		email=${email}@ehealthinnovation.org
+		;;
+	esac
+	case ${workphone} in
+	????)	workphone=14-${workphone};;
+	esac
+
+	echo "\
+BEGIN:VCARD
+VERSION:2.1
+N:${lastname};${firstname}
+FN:${firstname} ${lastname}
+ORG:Centre for Global eHealth Innovation
+TEL;WORK;VOICE:${workphone}
+EMAIL;PREF;INTERNET:${email}
+REV:20130101T123456EST
+END:VCARD"
+
+done
