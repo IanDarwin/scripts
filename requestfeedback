@@ -1,0 +1,38 @@
+#!/bin/sh
+
+case $# in
+2|3);;
+*) echo Usage: $0 email transaction customer >&1
+   exit 1;;
+esac
+
+EMAIL=$1
+TRANSACTION=$2
+CUSTOMER=${3-Buyer}
+
+echo "To: ${EMAIL}
+Subject: Your eBay purchase of ${TRANSACTION}
+Bcc: ian@darwinsys.com
+
+Dear ${CUSTOMER}:
+
+Thank you very much for your purchas of ${TRANSACTION}.
+
+I am not a full-time eBay seller, just an individual who wants to
+sell a few unused items.  Nontheless, I like to keep my feedback
+scores up. If you are happy with your purchase when it arrives,
+please give me positive feedback. If not, or if you are asked the
+detailed Star ratings and there is any reason you cannot give five
+stars on all fronts, please let me know before you enter it so I may
+have take the opportunity to address the oustanding issue!
+
+Again, thank you for purchasing from me on eBay.
+
+Ian F. Darwin
+ian@darwinsys.com
+" > /tmp/request$$
+
+vi /tmp/request$$
+
+cd /tmp
+sendit request$$
