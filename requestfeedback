@@ -2,21 +2,21 @@
 
 case $# in
 2|3);;
-*) echo Usage: $0 email transaction customer >&1
+*) echo Usage: $0 customer email transaction >&2
    exit 1;;
 esac
 
-EMAIL=$1
-TRANSACTION=$2
-CUSTOMER=${3-Buyer}
+CUSTOMER=${1}
+EMAIL=$2
+TRANSACTION=$3
 
-echo "To: ${EMAIL}
+echo "To: ${CUSTOMER} <${EMAIL}>
 Subject: Your eBay purchase of ${TRANSACTION}
 Bcc: ian@darwinsys.com
 
 Dear ${CUSTOMER}:
 
-Thank you very much for your purchas of ${TRANSACTION}.
+Thank you very much for your purchase: ${TRANSACTION}.
 
 I am not a full-time eBay seller, just an individual who wants to
 sell a few unused items.  Nontheless, I like to keep my feedback
