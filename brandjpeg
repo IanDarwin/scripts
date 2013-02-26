@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# ImageMagick cluestick from http://superuser.com/questions/421598/how-to-batch-insert-text-on-photos
+
+TEXT="Copyright IanDarwinPhoto.com"
+
+for FILE in *.jpg
+do 
+	echo $FILE
+	convert $FILE -gravity south -annotate \
+		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
+		-stroke  none   -fill white    -annotate 0 "${TEXT}" \
+		new_$FILE
+done
