@@ -7,7 +7,12 @@
 
 USAGE="$0 imageFile [...]"
 
-TEXT="Copyright IanDarwinPhoto.com"
+# Forgive the intrusion of Perl into your day, but it's an easy way
+# to generate Unicode characters (real copyright symbol, not the
+# three-character hideous bogosity "(c)"), until Unix gets real
+# about character sets and Unicode
+
+TEXT="$(perl -e 'binmode(STDOUT, ":utf9"); print "\x{00A9} IanDarwinPhoto.com";')"
 
 case $# in
 	0)	echo $USAGE; exit 1;;
