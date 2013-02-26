@@ -1,14 +1,26 @@
 #!/bin/sh
 
-# ImageMagick cluestick from http://superuser.com/questions/421598/how-to-batch-insert-text-on-photos
+# Insert branding into images
+
+# Original ImageMagick cluestick from 
+# http://superuser.com/questions/421598/how-to-batch-insert-text-on-photos
+
+USAGE="$0 imageFile [...]"
 
 TEXT="Copyright IanDarwinPhoto.com"
 
-for FILE in *.jpg
+case $# in
+	0)	echo $USAGE; exit 1;;
+esac
+
+for FILE in $*
 do 
 	echo $FILE
-	convert $FILE -gravity south -annotate \
+	convert $FILE \
+		-font Luxi-Sans-Oblique \
+		-pointsize 72 \
+		-gravity SouthEast \
 		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
 		-stroke  none   -fill white    -annotate 0 "${TEXT}" \
-		new_$FILE
+		branded_$FILE
 done
