@@ -5,7 +5,7 @@
 # Original ImageMagick cluestick from 
 # http://superuser.com/questions/421598/how-to-batch-insert-text-on-photos
 
-USAGE="$0 [-s size][-t text][-v] imageFile [...]"
+USAGE="$0 [-s pointsize][-t text][-v] imageFile [...]"
 
 # Forgive the intrusion of Perl into your day, but it's an easy way
 # to generate Unicode characters (real copyright symbol, not the
