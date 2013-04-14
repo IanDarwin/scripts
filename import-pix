@@ -19,12 +19,15 @@ cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
 }
 
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
-(lcname -c *[A-Z]* | sh ) 2>/dev/null
+echo 1
+(lcname -c *[A-Z]* | sh ) # 2>/dev/null
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
 	exit 1
 }
+
+echo 2
 
 while getopts "d:sv" opt 
 do 
@@ -37,6 +40,8 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
+echo 3
+
 case ${SUBDIR} in
 	/*)	DEST_DIR=${SUBDIR};;
 	*)	DEST_DIR=${TOP_DIR}/${SUBDIR}
@@ -44,7 +49,7 @@ esac
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nnef pictures\nNEF pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
+echo 'jpg pictures\nJPG pictures\nnef pictures\nNEF pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
@@ -55,12 +60,12 @@ do
 	case ${GO} in
 	yes)
 		if [ ! -d ${DEST_DIR} ]; then
-			mkdir -p ${DEST_DIR} ${DEST_DIR}/RAW
+			mkdir -p ${DEST_DIR} ${DEST_DIR}/raw
 		fi
 		echo Using ${DEST_DIR}
 
 		case ${exten} in
-		nef|NEF) cp -p *.${exten} ${DEST_DIR}/RAW/;;
+		nef|NEF) cp -p *.${exten} ${DEST_DIR}/raw/;;
 		*)	cp -p *.${exten} ${DEST_DIR}/;;
 		esac
 
