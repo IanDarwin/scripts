@@ -1,0 +1,1 @@
+java -jar ~/lib/apktool-cli-1.5.3-SNAPSHOT.jar $*

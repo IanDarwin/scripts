@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# apkalyze = apk analyze, of course
+
+# reads an Android APK and deduces what it can
+
+for apk
+do
+
+	echo Analyzing $apk
+	apktool d $apk $apk-src
+	[ -f $apk-src/assets/www/cordova.js ] && echo "Phonegap library found"
+	[ -f $apk-src/smali/generated/StateMachineBase.smali ] && echo "CodeName1 StateMachineBase found."
+	echo "$(ls $apk-src/res/layout/*.xml | wc -l) XML layout(s)"
+	echo "$(grep -c '<activity' $apk-src/AndroidManifest.xml) Activities"
+done
