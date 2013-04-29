@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# One-time copy from a local CVS repo to a remote GIT repo
+# Intended to be permanent; there is no convenient resync later.
+# requires cvs2svn package installed.
+
+cd $HOME/git
+
+rm -f $HOME/cvs2git-tmp/*
+cvs2git \
+	    --blobfile=$HOME/cvs2git-tmp/git-blob.dat \
+	    --dumpfile=$HOME/cvs2git-tmp/git-dump.dat \
+	    --username=idarwin \
+	    /cvs/eHealthContentProviderTest
+
+rm -rf	eHealthInnovationContentProviderTest # in case we failed earlier
+mkdir	eHealthInnovationContentProviderTest
+cd	eHealthInnovationContentProviderTest
+
+git init --bare
+
+replace '^committer ian' 'committer idarwin' $HOME/cvs2git-tmp/git-dump.dat
+
+git fast-import --export-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-blob.dat
+git fast-import --import-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-dump.dat
+
+git gc --prune=now
+
+cd /tmp
+rm -rf eHealthInnovationContentProviderTest
+git clone /Users/ian/git/eHealthInnovationContentProviderTest
+
+cd eHealthInnovationContentProviderTest
+
+ls
+
+if [ -f .cvsignore ]; then
+	mv .cvsignore .gitignore
+	git add $_
+	git commit -m "Move .cvsignore to .gitignore"
+fi
+
+git remote remove origin
+git remote add origin git@github.ehealthinnovation.org:PHIT/eHealthInnovationContentProviderTest.git
+
+echo "ok?"; read ans junk; case $ans in
+y|Y)	;;
+*)	exit 1;;
+esac
+
+git push -u origin master
+
