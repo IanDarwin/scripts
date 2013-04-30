@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# maven demo - new JSF project
+
+cd /tmp
+
+rm -rf my-ee-project
+
+mvn archetype:generate \
+	-DarchetypeGroupId=org.appfuse.archetypes \
+	-DarchetypeArtifactId=appfuse-basic-jsf \
+	-DgroupId=com.rainforest -DartifactId=my-ee-project
+
