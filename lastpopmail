@@ -1,3 +1,6 @@
 #!/bin/sh
 
-grep pop /var/log/maillog | tail -15
+for user
+do
+grep "popa3d.*uthentication passed for $user" /var/log/daemon*
+done
