@@ -5,5 +5,10 @@ FILES=$(ls -t1 /var/log/daemon*)
 
 for user
 do
-grep "popa3d.*uthentication passed for $user" ${FILES}
+awk "/popa3d.*uthentication passed for $user/ {
+	print
+	}
+	{line = \$0}
+END	{print \"log begins around \" substr(line,0,15) }
+" ${FILES}
 done
