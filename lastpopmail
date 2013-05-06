@@ -1,6 +1,9 @@
 #!/bin/sh
 
+
+FILES=$(ls -t1 /var/log/daemon*)
+
 for user
 do
-grep "popa3d.*uthentication passed for $user" /var/log/daemon*
+grep "popa3d.*uthentication passed for $user" ${FILES}
 done
