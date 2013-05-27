@@ -1,0 +1,16 @@
+#!/bin/sh
+
+WHITELIST=/etc/mail/mywhite.txt
+
+[ -w ${WHITELIST} ] || {
+	echo "Be walking root, be talking dogs." >&2
+	exit 1
+}
+
+IP=${1?"Usage: $0 IP [comment]"}
+COMMENT=${2-"whitelist"}
+
+(
+echo '#' ${COMMENT}
+echo ${IP}
+) >> ${WHITELIST}
