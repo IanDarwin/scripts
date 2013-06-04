@@ -5,7 +5,7 @@
 # good guys
 sudo spamdb -a `awk '!/^#/{printf "%s ", $1}' /etc/mail/mywhite.txt`
 
-# spam traps - do not add "frank" as it's used on sql power forum
+# spam traps
 while read address 
 do sudo spamdb -T -a "$address"
 done < /etc/mail/myspamtraps.txt
