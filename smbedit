@@ -1,0 +1,2 @@
+cd /etc/samba
+sudo vi smb.conf && testparm && sudo /etc/rc.d/samba restart
