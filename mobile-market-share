@@ -1,0 +1,25 @@
+R <<!
+
+png(filename="/home/ian/talk/mobihealth/marketshare.png", 
+	width=500, height=500, pointsize=10)
+
+market = [
+	["Android", 40],
+	["iOS", 40],
+	["BlackBerry", 3],
+	["WinMo", 3],
+	["Other", 4]
+]
+
+pie(market[0],
+	col-rainbow(5))
+
+title(main="Mobile Marketh Share, 2013")
+
+legend(x=10, y=200, legend=market[1], fill=rainbow(5))
+
+dev.off()                  # Buffer flush
+
+quit
+!
+
