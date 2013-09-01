@@ -1,0 +1,1 @@
+exec rxvt -geometry 80x3+0-0 -e temps -s
