@@ -1,11 +1,18 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # copy source files used in O'Reilly Atlas "snippets" from code repos into the book repo
 # We mostly have to use Snippets instead of full code files due to Java's verbosity :-)
+
+DEST=~/book/jcb
+SUBDIR=src # or code, or whatever
 
 for dir in $ws/javasrc $ws/darwinsys-api
 
 do
 	cd ${dir}
-	grep -lr //.BEGIN src | cpio -pmud --quiet ~/book/jcb
+	grep -lr //.BEGIN src | cpio -pmud --quiet ${DEST}
 done
+
+cd ${DEST}/${SUBDIR}
+
+grep -lr '\t' . xargs detab
