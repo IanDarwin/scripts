@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# the easy direction - one tab -> 'n' spaces
+
+n=4
+
+for f in $(jot $n)
+do
+	REPL=${REPL}' '
+done
+
+# This line contains an actual tab char, be careful editing it...
+replace '	' "${REPL}" $*
