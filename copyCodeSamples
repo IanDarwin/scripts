@@ -15,4 +15,4 @@ done
 
 cd ${DEST}/${SUBDIR}
 
-grep -lr '\t' . xargs detab
+grep -lr '\t' . | xargs detab
