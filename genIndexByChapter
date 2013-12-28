@@ -1,0 +1,21 @@
+#!/usr/bin/awk -f
+
+# Generate the "indexByChapter.html" file for the Java Cookbook.
+
+# run in the $jcb directory, as 
+#	genIndex ch* > indexByChapter.html
+
+/^== /	{		# chapter title
+	TITLE = $0
+	sub("== ", "", TITLE);
+	print "<h1>Chapter", TITLE, "</h1>"
+	}
+
+/^\[filename=/ {	# snippet
+	sub(".*filename=.", "")
+	sub("\".*","")
+	path=$0
+	sub(".*/", "")
+	file=$0
+	print file, "==>", path
+	}
