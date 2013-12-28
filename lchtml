@@ -13,7 +13,7 @@ sed \
 	-e 's/HEIGHT=/height=/g' \
 	-e 's/<A/<a/g' -e 's=</A>=</a>=g' -e 's/HREF=/href=/g' \
 	-e 's/<IMG/<img/g' -e 's/SRC=/src=/g' \
-	-e 's/<P>/<p>/g' \
+	-e 's/<P>/<p>/g' \ -e 's/</P>/</p>/g' \
 	-e 's/<TABLE/<table/g' \
 	-e 's/\<COLGROUP\>/colgroup/g' \
 	-e 's/<COL\>/<col/g' \
@@ -24,5 +24,4 @@ sed \
 	-e 's/LI>/li>/g' \
 	-e 's/KBD>/kbd>/g' \
 	-e 's/ & /\&amp;/g' \
-	-e 's/AT&T/AT\&amp;T/g' \
 	$*
