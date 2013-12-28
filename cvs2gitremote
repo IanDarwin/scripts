@@ -4,18 +4,23 @@
 # Intended to be permanent; there is no convenient resync later.
 # requires cvs2svn package installed.
 
+REMOTE_CVS=ian@cvs.darwinsys.com:/cvs/macosui
+NEW_GIT_NAME=macosui
+GIT_USER_NAME=IanDarwin
+REMOTE_GIT=git@github.com/IanDarwin/${NEW_GIT_NAME}.git
+
 cd $HOME/git
 
 rm -f $HOME/cvs2git-tmp/*
 cvs2git \
 	    --blobfile=$HOME/cvs2git-tmp/git-blob.dat \
 	    --dumpfile=$HOME/cvs2git-tmp/git-dump.dat \
-	    --username=idarwin \
-	    /cvs/eHealthContentProviderTest
+	    --username=${GIT_USER_NAME} \
+	    ${REMOTE_CVS}
 
-rm -rf	eHealthContentProviderTest # in case we failed earlier
-mkdir	eHealthContentProviderTest
-cd	eHealthContentProviderTest
+rm -rf	${NEW_GIT_NAME} # in case we failed earlier
+mkdir	${NEW_GIT_NAME}
+cd	${NEW_GIT_NAME}
 
 git init --bare
 
@@ -27,10 +32,10 @@ git fast-import --import-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-t
 git gc --prune=now
 
 cd /tmp
-rm -rf eHealthContentProviderTest
-git clone /Users/ian/git/eHealthContentProviderTest
+rm -rf ${NEW_GIT_NAME}
+git clone ${HOME}/git/${NEW_GIT_NAME}
 
-cd eHealthContentProviderTest
+cd ${NEW_GIT_NAME}
 
 ls
 
@@ -41,9 +46,9 @@ if [ -f .cvsignore ]; then
 fi
 
 git remote remove origin
-git remote add origin git@github.ehealthinnovation.org:PHIT/eHealthContentProviderTest.git
+git remote add origin ${REMOTE_GIT}
 
-echo "ok?"; read ans junk; case $ans in
+echo "OK to push?"; read ans junk; case $ans in
 y|Y)	;;
 *)	exit 1;;
 esac
