@@ -1,22 +1,24 @@
 #!/bin/sh
 
-# One-time copy from a local CVS repo to a remote GIT repo
+# One-time copy from a **local** CVS repo to a remote GIT repo
 # Intended to be permanent; there is no convenient resync later.
 # requires cvs2svn package installed.
 
-REMOTE_CVS=ian@cvs.darwinsys.com:/cvs/macosui
+rm -rf	$HOME/cvs2git-tmp/
+mkdir	$HOME/cvs2git-tmp/
+
+LOCAL_CVS=/cvs/macosui
 NEW_GIT_NAME=macosui
 GIT_USER_NAME=IanDarwin
 REMOTE_GIT=git@github.com/IanDarwin/${NEW_GIT_NAME}.git
 
 cd $HOME/git
 
-rm -f $HOME/cvs2git-tmp/*
 cvs2git \
 	    --blobfile=$HOME/cvs2git-tmp/git-blob.dat \
 	    --dumpfile=$HOME/cvs2git-tmp/git-dump.dat \
 	    --username=${GIT_USER_NAME} \
-	    ${REMOTE_CVS}
+	    ${LOCAL_CVS}
 
 rm -rf	${NEW_GIT_NAME} # in case we failed earlier
 mkdir	${NEW_GIT_NAME}
@@ -54,4 +56,3 @@ y|Y)	;;
 esac
 
 git push -u origin master
-
