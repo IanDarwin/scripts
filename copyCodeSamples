@@ -6,11 +6,12 @@
 DEST=~/book/jcb
 SUBDIR=src # or code, or whatever
 
-for dir in $ws/javasrc $ws/darwinsys-api
-
+for dir in $ws/javasrc $ws/darwinsys-api $ws/java8src $ws/javasrcee
 do
+	(
 	cd ${dir}
 	grep -lr //.BEGIN src | cpio -pmud --quiet ${DEST}
+	)
 done
 
 cd ${DEST}/${SUBDIR}
