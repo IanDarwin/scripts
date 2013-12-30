@@ -10,10 +10,9 @@ for dir in $ws/javasrc $ws/darwinsys-api $ws/java8src $ws/javasrcee
 do
 	(
 	cd ${dir}
-	grep -lr //.BEGIN src | cpio -pmud --quiet ${DEST}
-	)
-done
+	grep -lr '^[ \t]*// BEGIN' ${SUBDIR}
+	find ${SUBDIR}/src/main/resources -name \*.json -o -name \*.xml -print
+	) | cpio -pmud --quiet ${DEST}
 
 cd ${DEST}/${SUBDIR}
-
 grep -lr '\t' . | xargs detab
