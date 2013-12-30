@@ -13,6 +13,7 @@ do
 	grep -lr '^[ \t]*// BEGIN' ${SUBDIR}
 	find ${SUBDIR}/src/main/resources -name \*.json -o -name \*.xml -print
 	) | cpio -pmud --quiet ${DEST}
+done
 
 cd ${DEST}/${SUBDIR}
 grep -lr '\t' . | xargs detab
