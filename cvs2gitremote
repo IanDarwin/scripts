@@ -2,7 +2,7 @@
 
 # One-time copy from a **local** CVS repo to a remote GIT repo
 # Intended to be permanent; there is no convenient resync later.
-# requires cvs2svn package installed.
+# requires cvs2git package installed.
 
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
