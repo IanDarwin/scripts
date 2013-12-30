@@ -3,16 +3,18 @@
 # copy source files used in O'Reilly Atlas "snippets" from code repos into the book repo
 # We mostly have to use Snippets instead of full code files due to Java's verbosity :-)
 
-DEST=~/book/jcb
+DEST=~/book/jcb				# must be an absolute path
 SUBDIR=src # or code, or whatever
 
-for dir in $ws/javasrc $ws/darwinsys-api $ws/java8src $ws/javasrcee
+for dir in $ws/java8src 
 do
 	(
-	cd ${dir}
-	grep -lr '^[ \t]*// BEGIN' ${SUBDIR}
-	find ${SUBDIR}/src/main/resources -name \*.json -o -name \*.xml -print
-	) | cpio -pmud --quiet ${DEST}
+		cd ${dir}
+		(
+			grep -lr '^[ \t]*// BEGIN' ${SUBDIR}
+			find ${SUBDIR}/src/main/resources -name \*.json -o -name \*.xml -print
+		) | cpio -pmud --quiet ${DEST}
+	)
 done
 
 cd ${DEST}/${SUBDIR}
