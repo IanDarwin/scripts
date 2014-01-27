@@ -6,13 +6,14 @@
 DEST=~/book/jcb				# must be an absolute path
 SUBDIR=src # or code, or whatever
 
-for dir in $ws/java8src 
+for dir in $ws/javasrc $ws/javasrcee $ws/darwinsys-api
 do
 	(
 		cd ${dir}
 		(
-			grep -lr '^[ \t]*// BEGIN' ${SUBDIR}
-			find ${SUBDIR}/src/main/resources -name \*.json -o -name \*.xml -print
+			# Java marks are // BEGIN xxx; C marks are /* BEGIN xxx */
+			grep -lr '^[ 	]*/[*/] BEGIN' ${SUBDIR} # RE contains space and tab
+			find src/main/resources -name \*.json -o -name \*.xml
 		) | cpio -pmud --quiet ${DEST}
 	)
 done
