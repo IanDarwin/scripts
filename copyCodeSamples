@@ -13,7 +13,7 @@ do
 		(
 			# Java marks are // BEGIN xxx; C marks are /* BEGIN xxx */
 			grep -lr '^[ 	]*/[*/] BEGIN' ${SUBDIR} # RE contains space and tab
-			find ${SUBDIR}/src/main/resources \
+			find ${SUBDIR}/main/resources \
 				-name \*.c -o -name \*.h -o -name Makefile -o \
 				-name \*.json -o -name \*.xml -print
 		) | cpio -pmud --quiet ${DEST}
