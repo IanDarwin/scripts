@@ -7,10 +7,11 @@
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
 
-LOCAL_CVS=/cvs/macosui
-NEW_GIT_NAME=macosui
+LOCAL_CVS=/cvs/javasrcee
+NEW_GIT_NAME=javasrcee
 GIT_USER_NAME=IanDarwin
 REMOTE_GIT=git@github.com/IanDarwin/${NEW_GIT_NAME}.git
+REMOTE_GIT=git@git.darwinsys.com/IanDarwin/${NEW_GIT_NAME}.git
 
 cd $HOME/git
 
@@ -26,7 +27,7 @@ cd	${NEW_GIT_NAME}
 
 git init --bare
 
-replace '^committer ian' 'committer idarwin' $HOME/cvs2git-tmp/git-dump.dat
+replace '^committer ian' 'committer IanDarwin' $HOME/cvs2git-tmp/git-dump.dat
 
 git fast-import --export-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-blob.dat
 git fast-import --import-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-dump.dat
@@ -42,8 +43,7 @@ cd ${NEW_GIT_NAME}
 ls
 
 if [ -f .cvsignore ]; then
-	mv .cvsignore .gitignore
-	git add $_
+	git mv .cvsignore .gitignore
 	git commit -m "Move .cvsignore to .gitignore"
 fi
 
