@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# has-dev - true if the dmesg has the given device, e.g., has_dev iwn
+# would print something like
+# iwn0 at pci3 dev 0 function 0 "Intel WiFi Link 5300" rev 0x00: apic 8 int 17 (irq 7), MIMO 3T3R, MoW, address ...
+# and also return true
+
+dmesg | grep $1
