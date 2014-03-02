@@ -28,7 +28,10 @@ rm -f idiff.out			# no sense idiffing idiff.out's!!
 
 for file in *
 do
-	if test -d $file && test -d $1/$file; then      # directory
+	if test -d ${file} && test ${file} = "CVS"; then
+		continue;
+	fi
+	if test -d ${file} && test -d $1/${file}; then      # directory
 		(               # recurse in sub-shell
 #		this does not work on UGLIX since their sh is bd'd.
 #		set -$-         # inherit shell options
@@ -41,7 +44,7 @@ do
 		)
 		echo cd ..
 		rmdir $file
-	elif test ! -f $1/$file; then
+	elif test ! -f $1/$file ; then
 		echo -n "$file exists in $CD but not in $1., mv it?"
 		read xx; case $xx in
 			y*)	mv $CD/$file $1/$file
