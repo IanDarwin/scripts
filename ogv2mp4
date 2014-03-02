@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for file
+do
+	NEW=$(echo ${file}|sed 's/.ogv$/.mp4/')
+	ffmpeg -i ${file} -s 640x480 ${NEW}
+done
