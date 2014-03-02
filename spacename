@@ -1,0 +1,10 @@
+#!/usr/bin/awk -f
+
+# turn spaces (and commas, and quotes) into _ in names
+
+{
+	newname=$0;
+	gsub(/[ ,']/, "_", newname)
+
+	print "mv","'" $0 "'", newname
+}
