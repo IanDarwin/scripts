@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# compute the full path for today's picture folder
+
+echo $HOME/pictures/$(pixdate)
