@@ -7,4 +7,4 @@ case $# in
 	exit 1;;
 esac
 
-${JAVA_CMD} -classpath $HOME/lib/darwinsys.jar:$HOME/workspace/mytools/build jgrep.JGrep "$@"
+${JAVA_CMD} -classpath $HOME/lib/darwinsys-api.jar com.darwinsys.regex.JGrep "$@"
