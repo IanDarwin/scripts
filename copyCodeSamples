@@ -17,7 +17,7 @@ do
 				-name \*.c -o -name \*.h -o -name Makefile -print
 			find ${SUBDIR}/main/resources \
 				-name \*.json -o -name \*.xml -print
-		) | cpio -pmud --quiet ${DEST}
+		) | cpio -pmud ${DEST} >/dev/null
 	)
 done
 

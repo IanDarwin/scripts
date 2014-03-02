@@ -5,7 +5,7 @@
 # -c (for cycle) moves X to j and j to x for use on
 # msdos-like filesystems where you cant rename X to x
 
-USAGE="$0 [-n][-s] FILENAME [...]"
+USAGE="$0 [-r][-n][-s] FILENAME [...]"
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
@@ -15,10 +15,10 @@ function usage {		# give usage message, and exit
 CYCLE=NO
 SHELL=""
 
-while getopts "cnv" opt 
+while getopts "nrv" opt 
 do 
 	case "$opt" in 
-		c)	CYCLE=YES;;
+		r)	CYCLE=YES;;
 		n)	SHELL="echo";;
 		v)	VERBOSE=v;;
 		*)	usage;;

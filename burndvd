@@ -5,6 +5,12 @@
 # $ whichpkg growisofs
 # dvd+rw-tools-5.21.4.10.8p0:bin/growisofs
 
-growisofs -Z /dev/rcd0c=dvd.iso
+case $# in
+	#0) IMAGE=dvd.iso;;
+	1) IMAGE=$1;;
+	*) Usage: $0 dvd-iso-file;;
+esac
+
+growisofs -Z /dev/rcd0c=$1
 
 disklabel /dev/rcd0c

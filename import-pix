@@ -19,7 +19,7 @@ cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
 }
 
 # make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
-(lcname -c *[A-Z]* | sh ) # 2>/dev/null
+(lcname -r *[A-Z]* | sh ) # 2>/dev/null
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -66,6 +66,7 @@ do
 		esac
 
 		;;
+	*)	echo "No files of type ${exten} in $(pwd)";;
 	esac
 
 done	# end of while read loop
@@ -78,7 +79,7 @@ if [ ! -d "${DEST_DIR}" ]; then
 fi
 
 echo "Files in $(pwd):"
-ls ${DEST_DIR}
+ls $(pwd)
 
 case ${SCANDATE} in
 	y) 
@@ -109,4 +110,11 @@ read view
 case ${view} in
 	g*)	gwenview . &;;
 	x*)	xv * &;;
+esac
+
+echo -n "Initiate backup? [yn]"
+read bkup
+case ${bkup} in
+	y*)	cd; make backup;;
+	*)	echo "OK, but make sure you do it soon!";;
 esac

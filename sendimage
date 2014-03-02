@@ -7,7 +7,11 @@ global recips, subject
 
 rootWindow = Tk()
 
-file = sys.argv[1]
+if sys.argv[1][0] == '/':
+	file = sys.argv[1]
+else:
+	file = os.curdir + '/' + file
+
 #case $file in
 #	*.jp*g)	SUBTYPE=jpeg;;
 #	*.gif)	SUBTYPE=gif;;
