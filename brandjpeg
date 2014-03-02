@@ -5,24 +5,29 @@
 # Original ImageMagick cluestick from 
 # http://superuser.com/questions/421598/how-to-batch-insert-text-on-photos
 
-USAGE="$0 [-s pointsize][-t text][-v] imageFile [...]"
+USAGE="$0 [-c textColor][-s pointsize][-t text][-v] imageFile [...]"
 
 # Forgive the intrusion of Perl into your day, but it's an easy way
 # to generate Unicode characters (real copyright symbol, not the
 # three-character hideous bogosity "(c)"), until Unix gets real
 # about character sets and Unicode
 
+TEXT_COLOR=white
 SIZE=72 # good pointsize on 24MP 6000x4000 images, too big on smaller image.
 TEXT="$(perl -e 'binmode(STDOUT, ":utf9"); print "\x{00A9} IanDarwinPhoto.com";')"
+
+OVERWRITE=no
 
 function usage {                # give usage message, and exit
         echo "Usage: ${USAGE}" 2>&1
         exit 1
 }
 
-while getopts "s:t:v" opt 
+while getopts "c:rs:t:v" opt 
 do 
         case "$opt" in 
+		c)	TEXT_COLOR=${OPTARG};;
+		r)	OVERWRITE=yes;;
 		s)	SIZE=${OPTARG};;
 		t)	TEXT=${OPTARG};;
                 v)      VERBOSE=v;;
@@ -44,6 +49,9 @@ do
 		-pointsize ${SIZE} \
 		-gravity SouthEast \
 		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
-		-stroke  none   -fill white    -annotate 0 "${TEXT}" \
+		-stroke  none   -fill ${TEXT_COLOR} -annotate 0 "${TEXT}" \
 		branded_$FILE
+	if [ ${OVERWRITE} = yes ]; then
+		mv branded_$FILE $FILE
+	fi
 done
