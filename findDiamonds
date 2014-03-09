@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Find Java code that is candidate for using Diamond operator.
+
+jgrep -r '\w+<\w+>.*new \w+<\w+>' $*
