@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# control a service from rc.d
+
+[ -w / ] || { echo "$0: must be root"; exit 1 
+}
+
+case $# in
+2);;
+*) echo Usage: $0 servicename command
+   exit 1;;
+esac
+
+service=$1
+cmd=$2
+
+if [ ! -f /etc/rc.d/${service} ]; then
+	echo "$0: No service ${service}; services are"
+	ls /etc/rc.d
+	exit 2;
+fi
+
+exec /etc/rc.d/${service} ${cmd}
