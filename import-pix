@@ -45,7 +45,7 @@ esac
 
 [ v == "${VERBOSE}" ] && set -x
 
-echo 'jpg pictures\nJPG pictures\nnef pictures\nNEF pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
+echo 'jpg pictures\nJPG pictures\nnef pictures\nNEF pictures\narw Pictures\nARW Pictures\nmp4 movies\nmpg movies\n3gp movies' | while read exten dir
 do
 	echo Checking for $exten and moving to $dir
 
@@ -61,7 +61,7 @@ do
 		echo Using ${DEST_DIR}
 
 		case ${exten} in
-		nef|NEF) cp -p *.${exten} ${DEST_DIR}/raw/;;
+		nef|NEF|arw|ARW) cp -p *.${exten} ${DEST_DIR}/raw/;;
 		*)	cp -p *.${exten} ${DEST_DIR}/;;
 		esac
 
@@ -95,7 +95,7 @@ do
 	echo -n "Erase [no,yes] " 
 	read oktoerase
 	case ${oktoerase} in
-		y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.3gp *.3GP
+		y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.arw *.ARW *.3gp *.3GP
 			ERASE_PROMPT_ANSWERED=y
 			;;
 		n*)	echo LEAVING PIX ON CAMERA
