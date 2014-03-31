@@ -4,14 +4,22 @@
 # Intended to be permanent; there is no convenient resync later.
 # requires cvs2git package installed.
 
+# Defaults
+GITHUB_USER=IanDarwin
+
+LOCAL_CVS=/cvs/${REPO}
+NEW_GIT_NAME=${REPO}
+REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+
+case $# in
+1)	REPO=$1;;
+*)	echo "Usage: $0 repoName [same name used in git as in CVS]" >&2
+	exit 1;;
+esac
+
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
-
-LOCAL_CVS=/cvs/javasrcee
-NEW_GIT_NAME=javasrcee
-GIT_USER_NAME=IanDarwin
-REMOTE_GIT=git@github.com/IanDarwin/${NEW_GIT_NAME}.git
-REMOTE_GIT=git@git.darwinsys.com/IanDarwin/${NEW_GIT_NAME}.git
 
 cd $HOME/git
 
