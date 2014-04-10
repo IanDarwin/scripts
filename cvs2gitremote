@@ -7,16 +7,16 @@
 # Defaults
 GITHUB_USER=IanDarwin
 
-LOCAL_CVS=/cvs/${REPO}
-NEW_GIT_NAME=${REPO}
-REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-
 case $# in
 1)	REPO=$1;;
 *)	echo "Usage: $0 repoName [same name used in git as in CVS]" >&2
 	exit 1;;
 esac
+
+LOCAL_CVS=/cvs/${REPO}
+NEW_GIT_NAME=${REPO}
+REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
 
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
