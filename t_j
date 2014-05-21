@@ -1,0 +1,9 @@
+cat>t.java <<!
+public class t {
+	public static void main(String[] unused) {
+		System.out.printf("Hello\n");
+	}
+}
+!
+
+jr t
