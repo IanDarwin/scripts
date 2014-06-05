@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# This can be used to undead a CVS Attic"
+# first you need to make a list of files containing the 'tedu' comment in file j
+
+exit
+
+for f in $(cat j)
+do
+	echo $f
+	rcs -o$(rlog $f|grep 'revision '|sed q|awk '{print $2}') $f
+done
