@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# count the public API in a Jar file like the JDK's RT.JAR
+
+RTJAR=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/rt.jar
+
+TMP=$(mktemp /tmp/classCountXXXXXX)
+trap "rm $TMP" 0 1 2 3 15
+
+jar tvf ${RTJAR} | egrep ' (javax?|org)/'| grep -v '\$' > ${TMP}
+
+wc -l ${TMP}
+
+echo "Want to watch?"; read ans; case ${ans} in
+	n*)	exit 0;;
+	*) more ${TMP};;
+esac
