@@ -9,6 +9,6 @@ esac
 
 for dir in $*
 do
-	rm -r ${dir}/{build,bin,dist}
-	zip -r -xCVS /tmp/${dir}.zip ${dir}/ && mv /tmp/${dir}.zip ${DEST}
+	rm -rf ${dir}/{build,bin,dist}
+	zip -r -xCVS /tmp/${dir}.zip ${dir}/{.classpath,.project,*} && mv /tmp/${dir}.zip ${DEST}
 done
