@@ -1,0 +1,8 @@
+#!/bin/sh
+
+case $# in
+1)	BRANCH=$1;;
+*)	echo Usage: $0 branch >&2; exit 1;;
+esac
+
+git branch --set-upstream-to=origin/${BRANCH} ${BRANCH}
