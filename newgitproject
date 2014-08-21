@@ -1,0 +1,27 @@
+#!/bin/sh
+
+cd /home/git/ian
+
+case $# in
+1)	;;
+*)	echo Usage: $0 project
+	exit 1
+	;;
+esac
+
+[ -w / ] || {
+	echo Ye be no talking lion!
+	exit 1
+}
+
+NEWPROJ=$1
+
+mkdir $NEWPROJ
+cd    $NEWPROJ
+
+git init --bare
+
+chown -R git .
+
+echo "Your new project is ready:
+git remote add origin git@git.darwinsys.com:$(pwd)"
