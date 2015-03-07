@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# look for mismatched delimiters in an AD file.
+
+# Manual for now - need to parse this stuff.
+
+egrep -n '^(----|====|____|\*\*\*\*)$' $*

@@ -2,45 +2,32 @@
 
 # Export javasrc for distro with JavaCook web site.
 
-# List of files is set in darian:/cvs/CVSROOT/modules line for javacook-src
-
 set -x
 
-cd /tmp
-
-for dir in javacook javasrc
-do
-	if [ -d ${dir} ]; then
-		mv ${dir} ${dir}-$$
-		rm -rf ${dir}-$$ &
-	fi
-done
-
-set -e
-cvs -q -d ${CVSROOT-/cvs} export -D now javacook-src >/tmp/export$$
-
-mv javasrc javacook
+cd ~/book/jcb
 
 # Next section done in the subdirectory
-(
-	cd javacook
-
-	# Update the index.html for just what we exported
-	(cd netweb; jikes +E -d .. MkIndex.java)
-	java MkIndex
-
-)
+#(
+#	cd javacooksrc
+#
+#	# Update the index.html for just what we exported
+#	(cd netweb; 
+#	mkdir /tmp/classes; javac -d /tmp/classes MkIndex.java)
+#	java -cp /tmp/classes netwed.MkIndex
+#
+#)
 # No longer in subdirectory
 
+# ensure symlink exists, it is not in git
+rm -f javacooksrc
+ln -s src javacooksrc
+
+#
 rm -f javacooksrc.zip
-jar cf javacooksrc.zip ./javacook
+jar cvf javacooksrc.zip javacooksrc/*
 
 exit 
 
-scp javacooksrc.zip darwinsys.com:/www/javacook/ &&
-	echo "JavaCook src updated at javacook.darwinsys.com/download.html" |
-		Mail -s "java cookbook download updated" -v "Mary Hubben <maryh@oreilly.com>" ian webmaster@oreilly.com
-
 # Now extract the whole mess so people can browse individually
 # Note that this extracts in javacook/javacook, which is a bit confusing.
-ssh darwinsys.com "cd /www/javacook; unzip -fo javacooksrc.zip"
+# ssh darwinsys.com "cd /www/javacook; unzip -fo javacooksrc.zip"

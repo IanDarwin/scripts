@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -x
+
+for f
+do
+	rm $f.jpg raw/$f.???
+done

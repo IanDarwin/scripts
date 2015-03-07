@@ -1,0 +1,12 @@
+psql <<!
+
+\c t1
+\d
+select * from customer;
+select * from orders;
+
+\c t2
+\d
+select * from customer;
+select * from orders;
+!

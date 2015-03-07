@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# set up some accounts for mail use only
+
+for student in 00 01 02 03 04 05 06 07 08 09 10 11 12
+do
+	echo "sudo useradd -m -c \"Demo Mail-Only Account\" -p \$(encrypt -b6 ${student}Password) -s /bin/false student${student}"
+done

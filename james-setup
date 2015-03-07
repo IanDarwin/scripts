@@ -1,0 +1,14 @@
+cd ~/apache-james-3.0-beta4/bin
+
+# ./james-cli.sh -h localhost -p 9999 adddomain test.tt
+./james-cli.sh -h localhost -p 9999 listdomains
+
+# ./james-cli.sh -h localhost -p 9999 adduser ian@test.tt somePassword
+
+for student in 01 02 03 04 05 06 07 08 09 10 11 12
+do
+	echo $student
+	./james-cli.sh -h localhost -p 9999 adduser student${student}@test.tt ${student}Password
+done
+
+./james-cli.sh -h localhost -p 9999 listusers

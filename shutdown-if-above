@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Wrapper for shutdown, since sensorsd is currently too braindead to
+# only invoke a command if the sensor reading is out of band
+
+case "$1" in
+	above)	/sbin/shutdown -h +1 "CPU too hot! $*"
+		;;
+	*)	echo "Ignoring tripe from sensorsd: $*"
+		;;
+esac

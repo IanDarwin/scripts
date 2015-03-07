@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd ~/workspace
+
+for d in \
+	datamodel-java MedlyCoreAndroid eHealthContentProvider \
+	MedlyDataApp MedlyChfDroid MedlyCKDDroid MedlyCOPDDroid
+do
+	set +x
+	(cd $d
+	git pull
+	)
+done

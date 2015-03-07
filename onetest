@@ -1,0 +1,20 @@
+#!/bin/sh
+
+function usage {
+	echo "Usage: $0 feature-num" >&2
+	exit 1
+}
+
+case $# in
+	1);;
+	*) usage
+esac
+
+f=$(echo features/$1*.feature)
+
+if [ -f $f ]; then
+	ant -Dscenarios=$f cucumber-scen
+else
+	echo "Could not find feature file $f for feature $1" >&2
+	exit 2
+fi

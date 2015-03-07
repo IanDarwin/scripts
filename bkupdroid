@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -x
+
+cd ~/bkup
+adb -d backup -all
+adb -d pull /sdcard/oisafe.xml

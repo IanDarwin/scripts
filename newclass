@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# create a new class
+
+
+USAGE="$0 [-e Super][-i Inter][-p package] NewClass"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+MAIN=no
+while getopts "e:i:jmp:" opt 
+do 
+	case "$opt" in 
+		e)	SUPER="extends ${OPTARG}";;
+		i)	INTER="implements ${OPTARG}";;
+		j)	JPA="yes";;
+		m)	MAIN="yes";;
+		p)	PACKAGE=${OPTARG};;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for f
+
+do
+	(
+	if [ "${PACKAGE}" != "" ]; then
+		echo "package $PACKAGE;"
+		echo ""
+	fi
+
+	echo "import javax.persistence.*;"
+
+	echo "/*"
+	echo " * $f - XXX"
+	echo " */"
+
+	if [ "${JPA}" == "yes" ]; then
+		echo "@Entity @Table(name=\"${f}s\")"
+	fi
+	echo "public class $f ${SUPER} ${INTER} {"
+	echo "	@Id @GeneratedValue(strategy=GenerationType.AUTO)"
+	echo "	long id;"
+	echo
+	echo "	// TODO"
+	echo "}"
+	) > ${f}.java
+done

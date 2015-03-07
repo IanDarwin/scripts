@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ -w / ] || {
+	echo be root
+	exit 1
+}
+
+F=/etc/group
+
+U=ian
+
+for G
+do
+	overwrite $F sed -e "/^$G:/s/$/,$U/" -e 's/:,/:/' $F
+done

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# portsrcs - list the ports source directories
+ls -d /usr/ports/* |egrep -v 'CVS|distfiles|packages'

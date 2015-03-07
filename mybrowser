@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# mybrowser - so I can only have to change ONE place when switching
+# among Firefox, Chrome, and other *nix-based browsers
+
+exec /usr/local/bin/firefox  $*

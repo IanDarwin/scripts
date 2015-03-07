@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# maven demo - new JavaSE project
+
+cd /tmp
+
+rm -rf my-se-project
+
+mvn archetype:generate \
+	-DarchetypeGroupId=org.apache.maven.archetypes \
+	-DarchetypeArtifactId=maven-archetype-quickstart \
+	-DgroupId=com.rainforest -DartifactId=my-se-project
+

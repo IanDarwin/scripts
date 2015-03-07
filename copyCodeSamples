@@ -12,7 +12,7 @@ do
 		cd ${dir}
 		(
 			# Java marks are // BEGIN xxx; C marks are /* BEGIN xxx */
-			grep -lr '^[ 	]*/[*/] BEGIN' ${SUBDIR} # RE contains space and tab
+			grep -lr '^[ 	]*/[*/] BEGIN' ${SUBDIR} | grep -v '\.tar' # RE contains space and tab
 			find ${SUBDIR}/main \
 				-name \*.c -o -name \*.h -o -name Makefile -print
 			find ${SUBDIR}/main/resources \
@@ -22,4 +22,4 @@ do
 done
 
 cd ${DEST}/${SUBDIR}
-grep -lr '\t' . | xargs detab
+grep -lr '\t' . | grep -v '.tar$' | xargs detab

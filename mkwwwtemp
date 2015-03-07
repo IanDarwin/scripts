@@ -47,6 +47,6 @@ do
 
 	echo "$file is at http://${SERVER}/tmp/${TARGET}"
 
-	ssh ${SERVER} chmod a+r ${DESTDIR}/* 2> /dev/null
+	ssh ${SERVER} chmod a+r ${DESTDIR}/${TARGET} 2> /dev/null
 
 done

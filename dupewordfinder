@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# find repeated words like "in the the beginning"
+# caveat - doesn't work across lines (yet)
+
+exec jgrep '\b(\w+) \1\b' $*

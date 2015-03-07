@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# count ports that have converted to /etc/rc.d mechanism
+
+TMP=$(mktemp /tmp/countercXXXXXXX)
+
+cd /usr/ports
+find $(ls | egrep -v stuff\|distfiles\|packages) -name '*.rc' |
+	grep pkg|
+		tee ${TMP} |
+		wc -l
+
+echo "A complete list may be found in ${TMP}."

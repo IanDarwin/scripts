@@ -1,0 +1,5 @@
+nc www.mendeley.com 80 <<!
+GET /oapi/documents/details/37645/ HTTP/1.0
+Host: www.mendeley.com
+
+!

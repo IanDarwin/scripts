@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# Try to install most of my standard packages
+
 p=/usr/ports
+
+[ -w / ] || { echo "Toot! Toot! You must be root!"; exit 1
+]
 
 set -x
 
-# Things that should be in packages
 
 function do_it {
 	for port
@@ -14,53 +18,51 @@ function do_it {
 	done
 }
 
-# bootstrap - X
-pkg_add xprompt rxvt desktop-file-utils # cwm is in base
+if [ ! -z ${desktop} ]; then
+	# bootstrap - X
+	pkg_add xprompt rxvt desktop-file-utils # cwm is in base
+	# fonts
+	pkg_add ecoliercourt-fonts freefonts ghostscript-fonts msttcorefonts
+	# print
+	do_it print/cups
+	# gfx/GUI
+	do_it graphics/png graphics/tiff graphics/gtk+-1  graphics/xv graphics/pwlib
+	do_it print/gimp print/inkscape 
+	# GS
+	do_it graphics/ghostscript
+	#cd $p/editors/openoffice; sh -x ./mk
+	do_it editors/openoffice3
+	# last few
+	do_it games/micropolis
+	# web and mail
+	pkg_add chromium mozilla-thunderbird
+	# Textproc
+	pkg_add xpdf evince
+	# webcam/communications stuff
+	pkg_add luvcview fswebcam 
+fi
+
+if [ ! -z ${kde} ]; then
+	# KDE (full) - brings in tons of depends
+	pkg_add kde{libs,base,network,addons,artwork,multimedia,graphics,pim,toys}
+	# GNOME (libs) - brings in tons of depends
+	pkg_add gconf2 gnome-vfs2 gnome-mime-data glib2 dbug-glib libgnome2 evolution-data-server
+fi
+
 # some of my own 
-do_it textproc/idiff math/hoc textproc/spiff 
+pkg_add idiff hoc spiff 
 # Bootstrap Devel/libs
 pkg_add gmake dbus nss nspr ORBit2 libIDL
-# fonts
-pkg_add ecoliercourt-fonts freefonts ghostscript-fonts msttcorefonts
-# print
-do_it print/cups
 # Useful
-do_it sysutils/lsof archivers/zip # implies archivers/unzip 
+pkg_add lsof zip # implies archivers/unzip 
 # security
-do_it security/crack security/nmap sysutils/pftop
-# gfx/GUI
-do_it graphics/png graphics/tiff graphics/gtk+-1  graphics/xv graphics/pwlib
-do_it print/gimp print/inkscape 
-# GS
-do_it graphics/ghostscript
-# Textproc
-pkg_add mgdiff xpdf evince
-# web and mail
-pkg_add mozilla-firefox mozilla-thunderbird
+pkg_add nmap pftop
 
 # network
-pkg_add openvpn
-
-# KDE (full) - brings in tons of depends
-pkg_add kde{libs,base,network,addons,artwork,multimedia,graphics,pim,toys}
-
-# GNOME (libs) - brings in tons of depends
-pkg_add gconf2 gnome-vfs2 gnome-mime-data glib2 dbug-glib libgnome2 evolution-data-server
-
-# Java
-do_it lang/jikes lang/kaffe-1.0
-
-# webcam/communications stuff
-do_it graphics/luvcview graphics/fswebcam x11/gnome-ekiga
+pkg_add mutt openvpn
 
 # These take a LONG time
-do_it devel/jdk/1.5 devel/jdk/1.6
+pkg_add jdk
 
 # depends on java
-cd $mp/devel/hudson; sudo make install
-
-#cd $p/editors/openoffice; sh -x ./mk
-do_it editors/openoffice3
-
-# last few
-do_it games/micropolis
+pkg_add tomcat jenkins openfire

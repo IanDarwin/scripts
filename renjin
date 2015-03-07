@@ -1,0 +1,7 @@
+#!/bin/sh
+
+RENJIN_HOME=$HOME/renjin*
+
+java -cp $(echo $RENJIN_HOME/dependencies/*.jar | tr ' ' ':') \
+  org.renjin.cli.Main "$@"
+

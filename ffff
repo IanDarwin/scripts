@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# ffff - FireFox Form Field Fixer
+
+sqlite3 /home/ian/.mozilla/firefox/ian.default/formhistory.sqlite<<!
+select id, value from moz_formhistory where value like '%$1%';
+!

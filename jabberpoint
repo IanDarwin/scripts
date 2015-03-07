@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# jp - front end for JabberPoint slideshow program
+# $Id$
+
+JPHOME=/home/ian/workspace/jabberpoint/
+export CLASSPATH=$CLASSPATH:${JPHOME}/build:${JPHOME}/lib/darwinsys.jar:${JPHOME}/lib/jdom.jar
+
+case $* in
+	0)	echo "Usage: jp file" >&2;;
+	*)	java -DJABBERPOINTHOME=${JPHOME} jp.JabberPoint $*
+esac

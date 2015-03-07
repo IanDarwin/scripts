@@ -1,0 +1,1 @@
+awk -t'	' 'NF>2{print $8,$10,$13}' /home/ian/Downloads/EventResults.txt |more

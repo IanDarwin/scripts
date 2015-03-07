@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# checkAndroidStrings - find strings that maybe should be I18N's in Android code
+
+grep -r '"' src |
+	egrep -v '^//|// NOI18N|\<Log\.|@[A-Z][A-Za-z]*\('

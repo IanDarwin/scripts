@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd "/Users/ian/Music/iTunes/iTunes Media/Music"
+
+scp -r * dalai:Music/
