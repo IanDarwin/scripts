@@ -4,5 +4,7 @@
 
 set -x
 
-java -cp $HOME/lib/makehandson.jar:$HOME/lib/darwinsys.jar \
+JAR=$HOME/.m2/repository//com/darwinsys/makehandsons/1.0-SNAPSHOT/makehandsons-1.0-SNAPSHOT.jar
+
+java -cp ${JAR}:$HOME/lib/darwinsys.jar \
 	makehandsons.MakeHandsOns ${*-*solution}
