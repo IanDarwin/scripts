@@ -66,3 +66,6 @@ pkg_add jdk
 
 # depends on java
 pkg_add tomcat jenkins openfire
+
+# server only
+pkg_add mailman
