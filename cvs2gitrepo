@@ -17,6 +17,7 @@ LOCAL_CVS=/cvs/${REPO}
 NEW_GIT_NAME=${REPO}
 REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
 REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+REMOTE_GIT=/home/git/ian/${NEW_GIT_NAME}
 
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
@@ -58,9 +59,12 @@ fi
 git remote remove origin
 git remote add origin ${REMOTE_GIT}
 
-echo "OK to push?"; read ans junk; case $ans in
-y|Y)	;;
-*)	exit 1;;
+echo "Push now?"; read ans junk; case $ans in
+y|Y)	git push -u origin master;;
+*)		echo "Left in /tmp/${NEW_GIT_NAME}"
+		exit 1;;
 esac
 
-git push -u origin master
+echo "Rename CVS repo to .bak?"; read ans junk; case $ans in
+y|Y*)	mv /cvs/${REPO} /cvs/${REPO}.bak;;
+esac
