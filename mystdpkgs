@@ -54,7 +54,7 @@ pkg_add idiff hoc spiff
 # Bootstrap Devel/libs
 pkg_add gmake dbus nss nspr ORBit2 libIDL
 # Useful
-pkg_add lsof zip # implies archivers/unzip 
+pkg_add lsof zip unzip 
 # security
 pkg_add nmap pftop
 
@@ -65,4 +65,7 @@ pkg_add mutt openvpn
 pkg_add jdk
 
 # depends on java
-pkg_add tomcat jenkins openfire
+pkg_add tomcat jenkins openfire maven # wildfly
+
+# server only
+pkg_add mailman
