@@ -2,6 +2,7 @@
 
 # Back up the membership and options in the mailing lists
 
-#scp -r root@darwinsys.com:/var/spool/mailman/lists ~/bkup
-scp -r root@darwinsys.com:/var/spool/mailman/{qfiles,spam,archives,cgi-bin,data,icons,locks,mail,scripts,templates} ~/bkup
+#scp -r root@darwinsys.com:/var/spool/mailman/lists ~/bkup/mailman
+#scp -r root@darwinsys.com:/var/spool/mailman/{qfiles,spam,archives,cgi-bin,data,icons,locks,mail,scripts,templates} ~/bkup/mailman
+ssh root@darwinsys.com "cd /var/spool/mailman; tar czbf 20 - qfiles spam archives cgi-bin data icons locks mail scripts templates" | dd bs=20b of=${HOME}/bkup/mailman.tgz
 
