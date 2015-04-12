@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# check all 936-needed folders for uncommitted/unpushed change
+
+for d in ~/CourseFiles $ws/TicketManorJava $ws/jpademo $ws/jsfdemo $ws/javasrc
+do
+	echo ===== $d =====
+	(
+	cd $d
+
+	git status
+
+	git push
+	)
+done
