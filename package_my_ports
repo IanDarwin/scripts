@@ -1,0 +1,32 @@
+#!/bin/ksh
+
+# mypkgs -- document and build the packages one person maintains
+# $Id$
+
+cd /usr/ports || exit # should be PORTSDIR
+
+MYPORTS=$HOME/.myports
+
+if [ ! -f ${MYPORTS} ]; then
+	echo "$0: must have a list of ports in ${MYPORTS}" >&2
+	exit 1
+fi
+
+BUILD_LOG=~/mypkg-build.log	
+PKG_LOG=~/mypkg-package.log
+rm -f $BUILD_LOG $PKG_LOG
+
+for PORT in `grep -v '^#' ${MYPORTS}`
+do
+	echo "==> $PORT"
+	(cd $PORT;
+	sudo make fetch ||
+		(echo "${PORT} failed to fetch!" >&2; continue) &&
+		sudo make >> ${BUILD_LOG} 2>&1 ||
+			echo "${PORT} failed to build!" >&2 &&
+		# Deinstall so we're sure the install (for "package") will work.
+		(sudo make deinstall >/dev/null 2>&1; true) &&
+		sudo make package install deinstall reinstall >> ${PKG_LOG} 2>&1 ||
+			echo "${PORT} failed packaging!" >&2
+	)
+done

@@ -3,4 +3,6 @@
 set -x
 
 CLASSPATH=$js/build
+CLASSPATH=$js/target/classes
+
 exec java -classpath $CLASSPATH xml.XParse $@
