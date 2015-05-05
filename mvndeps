@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mvn dependency:tree -Dverbose -Dincludes=${1}
