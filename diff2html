@@ -1,0 +1,36 @@
+#!/usr/bin/awk -f
+
+function escape(str) {
+	gsub(/>/, "\\&gt;", str)
+	gsub(/</, "\\&lt;", str)
+	return str
+}
+
+BEGIN	{
+		print "<h1>" "Hints for " DIR "</h1>"
+		}
+
+/^diff/	{
+		print "<h2>" File $3 "</h2>"
+		}
+
+/^[0-9]/ {
+		print "<h3>Lines " $0 "</h3>"
+		}
+
+# Some we need to filter out
+/^> \/\/-/ { next }
+/^> \/\/\+/ { next }
+
+/^</	{
+		escape()
+		print "<p style='background:pink;'>" escape($0) "</p>"
+		}
+
+/^>/	{
+		if ($2 == "//-" || $2 == "//+")
+			next
+		escape();
+		print "<p style='background:#10E010;'>" $0 "</p>"
+		}
+
