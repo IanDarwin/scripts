@@ -12,10 +12,14 @@ R --quiet --save <<!
 #quartz()
 pdf(onefile = FALSE)
 
+# Input Format:
+# 1|Ian|3.6|4.0|1
+# 2|Robi|3|3|2
+
 col_names  =c('id','name','course','instructor','pace');
 col_classes=c('integer', 'character', 'numeric', 'numeric', 'numeric');
 
-d=read.table("/Users/ian/lt516/darwin2.txt", sep="|",
+d=read.table("/Users/ian/ltgen/dailies.txt", sep="|",
 	col.names=col_names, 
 	colClasses=col_classes);
 c = data.matrix(d["course"])
@@ -33,16 +37,16 @@ p = data.matrix(d["pace"])
 
 #split.screen(c(1,3))
 #screen(1)
-hist(c,
-	col='red',
+nBreaks = 5
+hist(c, col='red', breaks=nBreaks,
 	main=paste("Course Grade (average",sprintf("%5.2f", mean(c)),")"))
 #screen(2)
-hist(i, col='red',
+hist(i, col='red', breaks=nBreaks,
 	main=paste("Instructor Grade (average",sprintf("%5.2f", mean(i)),")"))
 #screen(3)
 #hist(p, col='green',
 #	main="Pace (-2=very slow, -1=slow, 0=right, +1=fast, +2=very fast)")
 
-Sys.sleep(3600)
+# Sys.sleep(3600)
 !
 
