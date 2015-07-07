@@ -4,4 +4,7 @@ for f
 do
 	echo $f >> .gitignore
 done
-git add .gitignore
+git diff .gitignore 
+sleep 1
+git add .gitignore 
+git commit .gitignore

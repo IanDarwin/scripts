@@ -67,6 +67,11 @@ pkg_add jdk
 # depends on java
 pkg_add maven jenkins 
 
-# server only
-pkg_add mailman radicale
+# Calendar server
+pkg_add radicale
+
+# Web/comms server
 pkg_add tomcat wildfly openfire
+
+# Mail server: uses opensmtpd + the following:
+pkg_add mailman cyrus-sasl courier-authlib

@@ -15,13 +15,14 @@ esac
 
 LOCAL_CVS=/cvs/${REPO}
 NEW_GIT_NAME=${REPO}
-REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-REMOTE_GIT=/home/git/ian/${NEW_GIT_NAME}
+#REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+#REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+REMOTE_GIT=/git/${NEW_GIT_NAME}
 
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
 
+mkdir $HOME/git > /dev/null 2>&1
 cd $HOME/git
 
 cvs2git \
@@ -60,7 +61,7 @@ git remote remove origin
 git remote add origin ${REMOTE_GIT}
 
 echo "Push now?"; read ans junk; case $ans in
-y|Y)	git push -u origin master;;
+y|Y|yes)	git push -u origin master;;
 *)		echo "Left in /tmp/${NEW_GIT_NAME}"
 		exit 1;;
 esac
