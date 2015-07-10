@@ -5,7 +5,7 @@
 p=/usr/ports
 
 [ -w / ] || { echo "Toot! Toot! You must be root!"; exit 1
-]
+}
 
 set -x
 
@@ -59,13 +59,19 @@ pkg_add lsof zip unzip
 pkg_add nmap pftop
 
 # network
-pkg_add mutt openvpn
+pkg_add mutt openvpn nagios cnagios
 
 # These take a LONG time
 pkg_add jdk
 
 # depends on java
-pkg_add tomcat jenkins openfire maven # wildfly
+pkg_add maven jenkins 
 
-# server only
-pkg_add mailman
+# Calendar server
+pkg_add radicale
+
+# Web/comms server
+pkg_add tomcat wildfly openfire
+
+# Mail server: uses opensmtpd + the following:
+pkg_add mailman cyrus-sasl courier-authlib

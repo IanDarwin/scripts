@@ -1,0 +1,33 @@
+#!/bin/sh
+
+
+USAGE="$0 [-v] person"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "v" opt 
+do 
+	case "$opt" in 
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+case $# in
+	1)	PERSON=$1;;
+	*)	usage;;
+esac
+
+echo -n Password:\ 
+read PASS
+#PASS='ultraSecretPW!'
+HASH=$(/bin/echo -n ${PASS} | md5)
+echo $HASH
+
+echo "update person set USER_PASSWORD = '${HASH}' where PERSON_NAME = ${PERSON}" |
+
+	sqlrunner -cli -c localhost /dev/stdin

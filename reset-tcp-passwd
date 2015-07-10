@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -x
-
-echo "update person set USER_PASSWORD = '$(echo -n SomeSecredPW | md5)' where PERSON_KEY = 22" |
-
-	sqlrunner -cli -c localhost /dev/stdin

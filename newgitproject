@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/git/ian
+cd /git
 
 case $# in
 1)	;;

@@ -3,21 +3,24 @@
 # SQLRunner - Main Version
 JVMOPTS="-Djava.net.preferIPv4Stack=true"
 
-# Change this to where you have the darwinsys.jar file installed
-PROGRAM_JARS=${HOME}/lib/darwinsys.jar
+# Change this to where you keep your jars
+JAR_DIR=$HOME/lib
 
 # Add Driver JAR files to CLASSPATH
-for driver in \
-	hsqldb postgresql ojdbc14 db2jcc db2jcc_license_cu sqlitejdbc-v047-nested dbfdriver
+for jar in darwinsys-api \
+	hsqldb postgresql ojdbc14 sqlitejdbc* dbfdriver
 do
-	DRIVER_JARS=${DRIVER_JARS}:${HOME}/lib/$driver.jar
+	if [ -f ${JAR_DIR}/${jar}*.jar ]; then
+		D=$(echo ${JAR_DIR}/${jar}*.jar)
+		CLASSPATH=${CLASSPATH}:${D}
+	else
+		echo "Not adding ${JAR_DIR}/${jar}*.jar"
+	fi
 done
 
 set -x
 
-export CLASSPATH="${PROGRAM_JARS}:${DRIVER_JARS}"
-
 case $1 in
--cli)	shift; java ${JVMOPTS} com.darwinsys.sql.SQLRunnerCLI $@;;
-*) java ${JVMOPTS} com.darwinsys.sql.SQLRunnerGUI $*;;
+-cli)	shift; java ${JVMOPTS} -classpath ${CLASSPATH} com.darwinsys.sql.SQLRunnerCLI $@;;
+*) java ${JVMOPTS} -classpath ${CLASSPATH} com.darwinsys.sql.SQLRunnerGUI $*;;
 esac
