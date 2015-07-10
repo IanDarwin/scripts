@@ -1,0 +1,13 @@
+#!/bin/sh -f
+
+# dnsseq - generate a dns sequence
+
+DATE=$(date +%Y%m%d)
+
+case "$1" in
+	"")	REST=01;;
+	*)	REST=$(printf "%02d" $1);;
+esac
+
+echo ${DATE}${REST}
+
