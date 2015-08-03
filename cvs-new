@@ -13,9 +13,10 @@ function usage {		# give usage message, and exit
 MESSAGE="New."
 K=kv
 
-while getopts "k:m:" opt 
+while getopts "d:k:m:" opt 
 do 
  	 case "$opt" in 
+		d)	CVSROOT_ARG="-d ${OPTARG}";;
 		k)	K=${OPTARG};;
 		m)	MESSAGE=${OPTARG};;
 		*)	usage;;
@@ -28,5 +29,5 @@ case $# in
 0)	usage;;
 esac
 
-cvs add -k$K $*
-cvs commit -m "${MESSAGE}" $*
+cvs ${CVSROOT_ARG} add -k$K $*
+cvs ${CVSROOT_ARG} commit -m "${MESSAGE}" $*
