@@ -15,9 +15,10 @@ esac
 
 LOCAL_CVS=/cvs/${REPO}
 NEW_GIT_NAME=${REPO}
-#REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-#REMOTE_GIT=git@git.darwinsys.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-REMOTE_GIT=/git/${NEW_GIT_NAME}
+REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
+# https://github.com/IanDarwin/login-filter.git
+#REMOTE_GIT=git@git.darwinsys.com/git/${NEW_GIT_NAME}.git
+#REMOTE_GIT=/git/${NEW_GIT_NAME}
 
 rm -rf	$HOME/cvs2git-tmp/
 mkdir	$HOME/cvs2git-tmp/
