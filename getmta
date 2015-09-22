@@ -1,0 +1,16 @@
+#!/bin/sh
+
+for HOST
+do
+
+expect <<!
+spawn telnet ${HOST} 25
+expect 220
+send "HELO test.please.ignore\r"
+expect 250
+send QUIT\r
+expect 221
+exit
+!
+
+done
