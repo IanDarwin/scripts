@@ -1,6 +1,18 @@
 #!/bin/sh
 
-# Run my JabaDex.todo
+# Enter or list the todo database
 
-java -classpath ~/lib/darwinsys.jar:$ws/jabadex/build jabadex.todo.ToDoMain &
+case $# in
+
+0)	ssh dos.new psql -d todo <<!
+	select id,name from task where status != 'c' order by creationdate;
+!
+	;;
+
+*)	ssh dos.new psql -d todo <<!
+	insert into task(name) values('$*');
+!
+	;;
+
+esac
 
