@@ -1,0 +1,30 @@
+#!/bin/sh
+
+case $# in
+	1) TAG=$1;;
+	0|*) echo try again; exit 1;;
+esac
+
+case ${TAG} in
+	936-?.?)	;;
+	*)	echo try tag format again; exit 1;;
+esac
+
+cd
+
+DIRS="CourseFiles TicketManorJava jpademo jsfdemo clublist"
+
+set -x
+
+for d in ${DIRS}
+do
+	(
+	cd $d
+	pwd
+	rm -rf bin target
+	git pull
+	git status | grep ahead && exit
+	git tag -a ${TAG} -m ${TAG}
+	git push --tags
+	)
+done
