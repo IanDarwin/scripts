@@ -1,0 +1,35 @@
+#!/bin/ksh
+
+# untar - list or extract a tar
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 -l|-x [-v][-z] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+MAIN_OP=t
+VERBOSE=
+while getopts "lvxz" opt 
+do 
+	case "$opt" in 
+		l)	MAIN_OP=t;;
+		v)	VERBOSE=v;;
+		x)	MAIN_OP=x;;
+		z)	ZLIB=z;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for f
+do
+	ZLIB=""
+	case $f in
+	*.tgz|*.tz)	ZLIB=f;;
+	esac
+	tar ${MAIN_OP}${VERBOSE}${ZLIB}f $f
+done
