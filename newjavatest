@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# newjavatest - make a new entry in the javatest database
+
+name=$1
+category=$2
+websiteurl=$3
+sourceurl=$4
+
+psql -d website -c 'Select distinct(category) from javatest'|grep ${category} || {
+	echo category not found
+	exit 1
+}
+
+psql -d website <<!
+
+insert into javatest(name,category,websiteurl,sourceurl)
+ values('$name', '$category', '$websiteurl', '$sourceurl');
+
+!
