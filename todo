@@ -2,17 +2,21 @@
 
 # Enter or list the todo database
 
+PRIO=2
+
 case $# in
 
-0)	ssh dos.new psql -d todo <<!
-	select id,name from task where status != 'c' order by creationdate;
-!
+0)	CMD="select id,priority,name from todo where status != 'c' order by priority asc, name asc;"
 	;;
 
-*)	ssh dos.new psql -d todo <<!
-	insert into task(name) values('$*');
-!
+*)	case $1 in
+	-d) CMD="delete from todo where id = ${2};";;
+	*)  CMD="insert into todo(name,priority) values('$*', '$PRIO');";;
+	esac
 	;;
 
 esac
 
+ssh dos.new psql -d todo <<! |more 
+$CMD
+!
