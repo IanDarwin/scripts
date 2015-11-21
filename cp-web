@@ -1,0 +1,9 @@
+#!/bin/sh
+
+D=$(find ${wf}/standalone/tmp/vfs/ -name $1)
+case ${D} in
+	"")	echo "Not found" >&2
+		exit 1;;
+esac
+	
+cp $w/$1 ${D}
