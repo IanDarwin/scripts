@@ -2,16 +2,47 @@
 
 # Enter or list the todo database
 
-PRIO=2
+PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
+MORE=""
+VERB=insert
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+USAGE="$0 [-c context][-p prio][-d id] description of some task"
+while getopts "v" opt 
+do 
+	case "$opt" in 
+		c)	CONTEXT=$OPTARG;;
+		d)	VERB=delete
+			ID=$OPTARG
+			;;
+		p)	PRIO=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+# Convert Priorities to int
+case ${PRIO} in
+	TOP)	PRIO=0;;
+	HIGH)	PRIO=1;;
+	MEDIUM)	PRIO=2;;
+	LOW)	PRIO=3;;
+	[0123])	;; # Already there
+	*)		echo Warning: Priority $PRIO unrecognized;;
+esac
 
 case $# in
 
-0)	CMD="select id,priority,name from todo where status != 'c' order by priority asc, name asc;"
+0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 'c' ${MORE} order by t.priority asc, t.name asc;"
 	;;
 
-*)	case $1 in
-	-d) CMD="delete from todo where id = ${2};";;
-	*)  CMD="insert into todo(name,priority) values('$*', '$PRIO');";;
+*)	case ${VERB} in
+	delete) CMD="delete from todo where id = ${ID};";;
+	insert) CMD="insert into todo(name,priority) values('$*', '$PRIO');";;
 	esac
 	;;
 
