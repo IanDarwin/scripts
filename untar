@@ -11,7 +11,7 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-MAIN_OP=t
+MAIN_OP=x
 VERBOSE=
 while getopts "lvxz" opt 
 do 
