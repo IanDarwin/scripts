@@ -48,6 +48,6 @@ case $# in
 
 esac
 
-ssh dos.new psql -d todo <<! |more 
+ssh dos.new psql -d todo <<!
 $CMD
 !
