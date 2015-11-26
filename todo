@@ -37,7 +37,7 @@ esac
 
 case $# in
 
-0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 'c' ${MORE} order by t.priority asc, t.name asc;"
+0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${MORE} order by t.priority asc, t.name asc;"
 	;;
 
 *)	case ${VERB} in
