@@ -1,6 +1,18 @@
 #!/bin/sh
 
-D=$(find ${wf}/standalone/tmp/vfs/ -name $1)
+for WF in "${wf}" /var/wildfly ~/wildfly*
+do
+	if [ ! -z "${WF}" -a -d "${WF}" ]; then
+		FOUND=true
+		break;
+	fi
+done
+if [ -z ${FOUND} ]; then
+	echo wildfly flew?
+	exit 1
+fi
+
+D=$(find ${WF}/standalone/tmp/vfs/ -name $1)
 case ${D} in
 	"")	echo "Not found" >&2
 		exit 1;;
