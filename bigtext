@@ -1,1 +1,1 @@
-java -cp ~ian/workspace/play/bin play.BigText $*
+java -cp ~ian/workspace/play/bin play.BigText "$*"
