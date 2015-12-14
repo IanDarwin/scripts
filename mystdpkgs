@@ -65,7 +65,7 @@ pkg_add mutt openvpn nagios cnagios
 pkg_add jdk
 
 # depends on java
-pkg_add maven jenkins 
+pkg_add maven jenkins adb
 
 # Calendar server
 pkg_add radicale
