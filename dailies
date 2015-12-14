@@ -8,7 +8,7 @@ R --quiet --save <<!
 
 #x11()
 #quartz()
-pdf(onefile = FALSE)
+#pdf(onefile = FALSE)
 
 # Input Format:
 # id|name|course|instr|pace
@@ -27,32 +27,21 @@ d=read.table("/Users/ian/ltgen/dailies.txt", sep="|",
 c = data.matrix(d["course"])
 i = data.matrix(d["instructor"])
 p = data.matrix(d["pace"])
-#c = d[2]
-#i = d[3]
-#p = d[4]
-
-# c=c(4,4,3,3,4,4,4,4)
-# i=c(4,4,3,4,4,4,4,4)
-# p=c(0,-2,0,0,0,0,0,0)
-# 
-# data.entry(c,i,p)
 
 # https://mikelove.wordpress.com/2011/03/30/r-one-liner-histogram-for-integers/
 int.hist = function(x,ylab="Frequency",...) {
 barplot(table(factor(x,levels=min(x):max(x))),space=0,xaxt="n",ylab=ylab,...);axis(1)
 }
 
-#split.screen(c(1,3))
-#screen(1)
 nBreaks = 5
 int.hist(c, col='red', # breaks=nBreaks,
 	main=paste("Course Grade (average",sprintf("%5.2f", mean(c)),")"))
-#screen(2)
+
 int.hist(i, col='red', # breaks=nBreaks,
 	main=paste("Instructor Grade (average",sprintf("%5.2f", mean(i)),")"))
-#screen(3)
-#hist(p, col='green',
-#	main="Pace (-2=very slow, -1=slow, 0=right, +1=fast, +2=very fast)")
+
+hist(p, col="purple",
+	main="Pace (-2=very slow, -1=slow, 0=right, +1=fast, +2=very fast)")
 
 # Sys.sleep(3600)
 !

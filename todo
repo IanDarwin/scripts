@@ -12,7 +12,7 @@ function usage {		# give usage message, and exit
 }
 
 USAGE="$0 [-c context][-p prio][-d id] description of some task"
-while getopts "v" opt 
+while getopts "c:d:p:v" opt 
 do 
 	case "$opt" in 
 		c)	CONTEXT=$OPTARG;;
@@ -20,6 +20,8 @@ do
 			ID=$OPTARG
 			;;
 		p)	PRIO=$OPTARG;;
+		v)	#ignored
+			;;
 		*)	usage;;
 	esac
 done
