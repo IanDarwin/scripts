@@ -14,9 +14,11 @@ function do_it {
 	for port
 	do
 		pname=$(echo $port|sed -e 's=.*/==')
-		sudo pkg_add $pname || (cd /usr/ports/$port; make package; sudo make install)
+		pkg_add $pname || (cd /usr/ports/$port; make package; sudo make install)
 	done
 }
+
+pkg_add youtube-dl # desktop but also server for bandwidth
 
 if [ ! -z ${desktop} ]; then
 	# bootstrap - X
@@ -56,12 +58,15 @@ pkg_add gmake dbus nss nspr ORBit2 libIDL
 # Useful
 pkg_add lsof zip unzip 
 # security
-pkg_add nmap pftop
+pkg_add nmap pftop clamav
+
+# database
+pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
 
 # network
-pkg_add mutt openvpn nagios cnagios
+pkg_add mutt openvpn nagios cnagios mrtg
 
-# These take a LONG time
+# This takes a LONG time
 pkg_add jdk
 
 # depends on java
