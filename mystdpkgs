@@ -58,7 +58,7 @@ pkg_add gmake dbus nss nspr ORBit2 libIDL
 # Useful
 pkg_add lsof zip unzip 
 # security
-pkg_add nmap pftop clamav
+pkg_add nmap pftop clamav letsencrypt
 
 # database
 pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
