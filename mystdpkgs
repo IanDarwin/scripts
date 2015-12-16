@@ -65,8 +65,12 @@ pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
 
 # network
 pkg_add mutt openvpn nagios cnagios mrtg
+mkdir /var/mrtg
+cd /var/mrtg
+ln -s darwinsys.html index.html
+chown -R _mrtg .
 
-# This takes a LONG time
+# This takes a long time
 pkg_add jdk
 
 # depends on java
