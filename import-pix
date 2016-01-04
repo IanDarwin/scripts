@@ -10,8 +10,27 @@ cd ${DIR} || exit
 
 TOP_DIR=${HOME}/pictures
 SCANDATE=n
+SETCOPYR=n
 SUBDIR=$(pixdate)
 USAGE='$0 [-d yyyy/mm/dd]'
+SETCOPYR=n
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "d:sv" opt 
+do 
+	 case "$opt" in 
+		c)	SETCOPYR=y;;
+		d)	SUBDIR=$OPTARG;;
+		s)	SCANDATE=y;;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
 
 for pixdir in 10?* Camera*
 do
@@ -27,21 +46,6 @@ do
 		# some cameras' affection for screaming caps.
 		(lcname -r *[A-Z]* | sh ) # 2>/dev/null
 
-		function usage {		# give usage message, and exit
-			echo "Usage: $USAGE" 2>&1
-			exit 1
-		}
-
-		while getopts "d:sv" opt 
-		do 
-			 case "$opt" in 
-				d)	SUBDIR=$OPTARG;;
-				s)	SCANDATE=y;;
-				v)	VERBOSE=v;;
-				*)	usage;;
-			esac
-		done
-		shift `expr $OPTIND - 1`		 # leave just filenames
 
 		case ${SUBDIR} in
 			/*)	DEST_DIR=${SUBDIR};;
@@ -97,14 +101,6 @@ do
 		echo "Files in $(pwd):"
 		ls "$(pwd)"
 
-		case ${SCANDATE} in
-			y) 
-				echo "Setting 'Scanned' date to today..."
-				setscandate ${DEST_DIR}/*.*
-				;;
-		esac
-		setpixcopyright ${DEST_DIR}/*.*
-
 		ERASE_PROMPT_ANSWERED=n
 		while [ y != "${ERASE_PROMPT_ANSWERED}" ]
 		do
@@ -124,6 +120,21 @@ do
 done
 
 cd ${DEST_DIR}
+
+case ${SCANDATE} in
+	y) 
+		echo "Setting 'Scanned' date to today..."
+		setscandate *.*
+		;;
+esac
+
+case ${SETCOPYR} in
+	y)
+		echo "Setting Copyright"
+		setpixcopyright *.*
+		;;
+esac
+
 echo -n "View? [no,g)wenview,xv] " 
 read view
 case ${view} in
