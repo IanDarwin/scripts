@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Joy - a new camera model has been released
+
+USAGE="$0 make model family"
+
+MAKE=$1
+MODEL=$2
+FAMILY=$3
+
+case ${MAKE} in
+	Canon)  MAKE_ID=5;;
+	Nikon)  MAKE_ID=19;;
+	Pentax) MAKE_ID=22;;
+	Sony)   MAKE_ID=27;;
+	*)	echo "${MAKE} not known"
+		exit 1;;
+esac
+
+echo "insert into camera(make_id,model,family,type) values(${MAKE_ID},'${MODEL}','${FAMILY}','DSLR')" |
+	psql -d cameras
