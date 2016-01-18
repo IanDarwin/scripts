@@ -4,7 +4,8 @@
 
 PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
 CONTEXT=null
-MORE=""
+MORE='more -e'
+REST=""
 VERB=insert
 
 function usage {		# give usage message, and exit
@@ -13,7 +14,7 @@ function usage {		# give usage message, and exit
 }
 
 USAGE="$0 [-c context][-p prio][-d id] description of some task"
-while getopts "c:dp:v" opt 
+while getopts "c:d:p:v" opt 
 do 
 	case "$opt" in 
 		c)	CONTEXT=$OPTARG;;
@@ -21,6 +22,8 @@ do
 			ID=$OPTARG
 			;;
 		p)	PRIO=$OPTARG;;
+		v)	#ignored
+			;;
 		*)	usage;;
 	esac
 done
@@ -38,7 +41,7 @@ esac
 
 case $# in
 
-0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${MORE} order by t.priority asc, t.name asc;"
+0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${REST} order by t.priority asc, t.name asc;"
 	;;
 
 *)	case ${VERB} in
@@ -49,6 +52,12 @@ case $# in
 
 esac
 
-ssh dos.new psql -d todo <<!
-$CMD
-!
+echo $CMD |
+case $(hostname) in
+	darwinsys.com)
+		psql -d todo |${MORE}
+		;;
+	*)
+		ssh dos.new psql -d todo |${MORE}
+		;;
+esac

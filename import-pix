@@ -10,26 +10,20 @@ cd ${DIR} || exit
 
 TOP_DIR=${HOME}/pictures
 SCANDATE=n
+SETCOPYR=n
 SUBDIR=$(pixdate)
 USAGE='$0 [-d yyyy/mm/dd]'
-
-cd 10?* 2>/dev/null || cd Camera* 2>/dev/null || {
-	echo Not found
-	exit 1
-}
-
-# make sure names have reasonable case, regardless of some cameras' affection for screaming caps.
-(lcname -r *[A-Z]* | sh ) # 2>/dev/null
+SETCOPYR=n
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
 	exit 1
 }
 
-
 while getopts "d:sv" opt 
 do 
- 	 case "$opt" in 
+	 case "$opt" in 
+		c)	SETCOPYR=y;;
 		d)	SUBDIR=$OPTARG;;
 		s)	SCANDATE=y;;
 		v)	VERBOSE=v;;
@@ -38,84 +32,109 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-case ${SUBDIR} in
-	/*)	DEST_DIR=${SUBDIR};;
-	*)	DEST_DIR=${TOP_DIR}/${SUBDIR}
-esac
-
-[ v == "${VERBOSE}" ] && set -x
-
-while read exten dir
+for pixdir in 10?* Camera*
 do
-	echo Checking for $exten and moving to $dir
+	echo "$pixdir"
+	if [ -d "$pixdir" ]; then
+	(
+		cd "$pixdir" || {
+			echo "$pixdir" Not found
+			exit 1
+		}
 
-	# Check if there are ANY $exten files in the camera
-	GO=no
-	for f in *.$exten; do if [ -f $f ]; then GO=yes; break; fi; done
+		# make sure names have reasonable case, regardless of 
+		# some cameras' affection for screaming caps.
+		(lcname -r *[A-Z]* | sh ) # 2>/dev/null
 
-	case ${GO} in
-	yes)
-		if [ ! -d ${DEST_DIR} ]; then
-			mkdir -p ${DEST_DIR} ${DEST_DIR}/raw
-		fi
-		echo Using ${DEST_DIR}
 
-		case ${exten} in
-		nef|NEF|arw|ARW) cp -p *.${exten} ${DEST_DIR}/raw/;;
-		*)	cp -p *.${exten} ${DEST_DIR}/;;
+		case ${SUBDIR} in
+			/*)	DEST_DIR=${SUBDIR};;
+			*)	DEST_DIR=${TOP_DIR}/${SUBDIR}
 		esac
 
-		;;
-	*)	echo "No files of type ${exten} in $(pwd)";;
-	esac
+		[ v == "${VERBOSE}" ] && set -x
 
-done << !
-jpg pictures
-JPG pictures
-nef pictures
-NEF pictures
-arw Pictures
-ARW Pictures
-mp4 movies
-mov movies
-mpg movies
-3gp movies
+		while read exten dir
+		do
+			echo Checking for $exten and moving to $dir
+
+			# Check if there are ANY $exten files in the camera
+			GO=no
+			for f in *.$exten; do if [ -f $f ]; then GO=yes; break; fi; done
+
+			case ${GO} in
+			yes)
+				if [ ! -d ${DEST_DIR} ]; then
+					mkdir -p ${DEST_DIR} ${DEST_DIR}/raw
+				fi
+				echo Using ${DEST_DIR}
+
+				case ${exten} in
+				nef|NEF|arw|ARW) cp -p *.${exten} ${DEST_DIR}/raw/;;
+				*)	cp -p *.${exten} ${DEST_DIR}/;;
+				esac
+
+				;;
+			*)	echo "No files of type ${exten} in $(pwd)";;
+			esac
+
+		done << !
+		jpg pictures
+		JPG pictures
+		nef pictures
+		NEF pictures
+		arw Pictures
+		ARW Pictures
+		mp4 movies
+		mov movies
+		mpg movies
+		3gp movies
 !
 
-chown -R ian:wheel ${DEST_DIR}
+		chown -R ian:wheel ${DEST_DIR}
 
-if [ ! -d "${DEST_DIR}" ]; then
-	echo "None found."
-	exit 1
-fi
+		if [ ! -d "${DEST_DIR}" ]; then
+			echo "None found."
+			exit 1
+		fi
 
-echo "Files in $(pwd):"
-ls $(pwd)
+		echo "Files in $(pwd):"
+		ls "$(pwd)"
+
+		ERASE_PROMPT_ANSWERED=n
+		while [ y != "${ERASE_PROMPT_ANSWERED}" ]
+		do
+			echo -n "Erase [no,yes] " 
+			read oktoerase
+			case ${oktoerase} in
+				y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.arw *.ARW *.3gp *.3GP
+					ERASE_PROMPT_ANSWERED=y
+					;;
+				n*)	echo LEAVING PIX ON CAMERA
+					ERASE_PROMPT_ANSWERED=y
+					;;
+			esac
+		done
+	)
+	fi
+done
+
+cd ${DEST_DIR}
 
 case ${SCANDATE} in
 	y) 
 		echo "Setting 'Scanned' date to today..."
-		setscandate ${DEST_DIR}/*.*
+		setscandate *.*
 		;;
 esac
-setpixcopyright ${DEST_DIR}/*.*
 
-ERASE_PROMPT_ANSWERED=n
-while [ y != "${ERASE_PROMPT_ANSWERED}" ]
-do
-	echo -n "Erase [no,yes] " 
-	read oktoerase
-	case ${oktoerase} in
-		y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.arw *.ARW *.3gp *.3GP
-			ERASE_PROMPT_ANSWERED=y
-			;;
-		n*)	echo LEAVING PIX ON CAMERA
-			ERASE_PROMPT_ANSWERED=y
-			;;
-	esac
-done
+case ${SETCOPYR} in
+	y)
+		echo "Setting Copyright"
+		setpixcopyright *.*
+		;;
+esac
 
-cd ${DEST_DIR}
 echo -n "View? [no,g)wenview,xv] " 
 read view
 case ${view} in
