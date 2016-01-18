@@ -45,8 +45,6 @@ Linux)
 	cdrecord ${MODE} ${OVERBURN} -v $DUMMY speed=${SPEED} dev=/dev/${DEVICE}c $ISOSIZE ${IMAGE-./*.fs}
 	;;
 OpenBSD)
-	echo -n "Is there a blank CD in drive $DEVICE, and NO CD PLAYER SW RUNNING? Then press enter"
-	read junk
 
 	set -x
 	cdio -f ${DEVICE} tao -s ${SPEED} -d ${IMAGE}
