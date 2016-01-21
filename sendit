@@ -32,7 +32,7 @@ do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		*.darwinsys.com)
+		darwinsys.com|*.darwinsys.com)
 			# use generic sendmail interface
 			exec sendmail -v -t < $f && mv $f $f.sent
 			;;
