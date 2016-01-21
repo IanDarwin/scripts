@@ -1,0 +1,4 @@
+dotfiles 	git@git.darwinsys.com:/git/dotfiles
+scripts 	git@git.darwinsys.com:/git/scripts
+sscripts 
+obscripts	https://IanDarwin@github.com/IanDarwin/obscripts
