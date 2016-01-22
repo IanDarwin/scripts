@@ -3,6 +3,7 @@
 # Enter or list the todo database
 
 PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
+CONTEXT=null
 MORE='more -e'
 REST=""
 VERB=insert

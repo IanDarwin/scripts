@@ -1,0 +1,6 @@
+case $1 in
+dotfiles)	echo git@git.darwinsys.com:/git/dotfiles;;
+scripts)	echo git@git.darwinsys.com:/git/scripts;;
+sscripts)	echo git@git.darwinsys.com:/git/sscripts;;
+obscripts)	echo https://IanDarwin@github.com/IanDarwin/obscripts;;
+esac
