@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# mvnproject - create a Maven project out of the air
+
+PROJ=${1-Must give project name}
+
+cd ~/workspace
+
+mkdir ${PROJ} || exit
+
+cd ${PROJ}
+
+cp ~/template/maven/pom.xml .
+
+mkdir -p src/{main,test}/{java/resources}
+
+pwd
+ls -R
