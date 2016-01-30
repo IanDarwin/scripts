@@ -1,0 +1,2 @@
+java -cp ~/lib/darwinsys-api*.jar com.darwinsys.tools/KwikLinkChecker $*
+
