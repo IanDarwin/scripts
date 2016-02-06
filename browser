@@ -1,0 +1,1 @@
+exec java -cp $js/target/classes netweb.Browser0 $*
