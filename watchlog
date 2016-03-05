@@ -73,7 +73,7 @@ do
 		wf|wildfly) LOG=/var/wildfly/standalone/log/server.log;;
 		x|X)	LOG=/var/log/XFree86.0.log;;
 		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
-		*0|*1) exec	sudo sudo tcpdump -ni $*;;
+		*0|*1) exec	doas doas tcpdump -ni $*;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac

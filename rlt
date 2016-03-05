@@ -13,7 +13,7 @@ do
 	echo "Table ${TBL} before:"
 	pfctl -T show -t ${TBL} || exit
 
-	sudo pfctl -T replace -t ${TBL} -f /etc/${TBL}
+	doas pfctl -T replace -t ${TBL} -f /etc/${TBL}
 
 	echo "Table ${TBL} after:"
 	pfctl -T show -t ${TBL} || exit

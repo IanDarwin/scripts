@@ -14,7 +14,7 @@ function do_it {
 	for port
 	do
 		pname=$(echo $port|sed -e 's=.*/==')
-		pkg_add $pname || (cd /usr/ports/$port; make package; sudo make install)
+		pkg_add $pname || (cd /usr/ports/$port; make package; doas make install)
 	done
 }
 

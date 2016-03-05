@@ -5,6 +5,6 @@
 echo -n "Are you bleedin' well sure you want to do this? [n] "
 read ans junk
 case $ans in
-	YES) sudo rm -r /usr/local/*/* /var/db/pkg/* ;;
+	YES) doas rm -r /usr/local/*/* /var/db/pkg/* ;;
 	*) echo "(whew!)"
 esac

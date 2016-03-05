@@ -5,4 +5,4 @@
 
 DISK=${1-sd0}
 
-sudo scsi -f /dev/r${DISK}c -c "12 0 0 0 64 0" -i 0x64 "s8 z8 z16 z4"
+doas scsi -f /dev/r${DISK}c -c "12 0 0 0 64 0" -i 0x64 "s8 z8 z16 z4"
