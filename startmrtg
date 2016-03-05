@@ -1,4 +1,4 @@
-	sudo /usr/local/bin/mrtg --daemon \
+	doas /usr/local/bin/mrtg --daemon \
 		--user _mrtg  --group _mrtg \
 		--confcache-file /tmp/mrtg.ok \
 		--lock-file /tmp/mrtg_lock \

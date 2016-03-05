@@ -5,7 +5,7 @@
 set -x
 
 # specify daroad by ether since it chitters a lot of sap nonsense
-sudo tcpdump \
+doas tcpdump \
 ! host bettypc and \
 ! host dartagnan and \
 ! ether host 0:60:97:88:f1:35 \

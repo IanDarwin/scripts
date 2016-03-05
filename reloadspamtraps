@@ -3,9 +3,9 @@
 # add good and bad guys to spamdb
 
 # good guys
-sudo spamdb -a `awk '!/^#/{printf "%s ", $1}' /etc/mail/mywhite.txt`
+doas spamdb -a `awk '!/^#/{printf "%s ", $1}' /etc/mail/mywhite.txt`
 
 # spam traps
 while read address 
-do sudo spamdb -T -a "$address"
+do doas spamdb -T -a "$address"
 done < /etc/mail/myspamtraps.txt

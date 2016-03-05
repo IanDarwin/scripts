@@ -5,4 +5,4 @@ case $# in
 	*) echo "Usage: $0 file" >&2;;
 esac
 
-sudo cp $1 /etc && rm $1
+doas cp $1 /etc && rm $1

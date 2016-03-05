@@ -5,5 +5,5 @@ if [ ! -x /usr/local/sbin/shlight ]; then
 	exit 1
 fi
 
-sudo sharity mount //crwnstuh1/StudentD/dp925158 /home/dp925158 \
+doas sharity mount //crwnstuh1/StudentD/dp925158 /home/dp925158 \
 # -s CRWNSTUH1 -W STUDENT -U dp925158

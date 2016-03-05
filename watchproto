@@ -2,4 +2,4 @@
 
 set -x
 
-sudo tcpdump -X -s 1500 -i ppp0 tcp port ${1-smtp}
+doas tcpdump -X -s 1500 -i ppp0 tcp port ${1-smtp}

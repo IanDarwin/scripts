@@ -1,2 +1,2 @@
-sudo vnconfig vnd1 ~/floppies/scratch.fs
-sudo mount -t msdos /dev/svnd1c /floppy
+doas vnconfig vnd1 ~/floppies/scratch.fs
+doas mount -t msdos /dev/svnd1c /floppy

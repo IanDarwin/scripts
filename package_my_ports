@@ -20,13 +20,13 @@ for PORT in `grep -v '^#' ${MYPORTS}`
 do
 	echo "==> $PORT"
 	(cd $PORT;
-	sudo make fetch ||
+	doas make fetch ||
 		(echo "${PORT} failed to fetch!" >&2; continue) &&
-		sudo make >> ${BUILD_LOG} 2>&1 ||
+		doas make >> ${BUILD_LOG} 2>&1 ||
 			echo "${PORT} failed to build!" >&2 &&
 		# Deinstall so we're sure the install (for "package") will work.
-		(sudo make deinstall >/dev/null 2>&1; true) &&
-		sudo make package install deinstall reinstall >> ${PKG_LOG} 2>&1 ||
+		(doas make deinstall >/dev/null 2>&1; true) &&
+		doas make package install deinstall reinstall >> ${PKG_LOG} 2>&1 ||
 			echo "${PORT} failed packaging!" >&2
 	)
 done
