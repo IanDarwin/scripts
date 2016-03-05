@@ -1,6 +1,11 @@
-#!/bin/sh
+#!/bin/ksh
 
 # mvnproject - create a Maven project out of the air
+
+case $# in
+	1)	;;
+	*)	echo "Usage: mvnproject NAME" >&2; exit 1;;
+esac
 
 PROJ=${1-Must give project name}
 
@@ -12,7 +17,7 @@ cd ${PROJ}
 
 cp ~/template/maven/pom.xml .
 
-mkdir -p src/{main,test}/{java/resources}
+mkdir -p src/{main,test}/{java,resources}
 
 pwd
 ls -R
