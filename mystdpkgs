@@ -64,7 +64,7 @@ pkg_add nmap pftop clamav letsencrypt
 pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
 
 # network
-pkg_add mutt openvpn nagios cnagios mrtg
+pkg_add mutt openvpn nagios cnagios mrtg haproxy
 mkdir /var/mrtg
 cd /var/mrtg
 ln -s darwinsys.html index.html

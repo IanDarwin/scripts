@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# nagaperson to remain active
+
+while :
+do
+	sleep $((20*60))
+	bigtext 'Get up and move'
+done
