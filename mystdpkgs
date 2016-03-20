@@ -70,6 +70,9 @@ cd /var/mrtg
 ln -s darwinsys.html index.html
 chown -R _mrtg .
 
+# devel
+pkg_add cvs2svn
+
 # This takes a long time
 pkg_add jdk
 
