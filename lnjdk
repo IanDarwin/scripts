@@ -1,1 +1,1 @@
-	for prog in $(ls /usr/local/jdk-1.7.0/bin); do sudo ln -sf $l/jdk-1.7.0/bin/$prog .; done
+	for prog in $(ls /usr/local/jdk-1.7.0/bin); do doas ln -sf $l/jdk-1.7.0/bin/$prog .; done

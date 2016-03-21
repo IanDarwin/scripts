@@ -2,6 +2,6 @@
 
 # for wm's like cwm that need a link to a file with no args
 
-# sudo shutdown -p now
+# doas shutdown -p now
 
-sudo halt -p
+doas halt -p

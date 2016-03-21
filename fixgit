@@ -1,1 +1,1 @@
-sudo chmod -R og+w ~git/ian/*
+doas chmod -R og+w /git/*

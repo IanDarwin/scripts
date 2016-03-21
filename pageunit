@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Before you run this, build the uber-jar as per the README, then cp the uber-jar to ~/lib/
+
+java -jar ~/lib/pageunit-1.0.2-SNAPSHOT-jar-with-dependencies.jar $*

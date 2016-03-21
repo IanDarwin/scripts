@@ -8,5 +8,5 @@ esac
 
 for l
 do
-sudo /usr/local/lib/mailman/bin/withlist -l -r fix_url ${l} -uwww.darwinsys.com:88
+doas /usr/local/lib/mailman/bin/withlist -l -r fix_url ${l} -uwww.darwinsys.com:88
 done

@@ -2,10 +2,10 @@
 
 cd /usr/src || exit
 
-sudo make obj
+doas make obj
 
 while :
 do
 	date | tee -a ~/makebuild.log 
-	sudo make build
+	doas make build
 done

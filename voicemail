@@ -4,7 +4,7 @@ set -x
 
 VMAIL_DIR=/var/spool/asterisk/voicemail/default/201/INBOX
 
-ssh rmn sudo chmod g+r ${VMAIL_DIR}/*
+ssh rmn doas chmod g+r ${VMAIL_DIR}/*
 
 scp rmn:${VMAIL_DIR}/* /tmp
 
@@ -17,7 +17,7 @@ done
 echo remove all?
 read ans
 case ${ans} in
-	y*)	ssh rmn sudo rm ${VMAIL_DIR}/*
+	y*)	ssh rmn doas rm ${VMAIL_DIR}/*
 		;;
 esac
 

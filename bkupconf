@@ -37,7 +37,7 @@ tar czvf ${FILE} \
 	etc/services \
 	etc/shells \
 	etc/ssh/ \
-	etc/sudoers \
+	etc/doasers \
 	etc/sysctl.conf \
 	etc/syslog.conf \
 	etc/ttys \
