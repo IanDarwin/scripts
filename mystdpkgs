@@ -53,6 +53,7 @@ fi
 
 # some of my own 
 pkg_add idiff hoc spiff 
+
 # Bootstrap Devel/libs
 pkg_add gmake dbus nss nspr ORBit2 libIDL
 # Useful
@@ -66,9 +67,8 @@ pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
 # network
 pkg_add mutt openvpn nagios cnagios mrtg haproxy
 mkdir /var/mrtg
-cd /var/mrtg
-ln -s darwinsys.html index.html
-chown -R _mrtg .
+chown -R _mrtg /var/mrtg
+# repo'd mrtg.conf will write to index.html
 
 # devel
 pkg_add cvs2svn
@@ -87,3 +87,6 @@ pkg_add tomcat wildfly openfire
 
 # Mail server: uses opensmtpd + the following:
 pkg_add mailman cyrus-sasl courier-authlib
+
+# lotsa depends
+pkg_add llgal
