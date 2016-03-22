@@ -86,7 +86,7 @@ pkg_add radicale
 pkg_add tomcat wildfly openfire
 
 # Mail server: uses opensmtpd + the following:
-pkg_add mailman cyrus-sasl courier-authlib
+pkg_add mailman cyrus-sasl cyrus_imapd
 
-# lotsa depends
+# has big depends (ImageMagick)
 pkg_add llgal
