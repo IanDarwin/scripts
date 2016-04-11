@@ -58,6 +58,6 @@ case $(hostname) in
 		psql -d todo |${MORE}
 		;;
 	*)
-		ssh dos.new psql -d todo |${MORE}
+		ssh dos psql -d todo |${MORE}
 		;;
 esac
