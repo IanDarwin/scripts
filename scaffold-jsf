@@ -1,0 +1,35 @@
+if [ $# == 0 ]; then
+	echo "Usage: $0 page [...]" >&2
+	exit 1
+]
+fi
+if [ ! -d src/main/webapp ]; then
+	echo "I don't think we're in Webapp Land anymore, Toto" >&2
+	exit 1
+fi
+
+for page; do tee -a src/main/webapp/$page.xhtml <<!
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="template/template.xhtml">
+
+<h:head>
+</h:head>
+
+<ui:define name="title">$1: Not Ready Yet</ui:define>
+
+<ui:define name="body">
+
+	<p:panel>
+	<h3>$1</h3>
+	<h:outputText value="Alas, the $1 feature is not implemented yet. Please try again in a month or two"/>
+	</p:panel>
+</ui:define>
+</ui:composition>
+!
+done
