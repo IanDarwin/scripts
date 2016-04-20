@@ -37,7 +37,7 @@ do
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
 		asterisk) LOG=/var/log/asterisk.log;;
-		all)	exec xtail /var/log /var/tomcat/logs;;
+		auth)	LOG=/var/log/authlog;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		cups)	LOG=/var/log/cups/error_log;;
