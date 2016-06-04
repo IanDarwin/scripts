@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# newbug product 'description'
+
+PROD=$1
+TITLE="$2"
+
+PPK=$(echo "select id from product where name = '${PROD}';" | psql -d website | awk 'NR==3{print $1}')
+
+case "$PPK" in
+	"(0")	echo "Product not found: ${PROD}">&2
+			exit 1
+			;;
+esac
+
+echo "insert into bug(product_id,title,type) values(${PPK},'${TITLE}','BUG');" | psql -d website
