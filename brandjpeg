@@ -7,14 +7,17 @@
 
 USAGE="$0 [-c textColor][-s pointsize][-t text][-v] imageFile [...]"
 
+TEXT_COLOR=white
+SIZE=72 # good pointsize on 24MP 6000x4000 images, too big on smaller image.
+
 # Forgive the intrusion of Perl into your day, but it's an easy way
 # to generate Unicode characters (real copyright symbol, not the
 # three-character hideous bogosity "(c)"), until Unix gets real
 # about character sets and Unicode
-
-TEXT_COLOR=white
-SIZE=72 # good pointsize on 24MP 6000x4000 images, too big on smaller image.
 TEXT="$(perl -e 'binmode(STDOUT, ":utf9"); print "\x{00A9} IanDarwinPhoto.com";')"
+
+FONT=Noteworthy
+#FONT=Luxi-Sans-Oblique
 
 OVERWRITE=no
 
@@ -45,7 +48,7 @@ for FILE in $*
 do 
 	echo $FILE
 	convert $FILE \
-		-font Luxi-Sans-Oblique \
+		-font "${FONT}" \
 		-pointsize ${SIZE} \
 		-gravity SouthEast \
 		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
