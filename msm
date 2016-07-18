@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# msm - Member Sites Merge: Reconcile the extended, private version with the simpler, private version
+PVT=ucfnweb
+PUB=ClubList
+
+cd $ws
+
+for f
+do
+	vi ${PVT}/$f ${PUB}/$f
+	diff ${PVT}/$f ${PUB}/$f
+done

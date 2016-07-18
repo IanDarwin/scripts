@@ -1,0 +1,4 @@
+adb shell setprop log.tag.AccountManagerService VERBOSE
+adb shell setprop log.tag.Accounts VERBOSE
+adb shell setprop log.tag.Account VERBOSE
+adb shell setprop log.tag.PackageManager VERBOSE
