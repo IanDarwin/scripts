@@ -46,14 +46,15 @@ esac
 
 for FILE in $*
 do 
-	echo $FILE
+	OUTFILE=$(echo $FILE | sed 's/\.j/-b.j/')
+	echo "$FILE --> ${OUTFILE}"
 	convert $FILE \
 		-font "${FONT}" \
 		-pointsize ${SIZE} \
 		-gravity SouthEast \
 		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
 		-stroke  none   -fill ${TEXT_COLOR} -annotate 0 "${TEXT}" \
-		branded_$FILE
+		$OUTFILE
 	if [ ${OVERWRITE} = yes ]; then
 		mv branded_$FILE $FILE
 	fi
