@@ -1,0 +1,30 @@
+#!/bin/sh
+
+cd ~/exameditor
+
+java -cp \
+avalon-framework-cvs-20020806.jar:\
+batik.jar:\
+commons-beanutils.jar:\
+commons-collections.jar:\
+commons-logging.jar:\
+exameditor:\
+fop-0.20.5-mod.jar:\
+jai_codec.jar:\
+jai_core.jar:\
+jax-qname.jar:\
+jaxb-api.jar:\
+jaxb-impl.jar:\
+jaxb-libs.jar:\
+jaxen-1.1-beta-6.jar:\
+jimi-1.0.jar:\
+jta-spec1_0_1.jar:\
+jtds-1.2.jar:\
+log4j-1.2.8.jar:\
+mail.jar:\
+namespace.jar:\
+relaxngDatatype.jar:\
+xalan-2.4.1.jar:\
+xsdlib.jar:\
+ExamEditor.jar \
+com.learningtree.pd.exameditor.ExamEditor $* &

@@ -13,10 +13,9 @@ DIRS=""
 
 for f in ~/dotfiles ~/scripts 
 do
-	rm -f ${f}/.#?*
 	DIRS="${DIRS} ${f}"
 done
 
 scp -r ${DIRS} ${DEST}:
-ssh ${DEST} "cd dotfiles; make install"
+ssh ${DEST} "mkdir .history; cd dotfiles; make install"
 

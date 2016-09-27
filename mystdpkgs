@@ -37,7 +37,7 @@ if [ ! -z ${desktop} ]; then
 	# last few
 	do_it games/micropolis
 	# web and mail
-	pkg_add chromium mozilla-thunderbird
+	pkg_add chromium mozilla-thunderbird mpack
 	# Textproc
 	pkg_add xpdf evince
 	# webcam/communications stuff

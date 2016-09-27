@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# standardize - move a Java or Android project into "Maven Standard Form" (which is copied
+# by Gradle Standard Form too).
+
+MV=mv
+MV="git mv"
+
+for f
+do
+	(
+	cd $f
+	if [ -d src/main ]; then
+		echo $PWD is already in standard form!?
+		continue
+	fi
+
+	dirs=$(ls src)
+	mkdir src/main/java
+	for d in ${dirs}; do ${MV} src/main/java; done
+
+	for d in test regress; do if [ -d $d ]; then mkdir src/test; ${MV} $d src/test/java; done
+
+	for f in .project pom.xml gradle.xml; do if [ -f $f ]; then vi $f; done
+	)
+
+done

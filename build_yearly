@@ -1,0 +1,7 @@
+for year in $(count 1998 $(date +%Y))
+do
+	echo Checking out for $year
+	git checkout $(git rev-list -n 1 --before="$year-01-01 00:01" master)
+	echo "Try to build a jar for $year"
+	PS1="${year}$ " ksh
+done

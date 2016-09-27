@@ -1,0 +1,5 @@
+for chap
+do
+	echo === ${chap}
+	grep '^=== ' ${chap}
+done
