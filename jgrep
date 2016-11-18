@@ -1,11 +1,8 @@
 #!/bin/sh -u
 
-#JAVA_CMD=${JAVA_CMD-$(javaPathHelper -c jeoip)}
-JAVA_CMD=java
-
 case $# in
 0)	echo >&2 "Usage: $0 patt [file[...]]"
 	exit 1;;
 esac
 
-${JAVA_CMD} -classpath $HOME/lib/darwinsys-api.jar com.darwinsys.regex.JGrep "$@"
+java -classpath $HOME/lib/darwinsys-api-1.0.5.jar com.darwinsys.regex.JGrep "$@"
