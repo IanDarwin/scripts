@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f pom.xml ]; then
+	exec mvn versions:display-dependency-updates
+else
+	echo "$(pwd) not a Maven project, alas">&2
+fi
