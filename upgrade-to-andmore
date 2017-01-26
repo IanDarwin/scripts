@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -x
+
+replace com.android.ide.eclipse.adt org.eclipse.andmore .classpath .project

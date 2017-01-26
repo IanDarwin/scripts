@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# only for os x
+
+cd ~/Desktop
+
+last="$(ls 'Screen Shot'* | tail -1)"
+
+case $1 in
+	"") RIP=/tmp/screenshot.png;;
+	*) RIP="$1";;
+esac
+
+mv "${last}" ${RIP}
+
+echo "Was ${last}, now ${RIP}, USE IT OR LOSE IT"
+
+open ${RIP}

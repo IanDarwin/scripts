@@ -5,7 +5,7 @@ set -e
 # mkwwwtemp == create a tmp file on www:/tmp
 # so I can print using any ole browser while on the road
 
-DESTDIR=/www/darwinsys/tmp
+DESTDIR=/www/tmp
 RANDOMIZE=no
 case "$1" in
 	-r)	RANDOMIZE=yes; shift;;

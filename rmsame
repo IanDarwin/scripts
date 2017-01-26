@@ -28,20 +28,20 @@ $CD|""|.) echo 'rmsame: tree is current directory; nothing doing' >&2; exit 1 ;;
 esac
 for file in *
 do
-        if test -d $file && test -d $1/$file; then      # directory
+        if test -d "$file" && test -d "$1/$file"; then      # directory
                 (               # recurse in sub-shell
 #				set -$-         # inherit shell options
-                cd $file        # if this fails, exit
-                echo cd $file
+                cd "$file"        # if this fails, exit
+                echo cd "$file"
                 case "$1" in
-                /*)     exec $0 $1/$file ;;     # absolute argument
-                *)      exec $0 $CD/$1/$file ;; # argument relative to .
+                /*)     exec $0 "$1/$file" ;;     # absolute argument
+                *)      exec $0 "$CD/$1/$file" ;; # argument relative to .
                 esac
                 )
                 echo cd ..
-                rmdir $file >/dev/null 2>/dev/null
-        elif ${COMPARE} $file $1/$file 1>/dev/null; then
-		echo rm $file
-                rm -f $file
+                rmdir "$file" >/dev/null 2>/dev/null
+        elif ${COMPARE} "$file" "$1/$file" 1>/dev/null; then
+		echo rm "$file"
+                rm -f "$file"
         fi
 done

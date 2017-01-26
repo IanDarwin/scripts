@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -x
+
+mv ~the_studio/Documents/ORM-CJP/*.mov ~ian/Dropbox/CheckingJavaPrograms/Movies/
+
+# TEMPLATE=~ian/Dropbox/CheckingJavaPrograms/"Movie Submission Sheet.xls"
+TARGET=~ian/Dropbox/CheckingJavaPrograms/Movies/MovieSubmissionSheet.xls
+
+ls -l ~ian/Dropbox/CheckingJavaPrograms/Movies
+
+if [ "$1" != "-n" ]; then
+	open -a libreoffice ${TARGET}
+fi
