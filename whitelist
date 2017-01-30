@@ -15,4 +15,4 @@ echo '#' ${COMMENT}
 echo ${IP}
 ) >> ${WHITELIST}
 
-rl pf
+pfctl -t mywhite -T add ${IP}

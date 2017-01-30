@@ -1,1 +1,1 @@
-doas chmod -R og+w /git/*
+doas chmod -R og+w /git/$*

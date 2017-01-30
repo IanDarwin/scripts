@@ -61,6 +61,7 @@ do
 			;;
 		pf|fw)	exec tcpdump -n -e -ttt -i pflog0;;
 		ppp|chat)	LOG=/var/log/chat ;;
+		radicale)	LOG=/var/log/radicale;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
 		spam) watchlog -f mail & watchlog -f daemon&

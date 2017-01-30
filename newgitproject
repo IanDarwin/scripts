@@ -22,6 +22,7 @@ cd    $NEWPROJ
 git init --bare
 
 chown -R git .
+chmod -R og+w .
 
 echo "Your new project is ready:
 git remote add origin git@git.darwinsys.com:$(pwd)"
