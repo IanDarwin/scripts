@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# maintain a crude system changelog
+CHANGELOG=~/CHANGELOG
+
+case $# in
+0)	tail ${CHANGELOG};;
+*)	date >>~${CHANGELOG}
+	echo $* >> ${/CHANGELOG}
+	echo >> ${/CHANGELOG}
+	;;
+esac
