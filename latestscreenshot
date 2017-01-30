@@ -6,7 +6,10 @@ cd ~/Desktop
 
 last="$(ls 'Screen Shot'* | tail -1)"
 
-RIP=/tmp/screenshot.png
+case $1 in
+	"") RIP=/tmp/screenshot.png;;
+	*) RIP="$1";;
+esac
 
 mv "${last}" ${RIP}
 

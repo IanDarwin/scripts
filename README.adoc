@@ -1,0 +1,14 @@
+This is Ian's collection of *Nix scripts, in continuous use and development since 1984.
+I know the earlies repo date is 1994, but hey, CVS didn't even exist when I started,
+let alone this new-fangled stuff like subversion and git.
+
+Most of the scripts may run on any modern POSIX/Unix/Linux system, but some will not.
+While the early work was done on PDP-11 Unix, Solaris, and other systems including Linux,
+almost all the recent work has been on OpenBSD and Mac OS X.
+Also, some of them depend on having installed certain Java programs (some of which
+can be found in my other repos). Some install in your Maven repo (~/.m2/repository)
+while others install in ~/lib or even elsewhere.
+So if one of them doesn't work for you, bear in mind that there are lots of
+variations out there.
+
+USE AT OWN RISK.

@@ -1,24 +1,13 @@
 #!/bin/sh
 
 # Start a bunch of Java apps in a single JVM.
-# bug - any one of them exits the whole things; MainStarter should put in a
-# security manager that refuses System.exit()
+# bug - any one of them exits, and the whole thing dies;
+# MainStarter should setSecurityManager that refuses System.exit()
 
 JARDIR=${HOME}/lib
+FILE=mytools-1.0.2-SNAPSHOT-jar-with-dependencies.jar
 
-# Watch for typos in this line. Classpath elements must
-# have ":\" at the end of each (" \" for the last); class names must have " \"
-# at the end of each
+exec java -jar ${JARDIR}/${FILE} \
+	jclipboard.JClipBoard \
+	nag.Nagger \
 
-exec java -classpath ${JARDIR}/darwinsys.jar:\
-$ws/mytools/build:\
-$ws/jabadex/build:\
-${JARDIR}/jtkr.jar:\
-${JARDIR}/jclipboard.jar \
-com.darwinsys.util.MainStarter \
-jclipboard.JClipBoard \
-jabadex.todo.ToDoMain \
-nag.Nagger \
-&
-echo NOT starting \
-jtkr.JTkr \

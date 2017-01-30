@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ $# != 2 ]; then
+	echo "Usage: $0 cpdir fullClazzName" >&2
+fi
+
+CPDIR=$1
+CLAZZ=$2
+
+WS=~/workspace
+PROJ=entitygen
+
+java -jar ${WS}/${PROJ}/target/entitygen-0.0.1-SNAPSHOT-jar-with-dependencies.jar ${CPDIR} ${CLAZZ}
+ls -R ../entitygenoutput

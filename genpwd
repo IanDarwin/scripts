@@ -1,3 +1,8 @@
 #!/bin/sh
 
-java -cp ~/lib/darwinsys*.jar com.darwinsys.security.PassPhrase $*
+l=$1
+[ "$l" == "" ] && l=20
+tr -dc A-HJ-Za-km-z2-9 < /dev/urandom | dd bs=${l} count=1 2>/dev/null
+echo
+
+# java -cp ~/lib/darwinsys*.jar com.darwinsys.security.PassPhrase $*
