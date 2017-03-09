@@ -1,0 +1,3 @@
+cd /tmp
+java -jar ~/lib/wordcloud-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+open /tmp/wordcloud.png
