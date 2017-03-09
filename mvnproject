@@ -1,23 +1,29 @@
-#!/bin/ksh
+#!/bin/sh
 
 # mvnproject - create a Maven project out of the air
 
+ARTIFACT_ID=an-se-project
+
 case $# in
-	1)	;;
-	*)	echo "Usage: mvnproject NAME" >&2; exit 1;;
+	1)	ARTIFACT_ID=$1;;
+	0)	;;
+	*)	echo Usage: $0 [artifact-id] >&2
+		exit 1
+		;;
 esac
 
-PROJ=${1-Must give project name}
+if [ -d ${ARTIFACT_ID} ]; then
+	echo "Error: ${ARTIFACT_ID} already exists" >&2
+	exit 1
+fi
 
-cd ~/workspace
+echo "Project name will be ${ARTIFACT_ID}"
 
-mkdir ${PROJ} || exit
+mvn archetype:generate \
+	-DinteractiveMode=false \
+	-DarchetypeGroupId=org.apache.maven.archetypes \
+	-DarchetypeArtifactId=maven-archetype-quickstart \
+	-DgroupId=com.darwinsys -DartifactId="${ARTIFACT_ID}" \
+	-Dversion='1.0.0-SNAPSHOT'
 
-cd ${PROJ}
-
-cp ~/template/maven/pom.xml .
-
-mkdir -p src/{main,test}/{java,resources}
-
-pwd
-ls -R
+cd ${ARTIFACT_ID} || exit
