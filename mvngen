@@ -2,18 +2,34 @@
 
 # mvnproject - create a Maven project out of the air
 
+ARCHETYPE_GROUP_ID=org.apache.maven.archetypes
+ARCHETYPE_ARTIFACT_ID=maven-archetype-quickstart
 ARTIFACT_ID=an-se-project
+GROUP_ID=com.darwinsys
+VERSION='1.0.0-SNAPSHOT'
 
-case $# in
-	1)	ARTIFACT_ID=$1;;
-	0)	;;
-	*)	echo Usage: $0 [artifact-id] >&2
-		exit 1
-		;;
-esac
+USAGE="$0 [-g groupId] [-a artifactId] [-v version] [-G archetypeGroupId] [-A archetypeArtifactId]"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "g:a:v:G:a:" opt 
+do 
+	case "$opt" in 
+		a)	ARTIFACT_ID=$OPTARG;;
+		g)	GROUP_ID=$OPTARG;;
+		v)	VERSION=$OPTARG;;
+		A)	ARCHETYPE_GROUP_ID=$OPTARG;;
+		A)	ARCHETYPE_ARTIFACT_ID=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
 
 if [ -d ${ARTIFACT_ID} ]; then
-	echo "Error: ${ARTIFACT_ID} already exists" >&2
+	echo "$0: Error: ${ARTIFACT_ID} already exists" >&2
 	exit 1
 fi
 
@@ -21,9 +37,10 @@ echo "Project name will be ${ARTIFACT_ID}"
 
 mvn archetype:generate \
 	-DinteractiveMode=false \
-	-DarchetypeGroupId=org.apache.maven.archetypes \
-	-DarchetypeArtifactId=maven-archetype-quickstart \
-	-DgroupId=com.darwinsys -DartifactId="${ARTIFACT_ID}" \
-	-Dversion='1.0.0-SNAPSHOT'
+	-DgroupId="${GROUP_ID}" \
+	-DartifactId="${ARTIFACT_ID}" \
+	-Dversion="${VERSION}" \
+	-DarchetypeGroupId="${ARCHETYPE_GROUP_ID}" \
+	-DarchetypeArtifactId="${ARCHETYPE_ARTIFACT_ID}"
 
-cd ${ARTIFACT_ID} || exit
+cd "${ARTIFACT_ID}" || exit
