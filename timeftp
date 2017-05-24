@@ -1,9 +1,7 @@
 #!/bin/sh
 
-# time an ftp
-
-set -x
+# check time and reported b/s numbers
 
 cd /tmp
-
-ftp ftp://ftp.darwinsys.com/pub/OpenBSD/snapshots/i386/cdrom40.fs
+rm -f xbase61.tgz
+time ftp -a http://openbsd.cs.toronto.edu/pub/OpenBSD/snapshots/arm64/xbase61.tgz
