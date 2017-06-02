@@ -1,0 +1,6 @@
+#!/bin/sh
+
+psql -d website \
+	-c 'select 
+	id, firstname, lastname, email, createdwhen, validateddate 
+	from customer_awesomeselling;'

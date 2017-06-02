@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# host = darwinsys.com
+COREFIELDS="name,type,creator,description"
+
+case $# in
+	0)
+		cmd="select ${COREFIELDS} from textproc order by lower(name) ASC"
+		;;
+	2|3|4)
+		cmd="insert into textproc(${COREFIELDS}) values('$1','$2','$3','$4');"
+		;;
+	*)
+		echo "Usage: $0 [$(echo $COREFIELDS|tr , ' ')]" >&2
+		exit 1;;
+esac
+
+psql -d website -c "${cmd}"

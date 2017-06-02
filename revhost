@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# revhost - convert 1.2.3.4 to 4.3.2.1 for reverse dns lookup
+echo $* | awk -F. '{print $4 "." $3 "." $2 "." $1}'
