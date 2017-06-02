@@ -30,6 +30,7 @@ cvs2git \
 	    --blobfile=$HOME/cvs2git-tmp/git-blob.dat \
 	    --dumpfile=$HOME/cvs2git-tmp/git-dump.dat \
 	    --username=${GIT_USER_NAME} \
+		--fallback-encoding UTF-8 \
 	    ${LOCAL_CVS}
 
 rm -rf	${NEW_GIT_NAME} # in case we failed earlier
