@@ -5,7 +5,8 @@ sed \
 	-e 's/<BODY/<body/' \
 	-e 's/BODY>/body>/' \
 	-e 's/BGCOLOR=/bgcolor=/' \
-	-e 's/<H\([1-6]\)/<h\1/g' \
+	-e 's/H\([1-6]>\)/h\1>/g' \
+	-e 's/PRE>/pre>/g' \
 	-e 's/<APPLET/<applet/g' \
 	-e 's/CODE=/code=/g' \
 	-e 's/WIDTH=/width=/g' \

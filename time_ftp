@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# check time and reported b/s numbers
+
+cd /tmp
+rm -f xbase61.tgz
+time ftp -a http://openbsd.cs.toronto.edu/pub/OpenBSD/snapshots/arm64/xbase61.tgz

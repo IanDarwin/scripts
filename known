@@ -14,7 +14,7 @@ esac
 
 case $1 in
 	"")	;;
-	-e)	vi $F;;
+	-e|-v)	vi $F;;
 	*)	echo $* | tr ' ' '_' >> "${F}"
 		;;
 esac

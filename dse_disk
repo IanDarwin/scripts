@@ -10,7 +10,7 @@ case $# in
 esac
 disk=$1
 
-BS=1m
+BS=10m
 
 function devi {
 case ${1} in
