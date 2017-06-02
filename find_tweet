@@ -1,0 +1,6 @@
+for quote
+do
+	echo "select * from tweetable where text like '%${quote}%'" | psql -d website
+
+	grep -r ${quote} ~/twitter-history
+done
