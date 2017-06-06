@@ -5,6 +5,6 @@ do
 	echo $f >> .gitignore
 done
 git diff .gitignore 
-sleep 1
+echo OK? \\c; read junk
 git add .gitignore 
-git commit .gitignore
+git commit -m "git ignore $*" .gitignore
