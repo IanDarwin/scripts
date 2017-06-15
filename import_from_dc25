@@ -4,7 +4,7 @@ set -e
 
 cd /mnt/DC25IMG 
 
-DEST_DIR=$HOME/pictures/`date +%Y%m%d`
+DEST_DIR=$HOME/Pictures/`date +%Y%m%d`
 if [ ! -d $DEST_DIR ]; then
 	mkdir ${DEST_DIR}
 fi

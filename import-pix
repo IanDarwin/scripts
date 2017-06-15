@@ -8,7 +8,7 @@ esac
 
 cd ${DIR} || exit
 
-TOP_DIR=${HOME}/pictures
+TOP_DIR=${HOME}/Pictures
 SCANDATE=n
 SETCOPYR=n
 SUBDIR=$(pixdate)
