@@ -2,4 +2,4 @@
 
 # "Dump window >/tmp/id.wd"   
 
-xwd >/tmp/id.wd
+xwd -root >/tmp/id.wd
