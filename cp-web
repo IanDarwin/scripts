@@ -12,7 +12,7 @@ if [ -z ${FOUND} ]; then
 	exit 1
 fi
 
-D=$(find ${WF}/standalone/tmp/vfs/ -name $1)
+D=$(find ${WF}/standalone/tmp/vfs/temp -name $1)
 case ${D} in
 	"* *") echo Name not unique! >&2
 		exit 2;;
