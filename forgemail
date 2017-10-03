@@ -14,15 +14,20 @@ to=$3
 
 ENVELOPE_FROM_HOST=localhost
 
-nc $mailhost 25 <<!
+TMP=$(mktemp /tmp/forgeXXXXXXXXX)
+
+cat > ${TMP} <<!
 HELO ${ENVELOPE_FROM_HOST}
 MAIL From:<$from>
 RCPT To:<$to>
 DATA
-To: $to
+To: ${to}
+From: ${from}
 Subject: Forwarding Test
 
-This mail was sent via forgemail through smtpd.
+This mail was sent via forgemail through smtp.
 
+.
 quit
 !
+nc ${mailhost} 25 < ${TMP}
