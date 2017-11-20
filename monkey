@@ -8,9 +8,12 @@ USAGE="$0 [-d|-e][-r|-s seed][-t throttle][-p package]"
 
 SEED=43686 
 THROTTLE=100 # msec
-if [ -f AndroidManifest.xml ]; then
-	PKG=$(grep 'package=' AndroidManifest.xml | awk -F\" '{print $2}')
-fi
+for file in AndroidManifest.xml src/main/AndroidManifest.xml
+do
+	if [ -f ${file} ]; then
+		PKG=$(grep 'package=' ${file} | awk -F\" '{print $2}')
+	fi
+done
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
@@ -36,5 +39,8 @@ case "${PKG}" in
 		;;
 esac
 
-rm tmp/monkey.log
-adb ${DEV} shell monkey -p ${PKG} --throttle ${THROTTLE} -s $SEED -v 50000 | tee tmp/monkey.log
+rm /tmp/monkey.log
+
+set -x
+
+adb ${DEV} shell monkey -p ${PKG} --throttle ${THROTTLE} -s $SEED -v 50000 | tee /tmp/monkey.log
