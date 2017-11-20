@@ -16,6 +16,8 @@ esac
 
 NEWPROJ=$1
 
+set -e # next steps must not fail
+
 mkdir $NEWPROJ
 cd    $NEWPROJ
 

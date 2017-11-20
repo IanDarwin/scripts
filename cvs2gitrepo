@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# One-time copy from a **local** CVS repo to a remote GIT repo
-# Intended to be permanent; there is no convenient resync later.
-# requires cvs2git package installed.
+# One-time copy from a **local** CVS repo to a **local** GIT repo
 
 # Defaults
 GITHUB_USER=IanDarwin
@@ -13,60 +11,32 @@ case $# in
 	exit 1;;
 esac
 
-LOCAL_CVS=/cvs/${REPO}
-NEW_GIT_NAME=${REPO}
-#REMOTE_GIT=git@github.com/${GITHUB_USER}/${NEW_GIT_NAME}.git
-# https://github.com/IanDarwin/login-filter.git
-REMOTE_GIT=git@git.darwinsys.com:/git/${NEW_GIT_NAME}.git
-#REMOTE_GIT=/git/${NEW_GIT_NAME}
+CVS_REPO=/cvs/${REPO}
+GIT_REPO=/git/${REPO}
 
-rm -rf	$HOME/cvs2git-tmp/
-mkdir	$HOME/cvs2git-tmp/
+if [ ! -d ${GIT_REPO} ]; then
+	doas newgitrepo ${REPO} || exit
+fi
 
-mkdir $HOME/git > /dev/null 2>&1
-cd $HOME/git
+TMP=$(mktemp /tmp/cvs2gitrepoXXXXXX)
 
-cvs2git \
-	    --blobfile=$HOME/cvs2git-tmp/git-blob.dat \
-	    --dumpfile=$HOME/cvs2git-tmp/git-dump.dat \
-	    --username=${GIT_USER_NAME} \
-		--fallback-encoding UTF-8 \
-	    ${LOCAL_CVS}
+cvs2gitdump -a -e darwinsys.com ${CVS_REPO} > $TMP
 
-rm -rf	${NEW_GIT_NAME} # in case we failed earlier
-mkdir	${NEW_GIT_NAME}
-cd	${NEW_GIT_NAME}
+git --git-dir ${GIT_REPO} fast-import < $TMP
 
-git init --bare
+cd /tmp; rm -rf ${REPO}; git clone ${GIT_REPO}
 
-replace '^committer ian' 'committer IanDarwin' $HOME/cvs2git-tmp/git-dump.dat
-
-git fast-import --export-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-blob.dat
-git fast-import --import-marks=$HOME/cvs2git-tmp/git-marks.dat < $HOME/cvs2git-tmp/git-dump.dat
-
-git gc --prune=now
-
-cd /tmp
-rm -rf ${NEW_GIT_NAME}
-git clone ${HOME}/git/${NEW_GIT_NAME}
-
-cd ${NEW_GIT_NAME}
-
-ls
+cd ${REPO}
 
 if [ -f .cvsignore ]; then
 	git mv .cvsignore .gitignore
-	git commit -m "Move .cvsignore to .gitignore"
+	git commit -m "Rename .cvsignore to .gitignore"
 fi
 
 git remote remove origin
-git remote add origin ${REMOTE_GIT}
+git remote add origin ${GIT_REPO}
 
-echo "Push now?"; read ans junk; case $ans in
-y|Y|yes)	git push -u origin master;;
-*)		echo "Left in /tmp/${NEW_GIT_NAME}"
-		exit 1;;
-esac
+git push -u origin master
 
 echo "Rename CVS repo to .bak?"; read ans junk; case $ans in
 y|Y*)	mv /cvs/${REPO} /cvs/${REPO}.bak;;
