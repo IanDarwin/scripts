@@ -7,14 +7,15 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "cs" opt 
-do 
-	case "$opt" in 
+while getopts "cos" opt
+do
+	case "$opt" in
 		c)	CLEAN=clean;;
+		o)	OFFLINE=-o;;
 		s)	SKIPTESTS=-DskipTests;;
 		*)	usage;;
 	esac
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-mvn ${SKIPTESTS} ${CLEAN} wildfly:deploy $*
+mvn ${SKIPTESTS} ${OFFLINE} ${CLEAN} wildfly:deploy $*

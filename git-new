@@ -1,5 +1,23 @@
 #!/bin/sh
 
+USAGE="$0 [-m message] file"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "m:" opt
+do
+	case "$opt" in
+		m)	COMMITMSG="${OPTARG}";;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 git add $*
 
-git commit $*
+case "${COMMITMSG}" in
+	"") git commit $*;;
+	*) git commit -m "${COMMITMSG}-m " $*
