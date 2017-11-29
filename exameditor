@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Invoke the Exam Editor when JWS is giving problems.
+
 cd ~/exameditor
 
 java -cp \

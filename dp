@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+# emulate binmail's dp command for MH users.
+
 rmm
 
 folder next

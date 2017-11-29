@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Run some info commands on the given disk
+
 DISK=wd0	# parameterize
 
 fdisk $DISK | tail -4

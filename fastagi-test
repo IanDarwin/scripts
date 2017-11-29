@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+
+# Exercise Fast-AGI so see if it's working.
+
 use strict;
 use Socket;
 use Carp;

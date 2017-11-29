@@ -1,5 +1,7 @@
 #!/usr/bin/awk -f
 
+# Removes some tags(?)
+
 {
 	# gsub("'", "", $0);
 	gsub("\<!?[a-zA-Z0-9 ./=:\"-]+\>", "", $0);

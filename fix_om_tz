@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# Override timezone file setting on another computer
+
 scp /etc/localtime phone:/etc/

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# XXX Replace with export-my-project?
+
 cd $ws || exit
 
 case $(uname) in

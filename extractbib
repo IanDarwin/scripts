@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# Extract bibliography from LibreOffice(?)
+
 for doc
 do
     odt2txt ${doc} | 

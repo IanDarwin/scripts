@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Add the missing tail to a GPX file when jpstrack doesn't get to close it.
+
 case $# in
 1)	F=$1
 	cat>>${F} <<!

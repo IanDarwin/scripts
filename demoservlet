@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# exercise a particular Java servlet
+
 nc localhost 80 <<!
 GET /servlet/servlet.ChunkServlet HTTP/1.1
 Host: localhost

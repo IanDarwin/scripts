@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Generate JPA Entities from database
+
 if [ $# != 2 ]; then
 	echo "Usage: $0 cpdir fullClazzName" >&2
 fi

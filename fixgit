@@ -1,2 +1,6 @@
+#!/bin/sh
+
+# Sometimes git repo perms get messed up in my setup.
+
 doas chmod -R g+w,o-w /git/$*
 doas chown -R git:git /git/$*

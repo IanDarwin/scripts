@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Copy a file to multiple hosts
+
 THISHOST=`hostname`
 
 for file

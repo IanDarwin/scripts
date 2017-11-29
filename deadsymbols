@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Seems to look for dead symbols in compiled code
+
 readelf --wide -s $(comp)/bsd | awk '{ print $8 }' | sort -u > /tmp/defined
 
 # Then we need to know which symbols are actually used:

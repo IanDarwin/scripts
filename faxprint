@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# Print a file we got from the ancient legacy FAX service.
+
 tiff2ps -a $* | lpr -Pps

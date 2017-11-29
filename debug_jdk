@@ -1,4 +1,8 @@
-cd /home/ian/ports-others/devel/jdk/1.3.self/w-jdk-1.3.1/j2sdk1.3.1/build/bsd-powerpc
+#!/bin/sh
+
+# Debug the JDK. Unmaintained for years.
+
+cd /home/ian/ports-others/devel/jdk/1.8.self/w-jdk-1.8.1/java/build/bsd-powerpc
 
 export JAVALIB=libjava.so
 export LD_BIND_NOW=true

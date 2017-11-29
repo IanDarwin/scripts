@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# exploration in quoting
+
 abc=xyz
 
 xyz="The winner"

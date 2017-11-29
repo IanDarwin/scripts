@@ -1,3 +1,5 @@
 #!/bin/ksh
 
+# Show off my font chooser
+
 java -cp $HOME/lib/darwinsys.jar:$HOME/workspace/javasrc/build gui.FontChooserDemo

@@ -1,5 +1,7 @@
 #!/usr/bin/awk -f
 
+# Convert diff(1) output into nice HTML
+
 function escape(str) {
 	gsub(/>/, "\\&gt;", str)
 	gsub(/</, "\\&lt;", str)
