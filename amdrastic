@@ -2,6 +2,6 @@
 
 # what to do when amflush and amcleanup don't get you going.
 
-	rm /var/amanda/softquad/log
+rm /var/amanda/softquad/log
 
 

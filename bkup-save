@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# Remember a change in the live filesystem that has be done on the backup disk
+
 echo $* >> ~/.todo-bkup-sync

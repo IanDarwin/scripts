@@ -1,4 +1,5 @@
 #!/bin/ksh
+
 PHONES="/usr/share/misc/*.phone"
 
 # Grep the areacode databases

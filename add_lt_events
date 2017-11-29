@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# Obsolete - was used when creating a tool to insert courses into calendar
+
 awk -F'	' '{print $1,$2,$5,$6,$8}' <<!
 4892	165F75US	A1	LEAD	5/5/2016	1d	PB	Toronto	Y	unk	6	6	V	OK	Planner	TR
 4893	165F76US	A1	LEAD	5/6/2016	1d	PB	Toronto	Y	unk	7	7	V	OK	Planner	TR

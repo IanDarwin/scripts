@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# Obsolete - was used when running software Asterisk phone system.
+
 clear
 VMHOME=/var/spool/asterisk/voicemail
 #SNDHOME=/var/lib/asterisk/sounds

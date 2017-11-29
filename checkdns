@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Check a bunch of hosts at once.
+
 host -t any www.darwinsys.com
 for f in \
 	mail.darwinsys.com \

@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# Set the font variable. It's not used yet.
+
 BIGFONT='-*-lucidatypewriter-bold-*-*-*-24-*-*-*-*-*-*-*'
 # if [ -x /usr/local/bin/konsole ]; then
 # 	konsole -font ${BIGFONT}
