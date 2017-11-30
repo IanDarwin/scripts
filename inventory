@@ -1,4 +1,6 @@
 #!/bin/sh 
+
+# find inventory items - part of smabi?
 psql -d ecom <<!
 select location,sku,stockcount,title from products
 	where stockcount != 0

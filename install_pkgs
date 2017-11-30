@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# install multiple packages from local filesystem
+
 cd /usr/tmp || exit
 
 for f in *

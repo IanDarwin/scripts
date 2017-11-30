@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Harvest the line (probably) describing the remotes' Mail Transfer Agent (opensmtpd, sendmail, ...)
+
 for HOST
 do
 

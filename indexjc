@@ -1,7 +1,6 @@
 #!/bin/sh -u
 
 # Make the list of includes for a Book.
-# $Id$
 
 cd ~/book/javacook || exit
 

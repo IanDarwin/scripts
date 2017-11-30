@@ -1,5 +1,4 @@
-#!/bin/sh
-set -x
+#!/bin/sh set -x
 
 if [ -x ~/scripts/jicb ]; then
 	jicb ian_p porters cvs.openbsd.org

@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 
+# A toy httpd server.
+
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 message = """Your access to the network has been denied.

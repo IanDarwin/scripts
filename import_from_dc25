@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# import from an ancient camera that probably no longer exists, my Kodak DC-25
+
 set -e
 
 cd /mnt/DC25IMG 

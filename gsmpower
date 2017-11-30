@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Turn gsm modem on/off on the OpenMoko phone
+
 case $1 in
 	"")	echo Usage: $0 [on|off]; exit 1;;
 	on|1)	VAL=1;;

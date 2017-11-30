@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# gasoline expense - part of smabimi
+
 case $# in
 	3)	date=$1
 		dealer=$2

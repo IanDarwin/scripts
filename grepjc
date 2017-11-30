@@ -1,7 +1,6 @@
 #!/bin/sh -u
 
 # grep the Java Cookbook for a given pattern
-# $Id$
 
 cd ~/book/javacook || exit
 

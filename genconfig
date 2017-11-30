@@ -1,6 +1,6 @@
 #!/bin/sh -ue
 
-# generate a config from generic, hence the name
+# generate a BSD kernel config from generic, hence the name
 
 
 if [ $# -ne 1 ]; then

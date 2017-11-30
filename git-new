@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Add a new file to the current git repo
+
 USAGE="$0 [-m message] file"
 
 function usage {		# give usage message, and exit

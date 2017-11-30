@@ -1,4 +1,6 @@
 #!/bin/sh
 
+# Run Huckster, James Gosling's simple slide show program.
+
 exec java -jar ~/lib/Huckster.jar $*
 

@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# intuit name for mp3 file.
+
 ls | sed -e "s/.*/&' '&'/" -e "s/\(..\)./id3 -T\1 -t'/" -e "s/.mp3//" > j

