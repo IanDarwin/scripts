@@ -1,12 +1,6 @@
 #!/bin/sh
 
-case $(uname) in
-OpenBSD) DIR=/mnt/dcim;;
-Darwin) DIR=/Volumes/*/dcim;;
-*) echo IllegalStateException: unhandled; exit 1;;
-esac
-
-cd ${DIR} || exit
+# Imports pictures from a dslr into my tree of photos.
 
 TOP_DIR=${HOME}/Pictures
 SCANDATE=n
@@ -14,6 +8,14 @@ SETCOPYR=n
 SUBDIR=$(pixdate)
 USAGE='$0 [-d yyyy/mm/dd]'
 SETCOPYR=n
+
+case $(uname) in
+OpenBSD) DIR=/mnt/dcim;;
+Darwin) DIR=/Volumes/*/dcim;;
+*) echo IllegalStateException: unhandled; exit 1;;
+esac
+
+cd ${DIR} || exit
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
