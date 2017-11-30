@@ -1,21 +1,4 @@
-From ian@www.sq.com  Mon May 17 16:01:36 1999
-Received: from mail.bconnex.net (darian.darwinsys.com [192.168.1.50])
-	by DarwinSys.COM (8.9.3/8.9.3) with ESMTP id QAA13239
-	for <ian@darwinsys.com>; Mon, 17 May 1999 16:01:35 -0400 (EDT)
-Received: from www.sq.com (www.softquad.com [192.31.6.1])
-	by mail.bconnex.net (8.9.1/8.9.1) with ESMTP id PAA18008
-	for <ian@darwinsys.com>; Mon, 17 May 1999 15:25:40 -0400 (EDT)
-Received: (from ian@localhost)
-	by www.sq.com (8.9.1a/8.8.8) id PAA13281
-	for ian@darwinsys.com; Mon, 17 May 1999 15:28:58 -0400 (EDT)
-Date: Mon, 17 May 1999 15:28:58 -0400 (EDT)
-From: Ian Darwin <ian@www.sq.com>
-Message-Id: <199905171928.PAA13281@www.sq.com>
-To: ian@darwinsys.com
-X-UIDL: 9c5cdb5cf11f81d009efbfa4459d7d32
-Content-Length: 571
-
-#!/bin/sh -f
+#!/bin/sh
 
 # log2yyyymmdd - move a logfile to log.yyyymmdd
 # must be run just BEFORE midnight
