@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# compat with sendmail command runq
+
+exec smtpctl schedule all

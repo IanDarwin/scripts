@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# update - update a repo whether it be CVS, Svn, Git, ...
+
+do_update() {
+if [ -d CVS ]; then
+	echo Updating $(pwd) via CVS
+	if [ "" != "${CVSROOT}" ]; then
+		echo Updating CVS from ${CVSROOT}
+		cvs -d $CVSROOT update $*
+	else
+		echo Not updating CVS from default - must set CVSROOT
+	fi
+elif [ -d .svn ]; then
+	echo Updating $(pwd) via Svn
+	svn update
+elif [ -d .git ]; then
+	echo Updating $(pwd) via git
+	git pull
+else
+	echo "Sorry, dunno how to update $(pwd)"
+fi
+}
+
+if [ $# -eq 0 ]; then
+	do_update;
+else
+	for f
+	do
+		(cd $f
+		echo chdir\'d to $PWD
+		do_update
+		)
+	done
+fi

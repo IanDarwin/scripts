@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Turn on IP forwarding using sysctl (doas == sudo)
+
+doas sysctl -w net.inet.ip.forwarding=1	# 1=Permit forwarding (routing) of IPv4 packets
