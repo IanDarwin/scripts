@@ -1,5 +1,5 @@
 This is Ian's collection of *Nix scripts, in continuous use and development since 1984.
-I know the earlies repo date is 1994, but hey, CVS didn't even exist when I started,
+I know the earliest repo date is 1994, but hey, CVS didn't even exist when I started,
 let alone this new-fangled stuff like subversion and git.
 
 Most of the scripts may run on any modern POSIX/Unix/Linux system, but some will not.
