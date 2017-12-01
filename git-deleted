@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# get a list of files deleted from a git repo
+# warning: file will show up if deleted but then re-created w/ same name
+# credit: 
+# https://stackoverflow.com/questions/6017987/how-can-i-list-all-the-deleted-files-in-a-git-repository
+
+git log --diff-filter=D --summary | grep '^ delete' | awk '{print $4}'
