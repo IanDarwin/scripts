@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# Look at DNS data
+
 dig porttest.dns-oarc.net in txt

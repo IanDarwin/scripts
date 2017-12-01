@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# pageunit - run the PageUnit web test software
+
 # Before you run this, build the uber-jar as per the README, then cp the uber-jar to ~/lib/
 
 # If the version number has grown, update V to match:

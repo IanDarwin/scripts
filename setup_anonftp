@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# set up anon-ftp on openbsd
-# see man 8 ftpd
+# configure anonymous FTP service (but you probably shouldn't; just use https)
+# OpenBSD version: see man 8 ftpd
+
 [ -w / ] || {
 	echo be root!
 	exit 1

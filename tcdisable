@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# tcdisable - disable a TomCat web app
+
 # This script has a bunch of aliases. YOU MUST only edit under the name
 # "tcenable", or you will surely lose all your work!
 

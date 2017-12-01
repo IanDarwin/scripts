@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# make slide handouts from a PS file.
+
 if [ ! -x /usr/local/bin/psnup ]; then
 	echo "reinstall psutils (OpenBSD: print/psnup)" >&2
 	exit 1

@@ -1,5 +1,7 @@
 #!/bin/ksh -e
 
+# Create a CD-ROM image
+
 VOLUME_NAME="CD from Ian"
 IMAGE=/tmp/mycd.iso
 XCLUDES=""

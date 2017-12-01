@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Demo of Java System Properties
+
 JSJAR=${HOME}/.m2/repository/com/darwinsys/javasrc/1.0-SNAPSHOT/javasrc-1.0-SNAPSHOT.jar
 
 java -classpath ${JSJAR} environ.SysPropDemo | sort

@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 
-# mktour -- make a guided tour
+# mktour -- make a HTML guided tour of some sort.
+# from some quaint and curious volume of forgotten lore.
 
 	{
 		file = $1

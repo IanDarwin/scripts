@@ -1,5 +1,7 @@
 #!/bin/ksh -e
 
+# View a MA file
+
 case $# in
 1)	;;
 *)	echo "usage: $0 nnn" >&2

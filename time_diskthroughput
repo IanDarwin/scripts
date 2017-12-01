@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# see how long a disk copy takes
+
 time doas dd if=/dev/rwd0c of=/dev/null bs=64k count=10000

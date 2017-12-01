@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Run the JDK Swing GUI demo
+
 set -x
 
 JAVA_HOME=/usr/local/jdk-1.6.0/

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# ssh with firefox sync
+# ssh with firefox with X via tunnel
 
 exec ssh -L 5000:127.0.0.1:5000 dos

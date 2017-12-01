@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Upload some authored videos to DropBox
+
 set -x
 
 mv ~the_studio/Documents/ORM-CJP/*.mov ~ian/Dropbox/CheckingJavaPrograms/Movies/

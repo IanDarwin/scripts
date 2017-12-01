@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# show dependencies of a Maven project
+
 mvn dependency:tree -Dverbose -Dincludes=${1}

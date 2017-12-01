@@ -1,3 +1,9 @@
+#!/bin/sh
+
+# generate Java code from WSDL. Replaced by jdk tool
+
+exit 1
+
 AXIS_HOME=$ws/xplanner
 
 for jar in axis commons-discovery commons-logging jaxrpc saaj wsdl4j

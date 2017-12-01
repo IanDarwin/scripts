@@ -1,5 +1,7 @@
 #!/bin/sh -u
 
+# Grep will full regex, written in Java, until grep -P comes out of "experimental" and joins BSD
+
 case $# in
 0)	echo >&2 "Usage: $0 patt [file[...]]"
 	exit 1;;

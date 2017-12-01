@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # overwrite	copy standard input to output after EOF
 # 		final version
 #		from Kernighan & Pike, The UNIX Programming Environment, p154.

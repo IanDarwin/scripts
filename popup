@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Pop up a dialog, text from argv
+# Pop up a dialog in Python, text from argv
 
 import sys,gtk
 

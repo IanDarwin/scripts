@@ -1,3 +1,8 @@
+#!/bin/sh
+
+# set GIT to use repo that is on the local machine in /git/REPONAME
+# NB must run in a work repo that has the same basename as the target repo.
+
 DIR=$(pwd|sed 's=.*/==')
 git remote remove origin
 git remote add origin /git/${DIR}

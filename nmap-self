@@ -1,1 +1,5 @@
-ssh -l idarwin hobbiton.org bin/nmap 205.189.200.207
+#!/bin/sn
+
+# nmap-self: ssh to another computer, nmap my own server to see how it looks from the outside
+
+ssh -l frodo hobbitown.org bin/nmap 1.2.3.4 # Change to your own IP address

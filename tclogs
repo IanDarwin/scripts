@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# tail a bunch of log files
+
 xtail /var/tomcat/logs

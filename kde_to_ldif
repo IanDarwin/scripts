@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# convert old KDE contact format to LDIF using awk
+
 awk -F '<' '{
 		print "dn: cn=",$1 ",mail=" $2
 		print "cn:", $1

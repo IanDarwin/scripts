@@ -1,8 +1,9 @@
 #!/bin/sh
 #
+# Convert some audio formats to MP3
 # Usage: convertomp3 fileextention
 # Author - original from http://en.linuxreviews.org/HOWTO_Convert_audio_files
-#
+
 for f in $*
 do
 	if [ -f "$f" ]; then

@@ -1,4 +1,6 @@
 #!/bin/sh
 
+# jtkr - ancient Java-based Time KeepeR
+
 JARDIR=${HOME}/lib
 exec java -classpath ${JARDIR}/darwinsys.jar:${JARDIR}/jtkr.jar jtkr.JTkr &

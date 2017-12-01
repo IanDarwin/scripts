@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# convert the given cleartexts to md5 hashes
+
 for clear
 do
 	echo -n ${clear}\\t; echo -n ${clear} | md5

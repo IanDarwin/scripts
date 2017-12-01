@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+# run Linux under qemu
+
 cd ~/disks || exit
 
-qemu-system-ppc -prep -localtime -kernel zImage.prep linux-ppc.img
+qemu -prep -localtime -kernel zImage.prep linux-ppc.img

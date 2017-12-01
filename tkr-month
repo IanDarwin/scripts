@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TKR - monthly report
+
 if [ "-s" == "$1" ]; then
 	MODE=-s
 	shift

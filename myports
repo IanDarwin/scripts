@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # get a list of my ports, from sqlports
+
 sqlite3 $l/share/sqlports \
 	"select fullpkgpath from ports where maintainer like 'Ian Darwin%' order by fullpkgpath"

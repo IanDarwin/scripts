@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Print a name tent in big letters
+
 import os,sys
 
 # Like a shebang line, the %! magic must be on first line:

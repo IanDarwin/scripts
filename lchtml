@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# Try to convert legacy HTML tags to lower case.
+
 sed \
 	-e 's/HTML>/html>/' \
 	-e 's/HEAD>/head>/g' -e 's/TITLE>/title>/g' \

@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Old way to sync my Mac music to Unix. Now: just use rsync.
+
+exit 1
+
 cd "/Users/ian/Music/iTunes/iTunes Media/Music"
 
 scp -r * dalai:Music/

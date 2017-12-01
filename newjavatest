@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# newjavatest - make a new entry in the javatest database
+# newjavatest - enter a new Java testing framework in the javatest database
 
 name=$1
 category=$2

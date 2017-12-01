@@ -1,5 +1,7 @@
 #!/bin/ksh -f
 
+# Check for Open Mail Relay - early internet configuration error
+
 # defaults
 RSSFIRST=NO
 

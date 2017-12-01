@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# simple reimplementation of ts
+# simple reimplementation of ts (typeset a file) command
 
 DEV=ps
 

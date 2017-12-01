@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# start the MRTG server (system status)
+
 	doas /usr/local/bin/mrtg --daemon \
 		--user _mrtg  --group _mrtg \
 		--confcache-file /tmp/mrtg.ok \

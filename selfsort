@@ -1,3 +1,8 @@
+#!/bin/sh
+
+# sort a file in place 
+# (sort is smart enough not to have the "sort j >j" problem)
+
 FILE=$1
 shift
 sort -o ${FILE} ${FILE}

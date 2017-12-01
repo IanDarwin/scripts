@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # msm - Member Sites Merge: Reconcile the extended, private version with the simpler, private version
+# No relation to MainStream Media is implied or assumed.
+
 PVT=ucfnweb
 PUB=ClubList
 

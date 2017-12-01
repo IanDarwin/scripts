@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# num - delete all but line numbers matching grep pattern
+
 exec grep -n . $* | sed 's/:/ /'

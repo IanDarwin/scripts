@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# run a command over and over
+
 while :; do echo $*; $*; sleep 1; done

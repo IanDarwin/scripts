@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# show recipes in an O'Reilly Cookbook (asciidoc format)
+
 for chap
 do
 	echo === ${chap}

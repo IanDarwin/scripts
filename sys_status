@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# Create system status html page
+
 echo "<h1>System status at `date`</h1>"
 
 tag() {

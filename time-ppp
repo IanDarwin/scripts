@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+# see how long a copy takes over a given network connection
+
 DATA=1M.dat
 
 cd

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# run one Java feature file test as part of BDD.
+
 function usage {
 	echo "Usage: $0 feature-num" >&2
 	exit 1

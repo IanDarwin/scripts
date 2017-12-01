@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# create the mail aliases for a list.
+
 echo	"## $1 mailing list"
 echo	"# rewritten for MailMan 2.x $(nicedate)"
 echo	"$1:              \"|/usr/local/lib/mailman/mail/mailman post $1\""

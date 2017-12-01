@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# create HTML links from input like "https://darwinsys.com/ Ian Darwin's Web Site"
+
 import sys,string,getopt
 
 # echo a | mklinks

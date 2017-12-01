@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Learn "ham" (non-spam) words. For SpamAssassin &c.
+
 set -eu
 
 MBDIR="$HOME/.thunderbird/ian.default/Mail/Local Folders"

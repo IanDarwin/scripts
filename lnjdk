@@ -1,1 +1,5 @@
-	for prog in $(ls /usr/local/jdk-1.7.0/bin); do doas ln -sf $l/jdk-1.7.0/bin/$prog .; done
+#!/bin/sh
+
+# Create some synlinks for Java JDK
+
+for prog in $(ls /usr/local/jdk-1.7.0/bin); do doas ln -sf $l/jdk-1.7.0/bin/$prog .; done

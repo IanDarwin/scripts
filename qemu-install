@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# run qemu to do an install
+
 qemu -cdrom /usr/mswindows/cdrom.iso -hda /usr/mswindows/xp.hd -boot d

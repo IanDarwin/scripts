@@ -1,1 +1,7 @@
+#!/bin/sh
+
+# let it snow
+# let it snow
+# let it snow
+
 exec xsnow -sc red -slc green &

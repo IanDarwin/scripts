@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# print url of my environmental git repos
+
 case $1 in
 dotfiles)	echo git@git.darwinsys.com:/git/dotfiles;;
 scripts)	echo git@git.darwinsys.com:/git/scripts;;

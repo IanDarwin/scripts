@@ -1,10 +1,11 @@
 #!/bin/sh
 
+# umldot -- create a dot (graph) file from Java
+
 FINAL_PP="dot -Tps $* | ps2pdf - > ${HOME}/umldot.pdf && start ${HOME}/umldot.pdf"
 FINAL_PP="dot -Tsvg >${HOME}/umldot.svg && start ${HOME}/umldot.svg"
 #FINAL_PP=cat
 
-# umldot -- create a dot (graph) file from Java
 egrep -h '^public (class|interface)' *.java |
 	tr -d , |
 	awk '

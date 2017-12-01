@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# plot of daily feedback data, using R
 # if pace gets erased
 # echo "pace=matrix(0,3,4)" | R
 

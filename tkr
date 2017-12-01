@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+# TimeKeepeR - simple basic version
+
 function usage {
 	echo "Usage: $0 + topic | - | e"
 	exit 1

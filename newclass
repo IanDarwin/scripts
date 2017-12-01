@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# create a new class
-
+# newclass: create a new Java class source file
 
 USAGE="$0 [-e Super][-i Inter][-p package] NewClass"
 

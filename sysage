@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# show how old this OpenBSD system is
+
 uptime
 
 uname -a

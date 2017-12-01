@@ -1,5 +1,7 @@
 #!/bin/ksh  -f
 
+# update mail aliases file
+
 if [ -f /etc/mail/aliases ]; then
 	FILE=/etc/mail/aliases
 else if [ -f /etc/aliases ]; then

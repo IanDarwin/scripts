@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Run a toy web server
+
 set -x
 
 java -cp /home/ian/workspace/javasrc/build:$HOME/lib/darwinsys.jar -Xmx256M webserver.Httpd

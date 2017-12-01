@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# install a new version of the darwinsys-api jar into ~/lib
+# (because that's where my other scripts expect this jar file)
+
 BUILD_DIR=workspace/darwinsys-api/build
 
 set -x

@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# unorig files for which patches exist
+
 for patch
 do
 	grep '+++' ~/patches/$patch |awk '{print $2}'|xargs unorig

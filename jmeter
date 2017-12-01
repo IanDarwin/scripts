@@ -1,5 +1,7 @@
 #!/bin/sh -u
 
+# Front end to Apache JMeter
+
 JMETERHOME=$HOME/jakarta-jmeter
 
 USAGE=$0" [-h proxyHost] [-p proxyPort] [-f property-file]"

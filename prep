@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# output one word per line
+# prep - output one word per line
+# ancient unix magic but still usable
 
 cat $* |
 tr '[A-Z]' '[a-z]' |

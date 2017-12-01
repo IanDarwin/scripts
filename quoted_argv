@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+# display how shell treats arguments
+
 echo '=== start 1 (unquoted $*) ==='
 for f in $*
 do

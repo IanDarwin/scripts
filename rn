@@ -1,4 +1,6 @@
 #!/bin/sh
 
+# emulate an ancient command to help with finger retraining
+
 echo "Groovy, mon! It's 1984 all over again"
 echo "(except it's really $(date))."

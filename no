@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Write a stream of "no" lines for programs that insist on interacting
+
 while :
 do
 	echo n

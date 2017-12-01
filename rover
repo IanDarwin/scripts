@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Run rdesktop against another machine
+
 HOST=${1-rejmi-rover}
 
 exec rdesktop -E -u ian -a 16 -g 800x500 ${HOST} &

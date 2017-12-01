@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Duplicate a CD onto a file, for use by QEMU
+
 set -x
 
 CDROMDEV=/dev/rcd0c

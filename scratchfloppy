@@ -1,2 +1,6 @@
+#!/bin/sh
+
+# Mount a file as a filesystem (analogous to Linux' badly-named "Loopback Device")
+
 doas vnconfig vnd1 ~/floppies/scratch.fs
 doas mount -t msdos /dev/svnd1c /floppy

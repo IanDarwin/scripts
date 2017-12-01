@@ -1,2 +1,6 @@
+#!/bin/sh
+
+# run qemu with audio saved to a file.
+
 export QEMU_AUDIO_DRV=wav QEMU_WAV_PATH=$HOME/qemu.wav
 

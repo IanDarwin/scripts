@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# report mileage - part of smabi
 
 case $# in
 	3)	

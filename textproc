@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# get list of text processing software from database
+
 # host = darwinsys.com
 COREFIELDS="name,type,creator,description"
 

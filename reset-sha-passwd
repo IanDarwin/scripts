@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# generate an SHA password and make an SQL command to update it.
 
 USAGE="$0 [-v] person"
 

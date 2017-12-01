@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Convert a file from UIEE from Alibris into SQL for database
+
 import sys
 import libxml2
 

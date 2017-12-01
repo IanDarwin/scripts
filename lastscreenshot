@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# only for os x
+# rename last screen shot - only for os x
 
 cd ~/Desktop
 

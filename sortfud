@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# Sort with reasonable options (fold, dict sort, uniq)
+
 sort -fud $*

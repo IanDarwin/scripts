@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# lastlog for POP mail
 
 FILES=$(ls -t1 /var/log/daemon*)
 

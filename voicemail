@@ -1,5 +1,7 @@
 #!/bin/sh -u
 
+# voicemail - from when we used to run Asterisk
+
 set -x 
 
 VMAIL_DIR=/var/spool/asterisk/voicemail/default/201/INBOX

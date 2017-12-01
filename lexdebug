@@ -1,4 +1,7 @@
 #!/usr/bin/awk -f
+
+# For debugging lex(1), the C programmer's lexer generator
+
 BEGIN { print "char *toke(int i) { switch(i) {" }
 { print "case", $3 ": return \"" $2 "\";" } 
 END	{ 

@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# Run the Java JUnit command-line test runner.
+
 exec java junit.textui.TestRunner ${1}Test

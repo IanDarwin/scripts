@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Set my ulimits (OpenBSD version)
+
 set -e
 
 ulimit -S -d 8000000

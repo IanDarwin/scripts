@@ -1,7 +1,6 @@
 #!/bin/ksh
 
 # mypkgs -- document and build the packages one person maintains
-# $Id$
 
 cd /usr/ports || exit # should be PORTSDIR
 

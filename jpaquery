@@ -1,8 +1,10 @@
 #!/bin/sh
 
+# Runs an interactive demo of Java Persistence
+
 JPADEMO=/home/ian/workspace/jpademo
 
-# Setup - to use with Seam, for example:
+# Setup - if using with neanderthal version of Seam 2.x, for example:
 # mkdir META-INF
 # ln resources/META-INF/persistence-dev.xml META-INF/persistence.xml
 # export CLASSPATH=classes/main

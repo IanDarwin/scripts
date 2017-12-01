@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Confert an OGG video to MP4 format using ffmpeg
+
 for file
 do
 	NEW=$(echo ${file}|sed 's/.ogv$/.mp4/')

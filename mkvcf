@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# fabricate a VCARD from some arguments
+
 set -u
 
 while read firstname lastname workphone email

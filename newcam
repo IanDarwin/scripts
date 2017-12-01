@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# Joy - a new camera model has been released
+# Oh Joy - a new camera model has been released
+# Enter a new camera model into the database.
 
 USAGE="$0 make model family"
 

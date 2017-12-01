@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-# mkport -- create a new port, in my ports directory
+# newport -- start creation of a new OpenBSD port, in my ports directory
 
 PORTSDIR=/usr/ports
 MYPORTS=${PORTSDIR}/mystuff

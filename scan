@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Scan an image from a scanner - see scanimage
+
 MODE=color
 
 mkdir ~/tmp 2>/dev/null 

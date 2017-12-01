@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Request feedback from a customer.
+
 case $# in
 2|3);;
 *) echo Usage: $0 customer email transaction >&2

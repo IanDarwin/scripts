@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# grab image from webcam, upload, sleep, repeat.
+
 # params
 OFFSITEDIR=log
 INTERVAL=60

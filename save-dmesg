@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Save a dmesg into a file.
+# On OpenBSD the dmesg is short enough to be readable and thus worth saving.
+
 cd ~/dmesg || exit
 
 case $1 in

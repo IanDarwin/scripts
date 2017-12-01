@@ -1,5 +1,7 @@
 #!/bin/sh -eu
 
+# Monitor TCP/IP connections using Apache Axis
+
 AXIS_JAR=${HOME}/lib/axis.jar
 
 host=localhost

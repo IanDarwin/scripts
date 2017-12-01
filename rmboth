@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# remove a JPG and its RAW file.
+
 set -x
 
 for f

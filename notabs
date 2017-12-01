@@ -1,1 +1,6 @@
+#!/bin/sh
+
+# notabs - remove tabs.
+# Because I'm too lazy to remember tr ?
+
 tr -d '\t' < $1

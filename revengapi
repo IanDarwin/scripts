@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Run the reverse engineering api
+
 JAR=${1?Usage: $0 jar}
 
 REVENG_HOME=/home/ian/workspace/revengapi/build

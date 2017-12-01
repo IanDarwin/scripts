@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# format the date into a logfile filename format
+
 echo ${LOGNAME}_$(date +%Y-%b-%d)

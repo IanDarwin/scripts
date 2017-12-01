@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# control a service from rc.d
+# control a service from rc.d (OpenBSD version)
 
 [ -w / ] || { echo "$0: must be root"; exit 1 
 }

@@ -1,3 +1,5 @@
 #!/bin/sh -x
 
+# look for probs in the mail log
+
 egrep '(reject|warning|error|fatal|panic):' /var/log/maillog

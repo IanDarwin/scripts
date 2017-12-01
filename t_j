@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# create the canonical hello-world app in Java
+
 cat>t.java <<!
 public class t {
 	public static void main(String[] unused) {
@@ -5,5 +9,7 @@ public class t {
 	}
 }
 !
+
+# And even try running it!
 
 jr t

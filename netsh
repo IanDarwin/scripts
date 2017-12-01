@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# netsh - run a command on multiple hosts.
+
 for f in `grep -v '^#' ~/.netsh_hosts`
 do
 	echo $f \\c

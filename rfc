@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
-NNNN=0959
+# fetch an RFC by number
+
+NNNN=0959 # xxx use getopts here
 
 ftp http://www.ietf.org/rfc/rfc${NNNN}.txt

@@ -1,3 +1,7 @@
+#!/bin/sh
+
+# diff a newly-created port
+
 find . -type f -print | while read filename
 do
 	echo --- /dev/null $filename

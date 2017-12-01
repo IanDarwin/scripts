@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# internal to my photo directory organization
+
 find . -name raw -exec sh -c 'mv {}/* {}/..' \; 

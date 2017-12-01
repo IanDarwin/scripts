@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # SQLRunner - Main Version
+
 JVMOPTS="-Djava.net.preferIPv4Stack=true"
 
 # Change this to where you keep your jars

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Check for version updates. Somehow I can't remember mvn's syntax for this.
+
 if [ -f pom.xml ]; then
 	exec mvn versions:display-dependency-updates
 else

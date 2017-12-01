@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+# uucp no longer maintained, remove binaries
+
 set -x 
 
 rm -f  \

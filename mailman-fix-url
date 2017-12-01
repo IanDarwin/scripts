@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# update list URL
+# update MailMan list URL
 
 case $# in
 	0) echo usage: $0 listname ...; exit 1;;

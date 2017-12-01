@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# newbug product 'description'
+# newbug product 'description' - file a bug report into the db.
 
 PROD=$1
 TITLE="$2"

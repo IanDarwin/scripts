@@ -1,7 +1,6 @@
 #!/bin/sh -f
 
 # pswc -- word count for PostScript
-# $Id$
 
 case $# in
 	0) cat>/tmp/pswc$$

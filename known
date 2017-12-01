@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Generate list of words for "known" or "unknown" script
+
 case $0 in
 	*unknown)
 		F=~/dotfiles/unknown.txt

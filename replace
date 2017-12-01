@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # replace: replace str1 in files with str2, in place
 
 PATH=/bin:/usr/bin:$PATH; export PATH

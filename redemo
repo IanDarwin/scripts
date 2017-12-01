@@ -1,1 +1,5 @@
+#!/bin/sh
+
+# run my Regular Expressions demo/learning tool
+
 java -classpath $HOME/lib/darwinsys.jar:$HOME/workspace/darwinsys-api/build com.darwinsys.regex.REDemo

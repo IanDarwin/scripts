@@ -1,2 +1,7 @@
+#!/bin/sh
+
+# ancient - turned off setuid on various UUCP programs
+# (uucp was a primordial network that preceded ubiquitous internet)
+
 chmod u-s /usr/bin/{uucp,uuname,uustat,uux}
 chmod u-s /usr/libexec/uucp/{uucico,uuxqt}

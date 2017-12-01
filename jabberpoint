@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # jp - front end for JabberPoint slideshow program
-# $Id$
 
 JPHOME=/home/ian/workspace/jabberpoint/
 export CLASSPATH=$CLASSPATH:${JPHOME}/build:${JPHOME}/lib/darwinsys.jar:${JPHOME}/lib/jdom.jar

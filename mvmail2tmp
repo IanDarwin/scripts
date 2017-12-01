@@ -7,3 +7,4 @@ doas touch /var/mail/idarwin
 doas chown idarwin /var/mail/idarwin
 doas chgrp ian /var/mail/idarwin
 doas chmod g+rw /var/mail/idarwin
+echo "Your current mbox is /tmp/idarwin"

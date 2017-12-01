@@ -1,10 +1,11 @@
 #!/bin/sh
 
+# Update a bunch of git repos in tandem.
+
 cd ~/workspace
 
 for d in \
-	datamodel-java MedlyCoreAndroid eHealthContentProvider \
-	MedlyDataApp MedlyChfDroid MedlyCKDDroid MedlyCOPDDroid
+	lorem ipsem doltor
 do
 	set +x
 	(cd $d
