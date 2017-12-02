@@ -1,6 +1,10 @@
 #!/bin/ksh
 
 # ffone -- find a phone number
+# Just a fancy wrapper around grep, but can either take search string
+# from command line, or if missing, will prompt for it.
+
+# You need to adjust the set of files, in the "search" function.
 
 function search {
 	egrep -i $1 $MAIL ~/nomadic/jabadex.jdx ~/Mail/{inbox,hw}
