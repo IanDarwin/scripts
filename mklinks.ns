@@ -1,8 +1,0 @@
-#!/bin/ksh
-
-# make links for Netscape Bookmarks
-
-# input is lines with
-# url<TAB>Link Text
-
-sed -e 's?\(.*\)	\(.*\)?<dt><a href="\1">\2</a>?'
