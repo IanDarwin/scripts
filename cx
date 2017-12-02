@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # cx - change to eXecutable
+# Probably best done as a shell alias nowadays.
 
 chmod +x $*
