@@ -1,6 +1,7 @@
 #! /bin/sh
 
 # rmsame - remove files in current tree identical to those in tree $1
+# Author: Geoff Collyer
 
 COMPARE="cmp -s"
 

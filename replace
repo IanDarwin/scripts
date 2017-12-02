@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # replace: replace str1 in files with str2, in place
+# 		final version
+#		from Kernighan & Pike, The UNIX Programming Environment.
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
