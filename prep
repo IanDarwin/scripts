@@ -1,7 +1,12 @@
 #!/bin/sh
 
 # prep - output one word per line
-# ancient unix magic but still usable
+# Intended for use in text processing scripts.
+# Ancient unix magic but still works.
+# This was used as an example in various Bell Labs
+# talks and papers before I made and this copy around 1982 or 83
+# for use in a presentation to somebody considering buying a Unix system.
+# It wasn't committed here until about 2000 when I merged several scripts folders.
 
 cat $* |
 tr '[A-Z]' '[a-z]' |
