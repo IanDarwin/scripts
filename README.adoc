@@ -13,4 +13,7 @@ variations out there.
 
 Also, note in the shebang line that various non-shell interpreters are use for some of the scripts.
 
+Some of the scripts are well documented, some have almost no documentation.
+No claim is made that anything here is product-ready in a commercial sense.
+
 USE AT OWN RISK.
