@@ -2,8 +2,9 @@
 
 # grepjs -- grep all the Java files for something...
 
-# N.B.!! This was a good example of find+xargs BUT
-# should be replaced by "grep -r" on modern UNIXes.
+# This is an example of find+xargs in a context where
+# it's a better choice than 'grep -r' since
+# grep would hit a lot of extraneous files.
 
 patt=${1?"usage: grepjs pattern"}
 
