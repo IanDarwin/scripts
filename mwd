@@ -2,6 +2,11 @@
 
 # mwd - maven wildfly:deploy
 
+if [ ! -f pom.xml ]; then
+	echo "No pom, so you bomb!"
+	exit 1
+fi
+
 USAGE="$0 [-c] old new"
 
 function usage {		# give usage message, and exit
