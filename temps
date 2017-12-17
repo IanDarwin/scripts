@@ -2,14 +2,16 @@
 
 # report the temperatures, either once (default) or regularly (-s)
 
+SENSORS="hw.sensors.cpu0.temp0 hw.sensors.acpibat0.watthour3 hw.setperf"
+
 case $1 in
-"") exec sysctl hw.sensors.cpu0.temp0;;
+"") exec sysctl $SENSORS;;
 *)
 	while :
 	do
 		clear
 		date
-		sysctl hw.sensors.cpu0.temp0
+		sysctl $SENSORS
 		sleep  5
 	done
 	;;
