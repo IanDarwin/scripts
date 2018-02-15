@@ -1,0 +1,3 @@
+host=${1-darwinsys.com}
+
+openssl s_client -starttls smtp -connect ${host}:587
