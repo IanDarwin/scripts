@@ -43,9 +43,9 @@ mount | grep /dev/${disk} && {
 
 for pass in 1 2 3
 do
-	echo start pass ${pass} on ${disk}
-	dd if=`devi $pass` of=/dev/${disk}c bs=${BS} || exit 1
+	echo start pass ${pass} on ${disk} at $(date)
+	dd if=`devi $pass` of=/dev/${disk}c bs=${BS}
 done
 
-echo "Disk ${disk} is probably clean"
+echo "Done with Disk ${disk}; probably clean, at $(date)"
 strings < /dev/${disk}c | head
