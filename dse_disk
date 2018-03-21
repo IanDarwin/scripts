@@ -1,6 +1,6 @@
 #!/bin/sh 
 
-# dse - data security erase, an old IBM mainframe tape erase command
+# dse - data security erase, named for old IBM mainframe tape erase command
 
 case $# in
 1)	;;
@@ -48,4 +48,5 @@ do
 done
 
 echo "Done with Disk ${disk}; probably clean, at $(date)"
-strings < /dev/${disk}c | head
+strings < /dev/${disk}c | head -2
+fdisk -i ${disk}
