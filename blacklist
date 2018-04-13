@@ -23,7 +23,8 @@ do
 	1)
 		echo "$h # added  by ian using $0 `date`" >> ${FILE}
 
-		pfctl -t ${TABLE} -T add $h
+		# File used by spamd not pf
+		# pfctl -t ${TABLE} -T add $h
 		;;
 
 	esac
