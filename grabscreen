@@ -1,5 +1,7 @@
 #!/bin/sh
 
-# "Dump window >/tmp/id.wd"   
+# Dump root window to /tmp/id.png
 
-xwd -root >/tmp/id.wd
+xwd -root |
+	xwdtopnm |
+		pnmtopng > /tmp/screenshot.png
