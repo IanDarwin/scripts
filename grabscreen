@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# "Dump window >/tmp/id.wd"   
-
-xwd -root >/tmp/id.wd
