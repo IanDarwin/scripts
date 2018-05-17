@@ -1,0 +1,45 @@
+#!/bin/sh
+
+
+# scdiff - scp diff of 2 files
+
+FROM=$1
+TO=$2
+
+# see whether one or both are remote
+FROMHOST=$(echo $FROM | sed -e 's/:.*//')
+FROMFILE=$(echo $FROM | sed -e 's/.*://')
+if [ '$FROMHOST' = '$FROMFILE' ]; then
+	FROMHOST=localhost
+fi
+TOHOST=$(echo $TO | sed -e 's/:.*//')
+TOFILE=$(echo $TO | sed -e 's/.*://')
+if [ '$TOHOST' = '$TOFILE' ]; then
+	TOHOST=localhost
+fi
+
+
+if [ $FROMHOST = localhost -a ${TOHOST} = localhost ]; then # both local
+	exec diff $FROMFILE $TOFILE
+fi
+
+# run sha1 on both files, compare these
+
+# XXX optimization - do later
+
+
+# If they differ, scp one file "here" and run diff.
+if [ $FROMHOST != localhost ]; then
+	FILE1=$(mktemp /tmp/scdiff1XXXXXXXXXX)
+	scp $FROM $FILE1
+else 
+	FILE1=$FROMFILE
+fi
+if [ $TOHOST != localhost ]; then
+	FILE2=$(mktemp /tmp/scdiff2XXXXXXXXXX)
+	scp $TO $FILE2
+else 
+	FILE2=$TOFILE
+fi
+
+diff $FILE1 $FILE2
