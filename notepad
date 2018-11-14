@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# notepad - Run my simple Java reimplementation of NotePad
-
-JAVA_CMD=${JAVA_HOME-/usr/local/jdk-1.8.0}/bin/java
-
-${JAVA_CMD} -classpath ~/lib/darwinsys.jar:$ws/darwinsys-api/build com.darwinsys.notepad.Main $* </dev/null &
-
