@@ -14,14 +14,15 @@ import sys,string,getopt
 
 PRE="<li>"
 POST="</li>"
+TAB=""
 mode="HTML"
 try:
-	# n for not-a-list, a for asciidoc
-	options, filenames = getopt.getopt(sys.argv[1:], 'an')
+	# n for not-a-list, a for asciidoc, t for newTab
+	options, filenames = getopt.getopt(sys.argv[1:], 'ant')
 	# print "Options %s" % options
 	# print "Filenames %s" % filenames
 except:
-	print "Usage: mklinks [-n][-a]"
+	print "Usage: mklinks [-n][-a][-t]"
 	sys.exit(0)
 for o, a in options:
 	if o == '-a':
@@ -29,6 +30,8 @@ for o, a in options:
 	if o == '-n':
 		PRE="";
 		POST=""
+	if o == '-t':
+		TAB=' target="_blank"'
 
 for line in sys.stdin.readlines():
 	line=line[:-1] # kill stupid \n
@@ -40,7 +43,7 @@ for line in sys.stdin.readlines():
 
 	if mode == "HTML":
 		if NF == 1:
-			print "%s<a href='%s'>%s</a>%s" % (PRE, line, line, POST)
+			print "%s<a href='%s'%s>%s</a>%s" % (PRE, line, TAB, line, POST)
 		if NF > 1:
 			print "%s<a href='%s'>%s</a>%s" % (PRE, words[0], ' '.join(words[1:]), POST)
 	if mode == "asciidoc":
