@@ -1,11 +1,7 @@
 #!/bin/sh
 
-# Run the reverse engineering api
+# Find the reverse engineering api
 
-JAR=${1?Usage: $0 jar}
+echo "revengapi has been renamed to extractpi"
 
-REVENG_HOME=/home/ian/workspace/revengapi/build
-
-cd /tmp
-
-java -cp ${REVENG_HOME}:${JAR} reveng.RevEngAPI -b ${JAR}
+exit 1;

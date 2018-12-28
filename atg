@@ -5,11 +5,27 @@
 	exit 1
 }
 
-F=/etc/group
+GF=/etc/group
 
-U=ian
+USAGE="$0 [-v] user group [...]"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "v" opt
+do
+	case "$opt" in
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+U=$1; shift
 
 for G
 do
-	overwrite $F sed -e "/^$G:/s/$/,$U/" -e 's/:,/:/' $F
+	overwrite $F sed -e "/^$G:/s/$/,$U/" -e 's/:,/:/' ${GF}
 done

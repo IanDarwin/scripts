@@ -3,7 +3,7 @@
 # copy source files used in O'Reilly Atlas "snippets" from code repos into the book repo
 # We mostly have to use Snippets instead of full code files due to Java's verbosity :-)
 
-DEST=~/book/jcb				# must be an absolute path
+DEST=~/book/jcb3			# must be an absolute path
 SUBDIR=src # or code, or whatever
 
 for dir in $ws/javasrc $ws/javasrcee $ws/darwinsys-api

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# unraw - move raw/* into . for each picture dir
+for d in $(find . -name raw -o -name RAW -type d); do
+	echo $d
+	mv $d/* $d/..
+	rm -f $d/.DS_Store
+	rmdir $d
+done

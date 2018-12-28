@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# notepad - Run my simple Java reimplementation of NotePad
+
+JAVA_CMD=${JAVA_HOME-/usr/}/bin/java
+
+PROJECT=tinypad
+MAINCLASS=com.darwinsys.tinypad.TinyPad 
+
+${JAVA_CMD} -classpath ~/lib/darwinsys.jar:$ws/${PROJECT}/target/classes ${MAINCLASS} "$@" &
+

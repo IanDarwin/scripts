@@ -44,17 +44,16 @@ do
 			exit 1
 		}
 
-		# make sure names have reasonable case, regardless of 
-		# some cameras' affection for screaming caps.
-		(lcname -r *[A-Z]* | sh ) # 2>/dev/null
-
-
 		case ${SUBDIR} in
 			/*)	DEST_DIR=${SUBDIR};;
 			*)	DEST_DIR=${TOP_DIR}/${SUBDIR}
 		esac
 
 		[ v == "${VERBOSE}" ] && set -x
+
+		if [ ! -d ${DEST_DIR} ]; then
+			mkdir -p ${DEST_DIR} >/dev/null || exit
+		fi
 
 		while read exten dir
 		do
@@ -66,15 +65,9 @@ do
 
 			case ${GO} in
 			yes)
-				if [ ! -d ${DEST_DIR} ]; then
-					mkdir -p ${DEST_DIR} ${DEST_DIR}/raw
-				fi
 				echo Using ${DEST_DIR}
 
-				case ${exten} in
-				nef|NEF|arw|ARW) cp -p *.${exten} ${DEST_DIR}/raw/;;
-				*)	cp -p *.${exten} ${DEST_DIR}/;;
-				esac
+				cp -p *.${exten} ${DEST_DIR}/
 
 				;;
 			*)	echo "No files of type ${exten} in $(pwd)";;
@@ -93,7 +86,13 @@ do
 		3gp movies
 !
 
-		chown -R ian:wheel ${DEST_DIR}
+		cd ${DEST_DIR}
+
+		# make sure names have reasonable case, regardless of 
+		# some cameras' affection for screaming caps.
+		(lcname -r *[A-Z]* | sh ) # 2>/dev/null
+
+		chown -R ian:wheel .
 
 		if [ ! -d "${DEST_DIR}" ]; then
 			echo "None found."
