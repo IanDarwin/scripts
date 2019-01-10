@@ -6,7 +6,7 @@ PATH=/bin:/usr/bin:$PATH; export PATH
 
 TAIL_PROG=tail
 
-USAGE="$0 [-f] logname"
+USAGE="$0 [-f] [-l] [-m] [-n num] logname"
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -15,10 +15,11 @@ function usage {		# give usage message, and exit
 
 NUM=""
 MORE=cat
-while getopts "fmn:v" opt 
+while getopts "flmn:v" opt 
 do 
  	 case "$opt" in 
 		f)	TAIL_F=-f;;
+		l)	LIST_ONLY=true;;
 		m)	MORE="more";;
 		n)	NUM=-${OPTARG};;
 		v)	TAIL_PROG=view;;
@@ -78,6 +79,11 @@ do
 		*)	echo "Unknown service $f" >&2
 			continue;;
 	esac
+
+	if [ true == "${LIST_ONLY}" ]; then
+		echo $LOG
+		exit 0
+	fi
 
 	if [ "" != "${LOGS}" ]; then
 		# handle multiple files CONCURRENTLY WITH -f

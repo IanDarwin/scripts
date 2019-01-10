@@ -1,0 +1,30 @@
+#!/bin/sh
+
+USAGE="$0 [-v] -t title -a author -p publisher id"
+
+function die {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "va:t:p:k:" opt 
+do 
+	case "$opt" in 
+		v)	VERBOSE=v;;
+		a)	CMD=$CMD" -f authors:'$OPTARG' -f author_sort:'$OPTARG'";;
+		p)	CMD=$CMD" -f publisher:'$OPTARG'";;
+		t)	CMD=$CMD" -f title:'$OPTARG' -f title_sort:'$OPTARG'";;
+		k)	CMD=$CMD" -f tags:'$OPTARG'";;
+		*)	die;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+case $# in
+	1)	ID=$1;;
+	*)	die;;
+esac
+
+set -x
+
+eval calibredb set_metadata ${CMD} ${ID}
