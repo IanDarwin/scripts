@@ -2,6 +2,8 @@
 
 # netsh - run a command on multiple hosts.
 
+# Newer alternative: 'ccon' from 'clusterssh' package
+
 for f in `grep -v '^#' ~/.netsh_hosts`
 do
 	echo $f \\c
