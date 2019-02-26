@@ -1,7 +1,0 @@
-#!/bin/sh set -x
-
-if [ -x ~/scripts/jicb ]; then
-	jicb ian_p porters cvs.openbsd.org
-elif [ -x /usr/local/bin/icb ]; then
-	icb -n ian_p -g porters -h cvs.openbsd.org
-fi

@@ -1,4 +1,0 @@
-for host
-do
-	grep $host ~/sites-using-cloudflare/sorted_unique_cf.txt 
-done
