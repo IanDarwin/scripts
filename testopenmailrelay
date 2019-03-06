@@ -5,7 +5,7 @@
 # defaults
 RSSFIRST=NO
 
-LIBDIR=$HOME/workspace/JavaCookJars
+LIBDIR=$HOME/lib
 
 case $1 in
 	-f|-n)	RSSFIRST=NO; shift;;
@@ -34,6 +34,6 @@ echo $CLASSPATH
 
 set -x
 cd ~/workspace/javasrc
-java -classpath build:${LIBDIR}/mail.jar:${LIBDIR}/activation.jar email.TestOpenMailRelay ${OPENHOST}
+java -classpath target/classes:${LIBDIR}/mail.jar:${LIBDIR}/activation.jar email.CheckOpenMailRelay ${OPENHOST}
 
 watchlog -f mail
