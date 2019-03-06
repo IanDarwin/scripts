@@ -27,6 +27,8 @@ pkg_add jdk maven
 if [ ! -z ${desktop} ]; then
 	# bootstrap - X
 	pkg_add xprompt rxvt-unicode desktop-file-utils # cwm is in base
+	# audio
+	pkg_add juk # huge depends list
 	# fonts
 	pkg_add ecoliercourt-fonts freefonts ghostscript-fonts msttcorefonts
 	# print
@@ -37,14 +39,14 @@ if [ ! -z ${desktop} ]; then
 	# GS
 	do_it graphics/ghostscript
 	do_it editors/libreoffice
-	# last few
-	do_it games/micropolis
 	# web and mail
 	pkg_add firefox chromium mozilla-thunderbird mpack
 	# Textproc
 	pkg_add xpdf evince
 	# webcam/communications stuff
-	pkg_add luvcview fswebcam 
+	pkg_add luvcview fswebcam pidgin
+	# need a game or two
+	do_it games/micropolis
 fi
 
 if [ ! -z ${kde} ]; then
