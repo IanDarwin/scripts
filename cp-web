@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for WF in "${wf}" /var/wildfly ~/wildfly*
+for WF in "${wf}" /var/wildfly* ~/wildfly*
 do
 	if [ ! -z "${WF}" -a -d "${WF}" ]; then
 		FOUND=true
