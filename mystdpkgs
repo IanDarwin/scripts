@@ -17,27 +17,30 @@ function do_it {
 		pkg_add $pname || (cd /usr/ports/$port; make package; doas make install)
 	done
 }
+# This takes a long time
+pkg_add jdk maven
 
-pkg_add youtube-dl # desktop but also server for bandwidth
 
+##################
+# desktop-only goo
+##################
 if [ ! -z ${desktop} ]; then
 	# bootstrap - X
-	pkg_add xprompt rxvt desktop-file-utils # cwm is in base
+	pkg_add xprompt rxvt-unicode desktop-file-utils # cwm is in base
 	# fonts
 	pkg_add ecoliercourt-fonts freefonts ghostscript-fonts msttcorefonts
 	# print
 	do_it print/cups
 	# gfx/GUI
-	do_it graphics/png graphics/tiff graphics/gtk+-1  graphics/xv graphics/pwlib
+	do_it graphics/xv graphics/pwlib
 	do_it print/gimp print/inkscape 
 	# GS
 	do_it graphics/ghostscript
-	#cd $p/editors/openoffice; sh -x ./mk
-	do_it editors/openoffice3
+	do_it editors/libreoffice
 	# last few
 	do_it games/micropolis
 	# web and mail
-	pkg_add chromium mozilla-thunderbird mpack
+	pkg_add firefox chromium mozilla-thunderbird mpack
 	# Textproc
 	pkg_add xpdf evince
 	# webcam/communications stuff
@@ -51,6 +54,28 @@ if [ ! -z ${kde} ]; then
 	pkg_add gconf2 gnome-vfs2 gnome-mime-data glib2 dbug-glib libgnome2 evolution-data-server
 fi
 
+#################
+# server-only goo
+#################
+if [ ! -z ${server} ]; then
+	# depends on java
+	pkg_add jenkins adb
+
+	# Calendar server
+	pkg_add radicale
+
+	# Web/comms server
+	pkg_add tomcat openfire
+
+	# Mail server: uses opensmtpd + the following:
+	pkg_add mailman dovecot
+	pkg_add p5-Mail-SpamAssassin opensmtpd-extras-clamav 
+fi
+
+#####################################
+# Remainder gets installed everywhere
+#####################################
+
 # some of my own 
 pkg_add idiff hoc spiff 
 
@@ -59,35 +84,21 @@ pkg_add gmake dbus nss nspr ORBit2 libIDL
 # Useful
 pkg_add lsof zip unzip 
 # security
-pkg_add nmap pftop clamav letsencrypt
+pkg_add nmap pftop clamav
 
 # database
 pkg_add postgresl-server postgresql-client postgresql-contrib postgresql-docs
 
 # network
 pkg_add mutt openvpn nagios cnagios mrtg haproxy
-mkdir /var/mrtg
-chown -R _mrtg /var/mrtg
+mkdir /var/mrtg &&
+	chown -R _mrtg /var/mrtg
 # repo'd mrtg.conf will write to index.html
 
 # devel
 pkg_add cvs2svn
 
-# This takes a long time
-pkg_add jdk
-
-# depends on java
-pkg_add maven jenkins adb
-
-# Calendar server
-pkg_add radicale
-
-# Web/comms server
-pkg_add tomcat wildfly openfire
-
-# Mail server: uses opensmtpd + the following:
-pkg_add mailman cyrus-sasl cyrus_imapd
-pkg_add p5-Mail-SpamAssassin opensmtpd-extras-clamav opensmtpd-extras-spamassassin
-
 # has big depends (ImageMagick)
 pkg_add llgal
+
+pkg_add youtube-dl # desktop but also server for bandwidth
