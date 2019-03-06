@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Run the DB Visualizer
-
-exec /home/ian/DbVisualizer-4.3.6/dbvis

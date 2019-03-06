@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Connect to "diva" and mount a network fileysystem
-
-ssh diva mount -r -t ufs -o ufstype=44bsd /dev/sdb4 /mnt

@@ -1,6 +1,0 @@
-for f in */*
-do
-	if [ -d $p/$f ]; then
-		echo "Warning: $f in $p and in $(pwd)"
-	fi
-done

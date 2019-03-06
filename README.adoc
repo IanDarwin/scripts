@@ -22,3 +22,5 @@ Some of the scripts are well documented, some have almost no documentation.
 No claim is made that anything here is product-ready in a commercial sense.
 
 USE AT OWN RISK.
+
+See also: https://github.com/IanDarwin/obscripts[ObScripts], scripts that are specific to OpenBSD.
