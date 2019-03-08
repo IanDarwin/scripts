@@ -1,0 +1,21 @@
+#!/usr/bin/awk -f
+
+# Read a Hibernate HBM mapping file, spew JPA annotations for
+# properties, only where column name != property name.
+
+/<class/ {
+	n = split($0, x, /=/)
+	# print "(" n ") >>> ", 0, x[0], 1, x[1], 2, x[2], 3, x[3] "<<<"
+	print "// Class ", x[2]
+	print "@Entity @Table(name=" x[3] ")"
+}
+
+/<property/ {
+	n = split($0, x, /=/)
+	sub(" column", "", x[2])
+	sub(" */>", "", x[3])
+	# print "(" n ") >>> ", 0, x[0], 1, x[1], 2, x[2], 3, x[3] "<<<"
+	if (n == 3 && tolower(x[2]) != tolower(x[3])) {
+		print "// FIELD", x[2], "@Column(name=" x[3] ")"
+	}
+}
