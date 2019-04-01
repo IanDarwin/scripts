@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# shop - look for something on eBay, amazon, alibaba, etc.
+
+SITE=ca			# Canada
+#SITE=com		# USA
+
+Q="$@"
+Q="$(echo $Q | tr ' ' '+')"
+
+open "https://www.ebay.com/sch/i.html?_nkw=${Q}"
+
+open "https://www.amazon.ca/s?k=${Q}"
+
+open "https://www.aliexpress.com/wholesale?SearchText=${Q}"
