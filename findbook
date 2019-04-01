@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# find3d - look for something on yeggi, stlfinder, etc
+
+SITE=ca			# Canada
+#SITE=com		# USA
+
+Q="$@"
+Q="$(echo $Q | tr ' ' '+')"
+
+open "https://www.chapters.indigo.ca/en-ca/home/search/?keywords=${Q}"
+
+open "https://forstersbookgarden.ca/?searchtype=keyword&qs=${Q}"
+
+open "https://www.amazon.ca/s?k=${Q}"
