@@ -1,0 +1,5 @@
+#!/bin/sh -f
+
+# grep a line from ~/.clipboard and print part after '='
+
+awk -F= '$1 == "'$1'" { print $2 }' < ~/.jclipboard.properties
