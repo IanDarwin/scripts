@@ -3,12 +3,15 @@
 # Generate Java entity from database
 
 #if [ $# != 2 ]; then
-	#echo "Usage: $0 cpdir fullClazzName" >&2
+	#echo "Usage: $0 connection table [ClazzName]" >&2
 	#exit
 #fi
 
 WS=~/workspace
 PROJ=entitygen
 
+set -e
+
 java -cp ${WS}/${PROJ}/target/entitygen-0.0.1-SNAPSHOT-jar-with-dependencies.jar entitygen.FromDB $*
+
 ls -R ../entitygenoutput
