@@ -2,7 +2,7 @@
 
 # Start a clipper written in Java for copy/paste shortcuts
 
-JDK_VER=1.7.0
+JDK_VER=11
 DOS_VER=1.0.5
 JCL_VER=1.0.1-SNAPSHOT
 
