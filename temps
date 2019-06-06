@@ -2,16 +2,25 @@
 
 # report the temperatures, either once (default) or regularly (-s)
 
-SENSORS="hw.sensors.cpu0.temp0 hw.sensors.acpibat0.amphour3 hw.setperf"
+# Some are general, some only one one or another machine, hence grep
+
+SENSORS="hw.sensors.cpu0.temp0 \
+hw.sensors.acpibat0.watthour3 \
+hw.sensors.acpisbs0.amphour0 \
+hw.setperf"
+
+PATT=$(echo -n $SENSORS | tr -s ' \012' '|')
+
+# echo $PATT		# keep for debug
 
 case $1 in
-"") exec sysctl $SENSORS;;
+"") exec sysctl -a | egrep ${PATT};;
 *)
 	while :
 	do
 		clear
 		date
-		sysctl $SENSORS
+		sysctl -a | egrep ${PATT}
 		sleep  5
 	done
 	;;
