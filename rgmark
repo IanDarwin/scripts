@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# rgmark - benchmark rg against grep
+
+PATT=$1; shift
+
+# Repetition of fgrep is intentional, to avoid caching issues.
+# First one may load files into memory.
+
+for p in "fgrep -r" "egrep -r" rg "fgrep -r"
+do 
+	echo -n $p": "
+	time eval $p "$PATT" $* >/dev/null
+done
