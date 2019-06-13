@@ -1,0 +1,11 @@
+#!/bin/ksh
+
+# Use imagemagick to resize images
+
+SIZE=1920x1080
+
+for file
+do
+	cp $file $file.bak
+	convert -resize $SIZE $file rs$file && mv rs$file $file
+done

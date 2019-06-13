@@ -12,5 +12,8 @@ CLAZZ=$2
 WS=~/workspace
 PROJ=entitygen
 
+set -e
+
 java -jar ${WS}/${PROJ}/target/entitygen-0.0.1-SNAPSHOT-jar-with-dependencies.jar ${CPDIR} ${CLAZZ}
+
 ls -R ../entitygenoutput

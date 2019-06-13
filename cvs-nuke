@@ -11,10 +11,12 @@ function usage {		# give usage message, and exit
 
 MESSAGE="Remove defunct artifact"
 
-while getopts "m:" opt 
+COMMIT=true
+while getopts "m:n" opt 
 do 
  	 case "$opt" in 
 		m)	MESSAGE="${OPTARG}";;
+		n)	COMMIT=false;;
 		*)	usage;;
 	esac
 done
@@ -22,4 +24,6 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 rm $*
 cvs rm $*
-cvs commit -m "$MESSAGE" $*
+if ${COMMIT}; then
+	cvs commit -m "$MESSAGE" $*
+fi
