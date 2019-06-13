@@ -1,0 +1,11 @@
+#!/bin/ksh
+
+# put a title on the rxvt terminal window
+
+if [ $# -eq 0 ]; then
+	title=$(hostname)
+else
+	title="$*"
+fi
+
+printf '\33]2;%s\007' "${title}"
