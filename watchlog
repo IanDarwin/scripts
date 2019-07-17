@@ -84,7 +84,7 @@ do
 	esac
 
 	if [ "${PATTERN}" != "" ]; then
-		rg ${PATTERN} ${LOG}
+		rg -i ${PATTERN} ${LOG}
 		continue
 	fi
 
