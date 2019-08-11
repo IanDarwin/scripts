@@ -1,0 +1,9 @@
+#! /bin/sh
+
+# reboot a google home device, chromecast, etc.
+
+# credit: https://twitter.com/JGamblin/status/1056310627151552512
+
+host=$1
+
+curl -Lv -H Content-Type:application/json --data-raw '{"params":"now"}' http://${host}:8008/setup/reboot
