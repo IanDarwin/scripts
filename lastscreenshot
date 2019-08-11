@@ -4,7 +4,7 @@
 
 cd ~/Desktop
 
-last="$(ls 'Screen Shot'* | tail -1)"
+last="$(ls -t 'Screen Shot'* | head -1)"
 
 case $1 in
 	"") RIP=/tmp/screenshot.png;;
