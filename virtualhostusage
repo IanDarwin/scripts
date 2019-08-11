@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# analyze virtual host usage
-
-exec $HOME/scripts/apacheloganalyzer/virtualHostUsage.awk  $*
