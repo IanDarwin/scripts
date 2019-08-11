@@ -13,7 +13,7 @@ BEGIN {
 }
 
 # Do each line
-{ byteCount[$1] += $11 }
+{ byteCount[$6] += $11 }
 
 END {
 	for (name in byteCount)
