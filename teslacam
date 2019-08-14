@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# View the TeslaCam videos
+# start in directory ABOVE the TeslaCam folder, eg. /Volumes/TESLA_128GB
+
+cd TeslaCam/SavedClips
+
+for f in *
+do
+	# Mostly saved b/c of last minute of video, so just look there
+	ls -rt $(PWD)/$f/* | head -3 | xargs open
+	# Most of them are useless, default to rm
+	/bin/echo -n "rm -r $f ?"
+	read ans junk
+	case $ans in
+		n*)	;;
+		*) rm -rf $f;;
+	esac
+
+done

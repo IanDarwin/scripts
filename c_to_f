@@ -1,0 +1,6 @@
+awk 'END {
+printf "%-3s %-5s\n", "C", "F"
+for (i=-20; i<=45; i+=5)
+	printf "%3d %5.2f\n", i, ((i*9)/5) + 32
+}' /dev/null
+

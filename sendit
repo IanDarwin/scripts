@@ -4,10 +4,6 @@
 
 USAGE="$0 [-h host] msgFile"
 
-function copyit {
-	scp $f ${HOST}:/tmp && mv $f $f.sent || exit 1
-	ssh ${HOST} scripts/sendit /tmp/$f || exit 1
-}
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -32,11 +28,14 @@ do
 
 	if [ -f $f ]; then
 		case `hostname` in
-		darwinsys.com|*.darwinsys.com)
+		darwinsys.com)
 			# use generic sendmail interface
 			exec sendmail -v -t < $f && mv $f $f.sent
 			;;
-		*)	copyit $f && mv $f $f.sent
+		*)	set -e
+			scp $f ${HOST}:/tmp && mv $f $f.sent || exit 1
+			ssh ${HOST} scripts/sendit /tmp/$f || exit 1
+			mv $f $f.sent
 			;;
 		esac
 	else

@@ -2,22 +2,29 @@
 
 # Obsolete - was used when creating a tool to insert courses into calendar
 
-awk -F'	' '{print $1,$2,$5,$6,$8}' <<!
-4892	165F75US	A1	LEAD	5/5/2016	1d	PB	Toronto	Y	unk	6	6	V	OK	Planner	TR
-4893	165F76US	A1	LEAD	5/6/2016	1d	PB	Toronto	Y	unk	7	7	V	OK	Planner	TR
-2771	165B43US	F2	LEAD	5/17/2016	4d	PB	Rockville	Y	lab	7	4	H	OK	Planner	TR
-2771	166A79CN		LEAD	6/7/2016	4d	PB	Toronto	Y	unk	11	5	H	OK	Planner	TR
-516	166A20CN		LEAD	6/14/2016	4d	PB	Toronto	Y	unk	7	7	H	OK	Planner	TR
-2771	166B19US		LEAD	6/28/2016	4d	PB	New York	Y	unk	6	4	H	OK	Planner	TR
+NOW=$(date)
+
+cat >/tmp/xx <<!
+2901	165F75	A1	LEAD	5/5/2016	1d	PB	Toronto	Y	unk	6	6	V	OK	Planner	TR
+9127	165F76	A1	LEAD	5/6/2016	1d	PB	Toronto	Y	unk	7	7	V	OK	Planner	TR
+1034	165B43	F2	LEAD	5/17/2016	4d	PB	Vancouver	Y	lab	7	4	H	OK	Planner	TR
+2971	166A79	-	LEAD	6/7/2016	4d	PB	Toronto	Y	unk	11	5	H	OK	Planner	TR
+5222	166A20	-	LEAD	6/14/2016	4d	PB	Toronto	Y	unk	7	7	H	OK	Planner	TR
+1736	166B19	-	LEAD	6/28/2016	4d	PB	Ottawa	Y	unk	6	4	H	OK	Planner	TR
 !
 
-exit
+awk -F'	' '{print $1,$2,$5,$6,$8}' /tmp/xx |
 
+while read event seqnum date length location
+do
+echo date=$date
+eval $(echo $date | awk -F'/' '{printf "dd=%02d; mm=%02d; yyyy=%04d", $1, $2, $3}')
+echo year=$yyyy
 echo BEGIN:VCALENDAR
 echo VERSION:2.0
 echo BEGIN:VEVENT
 echo DTSTAMP:${NOW}
-echo ORGANIZER;CN=Ian:MAILTO:ian@darwinsys.com
+echo ORGANIZER;CN=Ian:MAILTO:YOUR_EMAIL_HERE
 echo CREATED:${NOW}
 echo UID:mkcalevent--${RANDOM}.123
 echo LAST-MODIFIED:${NOW}
@@ -27,4 +34,5 @@ echo DTSTART:${yyyy}${mm}${dd}T${HH}${MM}00Z
 echo DTEND:  ${yyyy}${mm}${dd}T$((HH + 1))${MM}00Z
 echo TRANSP:OPAQUE
 echo END:VEVENT
-
+echo 
+done

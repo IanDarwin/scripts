@@ -6,7 +6,7 @@ PATH=/bin:/usr/bin:$PATH; export PATH
 
 TAIL_PROG=tail
 
-USAGE="$0 [-f] [-l] [-m] [-n num] logname"
+USAGE="$0 [-f] [-l] [-m] [-n num] [-g patt] logname"
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -15,10 +15,13 @@ function usage {		# give usage message, and exit
 
 NUM=""
 MORE=cat
-while getopts "flmn:v" opt 
+LIST_ONLY=false
+
+while getopts "fg:lmn:v" opt 
 do 
  	 case "$opt" in 
 		f)	TAIL_F=-f;;
+		g)	PATTERN=${OPTARG};;
 		l)	LIST_ONLY=true;;
 		m)	MORE="more";;
 		n)	NUM=-${OPTARG};;
@@ -80,9 +83,14 @@ do
 			continue;;
 	esac
 
-	if [ true == "${LIST_ONLY}" ]; then
+	if [ "${PATTERN}" != "" ]; then
+		rg -i ${PATTERN} ${LOG}
+		continue
+	fi
+
+	if ${LIST_ONLY}; then
 		echo $LOG
-		exit 0
+		continue
 	fi
 
 	if [ "" != "${LOGS}" ]; then
