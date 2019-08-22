@@ -4,7 +4,7 @@
 
 # Newer alternative: 'ccon' from 'clusterssh' package
 
-for f in `grep -v '^#' ~/.netsh_hosts`
+for f in $(cat ~/.netsh_hosts)
 do
 	echo $f \\c
 	ssh $f $*
