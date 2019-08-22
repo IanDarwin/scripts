@@ -12,7 +12,7 @@ do
 		continue
 	fi
 
-	echo "git-nuke $f? ^C if not!\\c"; read ans
+	echo "git-nuke $f? ^C if not! \\c"; read ans
 
 	git rm "$1"
 
