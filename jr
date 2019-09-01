@@ -2,29 +2,12 @@
 
 # jr -- javac and run
 
+echo "$0: deprecated as of Java 11; just use java Foo.java
+(assuming all depends are compiled & on classpath)."
+
 JAVAC=javac
-if [ -x /usr/local/bin/jikes -o -x /usr/bin/jikes ]; then
-	JAVAC="jikes +E"
-fi
-JAVAC=javac		# forget jikes for now...
 
 USAGE="$0 [-v] Class [args...]"
-
-function usage {		# give usage message, and exit
-	echo "Usage: $USAGE" 2>&1
-	exit 1
-}
-
-while getopts "s" opt 
-do 
- 	 case "$opt" in 
-		# s for Sun javac
-		s)	JAVAC=javac;;
-		*)	usage;;
-	esac
-done
-shift `expr $OPTIND - 1`		 # leave just filenames
-
 
 set -x
 
