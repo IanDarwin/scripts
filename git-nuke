@@ -1,0 +1,20 @@
+#!/bin/sh
+
+case $# in
+	0)	echo "Usage: $1 file [...]" >&2;;
+esac
+
+for f
+do
+
+	if [ ! -r $f ]; then
+		echo "No readable file $f"
+		continue
+	fi
+
+	echo "git-nuke $f? ^C if not! \\c"; read ans
+
+	git rm "$1"
+
+	git commit -m "Remove $1" $1
+done
