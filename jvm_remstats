@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Grab mem and thread info from a process, for use in jconsole
+
+PID=27380
+
+doas -u _wildfly jmap -F -dump:file=/tmp/heapdump.hprof $PID
+doas -u _wildfly jstack -l >/tmp/threadsamples.tdump $PID
