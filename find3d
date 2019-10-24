@@ -1,12 +1,16 @@
 #!/bin/sh
 
-# find3d - look for something on yeggi, stlfinder, etc
+# find3d - look for something on 3D pattern sites like yeggi, stlfinder, etc
 
 SITE=ca			# Canada
 #SITE=com		# USA
 
 Q="$@"
 Q="$(echo $Q | tr ' ' '+')"
+
+open "https://cults3d.com/en/search?utf8=✓&q=${Q}"
+
+open "https://www.thingiverse.com/search?q=${Q}"
 
 open "https://www.stlfinder.com/?search=${Q}"
 
