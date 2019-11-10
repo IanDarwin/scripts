@@ -1,0 +1,87 @@
+#!/bin/ksh -f
+
+# simple emulation of MS-Windows' start command or OS X's open command:
+# deduce type of file, start its application (backgrounded).
+
+case $(uname) in
+Darwin)	exec /usr/bin/open $@;;
+esac
+
+#echo "$*" > /tmp/start.log
+
+function web_browser {
+	# TODO ps | grep netscape, include -remote or exclude it.
+	case ${1} in
+		http*)  firefox -remote "openURL(${1})"& ;;
+		/*)  firefox -remote "openURL(file:${1})"& ;;
+		*) firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+	esac
+}
+
+USAGE="$0 file ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "v" opt 
+do 
+	case "$opt" in 
+		v)	set -x;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for f in "$@"
+do
+	case "${f}"  in
+		*.ai)	illustrator "${f}" & ;;
+		*.bmp|*.gif|*.jpg|*.png|*.tif)	xv "${f}" & ;;
+		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
+		*.esl)	huckster ${f};;
+		ftp://*) ftp "${f}" & ;;
+		*.gz)	gunzip -v $f;;
+		http:*|https:*|*.html|*.HTML?)
+			web_browser ${f} & ;;
+		*.mgp)
+			mgp ${f};;
+		*.mp3|*.ogg|*.avi|*.mov)
+			mplayer ${f};;
+		*.mp4|*.mpg|*.avi|*.mov)
+			vlc ${f};;
+		*.pro)
+			designer3 ${f} &;;
+		*.pdf)	
+			if [ -x /usr/local/bin/acroread ]; then
+				acroread "${f}" &
+			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
+				kpdf "${f}" &
+			elif [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
+				evince "${f}" &
+			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
+				xpdf "${f}" &
+			else
+				echo "Can't find any Acrobatty readers for ${f}" >&2
+			fi
+			;;
+		*.ps)	gs "${f}" & ;;
+		# sla, svg, and swf must go before *.s??
+		*.svg)	web_browser "${f}" & ;;
+		*.sla)	scribus "${f}" & ;;	 # must come before soffice
+		*.swf)	gnash "${f}" & ;;	 # must come before soffice
+		*.odt|*.doc|*.docx) exec soffice "$f" &;;
+		*.odp|*.p[po]t|*.pptx) exec soffice "$f" &;;
+		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
+		*.odg) exec soffice "${f}" &;;
+		*.s??|*.o??) exec soffice "${f}" &;;
+		*.sla)	scribus "${f}" & ;;
+		*.txt)	notepad "${f}" & ;;
+		*.xcf)	gimp "${f}" &;;
+		*.Z)	uncompress "${f}" & ;;
+		*)		echo "Not sure about ${f}, trying browser..." >&2
+				web_browser ${f};;
+	esac
+	sleep 5		# to avoid killing the machine
+done
