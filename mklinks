@@ -1,6 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-# create HTML links from input like "https://darwinsys.com/ Ian Darwin's Web Site"
+# create links (default in HTML) from input like "https://darwinsys.com/ Ian Darwin's Web Site"
+# add -n (no-list) to skip the <li>...</li> wrapper.
+# add -t to open in a new Tab
+# add -a to output in AsciiDoc(tor) instead of HTML
+# add -h to output in HTML (default, not needed)
 
 import sys,string,getopt
 
@@ -18,24 +22,26 @@ TAB=""
 mode="HTML"
 try:
 	# n for not-a-list, a for asciidoc, t for newTab
-	options, filenames = getopt.getopt(sys.argv[1:], 'ant')
-	# print "Options %s" % options
-	# print "Filenames %s" % filenames
+	options, filenames = getopt.getopt(sys.argv[1:], 'ahnt')
+	# print("Options %s" % options)
+	# print("Filenames %s" % filenames)
 except:
-	print "Usage: mklinks [-n][-a][-t]"
+	print("Usage: mklinks [-n][-a|-h][-t]")
 	sys.exit(0)
 for o, a in options:
 	if o == '-a':
 		mode="asciidoc"
-	if o == '-n':
+	if o == '-h':
+		mode="HTML"
+	elif o == '-n':
 		PRE="";
 		POST=""
-	if o == '-t':
+	elif o == '-t':
 		TAB=' target="_blank"'
 
 for line in sys.stdin.readlines():
 	line=line[:-1] # kill stupid \n
-	words=string.split(line);
+	words=line.split();
 	NF = len(words)
 
 	if NF == 0:
@@ -43,11 +49,13 @@ for line in sys.stdin.readlines():
 
 	if mode == "HTML":
 		if NF == 1:
-			print "%s<a href='%s'%s>%s</a>%s" % (PRE, line, TAB, line, POST)
+			print("%s<a href='%s'%s>%s</a>%s" % (PRE, line, TAB, line, POST))
 		if NF > 1:
-			print "%s<a href='%s'>%s</a>%s" % (PRE, words[0], ' '.join(words[1:]), POST)
-	if mode == "asciidoc":
+			print("%s<a href='%s'>%s</a>%s" % (PRE, words[0], ' '.join(words[1:]), POST))
+	elif mode == "asciidoc":
 		if NF == 1:
-			print "%s[%s]" % (line, line)
+			print("%s[%s]" % (line, line))
 		if NF > 1:
-			print "%s[%s]" % (words[0], ' '.join(words[1:]))
+			print("%s[%s]" % (words[0], ' '.join(words[1:])))
+	else:
+		print("Unknown output mode",mode)

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# print an x509 certificate in text form
+# usually used for public keys in ".crt" files
+
+for crt
+do
+	echo '=== crt ==="
+	openssl x509 -text -noout -in $crt
+done
