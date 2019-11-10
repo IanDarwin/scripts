@@ -5,16 +5,45 @@
 
 case $(uname) in
 Darwin)	exec /usr/bin/open $@;;
+# Presumably this is under cygwin or similar...
+Windows) exec /c/program\ files/start $@;;
 esac
+
+BROWSER=NOT_SET
+if [ -x /usr/local/bin/chrome ]; then
+	BROWSER=CHROME
+elif [ -x /usr/local/bin/firefox ]; then
+	BROWSER=FIREFOX
+else
+	echo "Unknown browser; modify $0 to accomodate!"
+	exit 1
+fi
 
 #echo "$*" > /tmp/start.log
 
-function web_browser {
-	# TODO ps | grep netscape, include -remote or exclude it.
-	case ${1} in
-		http*)  firefox -remote "openURL(${1})"& ;;
-		/*)  firefox -remote "openURL(file:${1})"& ;;
-		*) firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+# Tries to handle various browsers and various arguments
+function browser {
+	case ${BROWSER} in
+	CHROME)
+		case ${1} in
+			http*) exec chrome $1 &;;
+			*) 
+				case $1 in
+				/*)	echo "Cant handle abs path yet" >&2; exit 1;;
+				*)	cp $1 /tmp
+					chmod go= /tmp/$1
+					exec chrome /tmp/$1 &;;
+				esac
+				;;
+		esac
+		;;
+	FIREFOX)
+		case ${1} in
+			http*) exec firefox -remote "openURL(${1})"& ;;
+			/*)  exec firefox -remote "openURL(file:${1})"& ;;
+			*) exec firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+		esac
+		;;
 	esac
 }
 
@@ -44,7 +73,7 @@ do
 		ftp://*) ftp "${f}" & ;;
 		*.gz)	gunzip -v $f;;
 		http:*|https:*|*.html|*.HTML?)
-			web_browser ${f} & ;;
+			browser ${f} & ;;
 		*.mgp)
 			mgp ${f};;
 		*.mp3|*.ogg|*.avi|*.mov)
@@ -68,7 +97,7 @@ do
 			;;
 		*.ps)	gs "${f}" & ;;
 		# sla, svg, and swf must go before *.s??
-		*.svg)	web_browser "${f}" & ;;
+		*.svg)	browser "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
 		*.swf)	gnash "${f}" & ;;	 # must come before soffice
 		*.odt|*.doc|*.docx) exec soffice "$f" &;;
@@ -80,8 +109,8 @@ do
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;
-		*)		echo "Not sure about ${f}, trying browser..." >&2
-				web_browser ${f};;
+		*)		echo "Not sure about ${f}'s format, trying browser..." >&2
+				browser ${f};;
 	esac
 	sleep 5		# to avoid killing the machine
 done
