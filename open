@@ -52,9 +52,12 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-while getopts "v" opt 
+APP=""
+
+while getopts "a:v" opt 
 do 
 	case "$opt" in 
+		a)	APP=${OPTARG};;
 		v)	set -x;;
 		*)	usage;;
 	esac
@@ -63,8 +66,11 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 
 for f in "$@"
 do
+	if [ "${APP}" != "" ]; then
+		${APP} $f
+	else
 	case "${f}"  in
-		*.ai)	illustrator "${f}" & ;;
+		*.ai)	gimp "${f}" & ;;
 		*.bmp|*.gif|*.jpg|*.png|*.tif)	xv "${f}" & ;;
 		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
 		*.esl)	huckster ${f};;
@@ -81,12 +87,12 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			if [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
+			if [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
+				xpdf "${f}" &
+			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
 				kpdf "${f}" &
 			elif [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
 				evince "${f}" &
-			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
-				xpdf "${f}" &
 			else
 				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
 				browser $f &
@@ -108,5 +114,6 @@ do
 		*)		echo "Not sure about ${f}'s format, trying browser..." >&2
 				browser ${f};;
 	esac
+	fi
 	sleep 5		# to avoid killing the machine
 done
