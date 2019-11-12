@@ -26,15 +26,13 @@ function browser {
 	case ${BROWSER} in
 	CHROME)
 		case ${1} in
-			http*) exec chrome $1 &;;
-			*) 
-				case $1 in
-				/*)	echo "Cant handle abs path yet" >&2; exit 1;;
-				*)	cp $1 /tmp
-					chmod go= /tmp/$1
-					exec chrome /tmp/$1 &;;
-				esac
-				;;
+			# HTTP/HTTPS URL
+			http*) exec chrome $1;;
+			# local file: make full path and file:// URL
+			*) case $1 in
+				/*) exec chrome file://$1;;
+				*) exec chrome file://${PWD}/$1;;
+			esac
 		esac
 		;;
 	FIREFOX)
@@ -83,23 +81,21 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			if [ -x /usr/local/bin/acroread ]; then
-				acroread "${f}" &
-			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
+			if [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
 				kpdf "${f}" &
 			elif [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
 				evince "${f}" &
 			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
 				xpdf "${f}" &
 			else
-				echo "Can't find any Acrobatty readers for ${f}" >&2
+				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
+				browser $f &
 			fi
 			;;
 		*.ps)	gs "${f}" & ;;
 		# sla, svg, and swf must go before *.s??
 		*.svg)	browser "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
-		*.swf)	gnash "${f}" & ;;	 # must come before soffice
 		*.odt|*.doc|*.docx) exec soffice "$f" &;;
 		*.odp|*.p[po]t|*.pptx) exec soffice "$f" &;;
 		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
