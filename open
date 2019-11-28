@@ -87,12 +87,12 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			if [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
-				xpdf "${f}" &
+			if [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
+				evince "${f}" &
 			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
 				kpdf "${f}" &
-			elif [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
-				evince "${f}" &
+			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
+				xpdf "${f}" &
 			else
 				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
 				browser $f &
