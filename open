@@ -18,6 +18,7 @@ else
 	echo "Unknown browser; modify $0 to accomodate!"
 	exit 1
 fi
+BROWSER=FIREFOX # force it for now since Chrome on OpenBSD is crippled
 
 #echo "$*" > /tmp/start.log
 
@@ -87,6 +88,8 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
+			if [ -x /usr/bin/okular -o -x /usr/local/bin/okular ]; then
+				okular "${f}" &
 			if [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
 				evince "${f}" &
 			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
