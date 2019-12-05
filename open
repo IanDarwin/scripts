@@ -1,0 +1,122 @@
+#!/bin/ksh -f
+
+# simple emulation of MS-Windows' start command or OS X's open command:
+# deduce type of file, start its application (backgrounded).
+
+case $(uname) in
+Darwin)	exec /usr/bin/open $@;;
+# Presumably this is under cygwin or similar...
+Windows) exec /c/program\ files/start $@;;
+esac
+
+BROWSER=NOT_SET
+if [ -x /usr/local/bin/chrome ]; then
+	BROWSER=CHROME
+elif [ -x /usr/local/bin/firefox ]; then
+	BROWSER=FIREFOX
+else
+	echo "Unknown browser; modify $0 to accomodate!"
+	exit 1
+fi
+BROWSER=FIREFOX # force it for now since Chrome on OpenBSD is crippled
+
+#echo "$*" > /tmp/start.log
+
+# Tries to handle various browsers and various arguments
+function browser {
+	case ${BROWSER} in
+	CHROME)
+		case ${1} in
+			# HTTP/HTTPS URL
+			http*) exec chrome $1;;
+			# local file: make full path and file:// URL
+			*) case $1 in
+				/*) exec chrome file://$1;;
+				*) exec chrome file://${PWD}/$1;;
+			esac
+		esac
+		;;
+	FIREFOX)
+		case ${1} in
+			http*) exec firefox -remote "openURL(${1})"& ;;
+			/*)  exec firefox -remote "openURL(file:${1})"& ;;
+			*) exec firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+		esac
+		;;
+	esac
+}
+
+USAGE="$0 file ..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+APP=""
+
+while getopts "a:v" opt 
+do 
+	case "$opt" in 
+		a)	APP=${OPTARG};;
+		v)	set -x;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for f in "$@"
+do
+	if [ "${APP}" != "" ]; then
+		${APP} $f
+	else
+	case "${f}"  in
+		*.ai)	gimp "${f}" & ;;
+		*.bmp|*.gif|*.jpg|*.png|*.tif)	xv "${f}" & ;;
+		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
+		*.esl)	huckster ${f};;
+		ftp://*) ftp "${f}" & ;;
+		*.gz)	gunzip -v $f;;
+		http:*|https:*|*.html|*.HTML?)
+			browser ${f} & ;;
+		*.mgp)
+			mgp ${f};;
+		*.mp3|*.ogg|*.avi|*.mov)
+			mplayer ${f};;
+		*.mp4|*.mpg|*.avi|*.mov)
+			vlc ${f};;
+		*.pro)
+			designer3 ${f} &;;
+		*.pdf)	
+			if [ -x /usr/bin/okular -o -x /usr/local/bin/okular ]; then
+				okular "${f}" &
+			if [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
+				evince "${f}" &
+			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
+				kpdf "${f}" &
+			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
+				xpdf "${f}" &
+			else
+				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
+				browser $f &
+			fi
+			;;
+		*.ps)	gs "${f}" & ;;
+		# sla, svg, and swf must go before *.s??
+		*.svg)	browser "${f}" & ;;
+		*.sla)	scribus "${f}" & ;;	 # must come before soffice
+		*.odt|*.doc|*.docx) exec soffice "$f" &;;
+		*.odp|*.p[po]t|*.pptx) exec soffice "$f" &;;
+		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
+		*.odg) exec soffice "${f}" &;;
+		*.s??|*.o??) exec soffice "${f}" &;;
+		*.sla)	scribus "${f}" & ;;
+		*.txt)	notepad "${f}" & ;;
+		*.xcf)	gimp "${f}" &;;
+		*.Z)	uncompress "${f}" & ;;
+		*)		echo "Not sure about ${f}'s format, trying browser..." >&2
+				browser ${f};;
+	esac
+	fi
+	sleep 5		# to avoid killing the machine
+done
