@@ -46,6 +46,7 @@ do
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
 		cups)	LOG=/var/log/cups/error_log;;
 		daem*|ppp) LOG=/var/log/daemon ;;
+		ecl*) LOG=$HOME/workspace/.metadata/.log;;
 		ftp)	LOG=/var/log/xferlog;;
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;

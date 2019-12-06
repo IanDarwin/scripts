@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Move every half hour - don't get sedentary
+
+cd $dsapi
+
+cd $j
+
+java com/darwinsys/saw/MoveTimer.java

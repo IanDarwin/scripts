@@ -3,4 +3,6 @@
 # emulate an ancient command to help with finger retraining
 
 echo "Groovy, mon! It's 1984 all over again"
-echo "(except it's really $(date))."
+echo "(except it's really $(date), so we're bring you into the 21st Century)."
+
+open https://news.google.com/
