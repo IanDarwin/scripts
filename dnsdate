@@ -2,4 +2,4 @@
 
 # Date in a format for DNS zone files
 
-echo "		$(date +%Y%m%d)0101"
+echo "		$(date +%Y%m%d)01"
