@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# edit the xfce menu system
+
+vi /home/ian/.local/share/applications/$1.desktop
+
+echo /home/ian/.local/share/applications/$1.desktop
