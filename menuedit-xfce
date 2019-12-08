@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# edit the xfce menu system
+
+vi /home/ian/.config/menus/xfce-applications.menu
