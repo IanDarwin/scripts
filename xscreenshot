@@ -2,6 +2,13 @@
 
 # Dump root window to /tmp/id.png
 
+case $1 in
+	-s) sleep 5; shift;;
+	*)	echo "Usage: $0 [-s] [imgName]" >&2
+		;;
+esac
+
 xwd -root |
 	xwdtopnm |
-		pnmtopng > /tmp/screenshot.png
+		pnmtopng > /tmp/${1-screenshot.png}
+echo ''
