@@ -18,7 +18,6 @@ else
 	echo "Unknown browser; modify $0 to accomodate!"
 	exit 1
 fi
-BROWSER=FIREFOX # force it for now since Chrome on OpenBSD is crippled
 
 #echo "$*" > /tmp/start.log
 
