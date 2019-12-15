@@ -1,0 +1,2 @@
+doas ifconfig ${1-urtwn0} down
+doas ifconfig ${1-urtwn0}   up
