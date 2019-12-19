@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Runs frege - interactive compiler?
+
+java -jar ~/.p2/pool/plugins/frege.ide_3.25.42/lib/fregec.jar
