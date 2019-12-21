@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# classical Unix implementation of word frequency counting
+
+prep $* | sort | uniq -c | sort -nr | head -20
