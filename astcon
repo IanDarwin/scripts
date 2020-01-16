@@ -3,6 +3,6 @@
 PATH=${PATH}:/usr/local/bin:/usr/local/sbin
 
 case $# in
-	0) exec doas asterisk -r;;
-	*) exec doas asterisk -r -x "$*";;
+	0) exec doas -u _asterisk asterisk -r;;
+	*) exec doas -u _asterisk asterisk -r -x "$*";;
 esac
