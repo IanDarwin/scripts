@@ -40,7 +40,7 @@ do
 	case $f in
 		-*) ;;
 		"")	echo "Usage: $0 logname" >&2; exit 1;;
-		asterisk) LOG=/var/log/asterisk.log;;
+		asterisk) LOG=/var/log/asterisk/messages;;
 		auth)	LOG=/var/log/authlog;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
