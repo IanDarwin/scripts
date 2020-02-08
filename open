@@ -87,15 +87,16 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			if [ -x /usr/bin/okular -o -x /usr/local/bin/okular ]; then
-				okular "${f}" &
-			elif [ -x /usr/bin/evince -o -x /usr/local/bin/evince ]; then
-				evince "${f}" &
-			elif [ -x /usr/bin/kpdf -o -x /usr/local/bin/kpdf ]; then
-				kpdf "${f}" &
-			elif [ -x /usr/bin/xpdf -o -x /usr/local/bin/xpdf ]; then
-				xpdf "${f}" &
-			else
+			PDFERS="evince okular kpdf xpdf"
+			FOUND=no
+			for peeper in $PDFERS; do
+				if [ -x /usr/bin/$peeper -o -x /usr/local/bin/$peeper ]; then
+					${peeper} "${f}" &
+					FOUND=yes
+					break;
+				fi
+			done
+			if [ ${FOUND} != "yes" ]; then
 				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
 				browser $f &
 			fi
