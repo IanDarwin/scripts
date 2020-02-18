@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# ind - indent; can't call it that due to ancient Unix "indent(1)" for C progs
+
+sed 's/^/     /' $*

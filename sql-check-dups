@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# sql - check for dups in a col that doesn't have unique constraint
+
+COL=$1
+TBL=$2
+DB=$3
+
+psql -c "select ${COL} from ${TBL} order by ${COL}" -d ${DB} |
+	uniq -c |
+		grep -v ' 1 '
+
