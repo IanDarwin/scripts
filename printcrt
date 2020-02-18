@@ -5,6 +5,6 @@
 
 for crt
 do
-	echo '=== crt ==="
+	echo "=== crt ==="
 	openssl x509 -text -noout -in $crt
 done
