@@ -51,7 +51,6 @@ do
 		http|web|www) LOG=/var/www/logs/access_log ;;
 		httperr|weberr) LOG=/var/www/logs/error_log ;;
 		icb|hackers)	LOG=~/hacklog/`date +%Y-%m`;;
-		port*s)	LOG=~/portslog/`date +%Y-%m`;;
 		jb7)	LOG=$HOME/jboss-as-7.1.1.Final/standalone/log/server.log;;
 		jserv)	LOG=/var/www/logs/mod_jserv.log;;
 		lp*)	LOG=/var/log/lpd-errs;;
@@ -63,7 +62,10 @@ do
 		ob) watchlog -f cvs & watchlog -f icb & watchlog -f ports&
 			exit
 			;;
-		pf|fw)	exec tcpdump -n -e -ttt -i pflog0;;
+		openfire-errors) LOG=/usr/local/openfire/logs/error.log;;
+		openfire) LOG=/usr/local/openfire/logs/all.log;;
+		PF|fw)	exec tcpdump -n -e -ttt -i pflog0;;
+		port*s)	LOG=~/portslog/`date +%Y-%m`;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		radicale)	LOG=/var/log/radicale;;
 		secure)	LOG=/var/log/secure ;;
