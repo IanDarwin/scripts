@@ -15,6 +15,6 @@ case $1 in
 		pfctl -t blockedinside -T delete ${host}
 		;;
 	'+')
-		pfctl -t blockedinside -T add daroo
+		pfctl -t blockedinside -T add ${host}
 		;;
 esac
