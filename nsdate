@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+echo '\t\t'$(date +%Y%m%d)01
