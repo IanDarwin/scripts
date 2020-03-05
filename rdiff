@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# compare a file against its duplicate in a parallel universe :-)
+
+REMOTE=dosn	# TODO getopts
+
+for FILE
+do
+	echo '< local   >' $REMOTE
+	ssh ${REMOTE} cat $FILE | diff $FILE -
+done
