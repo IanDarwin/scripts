@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# replace: replace str1 in files with str2, in place
-# 		final version
-#		from Kernighan & Pike, The UNIX Programming Environment.
+# replace: replace str1 in files with str2, in place, via sed -i
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
@@ -14,5 +12,5 @@ oldPatt="$1"; newStr="$2"; shift; shift
 
 for i
 do
-	overwrite $i sed "s!$oldPatt!$newStr!g" $i
+	sed -i "s!$oldPatt!$newStr!g" $i
 done
