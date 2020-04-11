@@ -2,5 +2,5 @@
 
 # run my linkchecker.
 
-java -cp ~/lib/darwinsys-api*.jar com.darwinsys.tools/KwikLinkChecker $*
+java -cp ~/lib/darwinsys-api-1.3.3-SNAPSHOT.jar com.darwinsys.tools/KwikLinkChecker $*
 
