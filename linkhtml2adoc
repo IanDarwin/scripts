@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# convert from
+# <a href="https://en.wikipedia.org/wiki/Nikola_Tesla">read up on him.</a>
+# to
+# https://en.wikipedia.org/wiki/NikoLa_Tesla[read up on him.]
+
+sed -e 's/<a href=.//' -e 's/.>/[/' -e 's/<\/a>/]/'
