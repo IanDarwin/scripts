@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Amazon to BookShop.org - change links in HTML file
-sed -i.bak -E -e 's=(www\.)?amazon.(ca|com)/.*/dp/=bookshop.org/a/3245/=' $*
+sed -i.bak -E -e 's@(www\.)?amazon.(ca|com)/.*(dp/|isbn=)@bookshop.org/a/3245/978@' $*
