@@ -4,4 +4,4 @@
 
 echo "Starting LinkChecker in background for GUI"
 
-java -cp $js/target/classes:$HOME/lib/darwinsys-api.jar netweb.LinkChecker $* &
+java -cp $js/main/target/classes:$HOME/lib/darwinsys-api.jar netweb.LinkChecker $* &
