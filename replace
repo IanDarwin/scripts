@@ -12,5 +12,5 @@ oldPatt="$1"; newStr="$2"; shift; shift
 
 for i
 do
-	sed -i .bak -e "s!$oldPatt!$newStr!g" $i
+	sed -i.bak -e "s!$oldPatt!$newStr!g" $i
 done
