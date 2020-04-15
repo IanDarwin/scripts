@@ -2,10 +2,11 @@
 
 # pageunit - run the PageUnit web test software
 
-# Before you run this, build the uber-jar as per the README, then cp the uber-jar to ~/lib/
+# Before you run this, build the uber-jar (single jar) as per the README,
+# then cp the uber-jar to ~/lib/ (you can use pageunit/scripts/inst).
 
 # If the version number has grown, update V to match:
 
-V=1.0.2-SNAPSHOT
+V=1.0.3-SNAPSHOT
 
 java -jar ~/lib/pageunit-${V}-jar-with-dependencies.jar $*
