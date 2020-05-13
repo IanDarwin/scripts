@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CWHOME=$HOME/workspace/cwedit/target/classes
-DARWINSYS_API=$HOME/lib/darwinsys-api-1.3.3-SNAPSHOT.jar
+LIBDIR=$HOME/lib
+JAR=${LIBDIR}/cwedit-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 
-java -classpath ${CWHOME}:${DARWINSYS_API} cwedit.CWMain $*
+java -jar ${JAR} $* &
