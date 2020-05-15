@@ -16,3 +16,7 @@ echo ${IP}
 ) >> ${WHITELIST}
 
 pfctl -t mywhite -T add ${IP}
+
+doas spamdb -d -G ${IP}
+doas spamdb -a ${IP}
+
