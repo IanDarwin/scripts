@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# XXX to generalize this
+
+# rmsamenames - remove files w/ same name in diff folders
+
+# USE WITH EXTREME CARE
+
+# Mainly for when you've imported pix and changed eg the copyright date in the 
+# exif data so you can't use cmp (as rmsame does)
+
+ls  ../../05/31/ >/tmp/5
+ls > /tmp/6
+comm -12 /tmp/?>/tmp/x
+echo "Following appear duplicated"
+cat /tmp/x
+echo "OK to rm?"
+read ans junk
+case ans in 
+y*|Y*) rm $(cat /tmp/x);;
+*) echo "OK, leaving 'em for you"
+esac
