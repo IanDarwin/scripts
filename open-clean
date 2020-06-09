@@ -2,4 +2,8 @@
 
 # Open a url after removing garbage like spaces and mutt's + sign
 
-open $(echo $1 | tr -d '+ \012')
+URL=$(echo $1 | tr -d '+ \012')
+
+echo "Opening $URL"
+
+xdg-open $URL
