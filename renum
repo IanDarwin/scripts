@@ -1,0 +1,35 @@
+#!/bin/ksh
+
+# renum - rename/number files that are in alpha order but messed up filenames
+
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+USAGE="$0 [-p pattern] old new"
+PATTERN="Photo%02d"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	echo "Pattern must include %d or %02d or similar, for numbering."
+	exit 1
+}
+
+while getopts "p:v" opt
+do
+	case "$opt" in
+		p)	PATTERN=$OPTARG=v;;
+		v)	VERBOSE=v;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+if [ $# -eq 0 ]; then
+	usage
+fi
+
+ls *.{jpg,png} | 
+	sort -u |
+	awk '{
+		ext=substr($NF, length($NF)-3) # includes the dot
+		printf "mv \"%s\" %{PATTERN}%s\n", $0, ++i, ext
+	}'
