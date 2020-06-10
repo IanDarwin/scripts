@@ -8,7 +8,10 @@ case $1 in
 		;;
 esac
 
+FN=$(mktemp /tmp/screenshotXXXXXXXX).png
+
 xwd -root |
 	xwdtopnm |
-		pnmtopng > /tmp/${1-screenshot.png}
+		pnmtopng > ${FN}
+echo "Saved as " $FN
 echo ''
