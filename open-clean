@@ -6,4 +6,4 @@ URL=$(echo $1 | tr -d '+ \012')
 
 echo "Opening $URL"
 
-xdg-open $URL
+open $URL
