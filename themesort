@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Crosword Constructors Tools
+# Read a list of theme words, compute lengths and sort on length,
+# so you can see which long words need buddies.
+# Input:
+# Donald - 45
+# Do not - Abstain
+# Output:
+# 6 Donald - 45
+# 5 Do not - Abstain
+
+awk '
+$0 ~ /^#/	{print; next}
+$0 !~ /^#/	{
+		n = split($0, words, / \- /)
+		if (n != 2) {
+			print "Malformed!!", $0
+			next
+		}
+		key = words[1]
+		gsub(/[ _-]/, "", key)
+		print length(key), key, "->", words[2]
+	}
+' $* |
+	sort -k1nr
