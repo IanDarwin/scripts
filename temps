@@ -4,23 +4,16 @@
 
 # Some are general, some only one one or another machine, hence grep
 
-SENSORS="hw.sensors.cpu0.temp0 \
-hw.sensors.acpibat0.watthour3 \
-hw.sensors.acpisbs0.amphour0 \
-hw.setperf"
-
-PATT=$(echo -n $SENSORS | tr -s ' \012' '|')
-
-# echo $PATT		# keep for debug
+PATT="CPU Temperature"
 
 case $1 in
-"") exec sysctl -a | egrep ${PATT};;
+"") exec sysctl -a | egrep "${PATT}";;
 *)
 	while :
 	do
 		clear
 		date
-		sysctl -a | egrep ${PATT}
+		sysctl -a | egrep "${PATT}"
 		sleep  5
 	done
 	;;
