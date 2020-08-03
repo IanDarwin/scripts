@@ -5,7 +5,7 @@
 TOP_DIR=${HOME}/Pictures
 SCANDATE=n
 SETCOPYR=n
-SUBDIR=$(pixdate)
+SUBDIR=$(pixdate) # e.g., 2020/08/03
 USAGE='$0 [-d yyyy/mm/dd]'
 SETCOPYR=n
 
@@ -86,6 +86,7 @@ do
 		3gp movies
 !
 
+		(
 		cd ${DEST_DIR}
 
 		# make sure names have reasonable case, regardless of 
@@ -101,11 +102,12 @@ do
 
 		echo "Files in $(pwd):"
 		ls "$(pwd)"
+		)
 
 		ERASE_PROMPT_ANSWERED=n
 		while [ y != "${ERASE_PROMPT_ANSWERED}" ]
 		do
-			echo -n "Erase [no,yes] " 
+			echo -n "Erase from $(pwd)? [no,yes] " 
 			read oktoerase
 			case ${oktoerase} in
 				y*)	rm -f *.jpg *.JPG *.mpg *.MPG *.nef *.NEF *.arw *.ARW *.3gp *.3GP
