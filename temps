@@ -5,6 +5,7 @@
 # Some are general, some only one one or another machine, hence grep
 
 PATT="CPU Temperature"
+PATT="cpu0.temp0"
 
 case $1 in
 "") exec sysctl -a | egrep "${PATT}";;
