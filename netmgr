@@ -1,3 +1,0 @@
-#!/bin/ksh
-
-echo "netmgr has been replaced by wifind and/or wpa_supplicant." >&2
