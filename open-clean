@@ -2,8 +2,14 @@
 
 # Open a url after removing garbage like spaces and mutt's + sign
 
+case $1 in
+	-n)	NOPRINT=true; shift;;
+esac
+
 URL=$(echo $1 | tr -d '+ \012')
 
 echo "Opening $URL"
 
-open $URL
+if [ ${NOPRINT} != true ]; then
+	open $URL
+fi

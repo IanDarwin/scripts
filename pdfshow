@@ -1,1 +1,1 @@
-java -jar ~ian/workspace/pdfshow/target/pdfshow-1.0.0-SNAPSHOT-jar-with-dependencies.jar $* &
+java -jar ~ian/workspace/pdfshow/target/pdfshow-0.1.0-jar-with-dependencies.jar $* &
