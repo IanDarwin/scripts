@@ -27,7 +27,7 @@ disklabel ${disk}
 echo -n "OK to totally erase disk ${disk}"?
 read ans
 
-if [ "yes" != ${ans} ];
+if [ yes != "${ans}" ]
 then	
 	echo OK, I wont.
 	exit
