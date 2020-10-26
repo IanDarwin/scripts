@@ -27,7 +27,7 @@ disklabel ${disk}
 echo -n "OK to totally erase disk ${disk}"?
 read ans
 
-if [ "yes" != ${ans} ];
+if [ yes != "${ans}" ]
 then	
 	echo OK, I wont.
 	exit
@@ -43,8 +43,8 @@ mount | grep /dev/${disk} && {
 
 for pass in 1 2 3
 do
-	echo start pass ${pass} on ${disk} at $(date)
-	dd if=`devi $pass` of=/dev/${disk}c bs=${BS}
+	echo start pass ${pass} using $(devi $pass) on ${disk} at $(date)
+	dd if=$(devi $pass) of=/dev/${disk}c bs=${BS}
 done
 
 echo "Done with Disk ${disk}; probably clean, at $(date)"
