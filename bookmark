@@ -1,0 +1,15 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $0 category url text" >&2
+	exit 1
+}
+
+case $# in
+3);;
+*) usage();;
+esac
+
+echo "insert into bookmark(owner,category, url, text) values(1, '$1', '$2', '$3');" |
+	psql -d bookmarks
+
