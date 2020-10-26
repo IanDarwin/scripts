@@ -1,0 +1,16 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $0 [category]" >&2
+	exit 1
+}
+
+case $# in
+0) WHERE="";;
+1) WHERE=" where category = '$1'";;
+*) usage();;
+esac
+
+echo 'select owner, category, url, text from bookmark'"$WHERE"';' |
+	psql -d bookmarks
+
