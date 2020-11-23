@@ -1,15 +1,19 @@
 #!/bin/sh
 
-usage() {
-	echo "Usage: $0 category url text" >&2
-	exit 1
-}
+# insert a bookmark, given topic, url, and text
 
 case $# in
-3);;
-*) usage();;
+3)
+	echo "insert into bookmark(owner,topic, url, text) values(1, '$1', '$2', '$3');" |
+		psql -d bookmarks
+	;;
+1)
+	echo "select url, text from bookmark where topic = '$1'" | psql -d bookmarks
+	;;
+*) 
+	echo "Usage: $0 topic url text" >&2
+	exit 1
+	;;
 esac
 
-echo "insert into bookmark(owner,category, url, text) values(1, '$1', '$2', '$3');" |
-	psql -d bookmarks
 
