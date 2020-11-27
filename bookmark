@@ -1,14 +1,22 @@
 #!/bin/sh
 
 # insert a bookmark, given topic, url, and text
+function check_topic {
+	rg -q "^$1 " ~/workspace/bookmarks/topics.txt || {
+		echo "Topic $1 not found"
+		exit 1
+	}
+}
 
 case $# in
 3)
+	check_topic $1
 	echo "insert into bookmark(owner,topic, url, text) values(1, '$1', '$2', '$3');" |
 		psql -d bookmarks
 	;;
 1)
-	echo "select url, text from bookmark where topic = '$1'" | psql -d bookmarks
+	check_topic $1
+	echo "select text, url from bookmark where topic = '$1' order by text" | psql -d bookmarks
 	;;
 *) 
 	echo "Usage: $0 topic url text" >&2
