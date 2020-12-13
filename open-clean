@@ -10,6 +10,6 @@ URL=$(echo $1 | tr -d '+ \012')
 
 echo "Opening $URL"
 
-if [ ${NOPRINT} != true ]; then
+if [ "${NOPRINT}" != true ]; then
 	open $URL
 fi
