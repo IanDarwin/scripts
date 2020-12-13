@@ -1,33 +1,41 @@
 #!/bin/sh
 
-TOPICS=${HOME}/workspace/bookmarks/topics.txt
+# Manage a database of bookmarked URLs
+# With 1 arg of -t, list topics
+# With 1 arg otherwise, list bookmarks of that topic, most recent first
+# With 3 args, insert a bookmark, given topic, url, and text
 
-# insert a bookmark, given topic, url, and text
-function check_topic {
-	rg -q "^$1 " ${TOPICS} || {
-		echo "Topic $1 not found"
-		exit 1
-	}
-}
+# If run on the server, do it directly; if not, do it via ssh
+# If SERVER is not set, will try to do it locally.
+# Because my internet link is slow, I don't check the topic ahead of time, so
+# you'll get a 'check constraint' type error from the dbms if the topic is invalid.
+
+case $(uname) in
+	"${SERVER}")	PSQL=psql;;
+	*) PSQL="ssh ${SERVER} /usr/local/bin/psql";;
+esac
+
+DBNAME=bookmarks
 
 case $# in
 3)
-	check_topic $1
-	echo "insert into bookmark(owner,topic, url, text) values(1, '$1', '$2', '$3');" |
-		psql -d bookmarks
+	echo "insert into bookmark(owner,topic_id, url, text) 
+		values(1, (select id from topic where name = '$1'), '$2', '$3');" |
+			$PSQL -d ${DBNAME}
 	;;
 1)
 	if [ $1 == '-t' ]; then
-		cat ${TOPICS}
+		echo 'select * from bookmark order by name' |
+			$PSQL -d ${DBNAME} 
 		exit 0
 	fi
-	check_topic $1
-	echo "select text, url from bookmark where topic = '$1' order by text" | psql -d bookmarks
+	echo "select text, url from bookmark 
+		where topic_id = (select id from topic where name = '$1') order by created desc" |
+			$PSQL -d ${DBNAME}
 	;;
 *) 
 	echo "Usage: $0 topic url text" >&2
 	exit 1
 	;;
 esac
-
 
