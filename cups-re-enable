@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# On one of my systems, having the printer offline makes it disabled
+# and it doesn't recover (quickly enough?)
+
+case $# in
+	1) doas lpadmin -p $1 -E;;
+	*) echo usage: $0 printer-name;;
+esac
