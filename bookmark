@@ -10,7 +10,7 @@
 # Because my internet link is slow, I don't check the topic ahead of time, so
 # you'll get a 'check constraint' type error from the dbms if the topic is invalid.
 
-case $(uname) in
+case $(hostname) in
 	"${SERVER}")	PSQL=psql;;
 	*) PSQL="ssh ${SERVER} /usr/local/bin/psql";;
 esac
