@@ -1,9 +1,8 @@
 #!/bin/sh
 
 # ehandler  -- send the "ehandler.ps"
-# $id$
 
-lpr -Phome <<'!!EOF!!'
+/usr/local/bin/lpr -Php6mp <<'!!EOF!!'
 %!PS-Adobe-
 % lib/ehandler.ps -- Downloaded Error Break-page handler
 % Copyright (c) 1984, 1985, 1986 Adobe Systems Incorporated. 
