@@ -1,6 +1,7 @@
 #!/bin/sh
 
 JARHOME=~ian/lib
+JAR=smsgateway-0.1.0-jar-with-dependencies.jar
 
 case $# in
 0|1)	echo "Usage: $0 nameber message..." 2>&1
@@ -12,4 +13,4 @@ PHONENUM=$1
 shift
 MESSAGE="$@"
 
-java -jar ${JARHOME}/smsgateway.ca.jar $PHONENUM "${MESSAGE}"
+java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
