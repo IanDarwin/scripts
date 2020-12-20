@@ -25,7 +25,7 @@ case $# in
 	;;
 1)
 	if [ $1 == '-t' ]; then
-		echo 'select * from bookmark order by name' |
+		echo 'select * from topic order by name' |
 			$PSQL -d ${DBNAME} 
 		exit 0
 	fi
