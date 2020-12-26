@@ -24,9 +24,10 @@ do
 		gsub(":","/",$4)
 		printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
 		print "mv '$f' " $4 "/"
+		found = 1
 	}
-	$0 !~ /^Image timestamp/ {
+	END { if (!found) {
 		print "echo storepixbydate: '$f': no image timestamp, not moving."
-
+		}
 	}'
 done
