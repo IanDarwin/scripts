@@ -15,6 +15,10 @@ cd ~/Pictures
 
 for f in $*
 do
+  if [ ! -f $f ]; then
+	echo $0: $f: cannot read file;
+	continue;
+  fi
   exiv2 $f |      
 	awk '$0 ~ /^Image timestamp/ {
 		gsub(":","/",$4)
