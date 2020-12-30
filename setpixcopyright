@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# pixsetdate - set the copyright owner on jpeg or other exif image
+# setpixcopyright - set the copyright owner on jpeg or other exif image
 
 OWNER="Ian F. Darwin"
 YEAR=$(date +%Y)

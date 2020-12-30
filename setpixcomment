@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# setpixcomment - set the EXIF comment tag (used by some s/w for tags?)
+
+USAGE="$0 'comment text' file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+case $# in
+	0|1)	usage;;
+esac
+
+COMMENT=$1
+
+shift 1
+
+exiv2 -M"set Exif.Image.Comment ${COMMENT}" $*
