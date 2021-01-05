@@ -7,8 +7,8 @@ set -e
 ulimit -S -d 8000000
 ulimit    -d 8000000
 ulimit -m unlimited
-ulimit -m 315868
-ulimit -n 512 
-ulimit -s 8092
-ulimit -p 256 
+ulimit -m 1024000
+ulimit -n 1024
+ulimit -s 12000
+ulimit -p 512 
 ulimit -a
