@@ -20,7 +20,7 @@ do
 	continue;
   fi
   exiv2 $f |      
-	awk '$0 ~ /^Image timestamp: [12]/ {
+	awk '$0 ~ /^Image timestamp : ....:..:../ {
 		gsub(":","/",$4)
 		printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
 		print "mv '$f' " $4 "/"
