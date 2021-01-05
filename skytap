@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# connect to a Skytap instance after you've downloaded its .rdp file
+# The rdp file contains a line like so:
+# full address:s:services-uscentral.skytap.com:17427
+
+LOGIN=user
+LOGIN=student
+PASS=pw
+PASS=studentpw
+
+awk -F: '
+$1 == "full address" {
+	HOST=$3
+	PORT=$4
+}
+END {
+	cmd = sprintf("rdesktop -u %s -p %s -k en-us %s:%s", "'$LOGIN'", "'$PASS'", HOST, PORT)
+	print cmd
+	system(cmd)
+}' ${1-~/Downloads/*.rdp}
+
