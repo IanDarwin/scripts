@@ -19,8 +19,10 @@ do
 	echo $0: $f: cannot read file;
 	continue;
   fi
-  exiv2 $f |      
-	awk '$0 ~ /^Image timestamp : ....:..:../ {
+  exiv2 -g Date $f |      
+	awk '$0 ~ /^Image timestamp : ....:..:../ || 
+		$0 ~ /^Exif.Image.DateTime/ ||
+		$0 ~ /^Exif.GPSInfo.GPSDateStamp/ {
 		gsub(":","/",$4)
 		printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
 		print "mv '$f' " $4 "/"
@@ -30,4 +32,4 @@ do
 		print "echo storepixbydate: '$f': no image timestamp, not moving."
 		}
 	}'
-done
+done # | sh
