@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# ignore one or more files
+
+for f
+do
+	echo $f >> .gitignore
+done
+git add .gitignore
+git commit -m "Ignore some files" .gitignore
