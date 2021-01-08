@@ -1,10 +1,17 @@
 #!/bin/sh
 
-# ignore one or more files
+# tell git to ignore one or more file patterns
+
+case $1 in
+	-p)	PUSH='git push'
+		shift 1
+		;;
+esac
 
 for f
 do
 	echo $f >> .gitignore
 done
 git add .gitignore
-git commit -m "Ignore some files" .gitignore
+git commit -m "Ignore files $*" .gitignore
+$PUSH
