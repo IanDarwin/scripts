@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd ~/crosswords
-
-java -jar ~/lib/CrossFire.jar $* &
