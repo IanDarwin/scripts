@@ -85,10 +85,10 @@ do
 			browser ${f} & ;;
 		*.mgp)
 			mgp ${f};;
-		*.mp3|*.ogg|*.avi|*.mov|*.wav)
+		*.mp3|*.ogg|*.avi|*.wav)
 			mplayer ${f};;
-		*.mp4|*.mpg|*.avi|*.mov|*.wav)
-			xdg-open ${f};;
+		*.mp4|*.mpg|*.avi|*.mov)
+			mplayer ${f};;
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
