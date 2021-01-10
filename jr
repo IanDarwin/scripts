@@ -2,13 +2,8 @@
 
 # jr -- javac and run
 
-echo "$0: deprecated as of Java 11; just use java Foo.java
-(assuming all depends are compiled & on classpath)."
-
-JAVAC=javac
-
-USAGE="$0 [-v] Class [args...]"
+echo "$0: deprecated as of Java 11; just use java Foo.java"
 
 set -x
 
-${JAVAC} -d . $1.java && java $@
+exec java $1.java
