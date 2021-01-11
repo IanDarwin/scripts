@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# set the macOS dock to auto-hide or not.
+
+USAGE="$0 -d | -e"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+case $1 in
+	"")	usage;;
+	"-e")
+			defaults write com.apple.Dock autohide -boolean true
+			killall Dock
+			;;
+	"-d")
+			defaults write com.apple.Dock autohide -boolean false
+			killall Dock
+			;;
+	*) usage;;
+esac
