@@ -7,6 +7,26 @@
 # Looks for this in exiv2 output:
 # Image timestamp : 2020:08:06 09:30:08
 
+
+USAGE="$0 [-v] old new"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+RUNNER=sh
+
+while getopts "nv" opt
+do
+	case "$opt" in
+		n)	RUNNER=cat;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 # Bomb on first failure, try to avoid losing pix:
 set -e
 
@@ -19,15 +39,19 @@ do
 	echo $0: $f: cannot read file;
 	continue;
   fi
-  exiv2 $f |      
-	awk '$0 ~ /^Image timestamp : ....:..:../ {
-		gsub(":","/",$4)
-		printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
-		print "mv '$f' " $4 "/"
-		found = 1
+  exiv2 -g Date $f |      
+	awk '$0 ~ /^Image timestamp : ....:..:../ || 
+		$0 ~ /^Exif.Image.DateTime/ ||
+		$0 ~ /^Exif.GPSInfo.GPSDateStamp/ {
+		if (!found) {
+			gsub(":","/",$4)
+			printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
+			print "mv '$f' " $4 "/"
+			found = 1
+		}
 	}
 	END { if (!found) {
 		print "echo storepixbydate: '$f': no image timestamp, not moving."
 		}
 	}'
-done
+done | ${RUNNER}

@@ -36,7 +36,7 @@ do
 	for file in ${FILES}
 	# workaround (grrr!) for Apple "Darwin" strings(1) with no -o option.
 	do
-		 echo -n $file
+		echo -n $file
 		strings ${STRINGSOPT} $file | egrep ${GREPOPT} "${patt}"
 	done
 done
