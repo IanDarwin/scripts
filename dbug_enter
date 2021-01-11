@@ -3,9 +3,6 @@
 # dbug_enter - enter Fred Fish DBUG_XXX macro calls into C code.
 
 # Caveats:
-# 1) requires 1981 or later version of awk
-#    (available from the AT&T Software Toolchest, from Mortice-Kern
-#    Systems, and elsewhere).
 # 2) Requires rigid formatting of your C code (in particular,
 #    function definition names must be in column one, i.e.,
 #       char * foo() <-- fails!
