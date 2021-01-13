@@ -4,8 +4,8 @@
 
 set -x
 
-JAVA_HOME=/usr/local/jdk-1.6.0/
-LIB_DIR=${JAVA_HOME}/demo/jfc/SwingSet2/
+JAVA_HOME=${JAVA_HOME-/usr/local/jdk-11.0}
+LIB_DIR=${JAVA_HOME}/demo/jfc/SwingSet2
 JAR=${LIB_DIR}/SwingSet2.jar
 
 java -jar ${JAR}
