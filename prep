@@ -3,10 +3,8 @@
 # prep - output one word per line
 # Intended for use in text processing scripts.
 # Ancient unix magic but still works.
-# This was used as an example in various Bell Labs
-# talks and papers before I made this copy around 1982 or 83
-# for use in a presentation to somebody considering buying a Unix system.
-# It wasn't committed here until about 2000 when I merged several scripts folders.
+# Earlier versions were used as an example in various Bell Labs
+# talks and papers; I made this version in the mid-1980's
 
 cat $* |
 	tr A-Z a-z | tr -cd 'a-z \n' | tr -s ' ' '\n'
