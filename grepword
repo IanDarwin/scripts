@@ -2,4 +2,14 @@
 
 # grep /usr/share/dict/words for a word
 
-egrep "^$1\$" /usr/share/dict/words
+function gw {
+	egrep "^$1\$" /usr/share/dict/words || echo "No match"
+}
+
+
+case $1 in
+	"") echo "Usage: $0 pattern|-c"
+		exit 1;;
+	-c)	while read patt; do gw $patt; done;;
+	*)	gw $1 /usr/share/dict/words;;
+esac
