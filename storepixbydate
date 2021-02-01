@@ -17,11 +17,12 @@ function usage {		# give usage message, and exit
 
 RUNNER=sh
 
-while getopts "nv" opt
+while getopts "nvx" opt
 do
 	case "$opt" in
 		n)	RUNNER=cat;;
 		v)	VERBOSE=true;;
+		x)	RUNNER="ksh -x";;
 		*)	usage;;
 	esac
 done
@@ -46,12 +47,13 @@ do
 		if (!found) {
 			gsub(":","/",$4)
 			printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
-			print "mv '$f' " $4 "/"
+			base=F; sub(".*/", "", base)
+			printf "if [ -f %s/%s ]; then echo DUPE %s/%s; else mv %s %s/; fi\n", $4, base, $4, F, F, $4
 			found = 1
 		}
 	}
 	END { if (!found) {
 		print "echo storepixbydate: '$f': no image timestamp, not moving."
 		}
-	}'
+	}' F=$f 
 done | ${RUNNER}
