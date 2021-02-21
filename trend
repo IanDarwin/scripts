@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Compare two items trending on Google
+# and look for each trending item on Twitter
+
+case $# in
+2);;
+*) echo Usage: $0 term1 term2; exit 1;;
+esac
+
+t1=$1
+t2=$2
+
+# The Google Knows-it-all
+open "https://trends.google.com/trends/explore?date=all&q=$t1,$t2&date=today 5-y"
+
+# The Twittering hordes have their say
+open "https://twitter.com/search?q=$t1&src=trend_click&vertical=trends"
+open "https://twitter.com/search?q=$t2&src=trend_click&vertical=trends"
