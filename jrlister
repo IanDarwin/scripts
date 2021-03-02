@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# nobody remembers what this does.
-
-cd ~/src/jrlister
-
-. ~/.sh-java
-
-make
