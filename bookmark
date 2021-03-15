@@ -37,7 +37,7 @@ case $# in
 			$PSQL -d ${DBNAME}
 	;;
 *) 
-	echo "Usage: $0 topic url text" >&2
+	echo "Usage: $0 [-t] topic [url text]" >&2
 	exit 1
 	;;
 esac

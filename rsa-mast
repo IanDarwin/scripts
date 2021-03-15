@@ -3,21 +3,26 @@
 # make, and sign, an RSA server certificate
 
 DIR=/etc/ssl
+EXP_DAYS=365
 NAME=server
 USAGE="$0 [-d DIR][-n NAME][-v]"
 GENVERB=genrsa
+BITZ=2048
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
 	exit 1
 }
 
-while getopts "d:n:v" opt 
+while getopts "d:e:n:svz:" opt 
 do 
 	case "$opt" in 
 		d)	DIR=$OPTARG;;
+		e)	EXP_DAYS=$OPTARG;;
 		n)	NAME=$OPTARG;;
+		s)	SIGN=true;;
 		v)	set -x;;
+		z)	BITZ=$OPTARG;;
 		*)	usage;;
 	esac
 done
@@ -29,12 +34,15 @@ mkdir -p ${DIR}/private || {
 }
 
 # Generate key pair
-openssl ${GENVERB} -out ${DIR}/private/${NAME}.key 1024
+openssl ${GENVERB} -out ${DIR}/private/${NAME}.key $BITZ
 
 # Create signing request
-openssl req -new -key ${DIR}/private/${NAME}.key \
+openssl req -new \
+	-days $EXP_DAYS \
+	-key ${DIR}/private/${NAME}.key \
 	-out ${DIR}/private/${NAME}.csr
 
-# Self-sign the key
-openssl x509 -req -days 36500 -in ${DIR}/private/${NAME}.csr \
-	-signkey ${DIR}/private/${NAME}.key -out ${DIR}/${NAME}.crt
+# Self-sign the key, if requested
+${SIGN} &&
+	openssl x509 -req -days 36500 -in ${DIR}/private/${NAME}.csr \
+		-signkey ${DIR}/private/${NAME}.key -out ${DIR}/${NAME}.crt
