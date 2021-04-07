@@ -58,7 +58,7 @@ ckdir $old		# validate old, stay there for tar/cpio
 
 case $TYPE in
 	CPIO)
-		find . -type f -depth -print | cpio -ocB | ( cd $new; cpio -icBmud${VERBOSE})
+		find . -type f -o -type l -depth -print | cpio -ocB | ( cd $new; cpio -icBmud${VERBOSE})
 		;;
 	TAR)
 		tar cf - . | (cd $new; tar xpf${VERBOSE} -)
