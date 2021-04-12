@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# make a filename or list of them into AsciiDoc image links
+
+SED="sed -e s/.*/image::&[]/"
+
+case $# in
+	0)	$SED
+		;;
+	*)	for f; do echo $f | $SED ; done
+		;;
+esac

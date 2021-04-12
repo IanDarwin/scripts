@@ -16,11 +16,14 @@ case $(hostname) in
 esac
 
 DBNAME=bookmarks
+TOPIC=$1
+URL=$2
+TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
 
 case $# in
 3)
 	echo "insert into bookmark(owner,topic_id, url, text) 
-		values(1, (select id from topic where name = '$1'), '$2', '$3');" |
+		values(1, (select id from topic where name = '$TOPIC'), '$URL', '$TEXT');" |
 			$PSQL -d ${DBNAME}
 	;;
 1)
@@ -34,7 +37,7 @@ case $# in
 			$PSQL -d ${DBNAME}
 	;;
 *) 
-	echo "Usage: $0 topic url text" >&2
+	echo "Usage: $0 [-t] topic [url text]" >&2
 	exit 1
 	;;
 esac

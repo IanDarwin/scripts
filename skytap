@@ -4,11 +4,14 @@
 # The rdp file contains a line like so:
 # full address:s:services-uscentral.skytap.com:17427
 
+echo "Make sure remote is powered up"
+
 LOGIN=user
 LOGIN=student
 PASS=pw
 PASS=studentpw
 
+tr -d '\015' < ${1-~/Downloads/*.rdp} |
 awk -F: '
 $1 == "full address" {
 	HOST=$3
@@ -17,6 +20,6 @@ $1 == "full address" {
 END {
 	cmd = sprintf("rdesktop -u %s -p %s -k en-us %s:%s", "'$LOGIN'", "'$PASS'", HOST, PORT)
 	print cmd
-	system(cmd)
-}' ${1-~/Downloads/*.rdp}
+}' |
+	sh -x
 

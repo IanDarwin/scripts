@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Run the Big Fixer for Git, see https://rtyley.github.io/bfg-repo-cleaner/
+
+java -jar $HOME/lib/bfg*jar $*
