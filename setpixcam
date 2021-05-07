@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# set the camera make/model for scanned images
+
+
+USAGE="$0 [-s Section] | [-k 'Make' -m 'Model'] file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "k:m:s:" opt 
+do 
+ 	 case "$opt" in 
+		k)	MAKE="$OPTARG";;
+		m)	MODEL="$OPTARG";;
+		s)
+			case $OPTARG in
+				g)	MAKE="Nikon/Film Scanner"
+					MODEL="Nikon F/Wolverine Filmscan 35mm"
+					;;
+				*)	echo "Unknown make model"
+					exit 1
+					;;
+			esac
+			;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+exiv2 -M"set Exif.Image.Make ${MAKE}" -M"set Exif.Image.Model ${MODEL}" $*
+
