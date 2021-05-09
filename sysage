@@ -4,7 +4,7 @@
 
 uptime
 
-uname -a
+sysctl kern.version
 
 ls -Ll /usr/lib/libc.so.* | tail -1 
 ls -Ll /bin/cat /usr/X11R6/bin/X 
