@@ -8,7 +8,7 @@ PATT="CPU Temperature"
 PATT="cpu0.temp0"
 
 case $1 in
-"") exec sysctl -a | egrep "${PATT}";;
+"") exec sysctl -a | egrep "${PATT}" | awk -F= '{print $2}';;
 *)
 	while :
 	do
