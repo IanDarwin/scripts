@@ -20,7 +20,7 @@ case `uname` in
 			17)		VER=adoptopenjdk-17;;
 			*)		echo Unsupported ver $1; exit 1;;
 		esac
-		DIR=/Library/Java/JavaVirtualMachines/jdk$VER.jdk
+		DIR=/Library/Java/JavaVirtualMachines/$VER.jdk/Contents/Home
 		;;
 esac
 
