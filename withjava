@@ -1,0 +1,31 @@
+#!/bin/ksh
+
+# withjava - run a java program with a given java version
+
+case `uname` in
+	OpenBSD)
+		case $1 in
+			1.8|8)	VER=1.8.0;;
+			11)		VER=11;;
+			16)		VER=16;;
+			*)		echo Unsupported ver $1; exit 1;;
+		esac
+		DIR=/usr/local/jdk$VER
+		;;
+	Darwin)
+		case $1 in
+			1.8|8)	VER=jdk1.8.0;;
+			11)		VER=jdk-11.0.2;;
+			16)		VER=temuring-16;;
+			17)		VER=adoptopenjdk-17;;
+			*)		echo Unsupported ver $1; exit 1;;
+		esac
+		DIR=/Library/Java/JavaVirtualMachines/jdk$VER.jdk
+		;;
+esac
+
+echo  Using $DIR
+
+shift 1		# remove version
+
+JAVA_HOME=$DIR java $*
