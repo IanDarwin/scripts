@@ -1,1 +1,22 @@
-known
+#!/bin/sh
+
+# Generate list of words for "known" or "unknown" script
+
+case $0 in
+	*unknown)
+		F=~/dotfiles/unknown.txt
+		;;
+	*known)
+		F=~/dotfiles/known.txt
+		;;
+	*)	echo "Huh? \$0 is: $0"
+		exit 1
+		;;
+esac
+
+case $1 in
+	"")	;;
+	-e|-v)	vi $F;;
+	*)	echo $* | tr ' ' '_' >> "${F}"
+		;;
+esac

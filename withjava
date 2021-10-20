@@ -10,7 +10,7 @@ case `uname` in
 			16)		VER=16;;
 			*)		echo Unsupported ver $1; exit 1;;
 		esac
-		DIR=/usr/local/jdk$VER
+		DIR=/usr/local/jdk-$VER
 		;;
 	Darwin)
 		case $1 in
