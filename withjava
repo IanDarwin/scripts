@@ -28,4 +28,4 @@ echo  Using $DIR
 
 shift 1		# remove version
 
-JAVA_HOME=$DIR java $*
+JAVA_HOME=$DIR $*
