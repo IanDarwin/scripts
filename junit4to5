@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -jar ~/lib/convert-junit4-to-junit5-fat.jar $*

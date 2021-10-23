@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# try to convert JUnit 3 tests to JUnit 4
+# Simplistic, hammer-based attempt to convert 80% of JUnit 3 tests to JUnit 4
 
 sed '/^package/ {
 a \
