@@ -1,7 +1,0 @@
-#! /usr/bin/awk -f
-
-# Get data for this by copy and paste from https://manage.opensrs.com/#!/domain
-
-{
-	print "update domain set expiry='" $5 "' where name = '" $1 "';"
-}
