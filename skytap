@@ -18,8 +18,8 @@ $1 == "full address" {
 	PORT=$4
 }
 END {
-	cmd = sprintf("rdesktop -u %s -p %s -k en-us %s:%s", "'$LOGIN'", "'$PASS'", HOST, PORT)
+	cmd = sprintf("rdesktop -u %s -p %s -k en-us -a 8 %s:%s", "'$LOGIN'", "'$PASS'", HOST, PORT)
 	print cmd
-}' |
+}' | 
 	sh -x
 
