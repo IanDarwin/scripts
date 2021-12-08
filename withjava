@@ -9,7 +9,7 @@ case `uname` in
 			11)		VER=11;;
 			16)		VER=16;;
 			17)		VER=17;;
-			*)		echo Unsupported ver $1; exit 1;;
+			*)		echo "Unsupported ver $1"; exit 1;;
 		esac
 		DIR=/usr/local/jdk-$VER
 		;;
@@ -19,9 +19,13 @@ case `uname` in
 			11)		VER=jdk-11.0.2;;
 			16)		VER=temuring-16;;
 			17)		VER=adoptopenjdk-17;;
-			*)		echo Unsupported ver $1; exit 1;;
+			*)		echo "Unsupported ver $1"; exit 1;;
 		esac
 		DIR=/Library/Java/JavaVirtualMachines/$VER.jdk/Contents/Home
+		;;
+	*)
+		echo "$0 unaware of Java on `uname`" >&2
+		exit 1
 		;;
 esac
 
