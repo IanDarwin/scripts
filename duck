@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# search with duckduckgo, the self-styled privacy-respecting search engine
+
+STR=$(echo $* | tr ' ' '+')
+
+open https://duckduckgo.com/?q=${STR}
+
