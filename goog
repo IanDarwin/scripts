@@ -1,0 +1,6 @@
+#!/bin/sh
+
+STR=$(echo $* | sed -e 's/ /%20/g')
+
+open https://google.com/search?q=${STR}
+
