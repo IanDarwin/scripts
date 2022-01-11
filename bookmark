@@ -28,11 +28,11 @@ case $# in
 	;;
 1)
 	if [ $1 == '-t' ]; then
-		echo 'select * from topic order by name' |
+		echo 'select id, name, description from topic order by name' |
 			$PSQL -d ${DBNAME} 
 		exit 0
 	fi
-	echo "select text, url from bookmark 
+	echo "select id, text, url from bookmark 
 		where topic_id = (select id from topic where name = '$1') order by created desc" |
 			$PSQL -d ${DBNAME}
 	;;
