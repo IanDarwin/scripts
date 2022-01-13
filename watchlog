@@ -78,7 +78,7 @@ do
 		vnc)	LOG=~/.vnc/*.log;;
 		www)	exec xtail /var/log /var/tomcat/logs;;
 		wf|wildfly) LOG=${wf}/standalone/log/server.log;;
-		wfa|access)	LOG=${wf}/standalone/log/access_log.log;;
+		wfa|wfaccess)	LOG=${wf}/standalone/log/access_log.log;;
 		x|X)	LOG=/var/log/XFree86.0.log;;
 		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
 		*0|*1) exec	doas doas tcpdump -ni $*;;
