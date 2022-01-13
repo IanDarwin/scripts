@@ -16,28 +16,50 @@ case $(hostname) in
 esac
 
 DBNAME=bookmarks
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+function printTopics {
+	echo 'select id, name, description from topic order by name' |
+		$PSQL -d ${DBNAME} 
+}
+
+while getopts "tuv" opt
+do
+	case "$opt" in
+		t)	printTopics; exit 0;;
+		u)	UPDATE=true;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
 TOPIC=$1
 URL=$2
 TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
+ID=$4
 
 case $# in
-3)
-	echo "insert into bookmark(owner,topic_id, url, text) 
-		values(1, (select id from topic where name = '$TOPIC'), '$URL', '$TEXT');" |
-			$PSQL -d ${DBNAME}
-	;;
-1)
-	if [ $1 == '-t' ]; then
-		echo 'select id, name, description from topic order by name' |
-			$PSQL -d ${DBNAME} 
-		exit 0
-	fi
+1)	# list topics
 	echo "select id, text, url from bookmark 
 		where topic_id = (select id from topic where name = '$1') order by created desc" |
 			$PSQL -d ${DBNAME}
 	;;
-*) 
-	echo "Usage: $0 [-t] topic [url text]" >&2
+3)	# insert
+	echo "insert into bookmark(owner,topic_id, url, text) 
+		values(1, (select id from topic where name = '$TOPIC'), '$URL', '$TEXT');" |
+			$PSQL -d ${DBNAME}
+	;;
+4)	# update
+	echo "update bookmark set text = '$TEXT', url = '$URL', topic_id = (select id from topic where name = '$TOPIC') where  id = $ID;" |
+			$PSQL -d ${DBNAME}
+	;;
+*)	# huh?
+	echo "Usage: $0 [-t|-u] topic [url text]" >&2
 	exit 1
 	;;
 esac
