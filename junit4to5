@@ -1,3 +1,9 @@
 #!/bin/sh
 
-java -jar ~/lib/convert-junit4-to-junit5-fat.jar $*
+# hammer-fisted conversion from JUnit 4 to 5, hitting the 80-20 rule on the head.
+
+for f 
+do
+	echo $f
+	sed -i -f /home/ian/lib/junit4to5.sed $f
+done

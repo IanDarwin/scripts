@@ -2,4 +2,4 @@
 
 # Show off my font chooser
 
-java -cp $HOME/lib/darwinsys.jar:$HOME/workspace/javasrc/build gui.FontChooserDemo
+java -cp $HOME/lib/darwinsys.jar:$HOME/git/javasrc/desktop/target/classes gui.FontChooserDemo

@@ -23,7 +23,7 @@ function usage {		# give usage message, and exit
 }
 
 function printTopics {
-	echo 'select id, name, description from topic order by name' |
+	echo 'select id, name, description from topic order by description' |
 		$PSQL -d ${DBNAME} 
 }
 
