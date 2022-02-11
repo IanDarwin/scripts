@@ -1,22 +1,51 @@
-This is Ian's collection of *Nix scripts, in continuous use and development since 1984.
+This is Ian's collection of 500 *Nix scripts, some utterly trivial (could be aliases instead
+of scripts), some much more complex, in continuous use and development since 1984.
 I know the earliest repo date is 1994, but hey, CVS didn't even exist when I started,
 let alone this new-fangled stuff like git (which came along two full decades into the project).
 
-Most of the scripts may run on any modern POSIX/Unix/Linux system, but some will not.
+When I started it was Bourne shell all the way. Ksh and Bash came later; both are
+largely upwards-compatible form Bourne, so older scripts will still run.
+
+Most of the scripts should run on any modern POSIX/Unix/Linux system, but some will not.
 While the early work was done on PDP-11 Unix, Solaris, and other systems including Linux,
 almost all the recent work has been on OpenBSD and Mac OS X.
 Also, some of them depend on having installed certain Java programs (some of which
-can be found in my other repos). Some install in your Maven repo (~/.m2/repository)
-while others install in ~/lib or even elsewhere.
-So if one of them doesn't work for you, bear in mind that there are lots of
-variations out there.
+can be found in my other repos). Some of those install in your Maven
+repo (~/.m2/repository) while others install in ~/lib or even
+elsewhere.  So if one of them doesn't work for you, bear in mind that
+there are lots of variations out there.
 
-Also, note in the shebang line that various non-shell interpreters are use for some of the scripts.
+Also, note in the shebang line ("#!"), most for the shell, some that invoke various non-shell interpreters.
 If the shebang is of the form "#!/usr/bin/env PROGRAM" then this is a way of working around
 the fact that different *Nixes (even different distros of the same branch like Linux) install
 binaries in different directory locations; this construct will find the interpreter as long
 as it's in your PATH variable. And as long as some bright light hasn't changed the location
 of the "env" command, which is in /usr/bin on every sane user-oriented Unix-like system in existence.
+
+== Tour
+
+There are two versions of a guided tour here. My quick tour would involve showing and
+discussing aloud these:
+
+	distrib
+	rfc
+	dos2unix
+	lcname
+	setpixdate
+		example of complex args to one tool
+		has friends)
+	unsubscribe-from-list
+		another example of driving another program
+	[Several]
+		(fix to use getopts)
+		show templates
+
+The longer version, which is probably out of date, is in 'mktour' here, but it makes
+a JSP-based web site; it should be plain HTML or JavaScript. Pull request welcome.
+
+Cheers
+
+== Caveats
 
 Some of the scripts are well documented, some have almost no documentation.
 No claim is made that anything here is product-ready in a commercial sense.
@@ -24,3 +53,4 @@ No claim is made that anything here is product-ready in a commercial sense.
 USE AT OWN RISK.
 
 See also: https://github.com/IanDarwin/obscripts[ObScripts], scripts that are specific to OpenBSD.
+
