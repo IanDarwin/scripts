@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Creates in a subdirectory a new Java Maven JavaEE project
+# with DeltaSpike Data and other helpful APIs.
+
+case $# in
+2)
+	mvn archetype:generate \
+		-DarchetypeGroupId=com.nabenik \
+		-DarchetypeArtifactId=kukulkan-ee-archetype\
+		-DgroupId=$1\
+		-DartifactId=$2
+	;;
+*)
+	echo Usage: $0 groupId artifactId >&2
+	;;
+esac

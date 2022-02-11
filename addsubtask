@@ -1,0 +1,22 @@
+#!/bin/ksh
+
+# addtask/addsubtask - put entries into KTimeTracker from cmd line
+
+case $0 in
+	*addtask)
+		for task
+		do
+			qdbus org.kde.ktimetracker /KTimeTracker addTask "${task}"
+		done
+		;;
+
+	*addsubtask)
+		task="$1"
+		subtask="$2"
+		qdbus org.kde.ktimetracker /KTimeTracker addSubTask "${task}" "$subtask"
+		;;
+
+	*) echo Incorrect name for $0
+		exit 1
+		;;
+esac
