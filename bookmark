@@ -26,7 +26,7 @@ function usage {		# give usage message, and exit
 
 function printTopics {
 	echo 'select id, name, description from topic order by description' |
-		$PSQL -d ${DBNAME} 
+		${PSQL} -d ${DBNAME} 
 }
 
 function autoTitle {
@@ -43,11 +43,17 @@ function autoTitle {
 	esac
 }
 
-while getopts "atuv" opt
+function search {
+	echo "select id, topic_id, text, url from bookmark where lower(text) like lower('%$1%')" |
+		${PSQL} -d ${DBNAME}
+}
+
+while getopts "as:tuv" opt
 do
 	case "$opt" in
-		a)	autoTitle $2 $3; exit 0;;
-		t)	printTopics; exit 0;;
+		a)	exec autoTitle $2 $3;;
+		s)	exec search ${OPTARG};;
+		t)	exec printTopics;;
 		u)	UPDATE=true;;
 		v)	VERBOSE=true;;
 		*)	usage;;
@@ -61,7 +67,7 @@ TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
 ID=$4
 
 case $# in
-1)	# list topics
+1)	# list bookmarks in topic
 	echo "select id, text, url from bookmark 
 		where topic_id = (select id from topic where name = '$1') order by created desc" |
 			$PSQL -d ${DBNAME}
