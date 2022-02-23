@@ -2,6 +2,12 @@
 
 # fetch an RFC by number
 
-NNNN=0959 # xxx use getopts here
+cd ~/Downloads
+
+NNNN=${1-0959}
+
+echo Fetching RFC ${NNNN}
 
 ftp http://www.ietf.org/rfc/rfc${NNNN}.txt
+
+more rfc${NNNN}.txt

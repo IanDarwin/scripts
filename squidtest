@@ -1,5 +1,0 @@
-#!/bin/sh -x
-
-# Test the squid caching proxy
-
-(echo GET http://www.darwinsys.com:88/ HTTP/1.0; echo ) | nc darian 3128        
