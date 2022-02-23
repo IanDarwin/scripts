@@ -15,6 +15,8 @@ case $(hostname) in
 	*) PSQL="ssh ${SERVER} /usr/local/bin/psql";;
 esac
 
+USAGE="$0 -a topic url|-t|-u|[-v] topic title"
+
 DBNAME=bookmarks
 
 function usage {		# give usage message, and exit
@@ -27,9 +29,24 @@ function printTopics {
 		$PSQL -d ${DBNAME} 
 }
 
-while getopts "tuv" opt
+function autoTitle {
+	if [ $# != 2 ]; then
+		usage
+	fi
+	topic=$1
+	url=$2
+	title=$(ftp 2>/dev/null -o - $url | 
+		awk '/<title>/ { gsub(/.*<title>/, "");gsub(/<\/title>/, ""); print }')
+	echo -n "Title ok? $title [yn] ";
+	read ans junk; case $ans in
+		y*)	bookmark $topic "$url" "$title"; exit 0;;
+	esac
+}
+
+while getopts "atuv" opt
 do
 	case "$opt" in
+		a)	autoTitle $2 $3; exit 0;;
 		t)	printTopics; exit 0;;
 		u)	UPDATE=true;;
 		v)	VERBOSE=true;;
