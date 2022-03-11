@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # create links (default in HTML) from input like "https://darwinsys.com/ Ian Darwin's Web Site"
 # add -n (no-list) to skip the <li>...</li> wrapper.

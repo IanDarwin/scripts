@@ -76,7 +76,7 @@ do
 	else
 	case "${f}"  in
 		*.ai)	gimp "${f}" & ;;
-		*.bmp|*.gif|*.jpg|*.png|*.tif)	xv "${f}" & ;;
+		*.bmp|*.gif|*.jpg|*.jpeg|*.png|*.tif)	nsxiv "${f}" & ;;
 		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
 		*.esl)	huckster ${f};;
 		ftp://*) ftp "${f}" & ;;

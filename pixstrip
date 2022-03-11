@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for f
+do
+	exiv2 -da $d
+done

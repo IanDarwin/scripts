@@ -16,8 +16,8 @@ SIZE=72 # good pointsize on 24MP 6000x4000 images, too big on smaller image.
 # about character sets and Unicode
 TEXT="$(perl -e 'binmode(STDOUT, ":utf9"); print "\x{00A9} IanDarwinPhoto.com";')"
 
-FONT=Noteworthy
-#FONT=Luxi-Sans-Oblique
+#FONT=Noteworthy
+FONT=Luxi-Sans-Oblique
 
 OVERWRITE=no
 

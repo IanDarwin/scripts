@@ -1,3 +1,6 @@
 #!/bin/sh
 
+# Run tab-indented text through this to make an AsciiDoc file, then
+# convert to PPTX with...?
+
 sed -e 's/^			/*** /' -e 's/^		/** /' -e 's/^	/* /' $*

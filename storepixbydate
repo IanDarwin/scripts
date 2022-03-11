@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh -f
 
 # Rearrange Pictures to strict date-order filing. 
 
@@ -6,7 +6,6 @@
 
 # Looks for this in exiv2 output:
 # Image timestamp : 2020:08:06 09:30:08
-
 
 USAGE="$0 [-v] old new"
 
