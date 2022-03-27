@@ -5,7 +5,7 @@
 OWNER="Ian F. Darwin"
 YEAR=$(date +%Y)
 
-USAGE="$0 [-d YYYY][-o 'Owners Name' file..."
+USAGE="$0 [-d YYYY][-o 'Owners Name'] file..."
 
 function usage {		# give usage message, and exit
 	echo "Usage: $USAGE" 2>&1
@@ -23,5 +23,8 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
+if [ $# -eq 0 ]; then
+	usage;
+fi
 
 exiv2 -M"set Exif.Image.Copyright Copyright ${YEAR} ${OWNER}" $*

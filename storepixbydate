@@ -14,6 +14,8 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
+cd ~/Pictures
+
 RUNNER=sh
 
 while getopts "nvx" opt
@@ -33,26 +35,26 @@ set -e
 # Make sure we are in right folder
 cd ~/Pictures
 
-for f in $*
+for f in $@
 do
-  if [ ! -f $f ]; then
+  if [ ! -f "$f" ]; then
 	echo $0: $f: cannot read file;
 	continue;
   fi
-  exiv2 -g Date $f |      
+  exiv2 -g Date "$f" |      
 	awk '$0 ~ /^Image timestamp : ....:..:../ || 
 		$0 ~ /^Exif.Image.DateTime/ ||
 		$0 ~ /^Exif.GPSInfo.GPSDateStamp/ {
 		if (!found) {
 			gsub(":","/",$4)
-			printf "if [ ! -d %s ]; then mkdir -p %s; fi\n", $4, $4
+			printf "if [ ! -d "%s" ]; then mkdir -p %s; fi\n", $4, $4
 			base=F; sub(".*/", "", base)
-			printf "if [ -f %s/%s ]; then echo DUPE %s/%s; else mv %s %s/; fi\n", $4, base, $4, F, F, $4
+			printf "if [ -f \"%s/%s\" ]; then echo DUPE \"%s/%s\"; else mv \"%s\" \"%s/\"; fi\n", $4, base, $4, F, F, $4
 			found = 1
 		}
 	}
 	END { if (!found) {
 		print "echo storepixbydate: '$f': no image timestamp, not moving."
 		}
-	}' F=$f 
+	}' F="$f"
 done | ${RUNNER}
