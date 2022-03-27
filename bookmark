@@ -36,7 +36,7 @@ function autoTitle {
 	topic=$1
 	url=$2
 	title=$(ftp 2>/dev/null -o - $url | 
-		awk '/<title>/ { gsub(/.*<title>/, "");gsub(/<\/title>/, ""); print }')
+		awk '/<title>/ { gsub(/.*<title>/, ""); gsub(/<\/title>/, ""); gsub(/\|/, "-"); print }')
 	echo -n "Title ok? $title [yn] ";
 	read ans junk; case $ans in
 		y*)	bookmark $topic "$url" "$title"; exit 0;;
