@@ -51,9 +51,9 @@ function search {
 while getopts "as:tuv" opt
 do
 	case "$opt" in
-		a)	exec autoTitle $2 $3;;
-		s)	exec search ${OPTARG};;
-		t)	exec printTopics;;
+		a)	autoTitle $2 $3;;
+		s)	search ${OPTARG};;
+		t)	printTopics;;
 		u)	UPDATE=true;;
 		v)	VERBOSE=true;;
 		*)	usage;;
