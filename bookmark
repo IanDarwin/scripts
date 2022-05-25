@@ -40,6 +40,7 @@ function autoTitle {
 	echo -n "Title ok? $title [yn] ";
 	read ans junk; case $ans in
 		y*)	bookmark $topic "$url" "$title"; exit 0;;
+		*) exit 1;;
 	esac
 }
 
