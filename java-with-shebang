@@ -1,0 +1,12 @@
+#!/usr/local/jdk-17/bin/java --source 17
+
+// Java will ignore the shebang as long as the filename
+// does NOT end in .java - strange but true.
+
+package name_here;
+
+public class Hello {
+	public static void main(String[] args) {
+		System.out.println("Hello, world.");
+	}
+}

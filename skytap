@@ -9,7 +9,7 @@ echo "Make sure remote is powered up"
 LOGIN=user
 LOGIN=student
 PASS=pw
-PASS=studentpw
+#PASS=studentpw
 
 tr -d '\015' < ${1-~/Downloads/*.rdp} |
 awk -F: '
@@ -18,7 +18,7 @@ $1 == "full address" {
 	PORT=$4
 }
 END {
-	cmd = sprintf("rdesktop -u %s -p %s -k en-us -a 8 %s:%s", "'$LOGIN'", "'$PASS'", HOST, PORT)
+	cmd = sprintf("rdesktop -u %s -p %s -k en-us -a 8 %s:%s < /dev/tty", "'$LOGIN'", "'$PASS'", HOST, PORT)
 	print cmd
 }' | 
 	sh -x
