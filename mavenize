@@ -1,0 +1,30 @@
+#!/bin/sh
+
+find . -name \*.class | xargs git rm
+
+if [ ! -f pom.xml ]; then
+	cp ~/template/maven/pom.xml .
+fi
+
+if [ -d src -a ! -d src/main/java ]; then
+	git mv src j
+	mkdir -p src/main/java
+	git mv j/* src/main/java
+	rmdir  j
+elif [ -d com ]; then
+	mkdir -p src/main/java
+	git mv com src/main/java
+fi
+
+mkdir -p src/main/resources
+mkdir -p src/test/java
+
+for d in regress tests test
+do
+	if [ -d $d ]; then
+		echo Found putative test folder $PWD/$d
+		mv $d/.??* $d/* src/test/java/
+	fi
+done
+
+ls src/main/java src/test/java
