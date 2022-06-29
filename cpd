@@ -1,9 +1,26 @@
 #!/bin/ksh
 
-for jar in $PMD_HOME/lib/*
+USAGE="$0 [-m NN] file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+MIN_TOKENS=100
+while getopts "m:" opt
+do
+	case "$opt" in
+		m)	MIN_TOKENS=$OPTARG;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for jar in ${PMD_HOME-/home/ian/pmd*/lib/*}
 do
 	CPD_CP=${jar}:${CPD_CP}
 done
 
 java -classpath $CPD_CP \
-	net.sourceforge.pmd.cpd.CPD --minimum-tokens 100 --files $*
+	net.sourceforge.pmd.cpd.CPD --minimum-tokens $MIN_TOKENS --files $*
