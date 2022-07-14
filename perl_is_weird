@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Got from beck aet openbsd dot org
+# Got from beck at openbsd dot org
 
 if ((not 0 && not 1) !=  (! 0 && ! 1)) {
    print "Larry and Tom must smoke some really primo stuff...\n"; 
