@@ -1,0 +1,28 @@
+#!/bin/ksh
+
+# Use imagemagick to resize images
+
+SIZE=1920x1080
+
+USAGE="$0 [-s WxH] file"
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "s:" opt
+do
+	case "$opt" in
+		s)	SIZE=$OPTARG;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for file
+do
+	cp $file $file.bak
+	convert -resize $SIZE $file rs$file && mv rs$file $file
+done
