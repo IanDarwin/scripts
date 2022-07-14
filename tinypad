@@ -3,6 +3,7 @@
 # notepad - Run my simple Java reimplementation of NotePad
 
 JAVA_CMD=${JAVA_HOME-/usr/}/bin/java
+JAVA_CMD=/usr/local/jdk-17/bin/java
 
 PROJECT=tinypad
 MAINCLASS=com.darwinsys.tinypad.TinyPad 
