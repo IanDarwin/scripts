@@ -2,16 +2,14 @@
 
 # Check a bunch of hosts at once.
 
-host -t any www.darwinsys.com
+host -t any darwinsys.com
 for f in \
 	mail.darwinsys.com \
-	allistontm.darwinsys.com \
-	caledonnl.darwinsys.com \
+	androidcookbook.com \
 	javacook.darwinsys.com \
-	orangevilletm.darwinsys.com \
-	toastmasters.darwinsys.com \
 	tomcatbook.darwinsys.com 
 do
 	echo ";----- $f -----"
 	host $f
+	ping -c1 $f >/dev/null 2>&1
 done
