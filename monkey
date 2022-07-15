@@ -1,5 +1,6 @@
 #!/bin/bash
-# Utility script to run monkey
+
+# Utility script to run monkey, the Android testing tool
 #
 # From: http://androidcookbook.com/r/1253
 # See also: http://developer.android.com/guide/developing/tools/monkey.html
