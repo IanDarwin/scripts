@@ -1,0 +1,16 @@
+#!/bin/ksh
+
+# show diff between $* and "$@"
+
+echo '$* is ' $*
+echo '$@ is ' "$@"
+
+for w in $*
+do
+	echo $w
+done
+
+for w in "$@"
+do
+	echo $w
+done
