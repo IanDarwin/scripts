@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ksh
 
 # Utility script to run monkey, the Android testing tool
 #
