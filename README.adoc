@@ -1,10 +1,12 @@
-This is Ian's collection of 500 *Nix scripts, some utterly trivial (could be aliases instead
+= scripts
+
+This is Ian Darwin's collection of 500 *Nix scripts, some utterly trivial (could be aliases instead
 of scripts), some much more complex, in continuous use and development since 1984.
 I know the earliest repo date is 1994, but hey, CVS didn't even exist when I started,
 let alone this new-fangled stuff like git (which came along two full decades into the project).
 
 When I started it was Bourne shell all the way. Ksh and Bash came later; both are
-largely upwards-compatible form Bourne, so older scripts will still run.
+largely upwards-compatible from Bourne, so older scripts will still run.
 
 Most of the scripts should run on any modern POSIX/Unix/Linux system, but some will not.
 While the early work was done on PDP-11 Unix, Solaris, and other systems including Linux,
@@ -22,28 +24,15 @@ binaries in different directory locations; this construct will find the interpre
 as it's in your PATH variable. And as long as some bright light hasn't changed the location
 of the "env" command, which is in /usr/bin on every sane user-oriented Unix-like system in existence.
 
-== Tour
+== Provenance and Updates
 
-There are two versions of a guided tour here. My quick tour would involve showing and
-discussing aloud these:
+If you obtained this collection as a tar or zip file, you will probably not be able to get updates,
+which appear in the master repo at completely random intervals.
+You should instead:
 
-	distrib
-	rfc
-	dos2unix
-	lcname
-	setpixdate
-		example of complex args to one tool
-		has friends)
-	unsubscribe-from-list
-		another example of driving another program
-	[Several]
-		(fix to use getopts)
-		show templates
-
-The longer version, which is probably out of date, is in 'mktour' here, but it makes
-a JSP-based web site; it should be plain HTML or JavaScript. Pull request welcome.
-
-Cheers
+* Install git, if it's not already on your system;
+* `git clone https://github.com/IanDarwin/scripts.git` - this will create a `scripts`
+folder, and populate it, in a way that you can do `git pull` ever few months and get updates.
 
 == Caveats
 
@@ -52,5 +41,7 @@ No claim is made that anything here is product-ready in a commercial sense.
 
 USE AT OWN RISK.
 
-See also: https://github.com/IanDarwin/obscripts[ObScripts], scripts that are specific to OpenBSD.
+See also: https://github.com/IanDarwin/obscripts[ObScripts], 
+a smaller package of scripts that are specific to https://openbsd.org[OpenBSD],
+my favorite (and recommended) *Nix flavor.
 
