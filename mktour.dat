@@ -10,6 +10,7 @@ unix2dos - ... and vice versa.
 lscmp - compare two ls listings
 prep - prepare text for analysis (word per line)
 cwthemesort - sort a file of theme words for crossword creators
+ind - trivial indentation tool
 
 = swdv C/Java Development
 jtest - run with JUnit
@@ -38,6 +39,11 @@ xxx - Most of my sysadmin scripts are kept in a private repo as they could be ta
 
 = wind Desktop Window System
 bxterm - big xterm
+
+= dbaa Database Work
+sql-check-dups - feed one-line SQL with params into psql, then post-process
+inventory - psql with a "here document"
+grepphone - select with remote psql via ssh
 
 = netw Networking
 distrib - copy a file to multiple hosts
