@@ -5,20 +5,20 @@ grepjs - find+xargs where it beats grep -r
 distrib - copy a file to multiple computers
 cptree - copy entire directory hierarchy preserving perms, mtime.
 rfc - download an RFC by number
-dos2unix
+dos2unix - convert a file from dos to unix format
 lcname - convert file names to lower case
 rmsame - remove files that exist in both of 2 parallel trees
-setpixdate example of complex args to one tool
-unsubscribe-from-list another example of driving another program
+setpixdate - example of complex args to one tool
+unsubscribe-from-list - another example of driving another program
 ~/template/ksh/script - a KSH template
 wmchooser - ksh93 app lets you choose X Window Manager
 jr - formerly Java Compile & Run, now showing deprecation
 
 = Database Wrangling
-inventory DBA 
-grepphone DBA 
-newcamera DBA 
-bookmark DBA 
+inventory - DBA 
+grepphone - DBA 
+newcamera - DBA 
+bookmark - DBA 
 
 = Development/Admin
 distrib - distribute one file to many computers
@@ -29,3 +29,4 @@ rl - reload various servers
 mkwwwtemp - install file in web temp folder
 ehandler - install error handler in PostScript printer
 mklinks	- make links to URLs
+

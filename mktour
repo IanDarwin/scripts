@@ -1,37 +1,39 @@
 #!/usr/bin/awk -f
 
 # mktour -- make a HTML guided tour of some sort.
-# from some quaint and curious volume of forgotten lore.
+# from some quaint and curious volume of forgotten lore
+# (a.k.a. mktour.dat)
+
+BEGIN {
+	print "<html>"
+	print "<h1>Quick Tour of Ian's Scripts</h1>"
+	print "<p>This presents a small subset of what's here.</p>"
+	print "<ul>"
+}
+
+/^$/ {
+	next
+	}
+
+/^=/ {
+	print "</ul>"
+	$1 = ""
+	print "<h2>" $0 "</h2>"
+	print "<ul>"
+	next
+	}
 
 	{
-		file = $1
-		if (fileNumber==0)
-			prevPage="."
-		else 
-			prevPage = "tour" fileNumber ".jsp"
-		fileNumber++
-		thisPage = "tour" fileNumber ".jsp"
-		nextPage = "tour" fileNumber+1 ".jsp"
-
-		print "<html>" > thisPage
-		print "<title>" $0 "</title>" >> thisPage
-		print "<body bgcolor='white'>" >> thisPage
-		print "<h1>" $0 "</h1>" >> thisPage
-		print "<hr/>" 				>>thisPage
-		print "<pre>" 				>>thisPage
-		print "<%@include file='" file "'%>" >>thisPage
-		print "</pre>"				 >>thisPage
-		print "<hr/>" 				>>thisPage
-		print "<a href='" prevPage "'>Prev</a>" >>thisPage
-		print "<a href='.'>Index</a>" >>thisPage
-		print "<a href='" nextPage "'>Next</a>" >>thisPage
-		close thisPage
+		n = split($0, words, / \- /)
+		if (n != 2) {
+			print "ERROR: Line " + NR + " not valid format" > "/dev/tty"
+		}
+		#print "<li><a href=\"" words[1] "\">" words[1] "</a>" words[2] "</li>"
+		printf "<li><a href=\"%s\">%s</a> %s</li>\n", words[1], words[1], words[2]
 	}
 
 END {
-	endPage = "tour" fileNumber+1 ".jsp"
-	print "<b>End of tour</b>" > endPage
-	print "<hr/>" 				>>endPage
-	print "<a href='" thisPage "'>Previous</a>" >>endPage
-	print "<a href='.'>Index</a>" >>endPage
+	print "</ul>"
+	print "<b>End of tour</b>"
+	print "<hr/>"
 	}
