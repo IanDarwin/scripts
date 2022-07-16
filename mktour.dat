@@ -1,32 +1,57 @@
-= File Wrangling
-replace - apply sed substitute to update file(s) in place
-overwrite - apply any filter operation to update file(s) in place
-grepjs - find+xargs where it beats grep -r
-distrib - copy a file to multiple computers
-cptree - copy entire directory hierarchy preserving perms, mtime.
-rfc - download an RFC by number
-dos2unix - convert a file from dos to unix format
-lcname - convert file names to lower case
-rmsame - remove files that exist in both of 2 parallel trees
-setpixdate - example of complex args to one tool
-unsubscribe-from-list - another example of driving another program
-~/template/ksh/script - a KSH template
-wmchooser - ksh93 app lets you choose X Window Manager
-jr - formerly Java Compile & Run, now showing deprecation
+= text Simple text processing
+accent - install accents
+replace - update text files in place
+overwrite - overwrite files
+grepjs - grep in Java files in all subdirectories
+ffnum - Find Fone Number in mail archive
+doc2html - convert slides from text to HTML
+doctortf - convert slides from text to RTF
+mvstomml - convert slides from VS to Frame
+dos2unix - convert DOS text files to unix...
+unix2dos - ... and vice versa.
+lscmp - compare two ls listings
+prep - prepare text for analysis (word per line)
 
-= Database Wrangling
-inventory - DBA 
-grepphone - DBA 
-newcamera - DBA 
-bookmark - DBA 
+= swdv C/Java Development
+jr - Java compile and run (obsolete since Java 11)
+jtest - run with JUnit
+dbug_enter - put debug calls in code
+fix-java-main - update old String[] syntax
 
-= Development/Admin
-distrib - distribute one file to many computers
-mkpatches - generate patches
-webinst - install file to a web server
-watchlog - monitor log files
-rl - reload various servers
-mkwwwtemp - install file in web temp folder
+= bkup Archiving, Backup, CVS-ing
+bkupconf - backup configuration files
+cptree - copy a tree structure, preserving perms, mtimes, etc.
+getscripts - get list of files referred to in this page
+
+= file File Manipulation
+cx - - short for "chmod +x"
+unmv - - undo a "mv"
+
+= runn Running Programs
+appmap - Written by Sun Microsystems OpCom/NAFO; Run major apps in a heterogeneous UNIX environment
+
+= grep File Lookup/Editing
+areacode - look up areacode
+grepword - look up words by regex for e.g., crossword solver cheats
+
+= admi Desktop/System Administration
+xxx - Most of my sysadmin scripts are kept in a private repo as they could be taken to expose information.
+
+= wind Desktop Window System
+bxterm - big xterm
+
+= netw Networking
+distrib - copy a file to multiple hosts
+netsh - run a command on multiple hosts
+
+= prnt Printing Support
 ehandler - install error handler in PostScript printer
-mklinks	- make links to URLs
+
+= wwww WWW
+mklinks - make text into links
+mklinks.am - same but for Amazon.com sales links
+httpd-type - see what type of server somebody runs
+daroadweb - start a web server
+fakewebserver - See what web client (browser) really sends
+mktour - script that generates this tour in HTML
 

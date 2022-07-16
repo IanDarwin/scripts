@@ -6,9 +6,32 @@
 
 BEGIN {
 	print "<html>"
-	print "<h1>Quick Tour of Ian's Scripts</h1>"
-	print "<p>This presents a small subset of what's here.</p>"
+	print "<head>"
+	print "	<title>Ian Darwin: Shell Script Examples</title>"
+	print "</head>"
+	print "<h1>Ian Darwin: Shell Script Examples</h1>"
+	print "<p>My scripts directory contains millions of useful shell scripts."
+	print "This page presents a few that are interesting."
+	print "Be aware that this represents a <i>very small</i> subset of what's in this folder."
+	print "Pull requests to add additional entries are welcome."
+	print "</p>"
+	print "<hr/>"
+	print "<h2>Categories</h2>"
 	print "<ul>"
+	print "<li><a href=\"#text\">Simple text processing</a></li>"
+	print "<li><a href=\"#swdv\">C/Java Development</a></li>"
+	print "<li><a href=\"#bkup\">Archiving, Backup, Exporting</a></li>"
+	print "<li><a href=\"#file\">File Manipulation</a></li>"
+	print "<li><a href=\"#runn\">Running Programs</a></li>"
+	print "<li><a href=\"#grep\">File Lookup/Editing</a></li>"
+	print "<li><a href=\"#admi\">Desktop/System Administration</a></li>"
+	print "<li><a href=\"#wind\">Desktop Window System</a></li>"
+	print "<li><a href=\"#dbaa\">Database work</a></li>"
+	print "<li><a href=\"#netw\">Networking</a></li>"
+	print "<li><a href=\"#prnt\">Printing Support</a></li>"
+	print "<li><a href=\"#wwww\">WWW</a></li>"
+	print "</ul>"
+	print "<hr/>"
 }
 
 /^$/ {
@@ -18,7 +41,8 @@ BEGIN {
 /^=/ {
 	print "</ul>"
 	$1 = ""
-	print "<h2>" $0 "</h2>"
+	anchor = $2; $2 = ""
+	printf "<a name='%s'><h2>%s</h2>\n", anchor, $0
 	print "<ul>"
 	next
 	}
@@ -26,7 +50,7 @@ BEGIN {
 	{
 		n = split($0, words, / \- /)
 		if (n != 2) {
-			print "ERROR: Line " + NR + " not valid format" > "/dev/tty"
+			print "ERROR: Line " NR " not valid format:" $0 > "/dev/tty"
 		}
 		#print "<li><a href=\"" words[1] "\">" words[1] "</a>" words[2] "</li>"
 		printf "<li><a href=\"%s\">%s</a> %s</li>\n", words[1], words[1], words[2]
@@ -36,4 +60,5 @@ END {
 	print "</ul>"
 	print "<b>End of tour</b>"
 	print "<hr/>"
+	print "<h6><a href='https://darwinsys.com/'>Back to DarwinSys.com</a></h6>"
 	}
