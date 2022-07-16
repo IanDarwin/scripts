@@ -3,6 +3,7 @@
 # mktour -- make a HTML guided tour of some sort.
 # from some quaint and curious volume of forgotten lore
 # (a.k.a. mktour.dat)
+# N.B. Despite the name, this actually creates the index.html file here.
 
 BEGIN {
 	print "<html>"
@@ -14,6 +15,8 @@ BEGIN {
 	print "This page presents a few that are interesting."
 	print "Be aware that this represents a <i>very small</i> subset of what's in this folder."
 	print "Pull requests to add additional entries are welcome."
+	print "</p><p>"
+	print "Note also that <i>this index will usually be out of date</i> as scripts come and go!."
 	print "</p>"
 	print "<hr/>"
 	print "<h2>Categories</h2>"
@@ -31,7 +34,6 @@ BEGIN {
 	print "<li><a href=\"#prnt\">Printing Support</a></li>"
 	print "<li><a href=\"#wwww\">WWW</a></li>"
 	print "</ul>"
-	print "<hr/>"
 }
 
 /^$/ {
