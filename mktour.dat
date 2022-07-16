@@ -2,8 +2,6 @@
 accent - install accents
 replace - update text files in place
 overwrite - overwrite files
-grepjs - grep in Java files in all subdirectories
-ffnum - Find Fone Number in mail archive
 doc2html - convert slides from text to HTML
 doctortf - convert slides from text to RTF
 mvstomml - convert slides from VS to Frame
@@ -11,20 +9,19 @@ dos2unix - convert DOS text files to unix...
 unix2dos - ... and vice versa.
 lscmp - compare two ls listings
 prep - prepare text for analysis (word per line)
+cwthemesort - sort a file of theme words for crossword creators
 
 = swdv C/Java Development
-jr - Java compile and run (obsolete since Java 11)
 jtest - run with JUnit
 dbug_enter - put debug calls in code
 fix-java-main - update old String[] syntax
+jr - Java compile and run (obsolete; now an example of deprecation/compatibility)
 
 = bkup Archiving, Backup, CVS-ing
-bkupconf - backup configuration files
 cptree - copy a tree structure, preserving perms, mtimes, etc.
 getscripts - get list of files referred to in this page
 
 = file File Manipulation
-cx - - short for "chmod +x"
 unmv - - undo a "mv"
 
 = runn Running Programs
@@ -33,6 +30,8 @@ appmap - Written by Sun Microsystems OpCom/NAFO; Run major apps in a heterogeneo
 = grep File Lookup/Editing
 areacode - look up areacode
 grepword - look up words by regex for e.g., crossword solver cheats
+grepjs - grep in Java files in all subdirectories
+ffnum - Find Fone Number in mail archive
 
 = admi Desktop/System Administration
 xxx - Most of my sysadmin scripts are kept in a private repo as they could be taken to expose information.
