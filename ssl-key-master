@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# make, and sign, an RSA server certificate
+# make, and sign, RSA or DSA server certificate
 
 DIR=/etc/ssl
-EXP_DAYS=365
+EXP_DAYS=36500 # 100 years, who wants to renew yearly?
 NAME=server
 USAGE="$0 [-d DIR][-n NAME][-v]"
-GENVERB=genrsa
+GENVERB=gendsa
 BITZ=2048
 
 function usage {		# give usage message, and exit
