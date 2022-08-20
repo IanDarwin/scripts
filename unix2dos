@@ -1,8 +1,11 @@
-#!/usr/bin/perl -w
+#!/bin/sh
 
-while (<>) {
-	chop;
-	print "$_\r\n";
-}
+for f
+do
+	perl -e 'while (<>) {
+		chop;
+		print "$_\r\n";
+	}' $f > $f.new && mv $f $f.bak && mv $f.new $f
+done
 
 
