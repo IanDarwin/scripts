@@ -5,4 +5,4 @@ set -x
 CLASSPATH=$js/xml/target/classes
 CLASSPATH=$CLASSPATH:$HOME/.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar
 
-exec java -classpath $CLASSPATH xml.XParse $@
+exec java -classpath $CLASSPATH xml.XParse "$@"
