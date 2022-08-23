@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# run an xml doc through an xslt sheet
+
+# REQUIRES git checkout of my javasrc project in 'git' subdir of your home directory,
+# otherwise make your own copy and edit to taste.
+
+case $# in
+	2|3)	;;
+	*)	echo "Usage: $0 xml-in xsl-in [outfile]" >&2
+		exit 1
+		;;
+esac
+
+INFILE=$1
+XSLSHEET=$2
+OUTFILE=${3-transformed.txt}
+
+java ~/git/javasrc/xml/src/main/java/xml/JAXPTransform.java  $INFILE $XSLSHEET $OUTFILE
