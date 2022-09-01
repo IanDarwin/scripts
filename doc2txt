@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# doc2txt - use pandoc to extract text from a doc/docx
+
+for f
+do
+	pandoc -f docx -t plain 
+done
