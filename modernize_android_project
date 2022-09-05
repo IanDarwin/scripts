@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Update an old Android project with new config files.
+
+TMPL=~/git/android_template
+
+if [ ! -d $TMPL ]; then
+	echo "Must have checked out https://github.com/IanDarwin/android_template into ~/git"
+	exit
+fi
+
+if [ $# -ne 0 ]; then
+	echo "Usage: cd project-home; $0 # no args"
+	exit
+fi
+
+if [ ! -f build.gradle ]; then
+	echo "Must start in Android project directory"
+	exit
+fi
+
+if [ ! -d app ]; then
+	echo "Project is very old, lacks app folder. Not supported yet."
+	exit 1
+fi
+
+echo "Now we will copy some files from $TMPL into $PWD"
+echo "(someday)"
