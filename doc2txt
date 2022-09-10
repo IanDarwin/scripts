@@ -4,5 +4,5 @@
 
 for f
 do
-	pandoc -f docx -t plain 
+	pandoc -f docx -t plain $f
 done
