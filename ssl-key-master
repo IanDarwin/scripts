@@ -1,26 +1,31 @@
-#!/bin/sh
+#!/bin/ksh
 
 # make, and sign, RSA or DSA server certificate
 
+
+BITZ=
 DIR=/etc/ssl
 EXP_DAYS=36500 # 100 years, who wants to renew yearly?
+GENVERB="gendsa -aes256"
+MAKE_REQUEST=false
 NAME=server
-USAGE="$0 [-d DIR][-n NAME][-v]"
-GENVERB=gendsa
-BITZ=2048
+SELF_SIGN=false
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
 	exit 1
 }
 
-while getopts "d:e:n:svz:" opt 
-do 
-	case "$opt" in 
+USAGE="$0 [-b bits][-d DIR][-e expDays][-m][-n NAME][-p dsa_parm_file][-r][-s][-v][-z bits] host"
+while getopts "b:d:e:mp:rsvz:" opt
+do case "$opt" in 
+		b)	BITZ=$OPTARG;;
 		d)	DIR=$OPTARG;;
 		e)	EXP_DAYS=$OPTARG;;
-		n)	NAME=$OPTARG;;
-		s)	SIGN=true;;
+		m)	MAKE_REQUEST=true;;
+		p)	PARAM_FILE=$OPTARG;;
+		r)	GENVERB=genrsa; BITZ=1024;;
+		s)	SELF_SIGN=true; MAKE_REQUEST=true;;
 		v)	set -x;;
 		z)	BITZ=$OPTARG;;
 		*)	usage;;
@@ -28,21 +33,33 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
-mkdir -p ${DIR}/private || {
-	echo "Mkdir failed, do you have permission?" >&2
-	exit 1
+for NAME
+do
+
+case $GENVERB in
+	gendsa) [[ PARAM_FILE == "" ]] && {
+		echo DSA needs param file
+		exit 1
+	};;
+esac
+
+[[ -d ${DIR}/private ]] || mkdir -p ${DIR}/private || {
+	echo "mkdir ${DIR}/private failed, do you have permission?" >&2
+	exit
 }
 
 # Generate key pair
-openssl ${GENVERB} -out ${DIR}/private/${NAME}.key $BITZ
+openssl ${GENVERB} -out ${DIR}/private/${NAME}.key $PARAM_FILE
 
 # Create signing request
-openssl req -new \
+${MAKE_REQUEST} &&
+    openssl req -new \
 	-days $EXP_DAYS \
 	-key ${DIR}/private/${NAME}.key \
 	-out ${DIR}/private/${NAME}.csr
 
 # Self-sign the key, if requested
-${SIGN} &&
+${SELF_SIGN} &&
 	openssl x509 -req -days 36500 -in ${DIR}/private/${NAME}.csr \
 		-signkey ${DIR}/private/${NAME}.key -out ${DIR}/${NAME}.crt
+done
