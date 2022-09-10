@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# get build info on a given device or emulator
+
+DEV="-e"
+
+case $1 in
+	-e)	;;
+	-d) DEV=$1;;
+	-s) DEV="$1 $2";;
+esac
+
+# Run the egrep on desktop to simplify shell escaping
+adb $DEV shell getprop | 
+	egrep '\[ro.(bootimage.build.version.release_or_codename|bootimage.build.version.sdk|build.characteristics|build.date)\]'
