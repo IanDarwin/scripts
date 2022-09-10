@@ -3,7 +3,7 @@
 # grep /usr/share/dict/words for a word
 
 function gw {
-	egrep "^$1\$" /usr/share/dict/words || echo "No match"
+	rg "^$1"'$' /usr/share/dict/words || echo "No match"
 }
 
 
