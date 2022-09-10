@@ -36,7 +36,7 @@ fi
 git remote remove origin
 git remote add origin ${GIT_REPO}
 
-git push -u origin master
+git push -u origin main
 
 echo "Rename CVS repo to .bak?"; read ans junk; case $ans in
 y|Y*)	mv /cvs/${REPO} /cvs/${REPO}.bak;;
