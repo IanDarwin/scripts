@@ -21,6 +21,6 @@ ls -l ${CSR_FILE}
 
 echo "Self-sign it? [ny]"; read ans junk
 case ${ans} in
-y*) keytool -selfcert -alias ${ALIAS} -keystore $KEYSTORE};
+y*) keytool -selfcert -alias ${ALIAS} -keystore $KEYSTORE};;
 *) echo $CSR_FILE Not self-signed, send to CA.";;
 esac
