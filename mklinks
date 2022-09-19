@@ -5,6 +5,7 @@
 # add -t to open in a new Tab
 # add -a to output in AsciiDoc(tor) instead of HTML
 # add -h to output in HTML (default, not needed)
+# add -c captionsFile to use captions
 
 import sys,string,getopt
 
@@ -20,9 +21,10 @@ PRE="<li>"
 POST="</li>"
 TAB=""
 mode="HTML"
+captions={}
 try:
-	# n for not-a-list, a for asciidoc, t for newTab
-	options, filenames = getopt.getopt(sys.argv[1:], 'ahnt')
+	# n for not-a-list, a for asciidoc, t for newTab, c for captions
+	options, filenames = getopt.getopt(sys.argv[1:], 'achnt')
 	# print("Options %s" % options)
 	# print("Filenames %s" % filenames)
 except:
@@ -38,24 +40,35 @@ for o, a in options:
 		POST=""
 	elif o == '-t':
 		TAB=' target="_blank"'
+	elif o == '-c':
+		try:
+			with open("captions.txt") as input:
+				for line in input:
+					k,v = line.rstrip().split(',')
+					# print(k,v)
+					captions[k] = v
+		except IOError as e:
+			print("I/O Error reading captions file", a, e.args, file=sys.stderr)
 
 for line in sys.stdin.readlines():
 	line=line[:-1] # kill stupid \n
 	words=line.split();
 	NF = len(words)
-
 	if NF == 0:
 		continue
+	filename = words[0]
+	if captions.get(words[0]):
+		line = captions[words[0]]
 
 	if mode == "HTML":
 		if NF == 1:
-			print("%s<a href='%s'%s>%s</a>%s" % (PRE, line, TAB, line, POST))
+			print("%s<a href='%s'%s>%s</a>%s" % (PRE, filename, TAB, line, POST))
 		if NF > 1:
-			print("%s<a href='%s'>%s</a>%s" % (PRE, words[0], ' '.join(words[1:]), POST))
+			print("%s<a href='%s'>%s</a>%s" % (PRE, filename, ' '.join(words[1:]), POST))
 	elif mode == "asciidoc":
 		if NF == 1:
-			print("%s[%s]" % (line, line))
+			print("link%s[%s]" % (filename, line))
 		if NF > 1:
-			print("%s[%s]" % (words[0], ' '.join(words[1:])))
+			print("%s[%s]" % (filename, ' '.join(words[1:])))
 	else:
 		print("Unknown output mode",mode)
