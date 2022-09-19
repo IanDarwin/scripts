@@ -2,7 +2,10 @@
 
 # Update an old Android project with new config files.
 
+G=git # or "" if not using Git as your VCS
 TMPL=~/git/android_template
+
+set -e # stop on error
 
 if [ ! -d $TMPL ]; then
 	echo "Must have checked out https://github.com/IanDarwin/android_template into ~/git"
@@ -20,8 +23,23 @@ if [ ! -f build.gradle ]; then
 fi
 
 if [ ! -d app ]; then
-	echo "Project is very old, lacks app folder. Not supported yet."
-	exit 1
+	echo "Project is very old, lacks app folder. Rearranging it for you."
+	
+	# Bluntly re-org a project that was built pre-"app"-subdirectory
+	P=.
+
+	# No Android Devel on Eclipse anymore, fbofw
+	$G rm -r $P/.project $P/.classpath
+
+	mkdir -p $P/app/src/main
+
+	$G mv    $P/AndroidManifest.xml        $P/app/src/main/AndroidManifest.xml
+
+	$G mv    $P/src/main/java $P/app/src/main
+
+	$G mv    $P/res $P/app/src/main/
+
+	rmdir src
 fi
 
 echo "Now we will copy some files from $TMPL into $PWD"
