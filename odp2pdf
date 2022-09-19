@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# odX2pdf - convert a libreoffice doc to PDF
+# X = p for preso, t for text, others.
+
+for f
+do
+	libreoffice --headless --convert-to pdf $f
+done
