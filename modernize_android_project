@@ -3,7 +3,7 @@
 # Update an old Android project with new config files.
 
 G=git # or "" if not using Git as your VCS
-TMPL=~/git/android_template
+TMPL=~/git/AndroidTemplate
 
 set -e # stop on error
 
@@ -43,4 +43,19 @@ if [ ! -d app ]; then
 fi
 
 echo "Now we will copy some files from $TMPL into $PWD"
-echo "(someday)"
+
+cp ${TMPL}/build.gradle .
+
+# add nl in case file ends w/o newline.
+(echo; echo 'android.useAndroidX=true') >> gradle.properties
+
+cp ${TMPL}/settings.gradle .
+echo "NB Remember to edit the rootProject.name in settings.gradle"
+
+cp app/build.gradle app/build.gradle.bak
+cp ${TMPL}/app/build.gradle app/build.gradle
+echo "NB Remember to edit the applicationID from settings.gradle.bak into settings.gradle"
+
+cp ${TMPL}/gradle/wrapper/gradle-wrapper.properties gradle/wrapper/gradle-wrapper.properties
+
+echo "That is not a complete list of changes needed; see https://darwinsys.com/blog/2022-07-26-modernize-android/"
