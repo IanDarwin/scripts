@@ -4,24 +4,30 @@
 
 PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
 CONTEXT=null
+TYPE=1 # 1 = TODO, 2 = recurrant, 3 = reminder
 MORE='more -e'
 REST=""
 VERB=insert
+case $# in
+	0) VERB=LIST;;
+esac
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
 	exit 1
 }
 
-USAGE="$0 [-c context][-p prio][-d id] description of some task"
-while getopts "c:d:p:v" opt 
+USAGE="$0 [-c context][-p prio][-d id] [-t type] description of some task"
+while getopts "c:d:lp:t:v" opt 
 do 
 	case "$opt" in 
 		c)	CONTEXT=$OPTARG;;
 		d)	VERB=delete
 			ID=$OPTARG
 			;;
+		l)	VERB=LIST;;
 		p)	PRIO=$OPTARG;;
+		t)	TYPE=$OPTARG;;
 		v)	#ignored
 			;;
 		*)	usage;;
@@ -39,25 +45,23 @@ case ${PRIO} in
 	*)		echo Warning: Priority $PRIO unrecognized;;
 esac
 
-case $# in
+# Should do same for Context?
 
-0)	CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${REST} order by t.priority asc, t.name asc;"
-	;;
-
-*)	case ${VERB} in
+case ${VERB} in
+	LIST)
+		CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${REST} order by t.priority asc, t.name asc;"
+		POST="| sed 1,2d"
+		;;
 	delete) CMD="delete from todo where id = ${ID};";;
-	insert) CMD="insert into todo(name,priority) values('$*', '$PRIO');";;
-	esac
-	;;
-
+	insert) CMD="insert into todo(name,type_id,priority) values('$*', '$TYPE', '$PRIO');";;
 esac
 
 echo $CMD |
 case $(hostname) in
 	darwinsys.com)
-		psql -d todo |${MORE}
+		eval psql -d todo $POST |${MORE}
 		;;
 	*)
-		ssh dos psql -d todo |${MORE}
+		eval ssh dos psql -d todo $POST |${MORE}
 		;;
 esac
