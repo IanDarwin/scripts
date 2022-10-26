@@ -6,6 +6,9 @@ PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
 CONTEXT=null
 TYPE=1 # 1 = TODO, 2 = recurrant, 3 = reminder
 MORE='more -e'
+if [ ! -t 0 ]; then
+	MORE=cat
+fi
 REST=""
 VERB=insert
 case $# in
