@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# XXX Get rid of 4-arg form; demand -u for update. Solves problem of accident caused by forgetting quotes:
+# bookmark java someurl Java 19
+# which LOSES DATA by overwriting previous contents of bookmark with id # 19
+
 # Manage a database of bookmarked URLs
 # With 1 arg of -t, list topics
 # With 1 arg otherwise, list bookmarks of that topic, most recent first
