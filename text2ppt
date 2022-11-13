@@ -1,0 +1,4 @@
+for f
+do
+	sed -e 's/^[A-Z]/# &/' $f | pandoc -f markdown -t pptx -o /tmp/id.pptx
+done
