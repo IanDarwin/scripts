@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Update a project's deps, whether given in properties or inline, and show plugin updates
+
+set -x
+
+mvn versions:use-latest-releases versions:update-properties 
+mvn versions:display-plugin-updates | grep -- '->' | sort
