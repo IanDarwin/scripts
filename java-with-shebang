@@ -1,5 +1,8 @@
 #!/usr/local/jdk-17/bin/java --source 17
 
+// Demo of using Java with a shebang ("hash bang", '#!')
+// At least one arg like --source 17 must be present.
+// Lines beginning with '#' are not valid Java syntax, but
 // Java will ignore the shebang as long as the filename
 // does NOT end in .java - strange but true.
 
