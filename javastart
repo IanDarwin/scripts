@@ -8,6 +8,5 @@ JARDIR=${HOME}/lib
 FILE=mytools-1.0.2-SNAPSHOT-jar-with-dependencies.jar
 
 exec java -jar ${JARDIR}/${FILE} \
-	jclipboard.JClipBoard \
-	nag.Nagger \
+	nag.Nagger
 
