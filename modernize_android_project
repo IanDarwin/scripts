@@ -29,7 +29,7 @@ if [ ! -d app ]; then
 	P=.
 
 	# No Android Devel on Eclipse anymore, fbofw
-	$G rm -r $P/.project $P/.classpath
+	$G rm -fr $P/.project $P/.classpath
 
 	mkdir -p $P/app/src/main
 
