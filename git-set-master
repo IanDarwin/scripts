@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# Set the upstream master on a git repo
-
-set -x
-
-git branch --set-upstream-to=origin/master master
