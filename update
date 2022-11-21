@@ -7,7 +7,7 @@ if [ -d CVS ]; then
 	echo Updating $(pwd) via CVS
 	if [ "" != "${CVSROOT}" ]; then
 		echo Updating CVS from ${CVSROOT}
-		cvs -d $CVSROOT update $*
+		cvs -d $CVSROOT update -PAd $*
 	else
 		echo Not updating CVS from default - must set CVSROOT
 	fi
