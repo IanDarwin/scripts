@@ -3,7 +3,7 @@
 # Start a clipper written in Java for copy/paste shortcuts
 
 JDK_VER=11
-DOS_VER=1.0.5
+DOS_VER=1.7.7-SNAPSHOT
 JCL_VER=1.0.1-SNAPSHOT
 
 JAVA_HOME=${JAVA_HOME-/usr/local/jdk-${JDK_VER}}
