@@ -48,6 +48,13 @@ case ${PRIO} in
 	*)		echo Warning: Priority $PRIO unrecognized;;
 esac
 
+# Status:
+#	NEW, 0
+#	ACTIVE, 1
+#	DEFERRED, 2
+#	COMPLETE; 3
+
+
 # Should do same for Context?
 
 case ${VERB} in

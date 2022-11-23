@@ -35,7 +35,10 @@ grepjs - grep in Java files in all subdirectories
 ffnum - Find Fone Number in mail archive
 
 = admi Desktop/System Administration
-xxx - Most of my sysadmin scripts are kept in a private repo as they could be taken to expose information.
+xxx - Most of my sysadmin scripts are kept in a private repo as they could be taken to expose information. Sorry.
+
+= obsd OpenBSD-specific scripts
+xxx - These are kept in <a href='https://github.com/IanDarwin/obscripts'>their own git repo</a>.
 
 = wind Desktop Window System
 bxterm - big xterm
