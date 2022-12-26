@@ -1,0 +1,9 @@
+#!/bin/ksh
+
+while
+	echo Enter a line of text, at \\c
+	date
+	read x
+do
+	echo You typed $x
+done
