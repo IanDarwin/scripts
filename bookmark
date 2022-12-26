@@ -26,7 +26,7 @@ function usage {		# give usage message, and exit
 
 function printTopics {
 	echo 'select id, name, description from topic order by description' |
-		${PSQL} -d ${DBNAME} 
+		"${PSQL} -d ${DBNAME}"
 }
 
 function autoTitle {
@@ -46,7 +46,7 @@ function autoTitle {
 
 function search {
 	echo "select id, topic_id, text, url from bookmark where lower(text) like lower('%$1%')" |
-		${PSQL} -d ${DBNAME}
+		"${PSQL} -d ${DBNAME}"
 }
 
 while getopts "as:tuv" opt
@@ -71,16 +71,16 @@ case $# in
 1)	# list bookmarks in topic
 	echo "select id, text, url from bookmark 
 		where topic_id = (select id from topic where name = '$1') order by created desc" |
-			$PSQL -d ${DBNAME}
+			$PSQL" -d ${DBNAME}"
 	;;
 3)	# insert
 	echo "insert into bookmark(owner,topic_id, url, text) 
 		values(1, (select id from topic where name = '$TOPIC'), '$URL', '$TEXT');" |
-			$PSQL -d ${DBNAME}
+			"$PSQL -d ${DBNAME}"
 	;;
 4)	# update
 	echo "update bookmark set text = '$TEXT', url = '$URL', topic_id = (select id from topic where name = '$TOPIC') where  id = $ID;" |
-			$PSQL -d ${DBNAME}
+			"$PSQL -d ${DBNAME}"
 	;;
 *)	# huh?
 	echo "Usage: $0 [-t|-u] topic [url text]" >&2
