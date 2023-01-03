@@ -1,0 +1,12 @@
+#!/bin/sh
+
+Here is how to create a new list-detail starter app:
+
+cat<<!
+flutter create \
+	-t skeleton \
+	--org com.newapp \
+	--project-name newapp \
+	--description 'Sell digital and physical stuff through the app' \
+	newappdirectory
+!
