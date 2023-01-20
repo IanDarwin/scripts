@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# update lots of repos
+
+cd
+
+MODE=minimal
+case $1 in
+	"");;
+	-m) MODE=minimal;;
+	-f) MODE=full;;
+esac
+
+process() {
+	dir=$1
+	(
+		if [ -d $dir/.git ] && cd $dir >/dev/null 2>&1; then
+			echo
+			pwd
+			if [ "$force" == "YES" ]; then
+				echo git -C $dir add
+				echo git -C $dir commit
+				echo git -C $dir push
+			fi
+			git pull
+			git status
+		else
+			echo "Directory '$dir' in list but no such directory here" >&2
+		fi
+	) 
+}
+
+if [ ! -f ~/.update-all ]; then
+	echo 'Create ~/.update-all with gitdirs="updateable-dir1 updir2 ..."'
+	exit 1
+fi
+. ~/.update-all
+
+if [ -d ~/dotfiles ]; then
+	process ~/dotfiles # Be sure up to date before next line:
+	. ~/dotfiles/current_repos
+fi
+
+for dir in ${main_gitdirs}
+do
+	process $dir
+done
+
+for dir in ${other_gitdirs}
+do
+	process $dir
+done
+
+for dir in ${cvsdirs}
+do
+	process $dir
+done
+
+if [ -x /usr/bin/pkg_add ]; then
+
+	doas pkg_add -vu -Dupdate # update installed binary ports.
+
+	doas pkg_delete -a # not "all" but "automatic" (gc)
+fi
