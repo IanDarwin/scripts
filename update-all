@@ -1,6 +1,18 @@
 #!/bin/sh
 
-# update lots of repos
+# update lots of repos, based on contents of your ~/.update-all file
+# file is a shell script, MUST contain this line:
+# main_gitdirs="dir1 dir2 dir3..."
+# And MAY contain optional lines
+# other_gitdirs="g2dir1 g2dir2 g2dir3 ..."
+# svndirs="sdir1 sdir2 sdir3 ..."
+# cvsdirs="cdir1 cdir2 cdir3 ..."
+
+if [ ! -f ~/.update-all ]; then
+	echo 'Create ~/.update-all with gitdirs="updateable-dir1 updir2 ..."'
+	exit 1
+fi
+. ~/.update-all
 
 cd
 
@@ -8,7 +20,7 @@ MODE=minimal
 case $1 in
 	"");;
 	-m) MODE=minimal;;
-	-f) MODE=full;;
+	-a|-f) MODE=full;;
 esac
 
 process() {
@@ -30,12 +42,7 @@ process() {
 	) 
 }
 
-if [ ! -f ~/.update-all ]; then
-	echo 'Create ~/.update-all with gitdirs="updateable-dir1 updir2 ..."'
-	exit 1
-fi
-. ~/.update-all
-
+# Some of up keep .profile, .bashrc & dozens o' dot files in a repo
 if [ -d ~/dotfiles ]; then
 	process ~/dotfiles # Be sure up to date before next line:
 	. ~/dotfiles/current_repos
@@ -45,6 +52,11 @@ for dir in ${main_gitdirs}
 do
 	process $dir
 done
+
+case "${MODE}" in
+	minimal)	echo "That's all, folks"; exit 0;;
+	full)		echo "But wait! There's more...";;
+esac
 
 for dir in ${other_gitdirs}
 do
