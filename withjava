@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 
 # withjava - run a java program with a given java version
 
