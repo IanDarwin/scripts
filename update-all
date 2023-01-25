@@ -2,17 +2,16 @@
 
 # update lots of repos, based on contents of your ~/.update-all file
 # file is a shell script, MUST contain this line:
-# main_gitdirs="dir1 dir2 dir3..."
+# H dir1
+# H dir2
 # And MAY contain optional lines
-# other_gitdirs="g2dir1 g2dir2 g2dir3 ..."
-# svndirs="sdir1 sdir2 sdir3 ..."
-# cvsdirs="cdir1 cdir2 cdir3 ..."
+# L dir3
+# H for High, L for Low. Thus, sortable
 
 if [ ! -f ~/.update-all ]; then
 	echo 'Create ~/.update-all with gitdirs="updateable-dir1 updir2 ..."'
 	exit 1
 fi
-. ~/.update-all
 
 cd
 
@@ -26,29 +25,30 @@ esac
 process() {
 	dir=$1
 	(
-		if [ -d $dir/.git ] && cd $dir >/dev/null 2>&1; then
-			echo
-			pwd
-			if [ "$force" == "YES" ]; then
-				echo git -C $dir add
-				echo git -C $dir commit
-				echo git -C $dir push
+		if [ -d $dir ]; then
+			cd $dir >/dev/null 
+			if [ -d .git ]; then
+				echo
+				pwd
+				if [ "$force" == "YES" ]; then
+					git add .
+					git commit
+					git push
+				fi
+				git pull
+				git status
+			elif [ -d .svn ]; then
+				echo WOuld update SVN dir
+			elif [ -d CVS ]; then
+				echo Would update CVS dir
 			fi
-			git pull
-			git status
 		else
 			echo "Directory '$dir' in list but no such directory here" >&2
 		fi
 	) 
 }
 
-# Some of up keep .profile, .bashrc & dozens o' dot files in a repo
-if [ -d ~/dotfiles ]; then
-	process ~/dotfiles # Be sure up to date before next line:
-	. ~/dotfiles/current_repos
-fi
-
-for dir in ${main_gitdirs}
+for dir in $(awk '$1 == "H" { print $2 }' ~/.update-all)
 do
 	process $dir
 done
@@ -58,19 +58,16 @@ case "${MODE}" in
 	full)		echo "But wait! There's more...";;
 esac
 
-for dir in ${other_gitdirs}
-do
-	process $dir
-done
-
-for dir in ${cvsdirs}
+for dir in $(awk '$1 == "L" { print $2 }' ~/.update-all)
 do
 	process $dir
 done
 
 if [ -x /usr/bin/pkg_add ]; then
 
-	doas pkg_add -vu -Dupdate # update installed binary ports.
+	echo Updating installed binary ports.
+	doas pkg_add -vu -Dupdate
 
-	doas pkg_delete -a # not "all" but "automatic" (gc)
+	echo Cleaning up # not "all" but "automatic" (gc)
+	doas pkg_delete -a 
 fi
