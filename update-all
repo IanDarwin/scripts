@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CONFIG=~/.update-all
+
 # update lots of repos, based on contents of your ~/.update-all file
 # file is a shell script, MUST contain this line:
 # H dir1
@@ -7,9 +9,12 @@
 # And MAY contain optional lines
 # L dir3
 # H for High, L for Low. Thus, sortable
+# B dir build-cmd args
+# Run build-cmd (after ALL H, before any L lines processed), in dir.
+# N.B.: 'b' commands are run whether full or minimal mode
 
-if [ ! -f ~/.update-all ]; then
-	echo 'Create ~/.update-all with gitdirs="updateable-dir1 updir2 ..."'
+if [ ! -f ${CONFIG} ]; then
+	echo 'Create ${CONFIG} as per documentation ..."'
 	exit 1
 fi
 
@@ -48,9 +53,14 @@ process() {
 	) 
 }
 
-for dir in $(awk '$1 == "H" { print $2 }' ~/.update-all)
+for dir in $(awk '$1 == "H" { print $2 }' ${CONFIG})
 do
 	process $dir
+done
+
+grep '^B' ${CONFIG} | while read b dir cmd
+do
+	(cd ~/$dir; echo "Running $cmd in $PWD"; $cmd)
 done
 
 case "${MODE}" in
@@ -58,7 +68,7 @@ case "${MODE}" in
 	full)		echo "But wait! There's more...";;
 esac
 
-for dir in $(awk '$1 == "L" { print $2 }' ~/.update-all)
+for dir in $(awk '$1 == "L" { print $2 }' ${CONFIG})
 do
 	process $dir
 done
