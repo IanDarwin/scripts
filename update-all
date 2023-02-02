@@ -43,7 +43,7 @@ process() {
 				git pull
 				git status
 			elif [ -d .svn ]; then
-				echo WOuld update SVN dir
+				echo Would update SVN dir
 			elif [ -d CVS ]; then
 				echo Would update CVS dir
 			fi
@@ -58,10 +58,7 @@ do
 	process $dir
 done
 
-grep '^B' ${CONFIG} | while read b dir cmd
-do
-	(cd ~/$dir; echo "Running $cmd in $PWD"; $cmd)
-done
+awk '$1 == "B" { print "cd",$2; $1=""; $2=""; print $0 }' ${CONFIG} | sh -x
 
 case "${MODE}" in
 	minimal)	echo "That's all, folks"; exit 0;;
