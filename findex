@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for f; do
+	grep -i "^$f" ~/git/SlideIndexer/slides_index.txt
+done
