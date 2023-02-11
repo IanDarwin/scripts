@@ -1,0 +1,4 @@
+for man
+do
+	open https://man.openbsd.org/$man
+done

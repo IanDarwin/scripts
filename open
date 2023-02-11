@@ -1,4 +1,4 @@
-#!/bin/ksh -f
+#!/bin/sh -f
 
 # simple emulation of MS-Windows' start command or OS X's open command:
 # deduce type of file, start its application (backgrounded).
@@ -7,6 +7,7 @@ case $(uname) in
 Darwin)	exec /usr/bin/open $@;;
 # Presumably this is under cygwin or similar...
 Windows) exec /c/program\ files/start $@;;
+MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $*;;
 esac
 
 BROWSER=NOT_SET

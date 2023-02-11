@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# pdb - pub.dev package
+
+for pkg
+do
+	start https://pub.dev/packages/$pkg
+done
