@@ -1,25 +1,11 @@
 #!/bin/sh
 
-# Learn "ham" (non-spam) words. For SpamAssassin &c.
+# Learn "spam" (non-ham) words. For rspamd
 
 set -eu
 
-MBDIR="$HOME/.thunderbird/ian.default/Mail/Local Folders"
-
-case $0 in
-	*ham)	MBOX=${MBDIR}/Inbox; MODE=ham;;
-	*spam)	MBOX=${MBDIR}/Junk;  MODE=spam;;
-	*)	echo "Illegal name in $0" >&2
-		exit 1
-		;;
-esac
-
-ls -l "${MBOX}"
-
-scp "${MBOX}" ${SERVER}:antispam/${MODE}
-
-ssh ${SERVER} "cd antispam; make learn${MODE}"
-
-case "${MODE}" in
-spam)	>"${MBOX}";;
-esac
+for f
+do
+	chmod a+r $f
+	doas -u _rspamd rspamc learn_spam $f
+done
