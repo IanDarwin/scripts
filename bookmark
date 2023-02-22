@@ -29,8 +29,8 @@ function usage {		# give usage message, and exit
 }
 
 function printTopics {
-	echo 'select id, name, description from topic order by description' |
-		"${PSQL} -d ${DBNAME}"
+	echo 'select id, description from topic order by description' |
+		${PSQL} -d ${DBNAME}
 }
 
 function autoTitle {
@@ -58,7 +58,7 @@ do
 	case "$opt" in
 		a)	autoTitle $2 $3;;
 		s)	search ${OPTARG};;
-		t)	printTopics;;
+		t)	printTopics; exit;;
 		u)	UPDATE=true;;
 		v)	VERBOSE=true;;
 		*)	usage;;
@@ -72,22 +72,24 @@ TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
 ID=$4
 
 case $# in
+0)	# Nothing, should already be done!
+	;;
 1)	# list bookmarks in topic
-	echo "select id, text, url from bookmark 
-		where topic_id = (select id from topic where name = '$1') order by created desc" |
-			$PSQL" -d ${DBNAME}"
+	echo "select id, text, url from bookmark
+		where topic_id = (select id from topic where id = '$1') order by text asc" |
+			$PSQL -d ${DBNAME}
 	;;
 3)	# insert
 	echo "insert into bookmark(owner,topic_id, url, text) 
-		values(1, (select id from topic where name = '$TOPIC'), '$URL', '$TEXT');" |
-			"$PSQL -d ${DBNAME}"
+		values(1, '$TOPIC', '$URL', '$TEXT');" |
+			$PSQL -d ${DBNAME}
 	;;
 4)	# update
-	echo "update bookmark set text = '$TEXT', url = '$URL', topic_id = (select id from topic where name = '$TOPIC') where  id = $ID;" |
-			"$PSQL -d ${DBNAME}"
+	echo "update bookmark set text = '$TEXT', url = '$URL', topic_id = '$TOPIC' where  id = $ID;" |
+			$PSQL -d ${DBNAME}
 	;;
-*)	# huh?
-	echo "Usage: $0 [-t|-u] topic [url text]" >&2
+*)	echo 'huh?'
+	usage
 	exit 1
 	;;
 esac
