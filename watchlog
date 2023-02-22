@@ -68,6 +68,7 @@ do
 		port*s)	LOG=~/portslog/`date +%Y-%m`;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		radicale)	LOG=/var/log/radicale;;
+		rspamd)		LOG=/var/log/rspamd/rspamd.log;;
 		secure)	LOG=/var/log/secure ;;
 		snort)	LOG=/var/log/snort/alert ;;
 		spam) watchlog -f mail & watchlog -f daemon&
