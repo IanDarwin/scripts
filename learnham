@@ -2,8 +2,6 @@
 
 # Learn "ham" (non-spam) words. For rspamd &c.
 
-set -eu
-
 for f
 do
 	chmod a+r $f
