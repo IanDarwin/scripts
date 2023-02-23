@@ -1,0 +1,80 @@
+#!/bin/sh
+
+CONFIG=~/.update-all
+
+# update lots of repos, based on contents of your ~/.update-all file
+# file is a shell script, MUST contain this line:
+# H dir1
+# H dir2
+# And MAY contain optional lines
+# L dir3
+# H for High, L for Low. Thus, sortable
+# B dir build-cmd args
+# Run build-cmd (after ALL H, before any L lines processed), in dir.
+# N.B.: 'b' commands are run whether full or minimal mode
+
+if [ ! -f ${CONFIG} ]; then
+	echo 'Create ${CONFIG} as per documentation ..."'
+	exit 1
+fi
+
+cd
+
+MODE=minimal
+case $1 in
+	"");;
+	-m) MODE=minimal;;
+	-a|-f) MODE=full;;
+esac
+
+process() {
+	dir=$1
+	(
+		if [ -d $dir ]; then
+			cd $dir >/dev/null 
+			if [ -d .git ]; then
+				echo
+				pwd
+				if [ "$force" == "YES" ]; then
+					git add .
+					git commit
+					git push
+				fi
+				git pull
+				git status
+			elif [ -d .svn ]; then
+				echo Would update SVN dir
+			elif [ -d CVS ]; then
+				echo Would update CVS dir
+			fi
+		else
+			echo "Directory '$dir' in list but no such directory here" >&2
+		fi
+	) 
+}
+
+for dir in $(awk '$1 == "H" { print $2 }' ${CONFIG})
+do
+	process $dir
+done
+
+awk '$1 == "B" { print "cd",$2; $1=""; $2=""; print $0 }' ${CONFIG} | sh -x
+
+case "${MODE}" in
+	minimal)	echo "That's all, folks"; exit 0;;
+	full)		echo "But wait! There's more...";;
+esac
+
+for dir in $(awk '$1 == "L" { print $2 }' ${CONFIG})
+do
+	process $dir
+done
+
+if [ -x /usr/bin/pkg_add ]; then
+
+	echo Updating installed binary ports.
+	doas pkg_add -vu -Dupdate
+
+	echo Cleaning up # not "all" but "automatic" (gc)
+	doas pkg_delete -a 
+fi

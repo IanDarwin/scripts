@@ -4,7 +4,7 @@
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
-USAGE="$0 -l|-x [-v][-z] old new"
+USAGE="$0 -l|-t|-x [-v][-z] old new"
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
@@ -13,10 +13,10 @@ function usage {		# give usage message, and exit
 
 MAIN_OP=x
 VERBOSE=
-while getopts "lvxz" opt 
+while getopts "ltvxz" opt 
 do 
 	case "$opt" in 
-		l)	MAIN_OP=t;;
+		l|t)	MAIN_OP=t;;
 		v)	VERBOSE=v;;
 		x)	MAIN_OP=x;;
 		z)	ZLIB=z;;
@@ -28,8 +28,8 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 for f
 do
 	ZLIB=""
-	case $f in
-	*.tgz|*.tz)	ZLIB=f;;
+	case "$f" in
+	*.tar.gz|*.tgz|*.tz)	ZLIB=z;;
 	esac
 	tar ${MAIN_OP}${VERBOSE}${ZLIB}f $f
 done

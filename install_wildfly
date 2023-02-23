@@ -1,0 +1,5 @@
+galleon install wildfly:current#26.1.2.Final \
+	--dir=/var/wildfly \
+	--default-configs=standalone/standalone.xml \
+	--layers=cdi,core-tools,datasources-web-server,deployment-scanner,ee,ee-security,ejb,jaxrs-server,jpa,jsf,management,naming,transactions
+

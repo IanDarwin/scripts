@@ -50,7 +50,7 @@ function autoTitle {
 
 function search {
 	echo "select id, topic_id, text, url from bookmark where lower(text) like lower('%$1%')" |
-		"${PSQL} -d ${DBNAME}"
+		${PSQL} -d ${DBNAME}
 }
 
 while getopts "as:tuv" opt

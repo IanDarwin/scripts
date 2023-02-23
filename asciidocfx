@@ -1,0 +1,9 @@
+app_home=.
+ALLJARS="$app_home/.install4j/i4jruntime.jar:$app_home/.install4j/launcherb29879e0.jar"
+for f in lib/*.jar
+do
+	ALLJARS=$f:$ALLJARS
+done
+	
+java -cp $ALLJARS install4j.com.kodedu.boot.AppStarter  "$@"
+
