@@ -10,10 +10,14 @@ Windows) exec /c/program\ files/start $@;;
 MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $*;;
 esac
 
+if [ -x /usr/bin/xdg-open -o -x /usr/local/bin/xdg-open ]; then
+	exec xdg-open "$@"
+fi
+
 BROWSER=NOT_SET
-if [ -x /usr/local/bin/firefox ]; then
+if [ -x /usr/bin/firefox -o -x /usr/local/bin/firefox ]; then
 	BROWSER=FIREFOX
-elif [ -x /usr/local/bin/chrome ]; then
+elif [ -x /usr/bin/chrome -o /usr/local/bin/chrome ]; then
 	BROWSER=CHROME
 else
 	echo "Unknown browser; modify $0 to accomodate!"
@@ -25,10 +29,6 @@ fi
 # Tries to handle various browsers and various arguments
 # Tries xdg-open from ports first if present, else $BROWSER
 function browser {
-	if [ -x /usr/local/bin/xdg-open ]; then
-		xdg-open $1
-		return
-	fi
 	case ${BROWSER} in
 	CHROME)
 		case ${1} in
@@ -47,6 +47,9 @@ function browser {
 			/*)  exec firefox -remote "openURL(file:${1})"& ;;
 			*) exec firefox -remote "openURL(file:`pwd`/${1} )"& ;;
 		esac
+		;;
+	*)	echo "No xdg-open found and no browser in default directory"
+		exit 1
 		;;
 	esac
 }
@@ -88,7 +91,7 @@ do
 			mgp ${f};;
 		*.mp3|*.ogg|*.avi|*.wav)
 			mplayer ${f};;
-		*.mp4|*.mpg|*.avi|*.mov)
+		*.mp4|*.mpg|*.avi|*.mov|*.mkv)
 			mplayer ${f};;
 		*.pro)
 			designer3 ${f} &;;

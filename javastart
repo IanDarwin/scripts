@@ -1,12 +1,13 @@
 #!/bin/sh
 
 # Start a bunch of Java apps in a single JVM.
-# bug - any one of them exits, and the whole thing dies;
-# MainStarter should setSecurityManager that refuses System.exit()
+# Bug - originally, any one of them exits, and the whole thing dies;
+# MainStarter does setSecurityManager that refuses System.exit(),
+# but the wise folks at Java 'terminally deprecated' that with NO REPLACEMENT
 
 JARDIR=${HOME}/lib
 FILE=mytools-1.0.2-SNAPSHOT-jar-with-dependencies.jar
 
 exec java -jar ${JARDIR}/${FILE} \
-	nag.Nagger
+	workflow.BreakNagger
 

@@ -14,6 +14,8 @@ open "https://www.myminifactory.com/search/?query=${Q}"
 
 open "https://www.thingiverse.com/search?q=${Q}"
 
+open "https://www.printables.com/search/all?q=${Q}"
+
 open "https://www.stlfinder.com/?search=${Q}"
 
 open "https://www.yeggi.com/q/${Q}/"
