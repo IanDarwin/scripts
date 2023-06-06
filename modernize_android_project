@@ -5,8 +5,6 @@
 G=git # or "" if not using Git as your VCS
 TMPL=~/git/AndroidTemplate
 
-set -e # stop on error
-
 if [ ! -d $TMPL ]; then
 	echo "Must have checked out https://github.com/IanDarwin/android_template into ~/git"
 	exit
@@ -22,14 +20,16 @@ if [ ! -f build.gradle ]; then
 	exit
 fi
 
+# No Android Devel on Eclipse anymore, fbofw
+$G rm -fr .project .classpath .settings 2>/dev/null
+
+set -e # stop on error
+
 if [ ! -d app ]; then
 	echo "Project is very old, lacks app folder. Rearranging it for you."
 	
 	# Bluntly re-org a project that was built pre-"app"-subdirectory
 	P=.
-
-	# No Android Devel on Eclipse anymore, fbofw
-	$G rm -fr $P/.project $P/.classpath $P/.settings
 
 	mkdir -p $P/app/src/main
 

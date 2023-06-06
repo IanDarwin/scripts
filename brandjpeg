@@ -8,6 +8,7 @@
 USAGE="$0 [-c textColor][-s pointsize][-t text][-v] imageFile [...]"
 
 TEXT_COLOR=white
+#       # XXX try to auto-scale this.
 SIZE=72 # good pointsize on 24MP 6000x4000 images, too big on smaller image.
 
 # Forgive the intrusion of Perl into your day, but it's an easy way
@@ -26,15 +27,16 @@ function usage {                # give usage message, and exit
         exit 1
 }
 
-while getopts "c:rs:t:v" opt 
+while getopts "c:f:rs:t:v" opt 
 do 
         case "$opt" in 
-		c)	TEXT_COLOR=${OPTARG};;
-		r)	OVERWRITE=yes;;
-		s)	SIZE=${OPTARG};;
-		t)	TEXT=${OPTARG};;
-                v)      VERBOSE=v;;
-                *)      usage;;
+		c) TEXT_COLOR=${OPTARG};;
+		f) FONT=${OPTARG};;
+		r) OVERWRITE=yes;;
+		s) SIZE=${OPTARG};;
+		t) TEXT=${OPTARG};;
+		v) VERBOSE=v;;
+		*) usage;;
         esac
 done
 shift `expr $OPTIND - 1`                 # leave just filenames
@@ -52,8 +54,8 @@ do
 		-font "${FONT}" \
 		-pointsize ${SIZE} \
 		-gravity SouthEast \
-		-stroke '#000C' -strokewidth 2 -annotate 0 "${TEXT}" \
-		-stroke  none   -fill ${TEXT_COLOR} -annotate 0 "${TEXT}" \
+		-stroke '#000C' -strokewidth 2 -annotate 0x0 "${TEXT}" \
+		-stroke  none   -fill ${TEXT_COLOR} -annotate 0x0 "${TEXT}" \
 		$OUTFILE
 	if [ ${OVERWRITE} = yes ]; then
 		mv branded_$FILE $FILE
