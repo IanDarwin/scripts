@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Run amd64 Linux under Qemu
+
+cd ~/disks
+exec qemu-system-x86_64 \
+	-m 1024 \
+	-hda ubuntu.raw \
+	-cdrom ubuntu-18.04.6-live-server-amd64.iso \
+	-boot c \
+	$*
