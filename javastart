@@ -6,8 +6,10 @@
 # but the wise folks at Java 'terminally deprecated' that with NO REPLACEMENT
 
 JARDIR=${HOME}/lib
-FILE=mytools-1.0.2-SNAPSHOT-jar-with-dependencies.jar
+#FILE=mytools-1.0.2-SNAPSHOT-jar-with-dependencies.jar
+FILE=darwinsys-api-1.7.7-SNAPSHOT-jar-with-dependencies.jar
 
 exec java -jar ${JARDIR}/${FILE} \
-	workflow.BreakNagger
+	com.darwinsys.jclipboard.JClipBoard \
+	com.darwinsys.workflow.BreakNagger
 
