@@ -1,0 +1,15 @@
+#!/bin/ksh
+
+# Count the number of commands accessible
+# in the "standard" distributed directories.
+
+count=0
+
+for dir in /bin /usr/bin /sbin /usr/sbin # /usr/local/bin /opt/bin
+do
+	dcount=$(find $dir -type f -a -perm -1|wc -l)
+	((count=$count+$dcount))
+	echo $dir $count
+done
+echo $count
+

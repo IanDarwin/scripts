@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# run linux under qemu
-
-cd ~/disks
-exec /usr/local/bin/qemu -kernel-kqemu -m 256 \
-	-hda ubuntu.hd \
-	-cdrom /dev/cd0c \
-	-boot c $*

@@ -4,16 +4,18 @@
 
 # USE WITH CAUTION! USE AT OWN RISK! Failures may lose pictures - take a backup first
 
-# Looks for this in exiv2 output:
-# Image timestamp : 2020:08:06 09:30:08
-
 USAGE="$0 [-v] old new"
+
+# Sample entry: Image timestamp : 2023:07:28 19:46:53
+# Sample entry: Exif.Image.DateTime Ascii 20  2023:07:09 13:02:10
+# Note that in both, $4 is the yyyy:mm:dd that we use in awk below.
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
 	exit 1
 }
 
+# Make sure we are in right folder
 cd ~/Pictures
 
 RUNNER=sh
@@ -32,9 +34,6 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 # Bomb on first failure, try to avoid losing pix:
 set -e
 
-# Make sure we are in right folder
-cd ~/Pictures
-
 for f in $@
 do
   if [ ! -f "$f" ]; then
@@ -42,19 +41,18 @@ do
 	continue;
   fi
   exiv2 -g Date "$f" |      
-	awk '$0 ~ /^Image timestamp : ....:..:../ || 
-		$0 ~ /^Exif.Image.DateTime/ ||
-		$0 ~ /^Exif.GPSInfo.GPSDateStamp/ {
-		if (!found) {
+	awk '
+		BEGIN { found = 0 }
+		$0 ~ /^Image timestamp : ....:..:../ ||
+		$0 ~ /Exif.Image.DateTime/ {
 			gsub(":","/",$4)
-			printf "if [ ! -d "%s" ]; then mkdir -p %s; fi\n", $4, $4
+			printf "if [ ! -d \"%s\" ]; then mkdir -p \"%s\"; fi\n", $4, $4
 			base=F; sub(".*/", "", base)
 			printf "if [ -f \"%s/%s\" ]; then echo DUPE \"%s/%s\"; else mv \"%s\" \"%s/\"; fi\n", $4, base, $4, F, F, $4
 			found = 1
 		}
-	}
-	END { if (!found) {
-		print "echo storepixbydate: '$f': no image timestamp, not moving."
+		END { if (!found) {
+			print "echo storepixbydate: '$f': no image timestamp, not moving."
 		}
 	}' F="$f"
 done | ${RUNNER}
