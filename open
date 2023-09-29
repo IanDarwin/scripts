@@ -43,9 +43,9 @@ function browser {
 		;;
 	FIREFOX)
 		case ${1} in
-			http*) exec firefox -remote "openURL(${1})"& ;;
-			/*)  exec firefox -remote "openURL(file:${1})"& ;;
-			*) exec firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+			http*) exec firefox "${1}"& ;;
+			/*)  exec firefox "${1}"& ;;
+			*) exec firefox "`pwd`/${1}"& ;;
 		esac
 		;;
 	*)	echo "No xdg-open found and no browser in default directory"
@@ -93,6 +93,10 @@ do
 			mplayer ${f};;
 		*.mp4|*.mpg|*.avi|*.mov|*.mkv)
 			mplayer ${f};;
+		*.odt|*.doc|*.docx) exec swriter "$f" &;;
+		*.odp|*.p[po]t|*.pptx) exec simpress "$f" &;;
+		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
+		*.odg) exec soffice "${f}" &;;
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
@@ -111,16 +115,8 @@ do
 			fi
 			;;
 		*.ps)	gs "${f}" & ;;
-		# sla, svg, and swf must go before *.s??
-		#*.svg)	browser "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
-		*.odt|*.doc|*.docx) exec soffice "$f" &;;
-		*.odp|*.p[po]t|*.pptx) exec soffice "$f" &;;
-		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
-		*.odg) exec soffice "${f}" &;;
-		*.s??|*.o??) exec soffice "${f}" &;;
-		*.sla)	scribus "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;
