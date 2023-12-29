@@ -8,7 +8,7 @@ SITE=ca			# Canada
 Q="$@"
 Q="$(echo $Q | tr ' ' '+')"
 
-open "https://cults3d.com/en/search?utf8=✓&q=${Q}"
+open "https://cults3d.com/en/search?q=${Q}"
 
 open "https://www.myminifactory.com/search/?query=${Q}"
 

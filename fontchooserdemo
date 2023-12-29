@@ -1,5 +1,5 @@
-#!/bin/ksh
+#!/bin/sh
 
-# Show off my font chooser
+# show my font chooser
 
-java -cp $HOME/lib/darwinsys.jar:$HOME/git/javasrc/desktop/target/classes gui.FontChooserDemo
+java -cp $js/desktop/target/classes:/home/ian/lib/darwinsys-api-1.7.7-SNAPSHOT.jar gui.FontChooserDemo

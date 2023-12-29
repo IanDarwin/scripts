@@ -1,3 +1,5 @@
 #!/bin/sh
 
-exec java -jar ~/lib/bookmarks-swingui-1.0.0-SNAPSHOT-jar-with-dependencies.jar $*
+JDKOPTS="-Djdk.gtk.verbose=true -Djdk.gtk.version=2"
+
+exec java ${JDKOPTS} -jar ~/lib/bookmarks-swingui-1.0.0-SNAPSHOT-jar-with-dependencies.jar $*

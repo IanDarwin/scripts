@@ -10,9 +10,9 @@ Windows) exec /c/program\ files/start $@;;
 MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $*;;
 esac
 
-if [ -x /usr/bin/xdg-open -o -x /usr/local/bin/xdg-open ]; then
-	exec xdg-open "$@"
-fi
+#if [ -x /usr/bin/xdg-open -o -x /usr/local/bin/xdg-open ]; then
+#	exec xdg-open "$@"
+#fi
 
 BROWSER=NOT_SET
 if [ -x /usr/bin/firefox -o -x /usr/local/bin/firefox ]; then
@@ -27,7 +27,6 @@ fi
 #echo "$*" > /tmp/start.log
 
 # Tries to handle various browsers and various arguments
-# Tries xdg-open from ports first if present, else $BROWSER
 function browser {
 	case ${BROWSER} in
 	CHROME)
@@ -100,7 +99,7 @@ do
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			PDFERS="evince okular kpdf xpdf"
+			PDFERS="qpdfview evince okular kpdf xpdf"
 			FOUND=no
 			for peeper in $PDFERS; do
 				if [ -x /usr/bin/$peeper -o -x /usr/local/bin/$peeper ]; then

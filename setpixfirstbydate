@@ -29,4 +29,6 @@ do
 		-M"set Exif.Image.DateTime ${DATE} ${TIME}" \
 		-M"set Exif.Photo.DateTimeOriginal ${DATE} ${TIME}" \
 			$pic
+	exiv2 --delete --key Xmp.xmp.CreateDate $pic
+	touch "${DATE}T${TIME}" $pic
 done

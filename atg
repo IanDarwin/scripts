@@ -1,16 +1,11 @@
 #!/bin/sh
 
-[ -w / ] || {
-	echo be root
-	exit 1
-}
-
 GF=/etc/group
 
 USAGE="$0 [-v] user group [...]"
 
 function usage {		# give usage message, and exit
-	echo "Usage: ${USAGE}" 2>&1
+	echo "Usage: # ${USAGE}" 2>&1
 	exit 1
 }
 
@@ -22,6 +17,10 @@ do
 	esac
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
+
+[ -w / ] || {
+	usage
+}
 
 U=$1; shift
 
