@@ -1,16 +1,23 @@
 #!/bin/sh
 
-[ -w / ] || {
-	echo be root
-	exit 1
-}
-
-GF=/etc/group
+# atg - add to group
 
 USAGE="$0 [-v] user group [...]"
 
+GF=/etc/group
+
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+case $# in
+	0) usage;;
+	*) ;;
+esac
+
+[ -w / ] || {
+	echo be root
 	exit 1
 }
 
