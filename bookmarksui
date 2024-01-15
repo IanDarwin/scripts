@@ -1,5 +1,5 @@
 #!/bin/sh
 
-JDKOPTS="-Djdk.gtk.verbose=true -Djdk.gtk.version=2"
+JDKOPTS="-Djdk.gtk.version=2 --enable-preview"
 
 exec java ${JDKOPTS} -jar ~/lib/bookmarks-swingui-1.0.0-SNAPSHOT-jar-with-dependencies.jar $*
