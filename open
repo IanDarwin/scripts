@@ -4,16 +4,20 @@
 # deduce type of file, start its application (backgrounded).
 
 case $(uname) in
-Darwin)	exec /usr/bin/open $@;;
+Darwin)	exec /usr/bin/open "$@";;
 # Presumably this is under cygwin or similar...
 Windows) exec /c/program\ files/start $@;;
 MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $*;;
 esac
 
+#if [ -x /usr/bin/xdg-open -o -x /usr/local/bin/xdg-open ]; then
+#	exec xdg-open "$@"
+#fi
+
 BROWSER=NOT_SET
-if [ -x /usr/local/bin/firefox ]; then
+if [ -x /usr/bin/firefox -o -x /usr/local/bin/firefox ]; then
 	BROWSER=FIREFOX
-elif [ -x /usr/local/bin/chrome ]; then
+elif [ -x /usr/bin/chrome -o /usr/local/bin/chrome ]; then
 	BROWSER=CHROME
 else
 	echo "Unknown browser; modify $0 to accomodate!"
@@ -23,12 +27,7 @@ fi
 #echo "$*" > /tmp/start.log
 
 # Tries to handle various browsers and various arguments
-# Tries xdg-open from ports first if present, else $BROWSER
 function browser {
-	if [ -x /usr/local/bin/xdg-open ]; then
-		xdg-open $1
-		return
-	fi
 	case ${BROWSER} in
 	CHROME)
 		case ${1} in
@@ -43,10 +42,13 @@ function browser {
 		;;
 	FIREFOX)
 		case ${1} in
-			http*) exec firefox -remote "openURL(${1})"& ;;
-			/*)  exec firefox -remote "openURL(file:${1})"& ;;
-			*) exec firefox -remote "openURL(file:`pwd`/${1} )"& ;;
+			http*) exec firefox "${1}"& ;;
+			/*)  exec firefox "${1}"& ;;
+			*) exec firefox "`pwd`/${1}"& ;;
 		esac
+		;;
+	*)	echo "No xdg-open found and no browser in default directory"
+		exit 1
 		;;
 	esac
 }
@@ -88,12 +90,16 @@ do
 			mgp ${f};;
 		*.mp3|*.ogg|*.avi|*.wav)
 			mplayer ${f};;
-		*.mp4|*.mpg|*.avi|*.mov)
+		*.mp4|*.mpg|*.avi|*.mov|*.mkv)
 			mplayer ${f};;
+		*.odt|*.doc|*.docx) exec swriter "$f" &;;
+		*.odp|*.p[po]t|*.pptx) exec simpress "$f" &;;
+		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
+		*.odg) exec soffice "${f}" &;;
 		*.pro)
 			designer3 ${f} &;;
 		*.pdf)	
-			PDFERS="evince okular kpdf xpdf"
+			PDFERS="qpdfview evince okular kpdf xpdf"
 			FOUND=no
 			for peeper in $PDFERS; do
 				if [ -x /usr/bin/$peeper -o -x /usr/local/bin/$peeper ]; then
@@ -108,16 +114,8 @@ do
 			fi
 			;;
 		*.ps)	gs "${f}" & ;;
-		# sla, svg, and swf must go before *.s??
-		#*.svg)	browser "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
-		*.odt|*.doc|*.docx) exec soffice "$f" &;;
-		*.odp|*.p[po]t|*.pptx) exec soffice "$f" &;;
-		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
-		*.odg) exec soffice "${f}" &;;
-		*.s??|*.o??) exec soffice "${f}" &;;
-		*.sla)	scribus "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;

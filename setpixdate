@@ -2,7 +2,7 @@
 
 # setpixdate - set the "original" timestamp on jpeg or other exif image
 
-DATE="1970:06:06"
+DATE="1970:01:01"
 TIME="12:00:00"
 OWNER="Ian F. Darwin"
 
@@ -14,9 +14,10 @@ function usage {		# give usage message, and exit
 }
 
 
-while getopts "d:" opt 
+while getopts "d:h" opt 
 do 
  	 case "$opt" in 
+		d)	DATE=$OPTARG;;
 		h)	usage;;
 		*)	usage;;
 	esac

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-recipe=$1
-
-psql -d andcook <<!
-
-insert into recipe(id,owner) values(${recipe}, 1);
-
-!

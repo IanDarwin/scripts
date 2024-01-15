@@ -81,10 +81,16 @@ do
 		arw Pictures
 		ARW Pictures
 		mp4 movies
+		MP4 movies
+		THM movies
 		mov movies
 		mpg movies
 		3gp movies
 !
+
+		if [ -d /mnt/MP_ROOT/100* ]; then
+			mv /mnt/MP_ROOT/100*/* ~/Movies/
+		fi
 
 		(
 		cd ${DEST_DIR}
@@ -138,10 +144,10 @@ case ${SETCOPYR} in
 		;;
 esac
 
-echo "View? [no,o)pen,d)igicam,g)wenview,xv] \c"
+echo "View? [no,o)pen,d)igikam,g)wenview,xv] \c"
 read view
 case ${view} in
-	d*)	digicam . &;;
+	d*)	digikam . &;;
 	g*)	gwenview . &;;
 	o*) open .;;
 	x*)	xv * &;;
@@ -150,6 +156,6 @@ esac
 echo -n "Initiate backup? [yn]"
 read bkup
 case ${bkup} in
-	y*)	cd; make backup;;
+	y*)	cd Pictures; make backup;;
 	*)	echo "OK, but make sure you do it soon!";;
 esac

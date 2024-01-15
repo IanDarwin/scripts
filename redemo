@@ -2,4 +2,4 @@
 
 # run my Regular Expressions demo/learning tool
 
-java -classpath $HOME/lib/darwinsys.jar:$HOME/workspace/darwinsys-api/target/classes com.darwinsys.regex.REDemo
+java -classpath $HOME/lib/darwinsys.jar:$HOME/git/darwinsys-api/target/classes com.darwinsys.regex.REDemo

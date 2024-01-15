@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Given a login name, print it along with the person field (which
+# is the first subfield of the so-called "GECOS" field).
+# Sometimes '&' is used as an alias, as in
+# root:*:0:0:Charlie &:/root:/bin/ksh
+
+for f in $*
+do
+	grep "^$f:" /etc/passwd 
+done | 
+	awk -F: '{sub(/,.*/,"",$5); sub(/&/,$1,$5); print $1, $5}'

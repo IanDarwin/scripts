@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# setpixastitle - set timestamp to zero to make it show first in viewers.
+
+TIME="00:00:00"
+
+USAGE="$0 file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: $USAGE" 2>&1
+	exit 1
+}
+
+while getopts "d:" opt 
+do 
+ 	 case "$opt" in 
+		h)	usage;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+for pic in $*
+do
+	DATETIME=$(exiv2 --key Exif.Image.DateTime $pic)
+	DATE=$(echo $DATETIME | awk '{print $4}')
+
+	exiv2 \
+		-M"set Exif.Image.DateTime ${DATE} ${TIME}" \
+		-M"set Exif.Photo.DateTimeOriginal ${DATE} ${TIME}" \
+			$pic
+	exiv2 --delete --key Xmp.xmp.CreateDate $pic
+	touch "${DATE}T${TIME}" $pic
+done
