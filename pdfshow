@@ -1,1 +1,1 @@
-java -jar ~ian/lib/pdfshow-1.?.?-jar-with-dependencies.jar $* &
+java --enable-preview -jar ~ian/lib/pdfshow-1.?.?-jar-with-dependencies.jar $* &
