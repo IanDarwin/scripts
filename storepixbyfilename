@@ -29,7 +29,12 @@ public class foo {
 			var name = Path.of(fileName).getFileName();
 			System.out.println(STR."Moving file \{fileName} into \{date}/\{name}");
 			Files.createDirectories(Path.of(date));
-			Files.move(Path.of(fileName), Path.of(date).resolve(name));
+			var dest = Path.of(date).resolve(name);
+			if (Files.exists(dest)) {
+				System.err.println(STR."DUPLICATE/EXISTS \{dest}");
+				continue;
+			}
+			Files.move(Path.of(fileName), dest);
 		}
 	}
 }
