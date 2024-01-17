@@ -3,21 +3,22 @@
 // Move files into subdirectories by name
 // Files MUST have filenames like you get from Google,
 // eg., "IMG_20220127_083444.jpg" or
+// Screenshot_20210915-075917_Calendar.png or
 // PXL_20220801_124723724.jpg"; these will wind up in
 // subdirs ./2022/01/27 and ./2022/08/01 respectively.
 
 // Must be run in the Pictures directory or other top-level dir.
 
-// For now you have to pipe the output into sh/ksh/bash;
-// I hope to eventually fold that in.
-
+import java.io.*;
+import java.nio.file.*;
 import java.util.regex.*;
 
 public class foo {
 
-	static Pattern REGEX = Pattern.compile(".*_(20\\d\\d)(\\d\\d)(\\d\\d)_.*");
+	static Pattern REGEX = Pattern.compile(".*[-_](20\\d\\d)(\\d\\d)(\\d\\d)[-_].*");
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		System.out.println("Starting...");
 		for (String fileName : args) {
 			Matcher matcher = REGEX.matcher(fileName);
 			if (!matcher.matches() || matcher.groupCount() != 3) {
@@ -25,10 +26,10 @@ public class foo {
 				continue;
 			}
 			String date = STR."\{matcher.group(1)}/\{matcher.group(2)}/\{matcher.group(3)}";
-			System.out.println(STR."echo file \{fileName} date \{date}");
-			System.out.println(STR."mkdir -p \{date}");
-			System.out.println(STR."mv \{fileName} \{date}/");
+			var name = Path.of(fileName).getFileName();
+			System.out.println(STR."Moving file \{fileName} into \{date}/\{name}");
+			Files.createDirectories(Path.of(date));
+			Files.move(Path.of(fileName), Path.of(date).resolve(name));
 		}
 	}
-
 }
