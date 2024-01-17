@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/ksh
 
 # newgitrepo - create a new local GIT repo
 
-cd /git
+cd /git || exit
 
 case $# in
 1)	;;
@@ -16,7 +16,7 @@ esac
 	exit 1
 }
 
-NEWPROJ=$1
+NEWPROJ=${1:?"Usage: $0 newprojname"}
 
 set -e # next steps must not fail
 
