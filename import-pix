@@ -144,13 +144,13 @@ case ${SETCOPYR} in
 		;;
 esac
 
-echo "View? [no,o)pen,d)igikam,g)wenview,q)eegie,xv] \c"
+echo "View? [no,o)pen,d)igikam,g)wenview,q)geegie,xv] \c"
 read view
 case ${view} in
 	d*)	digikam . &;;
 	g*)	gwenview . &;;
 	o*) open .;;
-	q*) qeegie .;;
+	q*) geeqie .;;
 	x*)	xv * &;;
 esac
 
