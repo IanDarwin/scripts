@@ -1,0 +1,8 @@
+#!/bin/sh
+
+JARDIR=${HOME}/lib
+FILE=darwinsys-api-1.7.7-SNAPSHOT-jar-with-dependencies.jar
+
+exec java -classpath ${JARDIR}/${FILE} \
+	com.darwinsys.workflow.BreakNagger
+

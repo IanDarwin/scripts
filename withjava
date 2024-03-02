@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # withjava - run a java program with a given java version
+# when you don't want to change path/alternative/etc permanently
 
 case `uname` in
 	OpenBSD)
@@ -9,6 +10,7 @@ case `uname` in
 			11)		VER=11;;
 			16)		VER=16;;
 			17)		VER=17;;
+			21)		VER=21;;
 			*)		echo "Unsupported ver $1"; exit 1;;
 		esac
 		DIR=/usr/local/jdk-$VER
@@ -32,9 +34,9 @@ esac
 shift 1		# remove version
 
 export JAVA_HOME=$DIR
-echo Prepending $JAVA_HOME/bin to PATH
+: Prepending $JAVA_HOME/bin to PATH
 export PATH=$JAVA_HOME/bin:$PATH
-echo  Using JAVA_HOME=$DIR $* in $PWD
+:  Using JAVA_HOME=$DIR $* in $PWD
 
 unset JDK_HOME
 
