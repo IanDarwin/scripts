@@ -10,7 +10,7 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-HOST=mail.darwinsys.com
+HOST=${SERVER}
 
 while getopts "h:" opt 
 do 
