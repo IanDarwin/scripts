@@ -10,7 +10,7 @@ case $# in
 esac
 disk=$1
 
-BS=100m
+BS=500m
 
 function devi {
 case ${1} in
@@ -22,7 +22,7 @@ esac
 echo $DEV
 }
 
-disklabel ${disk}
+disklabel -h ${disk}
 
 echo -n "OK to totally erase disk ${disk}"?
 read ans
