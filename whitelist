@@ -1,22 +1,11 @@
 #!/bin/sh
 
-WHITELIST=/etc/mail/mywhite.txt
+WHITELIST=/etc/rspamd/local.d/whitelist.sender.domain.map
 
-[ -w ${WHITELIST} ] || {
+[ -w / ] || {
 	echo "Be walking root, be talking dogs." >&2
 	exit 1
 }
 
-IP=${1?"Usage: $0 IP [comment]"}
-COMMENT=${2-"whitelist"}
-
-(
-echo '#' ${COMMENT}
-echo ${IP}
-) >> ${WHITELIST}
-
-pfctl -t mywhite -T add ${IP}
-
-doas spamdb -d -G ${IP}
-doas spamdb -a ${IP}
+echo ${IP} >> ${WHITELIST}
 
