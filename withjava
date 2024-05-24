@@ -33,6 +33,11 @@ esac
 
 shift 1		# remove version
 
+if [ ! -d "$DIR" ]; then
+	echo "$0: cannot find ${DIR}"
+	exit 1
+fi
+
 export JAVA_HOME=$DIR
 : Prepending $JAVA_HOME/bin to PATH
 export PATH=$JAVA_HOME/bin:$PATH
