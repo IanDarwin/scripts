@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# qrcontact - make a QR code with one's VCARD
+# dependency: Python install of 'qrcode' package
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+USAGE="$0 [-a post-honorific][-b pre-honorific][-g] fname lname email url [photo-url]"
+
+if [ $# -lt 4 ]; then
+	echo $USAGE
+	exit 1
+fi
+
+while getopts "b:a:gv" opt
+do
+	case "$opt" in
+		b)	HONORIFIC_BEFORE=$OPTARG;;
+		a)	HONORIFIC_AFTER=$OPTARG;;
+		g)	USE_GRAVATAR=true;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+FIRSTNAME="$1"
+LASTNAME="$2"
+EMAIL="$3"
+URL=$4
+if [ $USE_GRAVATAR = "true" ]; then
+	hash=$(echo -n ${EMAIL} | sha256)
+	PHOTO_URL=https://gravatar.com/avatar/$hash
+fi
+if [ "$#" -gt 4 -a "$PHOTO_URL" = "" ]; then
+	PHOTO_URL=$5
+fi
+
+echo "BEGIN:VCARD
+VERSION:4.0
+FN:${FIRSTNAME} ${LASTNAME}
+N:${LASTNAME};${FIRSTNAME};;$HONORIFIC_BEFORE;$HONORIFIC_AFTER
+PHOTO;MEDIATYPE=image/jpeg:${PHOTO_URL}
+EMAIL;TYPE=work:${EMAIL}
+URL:${URL}
+END:VCARD
+" |
+	qr --factory=svg
