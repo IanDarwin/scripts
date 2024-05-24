@@ -7,5 +7,13 @@ WHITELIST=/etc/rspamd/local.d/whitelist.sender.domain.map
 	exit 1
 }
 
-echo ${IP} >> ${WHITELIST}
+for IP
+do
 
+	echo ${IP} >> ${WHITELIST}
+
+	sort -u -o ${WHITELIST} ${WHITELIST}
+
+	grep -C3 ${IP} ${WHITELIST}
+
+done
