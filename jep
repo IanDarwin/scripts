@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for n
+do
+	open https://openjdk.org/jeps/${n}
+done
