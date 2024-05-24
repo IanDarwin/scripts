@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Enter or list the todo database
+# Enter or list the todo database (postgresql db todo on $SERVER)
 
 PRIO=MEDIUM # Top=0, High=1, Medium=2, Low=3
 CONTEXT=null
@@ -9,7 +9,6 @@ MORE='more -e'
 if [ ! -t 0 ]; then
 	MORE=cat
 fi
-REST=""
 VERB=insert
 case $# in
 	0) VERB=LIST;;
@@ -20,10 +19,11 @@ function usage {		# give usage message, and exit
 	exit 1
 }
 
-USAGE="$0 [-c context][-p prio][-d id] [-t type] description of some task"
-while getopts "c:d:lp:t:v" opt 
+USAGE="$0 category | [-a] | [-c context][-p prio][-d id] [-t type] name of new task"
+while getopts "ac:d:lp:t:v" opt 
 do 
 	case "$opt" in 
+		a)	VERB=LISTALLCATS;;
 		c)	CONTEXT=$OPTARG;;
 		d)	VERB=delete
 			ID=$OPTARG
@@ -36,7 +36,15 @@ do
 		*)	usage;;
 	esac
 done
-shift `expr $OPTIND - 1`		 # leave just filenames
+shift `expr $OPTIND - 1`		 # leave just category, or words to add
+
+case $# in
+	1)	# Assume category list request
+		context=$1
+		VERB=LISTBYCAT
+		;;
+esac
+		
 
 # Convert Priorities to int
 case ${PRIO} in
@@ -55,12 +63,17 @@ esac
 #	COMPLETE; 3
 
 
-# Should do same for Context?
-
 case ${VERB} in
-	LIST)
-		CMD="select t.id, t.priority, (select c.name as Context from context c where t.context_id = c.id), t.name from todo t where status != 3 ${REST} order by t.priority asc, t.name asc;"
+	LISTALLCATS)
+		CMD="SELECT c.id, c.name FROM context c ORDER BY c.name;"
 		POST="| sed 1,2d"
+		;;
+	LISTBYCAT)
+		CMD="SELECT t.id, t.priority, t.name from todo t WHERE status <= 1 AND t.context_id = 
+			(SELECT c.id FROM context c WHERE c.name = '$context');"
+		;;
+	LIST)
+		CMD="SELECT t.id, t.priority, (SELECT c.name AS Context FROM context c WHERE t.context_id = c.id), t.name from todo t where status <= 1 order by t.context_id asc, t.name asc;"
 		;;
 	delete) CMD="delete from todo where id = ${ID};";;
 	insert) CMD="insert into todo(name,type_id,priority) values('$*', '$TYPE', '$PRIO');";;
