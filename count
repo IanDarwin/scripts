@@ -8,7 +8,7 @@ fi
 start=$1
 end=$2
 by=${3-1}
-echo "# $start .. $end by $by"
+# $start .. $end by $by
 i=$start
 while [ $i -le $end ]
 do
