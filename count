@@ -1,10 +1,17 @@
-#!/usr/bin/perl
+#!/bin/ksh
 
-die "Usage: count start end" unless ($#ARGV > 0);
+if [ $# -lt 2 -o $# -gt 3 ]; then
+	echo "Usage: count start end"
+	exit 1
+fi
 
-$start = @ARGV[0];
-$end   = @ARGV[1];
-# print "# $start .. $end\n";
-for ($i=$start; $i <= $end; $i++) {
-	print "$i\n";
-}
+start=$1
+end=$2
+by=${3-1}
+echo "# $start .. $end by $by"
+i=$start
+while [ $i -le $end ]
+do
+	echo "$i"
+	i=$(expr $i + $by)
+done
