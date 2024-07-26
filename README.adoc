@@ -9,7 +9,7 @@ When I started it was Bourne shell all the way. Ksh and Bash came later; both ar
 largely upwards-compatible from Bourne, so older scripts will still run.
 
 Most of the scripts should run on any modern POSIX/Unix/Linux system, but some will not.
-While the early work was done on PDP-11 Unix, Solaris, and other systems including Linux,
+While the early work was done on PDP-11 and VAX-32 Unix, Solaris, and other systems including Linux,
 almost all the recent work has been on OpenBSD and Mac OS X.
 Also, some of them depend on having installed certain Java programs (some of which
 can be found in my other repos). Some of those install in your Maven
