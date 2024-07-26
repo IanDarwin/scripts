@@ -80,8 +80,9 @@ do
 		www)	exec xtail /var/log /var/tomcat/logs;;
 		wf|wildfly) LOG=${wf}/standalone/log/server.log;;
 		wfa|wfaccess)	LOG=${wf}/standalone/log/access_log.log;;
-		x|X)	LOG=/var/log/XFree86.0.log;;
-		x|xs|xsess*|xerr*) LOG=~/.xsession-errors;;
+		xe*)	LOG=/var/log/xenodm.log;;
+		xs|xsess*|xerr*) LOG=~/.xsession-errors;;
+		x|X)	LOG=/var/log/Xorg.0.log;;
 		*0|*1) exec	doas doas tcpdump -ni $*;;
 		*)	echo "Unknown service $f" >&2
 			continue;;
