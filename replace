@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/bin/ksh
 
 # replace: replace str1 in files with str2, in place, via sed -i
 
 PATH=/bin:/usr/bin:$PATH; export PATH
 
-case $# in
-	0|1|2)	echo 'Usage: replace str1 str2 files' 1>&2; exit 1;;
-esac
+if [[ $# -lt 3 ]]; then
+	echo 'Usage: replace str1 str2 files' 1>&2; exit 1
+fi
 
 oldPatt="$1"; newStr="$2"; shift; shift
 
 for i
 do
-	sed -E -i.bak -e "s!$oldPatt!$newStr!g" $i
+	sed -E -i.bak -e "s#$oldPatt#$newStr#g" $i
 done
