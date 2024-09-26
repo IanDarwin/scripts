@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# invoke openrewrite in the current directory with recipe $1
+
+set -x
+
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+    -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE\
+    -Drewrite.activeRecipes=$1
