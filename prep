@@ -4,8 +4,13 @@
 # Intended for use in text processing scripts.
 # Ancient unix magic but still works.
 # Earlier versions were used as an example in various Bell Labs
-# talks and papers; I made this version in the mid-1980's
+# talks and papers by Lorinda Cherry; I made this version mid-1980's:
 
-cat $* |
-	tr A-Z a-z | tr -cd 'a-z \n' | tr -s ' ' '\n'
+# Conceptually:
+# cat $* |
+# 	tr A-Z a-z | tr -cd 'a-z \n' | tr -s ' ' '\n'
+
+# Now I use my own Java version:
+
+exec java -cp ~/classes textproc.Prep $*
 
