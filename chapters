@@ -1,3 +1,0 @@
-#!/bin/sh
-
-psql -d andcook -c 'select id,index,name from chapter order by index';
