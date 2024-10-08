@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Not a statement about how bad Brexit was.
+# Rename the master branch to main
+
+[[ -f .git/config ]] || {
+	echo "Run $0 in your local git repo"
+	exit 1
+}
+
+git branch -m master main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a
+
