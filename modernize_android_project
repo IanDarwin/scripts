@@ -3,10 +3,11 @@
 # Update an old Android project with new config files.
 
 G=git # or "" if not using Git as your VCS
-TMPL=~/git/AndroidTemplate
+T=AndroidTemplate
+TMPL=~/git/$T
 
 if [ ! -d $TMPL ]; then
-	echo "Must have checked out https://github.com/IanDarwin/android_template into ~/git"
+	echo "Must have checked out https://github.com/IanDarwin/$T into ~/git"
 	exit
 fi
 
@@ -39,7 +40,7 @@ if [ ! -d app ]; then
 
 	$G mv    $P/res $P/app/src/main/
 
-	rmdir src
+	rmdir src/main src
 fi
 
 echo "Now we will copy some files from $TMPL into $PWD"
