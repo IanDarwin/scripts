@@ -5,6 +5,22 @@
 
 for crt
 do
-	echo "=== crt ==="
-	openssl x509 -text -noout -in $crt
+	case $crt in
+	*.crt)
+		echo "=== crt ==="
+		openssl x509 -text -noout -in $crt
+		;;
+	*.p12)
+		echo "=== pkcs12 ==="
+		openssl pkcs12 -in $crt -nodes |
+			openssl x509 -noout -subject
+		;;
+	*.jks)
+		echo "=== Java Keystore ==="
+		keytool -v --keystore $crt --list
+		;;
+	*)
+		echo "$0: $crt: unknown format (yet)"
+		;;
+	esac
 done
