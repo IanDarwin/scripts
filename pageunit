@@ -7,6 +7,6 @@
 
 # If the version number has grown, update V to match:
 
-V=1.0.3-SNAPSHOT
+V=1.1.0-SNAPSHOT
 
 java -jar ~/lib/pageunit-${V}-jar-with-dependencies.jar $*
