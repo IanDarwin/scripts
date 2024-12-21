@@ -1,0 +1,11 @@
+#!/bin/ksh
+
+for f in $*
+do
+	echo first loop $f
+done
+
+for f in "$@"
+do
+	echo second loop $f
+done
