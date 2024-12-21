@@ -116,6 +116,7 @@ do
 		*.ps)	gs "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
+		*.stl)	prusa-slicer "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;
