@@ -1,0 +1,5 @@
+#!/bin/sh
+
+LOG=$(mktemp /tmp/XXXXXXXXXX)
+
+\java -jar ~/lib/aipen*.jar > $LOG 2>&1

@@ -1,0 +1,6 @@
+for d in *
+do
+	if [ -d $d -a ! -f $d/package.html ]; then 
+		echo Missing package.html in $d; 
+	fi
+done

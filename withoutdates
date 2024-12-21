@@ -1,0 +1,5 @@
+#!/bin/ksh
+
+# print the output of "ls -l" without the date columns
+
+awk '{printf "%s %2d %10s %10s %8d %s\n",  $1,$2,$3,$4,$5,$9}'
