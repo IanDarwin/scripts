@@ -1,5 +1,8 @@
 #!/bin/ksh
 
+# Archive all the week's work in main work dirs
+# No longer in use but a decent example
+
 rm -f /tmp/week.zip
 
 set -ex
@@ -9,5 +12,9 @@ cd
 START_DIRS="src/* javasrc/* book/* talk/*"
 
 zip /tmp/week.zip `find ${START_DIRS} -type f -mtime -7`
+
+# mcopy is a platform-dependent tool that copies a file
+# into an MS-DOS floppy filesystem without mounting.
+# Today one should (a) use USB devices and (b) mount them.
 
 mcopy /tmp/week.zip a:

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# see http://inflagrantedelicto.memoryspiral.com/2011/02/blackberry-playbook-code-signing-process/
-
-blackberry-keytool -genkeypair -keystore rejminet-bb-signing.p12 -storepass yourPINorPASShere -dname “Rejminet Group Inc.” -alias author

@@ -1,15 +1,15 @@
 #!/bin/sh
 
-# XXX Get rid of 4-arg form; demand -u for update. Solves problem of accident caused by forgetting quotes:
-# bookmark java someurl Java 19
-# which LOSES DATA by overwriting previous contents of bookmark with id # 19
-
 # Manage a database of bookmarked URLs
 # With 1 arg of -t, list topics
 # With 1 arg otherwise, list bookmarks of that topic, most recent first
 # With 3 args, insert a bookmark, given topic, url, and text
 
+# XXX Get rid of 4-arg form; demand -u for update. Solves problem of accident caused by forgetting quotes:
+# bookmark java someurl Java 19
+# which LOSES DATA by overwriting previous contents of bookmark with id # 19
 # If run on the server, do it directly; if not, do it via ssh
+
 # If SERVER is not set, will try to do it locally.
 # Because my internet link is slow, I don't check the topic ahead of time, so
 # you'll get a 'check constraint' type error from the dbms if the topic is invalid.

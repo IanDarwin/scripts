@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Back up one's android phone.
+# obsolescent because Android is removing 'adb backup'
+
 set -x
 
 cd ~/bkup
