@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Set up X11 for multiple monitors.
+# Probably not needed, unless your system
+# finds the monitors in the "wrong" order.
+
 set -x
 
 # Simple version, from phessler@
