@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-# addtask/addsubtask - put entries into KTimeTracker from cmd line
+# addtask/addsubtask - put entries into KDE KTimeTracker from cmd line
 
 case $0 in
 	*addtask)

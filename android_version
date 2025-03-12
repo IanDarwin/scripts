@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# get build info on a given device or emulator
+# get build info on a given Android device or emulator
 
 DEV="-e"
 

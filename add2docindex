@@ -1,3 +1,6 @@
 #!/bin/sh
+
+# Appends its arguments to a document index
+
 echo $* >> ~/doc/index.txt
 

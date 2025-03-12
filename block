@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# add an entry to the block list
+
 case $# in
 	1|2)	;;
 	*)	echo usage: "+|-" host;;

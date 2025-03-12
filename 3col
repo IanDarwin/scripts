@@ -1,2 +1,5 @@
 #!/bin/sh
+
+# Print files in 3 columns
+
 pr -3 -w 80 -e $*
