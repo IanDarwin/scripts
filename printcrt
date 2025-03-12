@@ -6,7 +6,7 @@
 for crt
 do
 	case $crt in
-	*.crt)
+	*.crt|*.pem)
 		echo "=== crt ==="
 		openssl x509 -text -noout -in $crt
 		;;
