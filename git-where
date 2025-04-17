@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# git-where - where is a repo's remote located
+# use only in a cloned repo, not a bare one on the server
+
+for repo
+do
+	cfg=$repo/.git/config  
+	[[ -f $cfg  ]] || { echo $cfg Not found
+		exit 1
+	}
+	echo $repo:
+	rg -N '\[remote|url' $cfg  
+done
+
