@@ -1,0 +1,34 @@
+#!/bin/ksh
+
+# Run a bunch of quick tests on a multi-hosted web server
+
+# Reads a file ~/.webtests.txt which has one test per line,
+# in the form:
+#	hostname[/resource] pattern
+# For example
+# foo.com Foolishness
+# bar.com/status System Uptime
+# The hostname can be a numeric IP and/or can have a URL portion after.
+# Patterns are not quoted and may consist of multiple words
+# The actual server must be passed as an argument to the script
+
+server=${1?Usage: $0 server-ip}
+
+function webtest {
+	hostname=$1
+	target=$2
+	regex=$3
+	TMP=$(mktemp /tmp/webtestXXXXXXX)
+	if curl -s --insecure --location --header "Host: $hostname" https://$target | tee $TMP | rg -q "$regex"
+	then echo $hostname OK
+	else echo $hostname FAIL, see $TMP
+	fi
+}
+
+rm -f /tmp/webtest*
+
+while read url pattern
+do
+	webtest $url $server $pattern
+done < ~/.webtests.txt
+
