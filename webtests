@@ -15,13 +15,16 @@
 server=${1?Usage: $0 server-ip}
 
 function webtest {
-	hostname=$1
+	resource=$1
 	target=$2
 	regex=$3
 	TMP=$(mktemp /tmp/webtestXXXXXXX)
-	if curl -s --insecure --location --header "Host: $hostname" https://$target | tee $TMP | rg -q "$regex"
-	then echo $hostname OK
-	else echo $hostname FAIL, see $TMP
+	if curl -s --insecure --location --header "Host: $resource" https://$target | tee $TMP | rg -q "$regex"
+	then
+		echo $resource OK
+		rm $TMP							# Not needed if succeeded?
+	else
+		echo $resource FAILED, see $TMP
 	fi
 }
 
