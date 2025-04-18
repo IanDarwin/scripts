@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# combine git rm and git commit, so common together
+
 case $# in
 	0)	echo "Usage: $1 file [...]" >&2;;
 esac
