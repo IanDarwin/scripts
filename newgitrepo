@@ -25,7 +25,7 @@ cd    $NEWPROJ
 
 git init --bare
 
-chown -R git .
+chown -R ian .
 chmod -R og+w .
 
 echo "Your new project is ready:
