@@ -67,4 +67,7 @@ do
 	webtest $url ${SERVER} $pattern
 done < $TESTSFILE
 
-echo ${TOFIX} failures in $PID run of $TESTSFILE
+case ${TOFIX} in
+	0) echo "ALL PASS in ${TESTSFILE}";;
+	*) echo ${TOFIX} failures in PID $PID run of ${TESTSFILE};;
+esac
