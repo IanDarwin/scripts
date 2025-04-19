@@ -19,7 +19,9 @@ function webtest {
 	target=$2
 	regex=$3
 	TMP=$(mktemp /tmp/webtestXXXXXXX)
-	if curl -s --insecure --location --header "Host: $resource" https://$target | tee $TMP | rg -q "$regex"
+	echo "Request: $hostname $regex on host $target" > $TMP
+	echo "Response:" >> $TMP
+	if curl -s --insecure --location --header "Host: $resource" https://$target  tee -a $TMP | rg -q "$regex"
 	then
 		echo $resource OK
 		rm $TMP							# Not needed if succeeded?
