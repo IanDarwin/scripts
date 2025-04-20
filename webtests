@@ -9,29 +9,65 @@
 # foo.com Foolishness
 # bar.com/status System Uptime
 # The hostname can be a numeric IP and/or can have a URL portion after.
-# Patterns are not quoted and may consist of multiple words
-# The actual server must be passed as an argument to the script
+# Patterns (regexes) are not quoted and may consist of multiple words.
+# Portability: install ripgrep, or change the 'rg' to
+# a version of grep that allows squelching output.
+# The actual server defaults to localhost, but using -s will
+# trump that.
 
-server=${1?Usage: $0 server-ip}
+SERVER=localhost
+TESTSFILE=$HOME/.webtests.txt
+USAGE="Usage: ${0##*/} [-f testfile][-k][-s actual-server][-v]"
+PID=$$
+TOFIX=0
+DELETE=yes
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "kf:s:v" opt
+do
+	case "$opt" in
+		k)	DELETE=no;;
+		f)	TESTSFILE=$OPTARG;;
+		s)	SERVER=$OPTARG;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
 
 function webtest {
 	resource=$1
 	target=$2
 	regex=$3
 	TMP=$(mktemp /tmp/webtestXXXXXXX)
-	if curl -s --insecure --location --header "Host: $resource" https://$target | tee $TMP | rg -q "$regex"
+	echo "Request: $resource $regex on host $target in $PID" > $TMP
+	echo "Response:" >> $TMP
+	if curl -s --insecure --location --header "Host: $resource" https://$target | tee -a $TMP | rg -q "$regex"
 	then
 		echo $resource OK
-		rm $TMP							# Not needed if succeeded?
+		if [ ${DELETE} = 'yes' ]; then
+			rm -f $TMP
+		fi
 	else
 		echo $resource FAILED, see $TMP
+		((++TOFIX))
 	fi
 }
 
 rm -f /tmp/webtest*
 
+set -e
+
 while read url pattern
 do
-	webtest $url $server $pattern
-done < ~/.webtests.txt
+	webtest $url ${SERVER} $pattern
+done < $TESTSFILE
 
+case ${TOFIX} in
+	0) echo "ALL PASS in ${TESTSFILE}";;
+	*) echo ${TOFIX} failures in PID $PID run of ${TESTSFILE};;
+esac
