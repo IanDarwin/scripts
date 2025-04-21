@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# find out how big a disk really is
+
+DISK=sd0
+
+doas dd if=/dev/r$DISK bs=1G of=/dev/null
