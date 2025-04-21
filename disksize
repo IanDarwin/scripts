@@ -2,8 +2,11 @@
 
 # find out how big a disk really is
 
-DISK=sd0
+# At least on OpenBSD, most disk-related commands are smart enough
+# to privide the "/dev" part of the path if it exists as a disk.
+# We continue this noble tradition:
+DISK=rsd0c
 
 set +x
 
-doas dd if=/dev/r$DISK bs=1G of=/dev/null
+doas dd if=/dev/$DISK bs=1G of=/dev/null
