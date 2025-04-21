@@ -48,9 +48,11 @@ function webtest {
 	echo "Response:" >> $TMP
 	if curl -s --insecure --location --header "Host: $resource" https://$target | tee -a $TMP | rg -q "$regex"
 	then
-		echo $resource OK
 		if [ ${DELETE} = 'yes' ]; then
+			echo $resource OK
 			rm -f $TMP
+		else
+			echo $resource OK, see $TMP
 		fi
 	else
 		echo $resource FAILED, see $TMP
