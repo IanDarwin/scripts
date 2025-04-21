@@ -7,6 +7,6 @@
 # We continue this noble tradition:
 DISK=rsd0c
 
-set +x
+set -x
 
 doas dd if=/dev/$DISK bs=1G of=/dev/null
