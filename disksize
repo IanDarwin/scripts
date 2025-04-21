@@ -4,4 +4,6 @@
 
 DISK=sd0
 
+set +x
+
 doas dd if=/dev/r$DISK bs=1G of=/dev/null
