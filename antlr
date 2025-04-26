@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#
+# Run the Antlr parser generator
 
 java -classpath ~/lib/antlr-3.3-complete.jar org.antlr.Tool $@

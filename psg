@@ -1,0 +1,14 @@
+#!/bin/ksh
+
+# psg - ps | grep with printing header 
+# (but actually uses sed not grep)
+
+(( $# >= 1)) || {
+	echo "Usage ${0##*/} pattern..."
+	exit 1
+}
+
+for PATT
+do
+	ps -ax | sed -n -e 1p -e "/$PATT/"p
+done

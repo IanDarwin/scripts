@@ -1,13 +1,13 @@
 #!/bin/sh -f
 
-# simple emulation of MS-Windows' start command or OS X's open command:
+# Simple emulation of OS X's "open" command or MS-Windows' "start":
 # deduce type of file, start its application (backgrounded).
 
 case $(uname) in
 Darwin)	exec /usr/bin/open "$@";;
 # Presumably this is under cygwin or similar...
 Windows) exec /c/program\ files/start $@;;
-MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $*;;
+MINGW64*) exec /c/Program\ Files/Git/usr/bin/start $@;;
 esac
 
 #if [ -x /usr/bin/xdg-open -o -x /usr/local/bin/xdg-open ]; then
@@ -24,7 +24,7 @@ else
 	exit 1
 fi
 
-#echo "$*" > /tmp/start.log
+#echo "$@" > /tmp/start.log
 
 # Tries to handle various browsers and various arguments
 function browser {
@@ -116,6 +116,7 @@ do
 		*.ps)	gs "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
 		*.sla)	scribus "${f}" & ;;	 # must come before soffice
+		*.stl|*.3mf|*.f3d)	prusa-slicer "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;

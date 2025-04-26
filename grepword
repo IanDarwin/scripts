@@ -1,9 +1,13 @@
 #!/bin/sh
 
-# grep /usr/share/dict/words for a word
+set -x
+
+DICT=/usr/share/dict/words
+
+# grep ${DICT} for a word
 
 function gw {
-	rg "^$1"'$' /usr/share/dict/words || echo "No match"
+	rg "^$1"'$' ${DICT} || echo "No match"
 }
 
 
@@ -11,5 +15,6 @@ case $1 in
 	"") echo "Usage: $0 pattern|-c"
 		exit 1;;
 	-c)	while read patt; do gw $patt; done;;
-	*)	gw $1 /usr/share/dict/words;;
+	-r) rg $2 ${DICT} || echo "No match";;
+	*)	gw "$1" ${DICT};;
 esac

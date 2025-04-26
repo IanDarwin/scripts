@@ -5,7 +5,14 @@ of scripts), some much more complex, in continuous use and development since 198
 I know the earliest repo date is 1994, but hey, CVS didn't even exist when I started,
 let alone this new-fangled stuff like git (which came along two full decades into the project).
 
-When I started it was Bourne shell all the way. Ksh and Bash came later; both are
+Note: recently changed branch name from master to main, in keeping with modern GIT practice.
+See git doc if you need to know what do do at your end, but it might be something like:
+
+	git pull origin main
+	git checkout main
+	git branch -d master # or -D if sure you don't have any unpushed commits on master
+
+When I started writing this stuff, it was Bourne Shell all the way. Ksh and Bash came later; both are
 largely upwards-compatible from Bourne, so older scripts will still run.
 
 Most of the scripts should run on any modern POSIX/Unix/Linux system, but some will not.

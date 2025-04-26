@@ -3,3 +3,6 @@
 # Run the Big Fixer for Git, see https://rtyley.github.io/bfg-repo-cleaner/
 
 java -jar $HOME/lib/bfg*jar $*
+
+cd *.git && $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
+echo "If happy, do a git push, then replace all clones of the repo."

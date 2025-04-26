@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/local/java/bin/java -classpath ~ian/classes music.Blondie `hostname`

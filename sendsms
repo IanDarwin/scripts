@@ -15,4 +15,4 @@ MESSAGE="$@"
 
 echo + java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
 
-withjava 1.8 java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
+java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"

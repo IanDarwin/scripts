@@ -4,12 +4,12 @@
 
 # Some are general, some only one one or another machine, hence grep
 
-PATT="CPU Temperature"
-PATT="cpu0.temp0"
+# PATT="CPU Temperature"
+PATT="temp[012]"
 
 case $1 in
 "") exec sysctl -a | egrep "${PATT}" | awk -F= '{sub(" deg", "", $2);print $2}';;
-*)
+-s)
 	while :
 	do
 		clear
@@ -17,5 +17,9 @@ case $1 in
 		sysctl -a | egrep "${PATT}"
 		sleep  5
 	done
+	;;
+*)
+	echo "Usage: $0 [-s]" >&2
+	exit 1
 	;;
 esac

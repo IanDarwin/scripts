@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Runs the aipen program from a jar file, with logging
+# directed into a securely-created log file.
+
+LOG=$(mktemp /tmp/aipenXXXXXXXXXX)
+
+\java -jar ~/lib/aipen*.jar > $LOG 2>&1

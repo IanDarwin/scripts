@@ -1,0 +1,7 @@
+#!/bin/sh 
+
+# run OpenRewrite to update JUnit tests to Jupiter and otherwise improve.
+
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+	-Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-testing-frameworks:RELEASE \
+	-Drewrite.activeRecipes=org.openrewrite.java.testing.junit5.JUnit5BestPractices

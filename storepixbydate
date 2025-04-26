@@ -9,6 +9,11 @@
 
 USAGE="$0 [-v] \$PWD/file[...]"
 
+[[ $# -eq 0 ]] && {
+	echo $USAGE
+	exit 1
+}
+
 # Sample entry: Image timestamp : 2023:07:28 19:46:53
 # Sample entry: Exif.Image.DateTime Ascii 20  2023:07:09 13:02:10
 # Note that in both, $4 is the yyyy:mm:dd that we use in awk below.

@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# Ring the bell on the terminal
+
 echo ''
