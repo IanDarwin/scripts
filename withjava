@@ -16,18 +16,11 @@ case `uname` in
 		DIR=/usr/local/jdk-$VER
 		;;
 	Darwin)
-		case $1 in
-			1.8|8)	VER=jdk1.8.0;;
-			11)		VER=jdk-11.0.2;;
-			16)		VER=temuring-16;;
-			17)		VER=adoptopenjdk-17;;
-			21)		VER=temurin-21;;
-			22)		VER=jdk-22;;
-			23)		VER=jdk-23;;
-			24)		VER=jdk-24;;
+		DIR=$(/usr/libexec/java_home -v $1)
+		case ${DIR} in
+			/Library*)	;; # OK
 			*)		echo "Unsupported ver $1"; exit 1;;
 		esac
-		DIR=/Library/Java/JavaVirtualMachines/$VER.jdk/Contents/Home
 		;;
 	*)
 		echo "$0 unaware of Java on `uname`" >&2
