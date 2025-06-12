@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# mhdir - make home dir for user(s)
+# assumes user exists in passwd file
+
+for u
+do
+	mkdir ~$u
+	chown $u ~$u
+done
