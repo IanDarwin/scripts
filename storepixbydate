@@ -5,6 +5,8 @@
 # Can NOT use exiv2 "--rename fmt" because that has only one-second resolution,
 # and since about 2000 A.D., cameras can take >1 pix per second.
 
+V=1.0.2-SNAPSHOT
+
 # USE WITH CAUTION! USE AT OWN RISK! Failures may lose pictures - take a backup first
 
 USAGE="$0 [-v] \$PWD/file[...]"
@@ -26,4 +28,7 @@ function usage {		# give usage message, and exit
 # Make sure we are in right folder
 cd ~/Pictures
 
-java --enable-preview -jar /home/ian/lib/imagelibtools-1.0.0-SNAPSHOT-jar-with-dependencies.jar "$@"
+java --enable-preview \
+	-cp /home/ian/lib/mytools-${V}-jar-with-dependencies.jar \
+	imagelibtools.OrganizeImages \
+	"$@"
