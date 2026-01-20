@@ -10,19 +10,20 @@ case $# in
 esac
 disk=$1
 
-BS=1000000
+BS=100M
 
 # To determine the optimal value for BS:
 # save to file ddtest.java, and run 'java ddtest.java'
-# with java 21 or later
+# with java 21 or later AND PIPE THE OUTPUT TO sh
 #
 # void main() {
 #	long gb = 1_000_000_000L;
-#	var outfile = "/var/log/jnk";
+#	var outfile = "/tmp/jnk";
 #	for (long n = gb; n > 0; n/=10) {
+#		System.out.printf("echo Using bs=%s\n", n);
 #		System.out.printf("time dd if=/dev/zero of=%s bs=%d count=%d\n", outfile, n, gb/n);
 #	}
-#}
+# }
 
 function devi {
 case ${1} in

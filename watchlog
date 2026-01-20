@@ -67,6 +67,7 @@ do
 		openfire) LOG=/usr/local/openfire/logs/all.log;;
 		PF|fw)	exec tcpdump -n -e -ttt -i pflog0;;
 		port*s)	LOG=~/portslog/`date +%Y-%m`;;
+		postgres*|pgsql) LOG=/var/postgresql/logfile;;
 		ppp|chat)	LOG=/var/log/chat ;;
 		radicale)	LOG=/var/log/radicale;;
 		rspamd)		LOG=/var/log/rspamd/rspamd.log;;

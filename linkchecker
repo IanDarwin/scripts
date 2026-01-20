@@ -2,6 +2,8 @@
 
 # set -x
 
+DSAPI=$HOME/lib/darwinsys-api-1.9.0-SNAPSHOT.jar
+
 echo "Starting LinkChecker in background for GUI"
 
-java -cp $js/main/target/classes:$HOME/lib/darwinsys-api.jar netweb.LinkChecker $* &
+java -cp $js/main/target/classes:$DSAPI netweb.LinkChecker $* &

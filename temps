@@ -8,13 +8,13 @@
 PATT="temp[012]"
 
 case $1 in
-"") exec sysctl -a | egrep "${PATT}" | awk -F= '{sub(" deg", "", $2);print $2}';;
+"") exec sysctl -a | egrep "${PATT}" | awk -F= '{sub(" deg", "", $2);print $2}' | sed 1q;;
 -s)
 	while :
 	do
 		clear
 		date
-		sysctl -a | egrep "${PATT}"
+		sysctl -a | egrep "${PATT}" | sed 1q
 		sleep  5
 	done
 	;;

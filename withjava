@@ -11,6 +11,7 @@ case `uname` in
 			16)		VER=16;;
 			17)		VER=17;;
 			21)		VER=21;;
+			25)		VER=25;;
 			*)		echo "Unsupported ver $1"; exit 1;;
 		esac
 		DIR=/usr/local/jdk-$VER
@@ -39,9 +40,8 @@ export JAVA_HOME=$DIR
 : Prepending $JAVA_HOME/bin to PATH
 export PATH=$JAVA_HOME/bin:$PATH
 : Using JAVA_HOME=$DIR $* in $PWD
+export JAVA_CMD=$JAVA_HOME/bin/java
 
 unset JDK_HOME
-
-export JAVA_HOME=$DIR 
 
 exec $*
