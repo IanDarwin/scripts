@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Show that changing even one letter totally changes the hash value
+
+echo The Cat is back!
+echo The Cat is back! | sha1
+echo The Bat is back!
+echo The Bat is back! | sha1
