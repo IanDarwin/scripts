@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Connect to a website over https
+
+USAGE="$0 host [url]"
+
+case $# in
+1)	exec openssl s_client -connect $1:443;;
+2)	(
+		echo GET "$2" HTTP/1.1
+		echo HOST $1
+		echo
+	) |
+		openssl s_client -connect $1:443;;
+*)	echo $USAGE >&2; exit 1;;
+esac
