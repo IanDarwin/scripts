@@ -37,7 +37,7 @@ echo $DEV
 
 disklabel -h ${disk}
 
-echo -n "OK to totally erase disk ${disk}? "
+echo -n "OK to totally erase disk ${disk} [no,yes]? "
 read ans
 
 if [ yes != "${ans}" ]
