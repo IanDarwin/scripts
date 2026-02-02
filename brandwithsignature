@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# brand an image with my drawn signature.
+
+USAGE="$0 [-b|-w] [-p percent] [-a|-r] [-v] imagefile [...]"
+function usage {                # give usage message, and exit
+        echo "Usage: ${USAGE}" 2>&1
+        exit 1
+}
+
+COLOR=black
+PERCENT=20
+while getopts "abwp:rv" opt 
+do 
+	case "$opt" in
+	a)	ASK=yes; REPLACE=yes;;
+	b)	COLOR=black;;
+	w)	COLOR=white;;
+	p)	PERCENT=$OPTARG;;
+	r)	REPLACE=yes;;
+	v)	VIEW=yes;;
+	*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`                 # leave just filenames
+
+if [ "$#" -eq 0 ]; then
+	usage;
+fi
+
+SIGNATURE=$HOME/Pictures/iandarwinphoto-watermark/Ian-Darwin-${COLOR}-highres.png
+BRANDED=/tmp/branded.jpg
+
+for INFILE
+do
+
+	height=$(identify -format "%[fx:int(h*0.${PERCENT})]" ${INFILE})
+	convert ${INFILE} \
+		\( ${SIGNATURE} -resize x${height} \) \
+		-gravity SouthEast -composite ${BRANDED}
+
+	if [ "${VIEW}" -eq yes ]; then
+		xv ${BRANDED}
+	fi
+
+	if [ "${REPLACE}" -eq yes ]; then
+		if [ "${ASK}" -eq yes ]; then
+			echo "Replace? [ny]"; read answer
+			case ${answer} in
+			y*) mv ${BRANDED} ${INFILE};;
+			*) echo "Branded image left in ${BRANDED}"; exit 1;;
+			esac
+		else
+			mv ${BRANDED} ${INFILE}
+		fi
+	fi
+done
+
