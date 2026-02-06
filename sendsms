@@ -2,6 +2,7 @@
 
 JARHOME=~ian/lib
 JAR=sendsms-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+JAVA=/usr/local/jdk-25/bin/java
 
 case $# in
 0|1)	echo "Usage: $0 nameber message..." 2>&1
@@ -13,6 +14,6 @@ PHONENUM=$1
 shift
 MESSAGE="$@"
 
-echo + java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
+echo + $JAVA -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
 
-java -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
+$JAVA -jar ${JARHOME}/${JAR} $PHONENUM "${MESSAGE}"
