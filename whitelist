@@ -17,3 +17,5 @@ do
 	grep -C3 ${IP} ${WHITELIST}
 
 done
+
+doas rcctl reload rspamd
