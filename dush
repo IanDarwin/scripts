@@ -1,0 +1,5 @@
+#!/bin/ksh 
+
+# dush -  du -s -h | sort -r -h | head
+
+du -s -h "$@" | sort -r -h | head

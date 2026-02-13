@@ -1,0 +1,22 @@
+#!/usr/local/jdk-25/bin/java --source 25
+
+import java.time.*;
+
+// print the week-start day for this week and the next few
+
+void main(String[] args) {
+
+int n = 5;
+if (args.length == 1) {
+	n = Integer.parseInt(args[0]);
+}
+
+var date = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+
+System.out.println(date);
+
+for (int i = 1; i < n; i++) {
+	System.out.println(date = date.plusDays(7));
+}
+
+}

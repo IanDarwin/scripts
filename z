@@ -1,0 +1,12 @@
+#!/bin/ksh
+
+# re-create the feeling of operating an IBM MVS mainframe
+
+case "$1" in
+	eod|EOD)
+		exec shutdown -h +1
+		;;
+	*)
+		echo "IKJ56789E Invalid operand $1" >&2
+		;;
+esac

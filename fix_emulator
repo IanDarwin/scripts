@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# deal with Android emulator instability
+
+ps ax| awk '/emulator/{print $1}'|xargs kill
+
+vi ~/.android/avd/*.avd/emulator-user.ini
+
+rm ~/.android/avd/*.avd/*.lock
+
+
+

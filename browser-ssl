@@ -1,0 +1,11 @@
+#!/bin/ksh
+
+# Grab a page from a web site using TLS
+
+HOST=$1
+PAGE=$2
+
+openssl s_client -connect ${HOST}:443 <<!
+GET /$PAGE HTTP/1.1
+
+!

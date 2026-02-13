@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# work around problem of getting xenocara to pass "-listen tcp" on to X server
+
+socat -d -d TCP-LISTEN:6000,fork,bind=0.0.0.0 UNIX-CONNECT:/tmp/.X11-unix/X0 &

@@ -42,9 +42,9 @@ function browser {
 		;;
 	FIREFOX)
 		case ${1} in
-			http*) exec firefox "${1}"& ;;
-			/*)  exec firefox "${1}"& ;;
-			*) exec firefox "`pwd`/${1}"& ;;
+			http*) exec firefox --new-tab "${1}"& ;;
+			/*)  exec firefox --new-tab "${1}"& ;;
+			*) exec firefox --new-tab "`pwd`/${1}"& ;;
 		esac
 		;;
 	*)	echo "No xdg-open found and no browser in default directory"
@@ -78,9 +78,11 @@ do
 		${APP} $f
 	else
 	case "${f}"  in
+		"."|*/)	thunar $PWD & ;;
 		*.ai)	gimp "${f}" & ;;
-		*.bmp|*.gif|*.jpg|*.jpeg|*.png|*.tif)	geeqie "${f}" & ;;
+		*.bmp|*.gif|*.jpg|*.jpeg|*.png|*.tif)	gwenview "${f}" & ;;
 		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
+		*.cfp) crossfire $f;;
 		*.esl)	huckster ${f};;
 		ftp://*) ftp "${f}" & ;;
 		*.gz)	gunzip -v $f;;
@@ -114,15 +116,14 @@ do
 			fi
 			;;
 		*.ps)	gs "${f}" & ;;
+		*.scad)	openscad "${f}" & ;;
+		*.sla)	scribus "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
-		*.sla)	scribus "${f}" & ;;	 # must come before soffice
-		*.stl|*.3mf|*.f3d)	prusa-slicer "${f}" & ;;
+		*.stl|*.3mf|*.f3d|*.obj)	prusa-slicer "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;
-		*)		echo "Not sure about ${f}'s format, trying browser..." >&2
-				browser ${f};;
+		*)		echo "Don't understand ${f}'s format, sorry." >&2 ;;
 	esac
 	fi
-	sleep 5		# to avoid killing the machine
 done
