@@ -80,7 +80,8 @@ URL=$2
 TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
 ID=$4
 
-if [ "$AUTO" == true ]; then
+# Normal autotitle case
+if [ "$AUTO" == true -a $# -eq 2 ]; then
 	autoTitle $TOPIC "$URL"
 	exit
 fi
@@ -100,6 +101,7 @@ case $# in
 	TOPIC=$2
 	URL=$3
 	TEXT=$4
+	autotitle
 	;;
 *)	echo 'huh?'
 	usage
