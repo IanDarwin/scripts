@@ -1,4 +1,4 @@
-#!/usr/local/jdk-25/bin/java --source 25
+#!/usr/bin/env java --source 11
 
 import java.time.*;
 
