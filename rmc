@@ -2,6 +2,7 @@
 
 # rmc = remove conflicts (the 'C' AND '?' lines in CVS update output)
 # -m - also remove M lines (dangerous!)
+# -q - also remove ? lines (think twice) NOT IMPLEMENTED
 M=""
 
 if [ X$1 = X-m ]; then
