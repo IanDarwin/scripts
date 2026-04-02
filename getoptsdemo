@@ -1,6 +1,8 @@
-# Just the getopt loop part of template.ksh
+# A trivial demo of using getopts.
+# Emulate a subset of sort(1).
+# Has no useful use case except to demo getopts.
 
-USAGE="Usage: ${0##*/} [-nrv][-o outfile] file..."
+USAGE="Usage: ${0##*/} [-n][-o outfile][-r][-v] file..."
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
@@ -19,14 +21,20 @@ do
 done
 shift `expr $OPTIND - 1`		 # leave just filenames
 
+[ $# == 0 ] && usage
+
 echo "$0: outfile=$OUTFILE $NUMERIC $REVERSE"
+
+cmd="sort"
 
 for f
 do
 	if $VERBOSE; then
-		echo  Doing $f
+		echo  Adding $f
 	fi
 
 	# do something with file $f here...
+	cmd="$cmd $f"
 done
 
+echo "The sort command is $cmd"
