@@ -1,0 +1,32 @@
+# Just the getopt loop part of template.ksh
+
+USAGE="Usage: ${0##*/} [-nrv][-o outfile] file..."
+
+function usage {		# give usage message, and exit
+	echo "Usage: ${USAGE}" 2>&1
+	exit 1
+}
+
+while getopts "rvno:" opt
+do
+	case "$opt" in
+		r)	REVERSE=true;;
+		n)	NUMERIC=true;;
+		o)	OUTFILE=$OPTARG;;
+		v)	VERBOSE=true;;
+		*)	usage;;
+	esac
+done
+shift `expr $OPTIND - 1`		 # leave just filenames
+
+echo "$0: outfile=$OUTFILE $NUMERIC $REVERSE"
+
+for f
+do
+	if $VERBOSE; then
+		echo  Doing $f
+	fi
+
+	# do something with file $f here...
+done
+
