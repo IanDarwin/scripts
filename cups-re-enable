@@ -4,6 +4,7 @@
 # and it doesn't recover (quickly enough?)
 
 case $# in
+	0) exec $0 hpdj;;
 	1) doas lpadmin -p $1 -E;;
 	*) echo usage: $0 printer-name;;
 esac

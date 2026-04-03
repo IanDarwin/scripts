@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# run grub-mkconfig and save to correct place ONLY ON
+# RH-based systems (and only tested on Rocky)
+
+grub2-mkconfig -o /boot/grub2/grub.cfg

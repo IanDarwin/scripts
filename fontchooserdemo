@@ -2,4 +2,6 @@
 
 # show my font chooser
 
-java -cp $js/desktop/target/classes:/home/ian/lib/darwinsys-api-1.7.7-SNAPSHOT.jar gui.FontChooserDemo
+DSAPI=1.9.0-SNAPSHOT
+
+java -cp $js/desktop/target/classes:/home/ian/lib/darwinsys-api-${DSAPI}.jar gui.FontChooserDemo

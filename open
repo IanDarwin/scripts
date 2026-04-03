@@ -30,21 +30,21 @@ fi
 function browser {
 	case ${BROWSER} in
 	CHROME)
-		case ${1} in
+		case "${1}" in
 			# HTTP/HTTPS URL
 			http*) exec chrome $1;;
 			# local file: make full path and file:// URL
-			*) case $1 in
-				/*) exec chrome file://$1;;
-				*) exec chrome file://${PWD}/$1;;
+			*) case "${1}" in
+				/*) exec chrome file://"${1}";;
+				*) exec chrome file://${PWD}/"${1}";;
 			esac
 		esac
 		;;
 	FIREFOX)
 		case ${1} in
-			http*) exec firefox "${1}"& ;;
-			/*)  exec firefox "${1}"& ;;
-			*) exec firefox "`pwd`/${1}"& ;;
+			http*) exec firefox --new-tab "${1}"& ;;
+			/*)  exec firefox --new-tab "${1}"& ;;
+			*) exec firefox --new-tab "`pwd`/${1}"& ;;
 		esac
 		;;
 	*)	echo "No xdg-open found and no browser in default directory"
@@ -75,29 +75,31 @@ shift `expr $OPTIND - 1`		 # leave just filenames
 for f in "$@"
 do
 	if [ "${APP}" != "" ]; then
-		${APP} $f
+		${APP} "${f}"
 	else
 	case "${f}"  in
+		"."|*/)	thunar $PWD & ;;
 		*.ai)	gimp "${f}" & ;;
-		*.bmp|*.gif|*.jpg|*.jpeg|*.png|*.tif)	geeqie "${f}" & ;;
-		*.class) java `echo ${f}|sed 's/.class$//'` & ;;
-		*.esl)	huckster ${f};;
+		*.bmp|*.gif|*.jpg|*.jpeg|*.png|*.tif)	gwenview "${f}" 2> $(mktemp /tmp/gwenviewXXXXXXXX) & ;;
+		*.class) java `echo "{$f}"|sed 's/.class$//'` & ;;
+		*.cfp) crossfire "${f}";;
+		*.esl)	huckster "{$f}";;
 		ftp://*) ftp "${f}" & ;;
-		*.gz)	gunzip -v $f;;
+		*.gz)	gunzip -v "${f}";;
 		http:*|https:*|*.html|*.HTML?)
-			browser ${f} & ;;
+			browser "{$f}" & ;;
 		*.mgp)
-			mgp ${f};;
+			mgp "${f}";;
 		*.mp3|*.ogg|*.avi|*.wav)
-			mplayer ${f};;
+			mplayer "${f}";;
 		*.mp4|*.mpg|*.avi|*.mov|*.mkv)
-			mplayer ${f};;
+			mplayer "${f}";;
 		*.odt|*.doc|*.docx) exec swriter "$f" &;;
 		*.odp|*.p[po]t|*.pptx) exec simpress "$f" &;;
 		*.ods|*.xls|*.xlsx) exec soffice "${f}" &;;
 		*.odg) exec soffice "${f}" &;;
 		*.pro)
-			designer3 ${f} &;;
+			designer3 "{$f}" &;;
 		*.pdf)	
 			PDFERS="qpdfview evince okular kpdf xpdf"
 			FOUND=no
@@ -110,19 +112,18 @@ do
 			done
 			if [ ${FOUND} != "yes" ]; then
 				echo "Can't find any Acrobatty readers for ${f}, trying browser" >&2
-				browser $f &
+				browser "${f}" &
 			fi
 			;;
 		*.ps)	gs "${f}" & ;;
+		*.scad)	openscad "${f}" & ;;
+		*.sla)	scribus "${f}" & ;;
 		*.svg)	inkscape "${f}" & ;;
-		*.sla)	scribus "${f}" & ;;	 # must come before soffice
-		*.stl|*.3mf|*.f3d)	prusa-slicer "${f}" & ;;
+		*.stl|*.3mf|*.f3d|*.obj|*.step|*.stp)	prusa-slicer "${f}" & ;;
 		*.txt)	notepad "${f}" & ;;
 		*.xcf)	gimp "${f}" &;;
 		*.Z)	uncompress "${f}" & ;;
-		*)		echo "Not sure about ${f}'s format, trying browser..." >&2
-				browser ${f};;
+		*)		echo "Don't understand ${f}'s format, sorry." >&2 ;;
 	esac
 	fi
-	sleep 5		# to avoid killing the machine
 done

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Add a site to the RSPAMD incoming white list.
+
 WHITELIST=/etc/rspamd/local.d/whitelist.sender.domain.map
 
 [ -w / ] || {
@@ -17,3 +19,6 @@ do
 	grep -C3 ${IP} ${WHITELIST}
 
 done
+
+# This part is OpenBSD-specific; presumably a similar systemctl for Linux
+doas rcctl reload rspamd

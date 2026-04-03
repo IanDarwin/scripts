@@ -5,12 +5,13 @@
 do_update() {
 if [ -d CVS ]; then
 	echo Updating $(pwd) via CVS
-	if [ "" != "${CVSROOT}" ]; then
-		echo Updating CVS from ${CVSROOT}
-		cvs -d $CVSROOT update -PAd $*
-	else
-		echo Not updating CVS from default - must set CVSROOT
+	if [ "" == "${CVSROOT}" ]; then
+		echo "Go ahead and make my CVSROOT!"
+		sleep 1
+		. ~/obscripts/dotscripts/cvsr
 	fi
+	echo Updating CVS from ${CVSROOT}
+	cvs -d $CVSROOT update -PAd $*
 elif [ -d .svn ]; then
 	echo Updating $(pwd) via Svn
 	svn update

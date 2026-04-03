@@ -4,28 +4,44 @@
 # With 1 arg of -t, list topics
 # With 1 arg otherwise, list bookmarks of that topic, most recent first
 # With 3 args, insert a bookmark, given topic, url, and text
+# With 4 args, ignore the -a argument
 
-# XXX Get rid of 4-arg form; demand -u for update. Solves problem of accident caused by forgetting quotes:
+# With more than 4, is an error caused by forgetting quotes
 # bookmark java someurl Java 19
 # which LOSES DATA by overwriting previous contents of bookmark with id # 19
 # If run on the server, do it directly; if not, do it via ssh
 
 # If SERVER is not set, will try to do it locally.
 # Because my internet link is slow, I don't check the topic ahead of time, so
-# you'll get a 'check constraint' type error from the dbms if the topic is invalid.
+# you'll get a 'check constraint' type error from the dbms if the topic is invalid
+# or if the bookmark is already in the database.
+# XXX Add a join table to handle linking a bookmark into multiple topics
 
 case $(hostname) in
 	"${SERVER}")	PSQL=psql;;
 	*) PSQL="ssh ${SERVER} /usr/local/bin/psql";;
 esac
 
-USAGE="$0 -a topic url|-t|-u|[-v] topic title"
-
-DBNAME=bookmarks
+USAGE="$0 [-a] topic url|-t|-u|[-v] topic title"
 
 function usage {		# give usage message, and exit
 	echo "Usage: ${USAGE}" 2>&1
 	exit 1
+}
+
+if [ $# -eq 0 ]; then
+	usage
+fi
+
+DBNAME=bookmarks
+
+function insert {
+	TOPIC=$1
+	URL=$2
+	TEXT="$3"
+	echo "insert into bookmark(owner,topic_id, url, text) 
+		values(1, '$TOPIC', '$URL', '$TEXT');" |
+			$PSQL -d ${DBNAME}
 }
 
 function printTopics {
@@ -34,16 +50,11 @@ function printTopics {
 }
 
 function autoTitle {
-	if [ $# != 2 ]; then
-		usage
-	fi
-	topic=$1
-	url=$2
-	title=$(ftp 2>/dev/null -o - $url | 
-		awk '/<title>/ { gsub(/.*<title>/, ""); gsub(/<\/title>/, ""); gsub(/\|/, "-"); print }')
+	title=$(ftp 2>/dev/null -o - $URL | 
+		awk '/<title>/ { gsub(/.*<title>/, ""); gsub(/<\/title>/, ""); gsub(/\|/, "-"); print; exit }')
 	echo -n "Title ok? $title [yn] ";
 	read ans junk; case $ans in
-		""|y*)	bookmark $topic "$url" "$title"; exit 0;;
+		""|y*)	bookmark $TOPIC "$URL" "$title"; exit 0;;
 		*) exit 1;;
 	esac
 }
@@ -53,10 +64,12 @@ function search {
 		${PSQL} -d ${DBNAME}
 }
 
+AUTO=false
+
 while getopts "as:tuv" opt
 do
 	case "$opt" in
-		a)	autoTitle $2 $3;;
+		a)	AUTO=true;;
 		s)	search ${OPTARG};;
 		t)	printTopics; exit;;
 		u)	UPDATE=true;;
@@ -64,15 +77,22 @@ do
 		*)	usage;;
 	esac
 done
-shift `expr $OPTIND - 1`		 # leave just filenames
+shift `expr $OPTIND - 1`		 # leave optional fielsd
 
 TOPIC=$1
 URL=$2
 TEXT=$(echo $3|sed -e "s/'/''/g") # SQL quoting
 ID=$4
 
+# Normal autotitle case
+if [ "$AUTO" == true -a $# -eq 2 ]; then
+	autoTitle $TOPIC "$URL"
+	exit
+fi
+
 case $# in
-0)	# Nothing, should already be done!
+0)	# "can't happen"
+	usage
 	;;
 1)	# list bookmarks in topic
 	echo "select id, text, url from bookmark
@@ -80,13 +100,13 @@ case $# in
 			$PSQL -d ${DBNAME}
 	;;
 3)	# insert
-	echo "insert into bookmark(owner,topic_id, url, text) 
-		values(1, '$TOPIC', '$URL', '$TEXT');" |
-			$PSQL -d ${DBNAME}
+	insert $TOPIC $URL $TEXT
 	;;
-4)	# update
-	echo "update bookmark set text = '$TEXT', url = '$URL', topic_id = '$TOPIC' where  id = $ID;" |
-			$PSQL -d ${DBNAME}
+4)	# Added title to end of line after -a failed
+	TOPIC=$2
+	URL=$3
+	TEXT=$4
+	autotitle
 	;;
 *)	echo 'huh?'
 	usage

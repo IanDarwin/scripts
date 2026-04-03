@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Replacement for the Berzerkely 'wmi' shortcut for 'who am i'
+
+echo "If you don't know yet, no computer can help you. Talk it out with a (human) friend."
