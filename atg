@@ -38,5 +38,5 @@ U=$1; shift
 
 for G
 do
-	overwrite $F sed -e "/^$G:/s/$/,$U/" -e 's/:,/:/' ${GF}
+	sed -i -e "/^$G:/s/$/,$U/" -e 's/:,/:/' ${GF}
 done
