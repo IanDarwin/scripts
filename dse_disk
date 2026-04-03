@@ -4,7 +4,8 @@
 
 case $# in
 1)	;;
-*)	echo usage $0 disk
+2)	ASK=$1; shift;;
+*)	echo usage $0 [-y] disk
 	exit 1
 	;;
 esac
@@ -36,6 +37,7 @@ echo $DEV
 
 disklabel -h ${disk}
 
+if [ $ASK != "-y" ]; then
 echo -n "OK to totally erase disk ${disk}? "
 read ans
 
@@ -52,6 +54,7 @@ mount | grep /dev/${disk} && {
 	then exit
 	fi
 }
+fi
 
 for pass in 1 2 3
 do
