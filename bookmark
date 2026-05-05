@@ -33,7 +33,11 @@ if [ $# -eq 0 ]; then
 	usage
 fi
 
+# Only change this if using a nonstandard database
 DBNAME=bookmarks
+# How many lines to scan for the <title> element
+# (empirical; to avoid infinite timeout)
+THRESHOLD=300
 
 function insert {
 	TOPIC=$1
@@ -50,8 +54,9 @@ function printTopics {
 }
 
 function autoTitle {
-	title=$(ftp 2>/dev/null -o - $URL | 
-		awk '/<title>/ { gsub(/.*<title>/, ""); gsub(/<\/title>/, ""); gsub(/\|/, "-"); print; exit }')
+	title=$(ftp 2>/dev/null -o - -U 'DarwinSys.com One-shot Non-bot title extractor' $URL | 
+		sed ${THRESHOLD}q |
+		awk '/<title>/ { gsub(/.*<title>/, ""); gsub(/<\/title>.*/, ""); gsub(/\|/, "-"); print; exit }')
 	echo -n "Title ok? $title [yn] ";
 	read ans junk; case $ans in
 		""|y*)	bookmark $TOPIC "$URL" "$title"; exit 0;;
