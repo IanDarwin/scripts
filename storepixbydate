@@ -2,6 +2,10 @@
 
 # Rearrange Pictures to strict date-order filing by moving into directory with yyyy/mm/dd
 
+# Use with filenames relative to ~/Pictures, e.g.:
+# storepixbydate INCOMING/foo.jpg
+# to process file ~/Pictures/INCOMING/foo.jpg
+
 # Can NOT use exiv2 "--rename fmt" because that has only one-second resolution,
 # and since about 2000 A.D., cameras can take >1 pix per second.
 

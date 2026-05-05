@@ -48,8 +48,8 @@ do
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ecl*) LOG=$HOME/workspace/.metadata/.log;;
 		ftp)	LOG=/var/log/xferlog;;
-		http|web|www) LOG=/var/www/logs/access.log ;;
-		httperr|weberr) LOG=/var/www/logs/error.log ;;
+		http|httpd|web|www) LOG=/var/www/logs/access.log ;;
+		httperr|httpderr|weberr) LOG=/var/www/logs/error.log ;;
 		httpd-mm) LOG=/var/log/httpd-mm/error.log;;
 		icb|hackers)	LOG=~/hacklog/`date +%Y-%m`;;
 		jb7)	LOG=$HOME/jboss-as-7.1.1.Final/standalone/log/server.log;;

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd ~/git/mappit || exit
+
+FILE=${1-HOME/travel/travel.csv}
+
+mvn exec:java -Dexec.mainClass=com.darwinsys.Mappit -Dexec.args="${FILE}"
