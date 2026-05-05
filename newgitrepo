@@ -29,4 +29,4 @@ chown -R ian .
 chmod -R og+w .
 
 echo "Your new project is ready:
-git remote add origin git@git.darwinsys.com:$(pwd)"
+git remote add origin ian@git.darwinsys.com:$(pwd)"
