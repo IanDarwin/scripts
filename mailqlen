@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# name sez it.
+
+doas mailq | wc -l
