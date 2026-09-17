@@ -7,5 +7,5 @@
 for f in $(cat ~/.netsh_hosts)
 do
 	echo $f \\c
-	ssh $f $*
+	ssh -o ConnectTimeout=5 $f $*
 done
