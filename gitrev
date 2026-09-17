@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Things you forget cuz you only need them once a year
+
+# print just the head revision
+
+SHORT="--short"
+
+# set -x
+
+if [ "-l" = "$1" ]; then
+	SHORT=""
+fi
+
+git rev-parse ${SHORT} HEAD
