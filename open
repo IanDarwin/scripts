@@ -14,11 +14,12 @@ esac
 #	exec xdg-open "$@"
 #fi
 
-BROWSER=NOT_SET
 if [ -x /usr/bin/firefox -o -x /usr/local/bin/firefox ]; then
 	BROWSER=FIREFOX
-elif [ -x /usr/bin/chrome -o /usr/local/bin/chrome ]; then
+elif [ -x /usr/bin/chrome -o -x /usr/local/bin/chrome ]; then
 	BROWSER=CHROME
+elif [ -x /usr/bin/lynx -o -x /usr/local/bin/lynx ]; then
+	BROWSER=LYNX
 else
 	echo "Unknown browser; modify $0 to accomodate!"
 	exit 1
@@ -46,6 +47,9 @@ function browser {
 			/*)  exec firefox --new-tab "${1}"& ;;
 			*) exec firefox --new-tab "`pwd`/${1}"& ;;
 		esac
+		;;
+	LYNX)
+		exec lynx $*
 		;;
 	*)	echo "No xdg-open found and no browser in default directory"
 		exit 1
@@ -87,7 +91,7 @@ do
 		ftp://*) ftp "${f}" & ;;
 		*.gz)	gunzip -v "${f}";;
 		http:*|https:*|*.html|*.HTML?)
-			browser "{$f}" & ;;
+			browser "${f}" & ;;
 		*.mgp)
 			mgp "${f}";;
 		*.mp3|*.ogg|*.avi|*.wav)
