@@ -44,7 +44,7 @@ do
 		auth)	LOG=/var/log/authlog;;
 		cdr)	LOG=/var/log/asterisk/cdr-csv/Master.csv;;
 		cvs|chang*) LOG=/cvs/CVSROOT/ChangeLog ;;
-		cups)	LOG=/var/log/cups/error_log;;
+		cups*)	LOG=/var/log/cups/error_log;;
 		daem*|ppp) LOG=/var/log/daemon ;;
 		ecl*) LOG=$HOME/workspace/.metadata/.log;;
 		ftp)	LOG=/var/log/xferlog;;

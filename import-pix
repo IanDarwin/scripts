@@ -4,10 +4,9 @@
 
 TOP_DIR=${HOME}/Pictures
 SCANDATE=n
-SETCOPYR=n
+SETCOPYRIGHT=n
 SUBDIR=$(pixdate) # e.g., 2020/08/03
 USAGE='$0 [-d yyyy/mm/dd]'
-SETCOPYR=n
 
 case $(uname) in
 OpenBSD) DIR=/mnt/dcim;;
@@ -25,7 +24,7 @@ function usage {		# give usage message, and exit
 while getopts "d:sv" opt 
 do 
 	 case "$opt" in 
-		c)	SETCOPYR=y;;
+		c)	SETCOPYRIGHT=y;;
 		d)	SUBDIR=$OPTARG;;
 		s)	SCANDATE=y;;
 		v)	VERBOSE=v;;
@@ -137,7 +136,7 @@ case ${SCANDATE} in
 		;;
 esac
 
-case ${SETCOPYR} in
+case ${SETCOPYRIGHT} in
 	y)
 		echo "Setting Copyright"
 		setpixcopyright *.*

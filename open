@@ -42,10 +42,10 @@ function browser {
 		esac
 		;;
 	FIREFOX)
-		case ${1} in
+		case "${1}" in
 			http*) exec firefox --new-tab "${1}"& ;;
 			/*)  exec firefox --new-tab "${1}"& ;;
-			*) exec firefox --new-tab "`pwd`/${1}"& ;;
+			*) exec firefox --new-tab "`pwd`/$1"& ;;
 		esac
 		;;
 	LYNX)
@@ -90,6 +90,7 @@ do
 		*.esl)	huckster "{$f}";;
 		ftp://*) ftp "${f}" & ;;
 		*.gz)	gunzip -v "${f}";;
+		# Do NOT add xhtml here as the browser displays it in XML, not as a web pg
 		http:*|https:*|*.html|*.HTML?)
 			browser "${f}" & ;;
 		*.mgp)
