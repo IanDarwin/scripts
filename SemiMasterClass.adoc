@@ -1,0 +1,30 @@
+= Semi Master Class
+
+Am I a master? I've used Unix/Linux for decades and written hundreds of shell scripts.
+I don't want to claim master status for myself, so YMMV.
+
+Explain getopts if not done
+
+Scripts are not limited to shell; can script Perl, Python, Ruby, Java - via the sh'bang line.
+
+Java example: weeks or MapOfDemo
+
+photocopy - use of getopts
+
+photogallery - generating HTML page
+
+add_lt_events - parsing with "while read"
+
+isodate - simple primitive using existing command with specific args
+
+miniwebserver - simple python server
+
+	RUN IT AND CONNECT!
+
+../perftest - runall
+
+update-all - ksh script with config file
+
+Maybe walk through 'dotfiles' folder
+
+

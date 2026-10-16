@@ -13,7 +13,7 @@ done |
 	# sort list, rip out duds, sort as above, and store.
 	sort |
 	comm -23 - ~ian/lib/obsdman.excludes |
-	sort -t/ +1 | 
+	sort -t/ -k2 | 
 	cat > /tmp/getman$$
 
 # process each file in list.
