@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# reads lines like
+# jakarta.ws.rs:jakarta.ws.rs-api:3.1.0:compile
+# (where the version and scope are optional)
+# and turns them into Maven dependency format.
+
+awk -F: 'NF >= 2 {
+	print "\t<dependency>"
+	print "\t\t<groupId>" $1 "</groupId>"
+	print "\t\t<artifactId>" $2 "</artifactId>"
+	if (NF >= 3)
+		print "\t\t<version>" $3 "</version>"
+	if (NF > 3)
+		print "\t\t<scope>" $4 "</scope>"
+	print "\t</dependency>"
+}' $*
