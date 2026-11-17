@@ -35,9 +35,9 @@ fi
 
 # Only change this if using a nonstandard database
 DBNAME=bookmarks
-# How many lines to scan for the <title> element
+# How many lines of HTML to scan for the <title> element
 # (empirical; to avoid infinite timeout)
-THRESHOLD=300
+THRESHOLD=400
 
 function insert {
 	TOPIC=$1
@@ -105,7 +105,7 @@ case $# in
 			$PSQL -d ${DBNAME}
 	;;
 3)	# insert
-	insert $TOPIC $URL $TEXT
+	insert $TOPIC $URL "$TEXT"
 	;;
 4)	# Added title to end of line after -a failed
 	TOPIC=$2
