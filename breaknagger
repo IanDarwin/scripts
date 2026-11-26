@@ -1,3 +1,4 @@
 #!/bin/sh
 
-exec java /home/ian/git/darwinsys-api/src/main/java/com/darwinsys/workflow/BreakNagger.java
+exec java -cp /home/ian/lib/darwinsys-api-1.?.?-SNAPSHOT-jar-with-dependencies.jar com/darwinsys/workflow/BreakNagger $*
+
