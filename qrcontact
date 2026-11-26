@@ -15,6 +15,8 @@ if [ $# -lt 4 ]; then
 	exit 1
 fi
 
+USE_GRAVATAR=false
+
 while getopts "b:a:gv" opt
 do
 	case "$opt" in
@@ -31,7 +33,7 @@ FIRSTNAME="$1"
 LASTNAME="$2"
 EMAIL="$3"
 URL=$4
-if [ $USE_GRAVATAR = "true" ]; then
+if [ "$USE_GRAVATAR" = "true" ]; then
 	hash=$(echo -n ${EMAIL} | sha256)
 	PHOTO_URL=https://gravatar.com/avatar/$hash
 fi
